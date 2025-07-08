@@ -1,0 +1,18 @@
+# CORA v4 Requirements
+# Minimal dependencies for maximum speed
+
+# Core Framework
+fastapi==0.104.1
+uvicorn[standard]==0.24.0
+
+# Templates
+jinja2==3.1.2
+
+# Forms (when we add them)
+python-multipart==0.0.6
+
+# Production Server
+gunicorn==21.2.0
+
+# Environment Variables (for production)
+python-dotenv==1.0.0

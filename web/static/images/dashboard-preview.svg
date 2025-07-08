@@ -1,0 +1,25 @@
+<svg width="500" height="300" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="500" height="300" rx="8" fill="#f8f9fa"/>
+  
+  <!-- Header -->
+  <rect width="500" height="50" rx="8" fill="#667eea"/>
+  <text x="20" y="30" fill="white" font-family="Arial, sans-serif" font-size="18" font-weight="bold">Cora AI Dashboard</text>
+  
+  <!-- Sidebar -->
+  <rect x="0" y="50" width="100" height="250" fill="#e9ecef"/>
+  
+  <!-- Main content area -->
+  <rect x="120" y="70" width="360" height="80" rx="4" fill="white" stroke="#dee2e6"/>
+  <text x="140" y="100" fill="#495057" font-family="Arial, sans-serif" font-size="14">Revenue This Month</text>
+  <text x="140" y="130" fill="#667eea" font-family="Arial, sans-serif" font-size="24" font-weight="bold">$12,450</text>
+  
+  <!-- Chart placeholder -->
+  <rect x="120" y="170" width="360" height="110" rx="4" fill="white" stroke="#dee2e6"/>
+  <line x1="140" y1="250" x2="460" y2="250" stroke="#dee2e6" stroke-width="1"/>
+  <circle cx="200" cy="220" r="3" fill="#667eea"/>
+  <circle cx="280" cy="200" r="3" fill="#667eea"/>
+  <circle cx="360" cy="210" r="3" fill="#667eea"/>
+  <circle cx="440" cy="190" r="3" fill="#667eea"/>
+  <polyline points="200,220 280,200 360,210 440,190" stroke="#667eea" stroke-width="2" fill="none"/>
+</svg>

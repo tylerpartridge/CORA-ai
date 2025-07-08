@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<!--
+🧭 LOCATION: /CORA/templates/index.html
+🎯 PURPOSE: Landing page - captures emails and shows value props
+📝 TODOS: Add meta tags for SEO, compress images
+💡 AI HINT: This is getting long (600+ lines). If adding features, consider splitting into partials.
+-->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cora AI - Meet Your 24/7 AI Bookkeeper</title>
+    <meta name="description" content="Meet Cora, the AI bookkeeper who handles your finances with 99.2% accuracy. No meetings, no judgment, just clean books.">
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Custom CSS -->
+    <style>
+        .hero-section {
+            background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+            color: white;
+            padding: 80px 0;
+        }
+        .feature-card {
+            border: none;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+        .pricing-card {
+            border: 2px solid #e9ecef;
+            transition: all 0.3s ease;
+        }
+        .pricing-card:hover {
+            border-color: #9B6EC8;
+            transform: translateY(-5px);
+        }
+        .pricing-card.featured {
+            border-color: #9B6EC8;
+            position: relative;
+        }
+        .pricing-card.featured::before {
+            content: "Most Popular";
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #9B6EC8;
+            color: white;
+            padding: 4px 20px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+        }
+        .testimonial-card {
+            background: #f8f9fa;
+            border-left: 4px solid #9B6EC8;
+        }
+        .btn-nav-purple {
+            background-color: #9B6EC8;
+            color: white;
+            border: none;
+            padding: 0.5rem 1.5rem;
+            transition: all 0.3s ease;
+        }
+        .btn-nav-purple:hover {
+            background-color: #8856B8;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(155, 110, 200, 0.3);
+        }
+        /* Override all primary button colors */
+        .btn-primary {
+            background-color: #9B6EC8 !important;
+            border-color: #9B6EC8 !important;
+        }
+        .btn-primary:hover, .btn-primary:focus, .btn-primary:active {
+            background-color: #8856B8 !important;
+            border-color: #8856B8 !important;
+        }
+        .btn-outline-primary {
+            color: #9B6EC8 !important;
+            border-color: #9B6EC8 !important;
+        }
+        .btn-outline-primary:hover {
+            background-color: #9B6EC8 !important;
+            border-color: #9B6EC8 !important;
+            color: white !important;
+        }
+        .text-primary {
+            color: #9B6EC8 !important;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white sticky-top shadow-sm">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="#">
+                <img src="/static/images/logos/cora-logo.png" alt="Cora AI" style="height: 40px;">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#features">Features</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#pricing">Pricing</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/demo">Demo</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/contact">Contact</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="btn btn-nav-purple ms-2" href="#get-started">Get Started</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6">
+                    <h1 class="display-4 fw-bold mb-4" style="text-shadow: 2px 2px 4px rgba(0,0,0,0.1);">
+                        CORA, The AI Who Manages Your Money While You Build Your Dreams
+                    </h1>
+                    <p class="lead mb-4" style="text-shadow: 1px 1px 2px rgba(0,0,0,0.05);">
+                        Available 24/7 across every channel - email, chat, or voice. Cora connects to all your platforms, 
+                        collaborates with your other AI assistants, and provides instant financial insights whenever 
+                        inspiration strikes. Professional bookkeeping that works on your schedule, not business hours.
+                    </p>
+                    <div class="d-flex flex-column flex-sm-row gap-3">
+                        <a href="#get-started" class="btn btn-light btn-lg">Start Free Trial</a>
+                        <a href="/demo" class="btn btn-outline-light btn-lg">Watch Demo</a>
+                    </div>
+                    <div class="mt-4">
+                        <form class="d-flex gap-2 mb-3" style="max-width: 500px;" onsubmit="quickCapture(event)">
+                            <input type="email" class="form-control rounded-pill" placeholder="Enter your email for early access" required style="background: rgba(255,255,255,0.9); padding: 0.6rem 1.5rem; flex: 1;">
+                            <button type="submit" class="btn btn-light rounded-pill px-4" style="padding: 0.6rem 1.75rem;">Get Started</button>
+                        </form>
+                        <small class="opacity-75">✓ 30-day free trial ✓ No credit card required ✓ Setup in 5 minutes</small>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="text-center">
+                        <div class="position-relative d-inline-block">
+                            <img src="/static/images/dashboard-preview.svg" alt="Cora AI Dashboard" class="img-fluid rounded shadow" style="max-width: 500px; opacity: 0.9;">
+                            <div class="position-absolute top-50 start-50 translate-middle text-center">
+                                <div class="bg-white rounded-pill px-4 py-3 shadow-lg">
+                                    <span class="text-primary fw-bold fs-5">Coming Soon: See Your Demo</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="py-5">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="display-5 fw-bold">Why Choose Cora AI?</h2>
+                <p class="lead">The only bookkeeper who never judges your 3am questions</p>
+            </div>
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="card feature-card h-100 p-4">
+                        <div class="text-center mb-3">
+                            <div class="bg-primary bg-opacity-10 rounded-circle d-inline-flex align-items-center justify-content-center" style="width: 60px; height: 60px;">
+                                <i class="fas fa-user-shield text-primary fs-4"></i>
+                            </div>
+                        </div>
+                        <h5 class="card-title text-center">Zero Judgment, Total Privacy</h5>
+                        <p class="card-text text-center">
+                            Share your real financial situation without shame or embarrassment. Cora's an AI - she won't judge your debt, spending habits, or that time you forgot to pay taxes. Your financial mess stays between you and the algorithm.
+                        </p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card feature-card h-100 p-4">
+                        <div class="text-center mb-3">
+                            <div class="bg-primary bg-opacity-10 rounded-circle d-inline-flex align-items-center justify-content-center" style="width: 60px; height: 60px;">
+                                <i class="fas fa-check-double text-primary fs-4"></i>
+                            </div>
+                        </div>
+                        <h5 class="card-title text-center">Triple-AI Verified Accuracy</h5>
+                        <p class="card-text text-center">
+                            Every transaction verified by 3 competing AI models. 99.2% categorization accuracy (humans average 96%). If we make an error, we fix it AND pay your penalties.
+                        </p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card feature-card h-100 p-4">
+                        <div class="text-center mb-3">
+                            <div class="bg-primary bg-opacity-10 rounded-circle d-inline-flex align-items-center justify-content-center" style="width: 60px; height: 60px;">
+                                <i class="fas fa-network-wired text-primary fs-4"></i>
+                            </div>
+                        </div>
+                        <h5 class="card-title text-center">Gets Smarter With Every Connection</h5>
+                        <p class="card-text text-center">
+                            Connect Shopify, Stripe, Square, and more. The more you connect, the smarter Cora becomes. She'll spot patterns, predict cash flow, and give insights no single-platform tool ever could. Your entire financial ecosystem, unified.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Supported Platforms -->
+    <section class="py-5 bg-light">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h3 class="fw-bold">Seamlessly Connects With Everything</h3>
+                <p>Your business platforms today. Your AI assistants tomorrow. Cora speaks to them all.</p>
+            </div>
+            <div class="row align-items-center justify-content-center">
+                <div class="col-6 col-md-2 text-center mb-3">
+                    <img src="/static/images/logos/integrations/shopify-logo.svg" alt="Shopify" class="img-fluid" style="max-height: 40px;">
+                </div>
+                <div class="col-6 col-md-2 text-center mb-3">
+                    <img src="/static/images/logos/integrations/stripe-logo.svg" alt="Stripe" class="img-fluid" style="max-height: 60px;">
+                </div>
+                <div class="col-6 col-md-2 text-center mb-3">
+                    <img src="/static/images/logos/integrations/square-logo.svg" alt="Square" class="img-fluid" style="max-height: 40px;">
+                </div>
+                <div class="col-6 col-md-2 text-center mb-3">
+                    <img src="/static/images/logos/integrations/woocommerce-logo.svg" alt="WooCommerce" class="img-fluid" style="max-height: 30px;">
+                </div>
+                <div class="col-6 col-md-2 text-center mb-3">
+                    <img src="/static/images/logos/integrations/quickbooks-logo.svg" alt="QuickBooks" style="height: 80px; width: auto;">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section id="pricing" class="py-5">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="display-5 fw-bold">Simple, Transparent Pricing</h2>
+                <p class="lead">All plans include Triple-AI Verification and Cora access</p>
+            </div>
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="card pricing-card h-100 p-4">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">Starter</h5>
+                            <div class="display-6 fw-bold text-primary">$49</div>
+                            <div class="text-muted mb-3">/month</div>
+                            <ul class="list-unstyled">
+                                <li>✓ Up to 500 transactions/month</li>
+                                <li>✓ Triple-AI verification on all transactions</li>
+                                <li>✓ Core reports (P&L, Balance Sheet)</li>
+                                <li>✓ Email support from Cora</li>
+                                <li>✓ 2 platform integrations</li>
+                            </ul>
+                            <button class="btn btn-outline-primary w-100" onclick="selectPlan('starter')">Choose Starter</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card pricing-card featured h-100 p-4">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">Professional</h5>
+                            <div class="display-6 fw-bold text-primary">$99</div>
+                            <div class="text-muted mb-3">/month</div>
+                            <ul class="list-unstyled">
+                                <li>✓ Up to 2,000 transactions/month</li>
+                                <li>✓ Everything in Starter PLUS:</li>
+                                <li>✓ Cash flow statements</li>
+                                <li>✓ Cora learns your custom categories</li>
+                                <li>✓ Tax package exports</li>
+                                <li>✓ 5 platform integrations</li>
+                            </ul>
+                            <button class="btn btn-primary w-100" onclick="selectPlan('professional')">Choose Professional</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card pricing-card h-100 p-4">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">Enterprise</h5>
+                            <div class="display-6 fw-bold text-primary">$299</div>
+                            <div class="text-muted mb-3">/month</div>
+                            <ul class="list-unstyled">
+                                <li>✓ Unlimited transactions</li>
+                                <li>✓ Everything in Professional PLUS:</li>
+                                <li>✓ Priority Cora responses (&lt;1 hour)</li>
+                                <li>✓ Custom report builder</li>
+                                <li>✓ Multi-entity consolidation</li>
+                                <li>✓ Unlimited integrations</li>
+                            </ul>
+                            <button class="btn btn-outline-primary w-100" onclick="selectPlan('enterprise')">Choose Enterprise</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="py-5 bg-light">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h3 class="fw-bold">What Our Customers Say</h3>
+            </div>
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="testimonial-card p-4 rounded h-100">
+                        <p class="mb-3">"Finally, bookkeeping that doesn't require a single meeting. Cora AI gets me."</p>
+                        <div class="d-flex align-items-center">
+                            <img src="/static/images/profiles/sarah-chen.png" alt="Sarah Chen" class="rounded-circle me-3 flex-shrink-0" style="width: 60px; height: 60px; object-fit: cover;">
+                            <div>
+                                <strong>Sarah Chen</strong>
+                                <small class="text-muted d-block">Solo SaaS Founder</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="testimonial-card p-4 rounded h-100">
+                        <p class="mb-3">"I can focus on coding instead of explaining my finances to yet another human."</p>
+                        <div class="d-flex align-items-center">
+                            <img src="/static/images/profiles/mike-rodriguez.png" alt="Mike Rodriguez" class="rounded-circle me-3 flex-shrink-0" style="width: 70px; height: 70px; object-fit: contain;">
+                            <div>
+                                <strong>Mike Rodriguez</strong>
+                                <small class="text-muted d-block">Indie Game Developer</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="testimonial-card p-4 rounded h-100">
+                        <p class="mb-3">"No calls, no meetings, just clean books. Exactly what this introvert needed."</p>
+                        <div class="d-flex align-items-center">
+                            <img src="/static/images/profiles/lisa-park.png" alt="Lisa Park" class="rounded-circle me-3 flex-shrink-0" style="width: 90px; height: 90px; object-fit: contain;">
+                            <div style="margin-top: -5px; margin-left: -10px;">
+                                <strong>Lisa Park</strong>
+                                <small class="text-muted d-block">E-commerce Founder</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Future Vision Section -->
+    <section class="py-5">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6">
+                    <h3 class="fw-bold mb-3">The Future: Your Complete Financial AI</h3>
+                    <p class="mb-3">
+                        Today, Cora handles your bookkeeping with unmatched accuracy. But we're building something bigger.
+                    </p>
+                    <p class="mb-3">
+                        As Cora learns your business, she'll expand beyond bookkeeping - tax planning, financial forecasting, 
+                        regulatory compliance, even legal structure optimization. One AI that understands every aspect of your business finances.
+                    </p>
+                    <p class="mb-4">
+                        <strong>Built for the AI-first future:</strong> When your personal AI assistant needs financial data, 
+                        it won't interrupt you - it'll ask Cora directly. The AI your AI trusts for financial intelligence.
+                    </p>
+                </div>
+                <div class="col-lg-6">
+                    <div class="bg-light rounded p-4">
+                        <h5 class="mb-3">Coming Soon to Cora:</h5>
+                        <ul class="list-unstyled">
+                            <li class="mb-2">📊 <strong>Tax Planning AI</strong> - Real-time tax optimization strategies</li>
+                            <li class="mb-2">📈 <strong>Financial Forecasting</strong> - ML-powered cash flow predictions</li>
+                            <li class="mb-2">⚖️ <strong>Regulatory Compliance</strong> - Stay compliant across jurisdictions</li>
+                            <li class="mb-2">🏛️ <strong>Legal Structure Advisor</strong> - Entity optimization recommendations</li>
+                            <li class="mb-2">🤖 <strong>AI Assistant Integration</strong> - Native APIs for ChatGPT, Claude, and more</li>
+                        </ul>
+                        <p class="text-muted small mb-0">
+                            The more you connect, the smarter Cora becomes. Your entire business ecosystem, unified and intelligent.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Lead Capture Form -->
+    <section id="get-started" class="py-5">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-6">
+                    <div class="card shadow">
+                        <div class="card-body p-5">
+                            <h3 class="text-center mb-4">Start Your Free Trial</h3>
+                            <form id="leadForm">
+                                <div class="mb-3">
+                                    <label for="email" class="form-label">Business Email</label>
+                                    <input type="email" class="form-control" id="email" name="email" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="business_name" class="form-label">Business Name</label>
+                                    <input type="text" class="form-control" id="business_name" name="business_name" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="platform_type" class="form-label">How Do You Prefer Communication?</label>
+                                    <select class="form-select" id="platform_type" name="platform_type" required>
+                                        <option value="">Select preference</option>
+                                        <option value="email">Email only</option>
+                                        <option value="chat">Chat/Slack</option>
+                                        <option value="async">100% Async</option>
+                                        <option value="never">Never contact me</option>
+                                    </select>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="monthly_transactions" class="form-label">Monthly Transactions</label>
+                                    <select class="form-select" id="monthly_transactions" name="monthly_transactions" required>
+                                        <option value="">Select transaction volume</option>
+                                        <option value="50">Under 50</option>
+                                        <option value="200">50-500</option>
+                                        <option value="1000">500-2,000</option>
+                                        <option value="5000">2,000+</option>
+                                    </select>
+                                </div>
+                                <button type="submit" class="btn btn-primary w-100 btn-lg">Start Free Trial</button>
+                                <div class="text-center mt-3">
+                                    <small class="text-muted">No credit card required • 30-day free trial</small>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <h5>Cora AI</h5>
+                    <p>AI bookkeeping for introverted founders. No meetings required.</p>
+                </div>
+                <div class="col-md-2">
+                    <h6>Product</h6>
+                    <ul class="list-unstyled">
+                        <li><a href="#features" class="text-white-50">Features</a></li>
+                        <li><a href="#pricing" class="text-white-50">Pricing</a></li>
+                        <li><a href="/demo" class="text-white-50">Demo</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-2">
+                    <h6>Support</h6>
+                    <ul class="list-unstyled">
+                        <li><a href="/support" class="text-white-50">Help Center</a></li>
+                        <li><a href="/contact" class="text-white-50">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <h6>Stay Updated</h6>
+                    <p class="text-white-50">Get product updates and business tips.</p>
+                    <div class="input-group">
+                        <input type="email" class="form-control" placeholder="Enter email">
+                        <button class="btn btn-primary" type="button">Subscribe</button>
+                    </div>
+                </div>
+            </div>
+            <hr class="my-4">
+            <div class="text-center">
+                <p class="mb-0">&copy; 2025 Cora AI. Built for introverts, by introverts.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Font Awesome -->
+    <script src="https://kit.fontawesome.com/your-kit-id.js" crossorigin="anonymous"></script>
+    
+    <!-- Custom JavaScript -->
+    <script>
+        // Lead form submission
+        document.getElementById('leadForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(this);
+            const submitBtn = this.querySelector('button[type="submit"]');
+            const originalText = submitBtn.textContent;
+            
+            submitBtn.textContent = 'Processing...';
+            submitBtn.disabled = true;
+            
+            try {
+                const response = await fetch('/api/lead-capture', {
+                    method: 'POST',
+                    body: formData
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    // Redirect to pricing or thank you page
+                    window.location.href = '/pricing?lead_captured=true';
+                } else {
+                    alert('Something went wrong. Please try again.');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Something went wrong. Please try again.');
+            } finally {
+                submitBtn.textContent = originalText;
+                submitBtn.disabled = false;
+            }
+        });
+        
+        // Plan selection
+        function selectPlan(planName) {
+            // Store selected plan and redirect to checkout
+            sessionStorage.setItem('selectedPlan', planName);
+            window.location.href = '/checkout?plan=' + planName;
+        }
+        
+        // Quick email capture in hero
+        async function quickCapture(e) {
+            e.preventDefault();
+            const form = e.target;
+            const email = form.querySelector('input[type="email"]').value;
+            const btn = form.querySelector('button');
+            const originalText = btn.textContent;
+            
+            btn.textContent = 'Adding...';
+            btn.disabled = true;
+            
+            // For now, just show success (later: actual API call)
+            setTimeout(() => {
+                form.innerHTML = '<div class="text-white">✓ You\'re on the list! Check your email.</div>';
+            }, 1000);
+        }
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,45 @@
+# CORA AI Assistant Rules
+
+You are helping build CORA v4 - an AI bookkeeping platform that connects to everything and gets smarter with each connection.
+
+## MANDATORY STARTUP SEQUENCE
+0. Check .entrypoint for main server file location
+1. ALWAYS read .ai/CURRENT_FOCUS.md first
+2. Then read .ai/SYSTEM_MAP.md for navigation
+3. Check .ai/FORBIDDEN.md for what NOT to do
+4. Scan file headers for 🧭 LOCATION breadcrumbs
+
+## CRITICAL RULES
+1. NEVER create files without checking .ai/SYSTEM_MAP.md first
+2. Every file MUST have navigation header (see .ai/CONVENTIONS.md)
+3. One file = one purpose (no utils.py, no helpers.py)
+4. Keep files under 300 lines
+5. Update .ai/CHECKPOINT.md after EVERY change
+
+## PROJECT PHILOSOPHY
+- We're building a business, not engineering art
+- Every line of code must help get paying customers
+- Flat structure > nested folders
+- Working code > perfect code
+- Ship daily > plan forever
+
+## CURRENT STATE
+Version: 4.0
+Phase: Foundation (Landing Page)
+Goal: Get deployed and collecting emails
+Files: <20 (keep it minimal!)
+
+## AI BEHAVIOR
+- Be concise in responses
+- Show file paths when discussing code
+- Remind human about checkpoints
+- Flag if approaching 300 line limit
+- Suggest splitting files BEFORE they get complex
+
+## TEACHING MODE
+When human says "TEACH: [topic]":
+1. Explain in 2-3 sentences max
+2. Show concrete example from CORA
+3. Point to specific file/line
+4. Suggest what to read next
+(See .cursorrules.teaching for examples)
