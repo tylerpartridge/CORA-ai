@@ -58,3 +58,50 @@
 **Scope:** Business planning, finance, tax, legal, bookkeeping, integrations
 **Key differentiator:** AI-to-AI native - built for AI assistant economy
 **Impact:** All features/messaging should reinforce comprehensive capability
+
+### Workflow Optimization Decision
+**Decision:** Adopt todo-first, save-often workflow pattern
+**Reason:** Today's deployment proved this combination prevents dropped tasks
+**Key patterns:**
+- Start every session with TodoWrite
+- Save after each milestone/success
+- Create reference docs during teaching
+- Read-extract-delete for sensitive files
+**Impact:** Smoother human-AI collaboration, nothing forgotten
+
+### AI Tool Usage Decision  
+**Decision:** Use ALL tools actively, not just favorites
+**Reason:** TodoWrite transformed session effectiveness when finally adopted
+**Priority order:**
+1. TodoWrite - First thing in any session
+2. Save commands - After every milestone
+3. Read/Edit tools - For all file operations
+4. Task tool - For complex searches
+**Impact:** Maximum leverage of the .mind/ system
+
+### Continuous Improvement Meeting Decision
+**Decision:** Hold "decompression meetings" after achievements
+**Reason:** Today's reflection session yielded valuable workflow improvements
+**Types:**
+- Quick strategic (2-3 min during work)
+- Milestone meetings (15-20 min after big wins)
+- End-of-session debriefs
+**Principle:** Less complicated, more data-dense
+**Impact:** Continuous workflow optimization through reflection
+
+### Terminal Execution Decision
+**Decision:** Use Cursor's Bash tool for all local commands
+**Reason:** Keeps human in one interface, reduces context switching
+**Rule:** If Cursor can do it, Cursor should do it
+**Exceptions:** SSH sessions (must be manual)
+**Bad pattern:** "Open PowerShell and run X"
+**Good pattern:** Execute directly with Bash tool
+**Impact:** Smoother workflow, leverage Cursor's full capabilities
+
+### Insight Capture Decision
+**Decision:** Strategically capture insights from casual conversation
+**Reason:** Valuable patterns emerge in natural discussion
+**High-value triggers:** "I wish...", "What if...", "Next time..."
+**Compression rule:** Verbose chat → Dense insight → Right file
+**File routing:** Actionable→decisions, Vision→vision files, Process→workflow
+**Impact:** Continuous improvement without documentation bloat

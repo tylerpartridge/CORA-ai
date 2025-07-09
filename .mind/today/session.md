@@ -148,3 +148,43 @@
 - Set up auto-restart and boot startup
 - Site is live and serving properly
 - Ready for domain configuration next
+
+### Update: Domain Configuration Complete! 🎉
+- coraai.tech DNS already pointed to correct IP (159.203.183.48)
+- Site accessible with HTTPS via Cloudflare
+- Fixed Font Awesome 403 error (was placeholder kit ID)
+- Git workflow tested: Local → GitHub → Server pull
+- PM2 restart successful
+- Site fully operational at https://coraai.tech
+
+### Update: Deployment Milestone Complete
+- All deployment tasks completed successfully
+- No console errors - site is clean
+- Human expressed gratitude for smooth deployment
+- Acknowledged this as a huge milestone
+- CORA v4 successfully launched from concept to live site
+- Partnership approach validated - human vision + AI assistance
+
+### Update: Workflow Refinement & Test Planning
+- Updated BOOTUP.md with todo-first and workflow patterns
+- Added Cursor workflow patterns to its section
+- Created insight capture framework for casual conversations
+- Planned email capture feature as stress test
+- Time constraint noted: 20 minutes (11:21 PM)
+- Preparing curated test prompts for fresh Cursor session
+
+### Update: Cursor Test Results & BOOTUP Enhancement
+- Tested email capture feature implementation (20 min constraint)
+- Cursor followed RULES perfectly but ignored PATTERNS
+- Discovery: "Critical rules" = followed, "patterns" = optional
+- Key gap: No TodoWrite, no saves, no insight capture
+- Enhanced BOOTUP.md: PATTERNS → MANDATORY WORKFLOW
+- Added ENFORCEMENT section with stop conditions
+- Made tools required, not optional
+- Success: Identified exactly where prompt needed strengthening
+
+### Update: Fatigue Mode Activated
+- Human exhausted but wanting to continue (11:40+ PM)
+- Adjusting workflow for tiredness compensation
+- Expecting: typos, slower responses, simpler decisions needed
+- My role: Extra clarity, shorter messages, more confirmations
