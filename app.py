@@ -16,7 +16,7 @@
 # Previous versions had 400+ files - keeping this one simple!
 
 from fastapi import FastAPI, Request, Form
-from fastapi.responses import HTMLResponse, JSONResponse
+from fastapi.responses import HTMLResponse, JSONResponse, FileResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from pathlib import Path
@@ -131,6 +131,12 @@ async def capture_email(email: str = Form(...)):
         </body>
     </html>
     """)
+
+# Robots.txt for search engines
+@app.get("/robots.txt")
+async def robots():
+    """Serve robots.txt for search engines"""
+    return FileResponse("web/static/robots.txt", media_type="text/plain")
 
 # Health check endpoint for monitoring
 @app.get("/health")
