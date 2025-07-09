@@ -138,7 +138,7 @@ async def health_check():
     """Simple health check endpoint for uptime monitoring"""
     return {
         "status": "healthy",
-        "version": "4.0",
+        "version": "4.0.0",
         "service": "CORA AI"
     }
 
