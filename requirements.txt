@@ -28,6 +28,9 @@ aiosqlite==0.19.0  # Async SQLite driver
 stripe==7.9.0  # Stripe API for subscriptions
 plaid-python==12.0.0  # Plaid API for bank integration
 
+# Rate limiting
+slowapi==0.1.9  # API rate limiting
+
 # Export/Reporting
 reportlab==4.0.9  # PDF generation for reports
 
