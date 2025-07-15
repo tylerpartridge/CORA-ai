@@ -7,6 +7,7 @@
 """
 
 from sqlalchemy import Column, Integer, String, Text, Boolean, DateTime
+from sqlalchemy.orm import relationship
 from sqlalchemy.sql import func
 from .base import Base
 
@@ -21,6 +22,9 @@ class ExpenseCategory(Base):
     icon = Column(String(50))
     is_active = Column(Boolean, default=True)
     created_at = Column(DateTime, server_default=func.now())
+    
+    # Relationships
+    expenses = relationship("Expense", back_populates="category")
     
     def __repr__(self):
         return f"<ExpenseCategory(id={self.id}, name='{self.name}')>"

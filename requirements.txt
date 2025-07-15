@@ -23,6 +23,7 @@ python-jose[cryptography]==3.3.0  # JWT tokens
 passlib[bcrypt]==1.7.4  # Password hashing
 sqlalchemy>=2.0.31  # Database ORM (Python 3.13+ compatible)
 aiosqlite==0.19.0  # Async SQLite driver
+psycopg2-binary==2.9.9  # PostgreSQL driver
 
 # Payment Processing
 stripe==7.9.0  # Stripe API for subscriptions

@@ -7,6 +7,7 @@
 """
 
 from sqlalchemy import Column, Integer, String, Float, DateTime, Text, ForeignKey
+from sqlalchemy.orm import relationship
 from sqlalchemy.sql import func
 from .base import Base
 
@@ -30,6 +31,19 @@ class Expense(Base):
     updated_at = Column(DateTime, server_default=func.now())
     confidence_score = Column(Integer, default=None)
     auto_categorized = Column(Integer, default=0)
+    
+    # Relationships
+    user = relationship("User", back_populates="expenses")
+    category = relationship("ExpenseCategory", back_populates="expenses")
+    plaid_transactions = relationship("PlaidTransaction", back_populates="expense")
+    plaid_sync_history = relationship("PlaidSyncHistory", back_populates="expense")
+    stripe_sync_history = relationship("StripeSyncHistory", back_populates="expense")
+    stripe_transactions = relationship("StripeTransaction", back_populates="expense")
+    
+    @property
+    def amount(self):
+        """Get amount in dollars"""
+        return self.amount_cents / 100.0
     
     def __repr__(self):
         return f"<Expense(id={self.id}, vendor='{self.vendor}', amount={self.amount})>"

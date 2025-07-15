@@ -19,7 +19,7 @@ class PlaidIntegration(Base):
     __tablename__ = "plaid_integrations"
     
     id = Column(Integer, primary_key=True, index=True)
-    user_id = Column(Integer, ForeignKey("users.id"), nullable=False)
+    user_email = Column(String, ForeignKey('users.email'), nullable=False)
     
     # Plaid access token
     access_token = Column(Text, nullable=False)  # Encrypted in production

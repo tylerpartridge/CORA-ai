@@ -19,7 +19,7 @@ class StripeIntegration(Base):
     __tablename__ = "stripe_integrations"
     
     id = Column(Integer, primary_key=True, index=True)
-    user_id = Column(Integer, ForeignKey("users.id"), nullable=False)
+    user_email = Column(String, ForeignKey('users.email'), nullable=False)
     
     # Stripe OAuth tokens
     stripe_account_id = Column(String(255), nullable=False, unique=True)

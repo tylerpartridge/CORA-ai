@@ -1,0 +1,145 @@
+{
+  "demo_expenses": [
+    {
+      "id": 1,
+      "description": "Office Supplies - Staples",
+      "amount_cents": 12500,
+      "currency": "USD",
+      "vendor": "Staples",
+      "category": "Office Supplies",
+      "expense_date": "2025-01-14",
+      "payment_method": "Credit Card",
+      "receipt_url": "demo_receipt_1.jpg"
+    },
+    {
+      "id": 2,
+      "description": "Client Lunch - Business Meeting",
+      "amount_cents": 4500,
+      "currency": "USD",
+      "vendor": "Chipotle",
+      "category": "Meals & Entertainment",
+      "expense_date": "2025-01-13",
+      "payment_method": "Credit Card",
+      "receipt_url": "demo_receipt_2.jpg"
+    },
+    {
+      "id": 3,
+      "description": "Uber to Client Meeting",
+      "amount_cents": 2800,
+      "currency": "USD",
+      "vendor": "Uber",
+      "category": "Transportation",
+      "expense_date": "2025-01-13",
+      "payment_method": "Credit Card",
+      "receipt_url": "demo_receipt_3.jpg"
+    },
+    {
+      "id": 4,
+      "description": "Adobe Creative Suite Subscription",
+      "amount_cents": 5299,
+      "currency": "USD",
+      "vendor": "Adobe",
+      "category": "Software & Subscriptions",
+      "expense_date": "2025-01-12",
+      "payment_method": "Credit Card",
+      "receipt_url": "demo_receipt_4.jpg"
+    },
+    {
+      "id": 5,
+      "description": "Coffee for Team Meeting",
+      "amount_cents": 850,
+      "currency": "USD",
+      "vendor": "Starbucks",
+      "category": "Meals & Entertainment",
+      "expense_date": "2025-01-12",
+      "payment_method": "Credit Card",
+      "receipt_url": "demo_receipt_5.jpg"
+    },
+    {
+      "id": 6,
+      "description": "Domain Registration - cora.com",
+      "amount_cents": 1200,
+      "currency": "USD",
+      "vendor": "GoDaddy",
+      "category": "Marketing & Advertising",
+      "expense_date": "2025-01-11",
+      "payment_method": "Credit Card",
+      "receipt_url": "demo_receipt_6.jpg"
+    },
+    {
+      "id": 7,
+      "description": "Postage for Client Packages",
+      "amount_cents": 750,
+      "currency": "USD",
+      "vendor": "USPS",
+      "category": "Shipping & Postage",
+      "expense_date": "2025-01-11",
+      "payment_method": "Credit Card",
+      "receipt_url": "demo_receipt_7.jpg"
+    },
+    {
+      "id": 8,
+      "description": "Conference Registration - TechCrunch",
+      "amount_cents": 150000,
+      "currency": "USD",
+      "vendor": "TechCrunch",
+      "category": "Professional Development",
+      "expense_date": "2025-01-10",
+      "payment_method": "Credit Card",
+      "receipt_url": "demo_receipt_8.jpg"
+    },
+    {
+      "id": 9,
+      "description": "Printer Ink Cartridges",
+      "amount_cents": 4500,
+      "currency": "USD",
+      "vendor": "Amazon",
+      "category": "Office Supplies",
+      "expense_date": "2025-01-10",
+      "payment_method": "Credit Card",
+      "receipt_url": "demo_receipt_9.jpg"
+    },
+    {
+      "id": 10,
+      "description": "Client Dinner - Networking",
+      "amount_cents": 8900,
+      "currency": "USD",
+      "vendor": "Olive Garden",
+      "category": "Meals & Entertainment",
+      "expense_date": "2025-01-09",
+      "payment_method": "Credit Card",
+      "receipt_url": "demo_receipt_10.jpg"
+    }
+  ],
+  "categories": [
+    "Office Supplies",
+    "Meals & Entertainment", 
+    "Transportation",
+    "Software & Subscriptions",
+    "Marketing & Advertising",
+    "Shipping & Postage",
+    "Professional Development",
+    "Travel",
+    "Utilities",
+    "Insurance"
+  ],
+  "vendors": [
+    "Staples",
+    "Chipotle",
+    "Uber",
+    "Adobe",
+    "Starbucks",
+    "GoDaddy",
+    "USPS",
+    "TechCrunch",
+    "Amazon",
+    "Olive Garden"
+  ],
+  "total_amount_cents": 204299,
+  "total_amount_formatted": "$2,042.99",
+  "expense_count": 10,
+  "date_range": {
+    "start": "2025-01-09",
+    "end": "2025-01-14"
+  }
+} 

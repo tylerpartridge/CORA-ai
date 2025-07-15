@@ -16,10 +16,8 @@ from dotenv import load_dotenv
 load_dotenv()
 
 # Database URL from environment or default to SQLite
-# Use absolute path to ensure we connect to existing database
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-# Force use of cora.db for now (not staging)
-DATABASE_URL = f"sqlite:///{os.path.join(BASE_DIR, 'data', 'cora.db')}"
+DATABASE_URL = os.getenv('DATABASE_URL', f"sqlite:///{os.path.join(BASE_DIR, 'data', 'cora.db')}")
 
 # Create engine
 engine = create_engine(

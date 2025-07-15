@@ -1,0 +1,100 @@
+name: Scheduled Tasks
+
+on:
+  schedule:
+    # Run daily at 2 AM UTC
+    - cron: '0 2 * * *'
+  workflow_dispatch:  # Allow manual trigger
+
+jobs:
+  security-scan:
+    name: Security Scan
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Run GitGuardian scan
+      uses: GitGuardian/ggshield-action@v1
+      env:
+        GITHUB_PUSH_BEFORE_SHA: ${{ github.event.before }}
+        GITHUB_PUSH_BASE_SHA: ${{ github.event.base }}
+        GITHUB_PULL_BASE_SHA: ${{ github.event.pull_request.base.sha }}
+        GITHUB_DEFAULT_BRANCH: ${{ github.event.repository.default_branch }}
+        GITGUARDIAN_API_KEY: ${{ secrets.GITGUARDIAN_API_KEY }}
+        
+    - name: OWASP Dependency Check
+      uses: dependency-check/Dependency-Check_Action@main
+      with:
+        project: 'CORA'
+        path: '.'
+        format: 'HTML'
+        
+    - name: Upload dependency check results
+      uses: actions/upload-artifact@v4
+      with:
+        name: dependency-check-report
+        path: reports/
+
+  update-dependencies:
+    name: Check for Dependency Updates
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.12'
+        
+    - name: Check for updates
+      run: |
+        pip install pip-review
+        pip-review --local --auto > dependency_updates.txt || true
+        
+        if [ -s dependency_updates.txt ]; then
+          echo "## 📦 Dependency Updates Available" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          cat dependency_updates.txt >> $GITHUB_STEP_SUMMARY
+        else
+          echo "✅ All dependencies are up to date!" >> $GITHUB_STEP_SUMMARY
+        fi
+
+  cleanup:
+    name: Repository Cleanup
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Find large files
+      run: |
+        echo "## 📊 Large Files Report" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "Files larger than 1MB:" >> $GITHUB_STEP_SUMMARY
+        find . -type f -size +1M -exec ls -lh {} \; | grep -v ".git" >> $GITHUB_STEP_SUMMARY || echo "No large files found" >> $GITHUB_STEP_SUMMARY
+        
+    - name: Check for sensitive files
+      run: |
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "## 🔍 Security Check" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        
+        # Check for common sensitive files
+        sensitive_files=(".env" ".env.local" "*.pem" "*.key" "*.p12")
+        found_sensitive=false
+        
+        for pattern in "${sensitive_files[@]}"; do
+          if find . -name "$pattern" -not -path "./.git/*" | grep -q .; then
+            echo "⚠️  Found potentially sensitive files matching pattern: $pattern" >> $GITHUB_STEP_SUMMARY
+            found_sensitive=true
+          fi
+        done
+        
+        if [ "$found_sensitive" = false ]; then
+          echo "✅ No sensitive files detected" >> $GITHUB_STEP_SUMMARY
+        fi

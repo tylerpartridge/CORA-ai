@@ -12,6 +12,19 @@ NC='\033[0m'
 echo -e "${GREEN}📏 CORA File Size Check${NC}"
 echo "========================"
 
+# Check root file count first
+ROOT_FILES=$(ls -1 /mnt/host/c/CORA/*.* 2>/dev/null | wc -l)
+MAX_ROOT_FILES=6  # 5 core files + README.md for GitHub
+
+if [ $ROOT_FILES -gt $MAX_ROOT_FILES ]; then
+    echo -e "${RED}❌ ROOT FILE VIOLATION: $ROOT_FILES files (max $MAX_ROOT_FILES)${NC}"
+    echo -e "${YELLOW}   Extra files detected in root directory!${NC}"
+    echo -e "${YELLOW}   Only allowed: NOW.md, NEXT.md, STATUS.md, BOOTUP.md, app.py, README.md${NC}"
+    echo ""
+else
+    echo -e "${GREEN}✓  Root files: $ROOT_FILES/$MAX_ROOT_FILES${NC}"
+fi
+
 # Function to check file
 check_file() {
     local file=$1

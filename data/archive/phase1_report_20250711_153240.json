@@ -1,0 +1,36 @@
+{
+  "start_time": "2025-07-11T15:32:39.157642",
+  "steps_completed": [
+    {
+      "step": "Environment Variables",
+      "status": "PASS",
+      "details": "All required variables set",
+      "timestamp": "2025-07-11T15:32:39.157665"
+    }
+  ],
+  "errors": [
+    {
+      "step": "Application Startup",
+      "error": "Invalid ENCRYPTION_KEY: Fernet key must be 32 url-safe base64-encoded bytes.",
+      "timestamp": "2025-07-11T15:32:40.419445"
+    },
+    {
+      "step": "Phase 1",
+      "error": "Application startup failed",
+      "timestamp": "2025-07-11T15:32:40.419487"
+    }
+  ],
+  "warnings": [],
+  "performance_metrics": {},
+  "validation_results": {},
+  "end_time": "2025-07-11T15:32:40.419491",
+  "duration": 1.261849,
+  "summary": {
+    "total_steps": 1,
+    "successful_steps": 1,
+    "success_rate": 100.0,
+    "error_count": 2,
+    "warning_count": 0,
+    "overall_status": "FAIL"
+  }
+}

@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stripe Integration - CORA</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        .gradient-bg {
+            background: linear-gradient(135deg, #6772e5 0%, #3f51b5 100%);
+        }
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        .card-hover:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+        .sync-progress {
+            transition: width 0.3s ease;
+        }
+        .status-connected {
+            background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
+        }
+        .status-disconnected {
+            background: linear-gradient(135deg, #f56565 0%, #e53e3e 100%);
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-sm border-b">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <a href="/dashboard" class="flex items-center">
+                        <img src="/static/images/logos/cora-logo.png" alt="CORA" class="h-8 w-auto">
+                        <span class="ml-2 text-xl font-semibold text-gray-900">CORA</span>
+                    </a>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <a href="/dashboard" class="text-gray-600 hover:text-gray-900">
+                        <i class="fas fa-chart-line mr-1"></i>Dashboard
+                    </a>
+                    <a href="/expenses" class="text-gray-600 hover:text-gray-900">
+                        <i class="fas fa-receipt mr-1"></i>Expenses
+                    </a>
+                    <a href="/integrations" class="text-blue-600 font-medium">
+                        <i class="fas fa-plug mr-1"></i>Integrations
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <!-- Header -->
+        <div class="mb-8">
+            <div class="flex items-center mb-4">
+                <div class="h-12 w-12 bg-gradient-to-r from-purple-500 to-blue-500 rounded-lg flex items-center justify-center mr-4">
+                    <i class="fas fa-credit-card text-white text-xl"></i>
+                </div>
+                <div>
+                    <h1 class="text-3xl font-bold text-gray-900">Stripe Integration</h1>
+                    <p class="text-gray-600">Sync your Stripe transactions automatically</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Connection Status -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+            <!-- Status Card -->
+            <div class="bg-white rounded-lg shadow-sm border p-6 card-hover">
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="text-lg font-semibold text-gray-900">Connection Status</h3>
+                    <div id="status-indicator" class="w-3 h-3 rounded-full"></div>
+                </div>
+                <div id="connection-info">
+                    <p class="text-sm text-gray-600 mb-2">Checking connection...</p>
+                </div>
+                <div class="mt-4">
+                    <button id="connect-btn" class="w-full bg-purple-600 text-white px-4 py-2 rounded-md hover:bg-purple-700 transition-colors hidden">
+                        <i class="fas fa-plug mr-2"></i>Connect Stripe
+                    </button>
+                    <button id="disconnect-btn" class="w-full bg-red-600 text-white px-4 py-2 rounded-md hover:bg-red-700 transition-colors hidden">
+                        <i class="fas fa-unlink mr-2"></i>Disconnect
+                    </button>
+                </div>
+            </div>
+
+            <!-- Sync Stats -->
+            <div class="bg-white rounded-lg shadow-sm border p-6 card-hover">
+                <h3 class="text-lg font-semibold text-gray-900 mb-4">Sync Statistics</h3>
+                <div class="space-y-3">
+                    <div class="flex justify-between">
+                        <span class="text-sm text-gray-600">Transactions Synced:</span>
+                        <span id="total-synced" class="font-semibold">-</span>
+                    </div>
+                    <div class="flex justify-between">
+                        <span class="text-sm text-gray-600">Total Amount:</span>
+                        <span id="total-amount" class="font-semibold">-</span>
+                    </div>
+                    <div class="flex justify-between">
+                        <span class="text-sm text-gray-600">Last Sync:</span>
+                        <span id="last-sync" class="font-semibold">-</span>
+                    </div>
+                    <div class="flex justify-between">
+                        <span class="text-sm text-gray-600">Auto Sync:</span>
+                        <span id="auto-sync" class="font-semibold">-</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quick Actions -->
+            <div class="bg-white rounded-lg shadow-sm border p-6 card-hover">
+                <h3 class="text-lg font-semibold text-gray-900 mb-4">Quick Actions</h3>
+                <div class="space-y-3">
+                    <button id="sync-transactions-btn" class="w-full bg-green-600 text-white px-4 py-2 rounded-md hover:bg-green-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
+                        <i class="fas fa-sync mr-2"></i>Sync Transactions
+                    </button>
+                    <button id="view-transactions-btn" class="w-full bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
+                        <i class="fas fa-list mr-2"></i>View Transactions
+                    </button>
+                    <button id="test-connection-btn" class="w-full bg-gray-600 text-white px-4 py-2 rounded-md hover:bg-gray-700 transition-colors">
+                        <i class="fas fa-wifi mr-2"></i>Test Connection
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sync Progress -->
+        <div id="sync-progress" class="bg-white rounded-lg shadow-sm border p-6 mb-8 hidden">
+            <h3 class="text-lg font-semibold text-gray-900 mb-4">Sync Progress</h3>
+            <div class="space-y-4">
+                <div class="flex justify-between text-sm">
+                    <span id="sync-status">Preparing sync...</span>
+                    <span id="sync-count">0 / 0</span>
+                </div>
+                <div class="w-full bg-gray-200 rounded-full h-2">
+                    <div id="sync-bar" class="bg-purple-600 h-2 rounded-full sync-progress" style="width: 0%"></div>
+                </div>
+                <div id="sync-errors" class="text-sm text-red-600 hidden"></div>
+            </div>
+        </div>
+
+        <!-- Recent Transactions -->
+        <div id="transactions-section" class="bg-white rounded-lg shadow-sm border mb-8 hidden">
+            <div class="px-6 py-4 border-b">
+                <h3 class="text-lg font-semibold text-gray-900">Recent Transactions</h3>
+            </div>
+            <div class="overflow-x-auto">
+                <table class="min-w-full divide-y divide-gray-200">
+                    <thead class="bg-gray-50">
+                        <tr>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Description</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Amount</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="transactions-list" class="bg-white divide-y divide-gray-200">
+                        <tr>
+                            <td colspan="5" class="px-6 py-4 text-center text-gray-500">
+                                Loading transactions...
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Sync History -->
+        <div class="bg-white rounded-lg shadow-sm border">
+            <div class="px-6 py-4 border-b">
+                <h3 class="text-lg font-semibold text-gray-900">Sync History</h3>
+            </div>
+            <div class="overflow-x-auto">
+                <table class="min-w-full divide-y divide-gray-200">
+                    <thead class="bg-gray-50">
+                        <tr>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Type</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Amount</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Duration</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Details</th>
+                        </tr>
+                    </thead>
+                    <tbody id="sync-history" class="bg-white divide-y divide-gray-200">
+                        <tr>
+                            <td colspan="6" class="px-6 py-4 text-center text-gray-500">
+                                Loading sync history...
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div id="loading-overlay" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+        <div class="bg-white rounded-lg p-6 flex items-center space-x-3">
+            <div class="animate-spin rounded-full h-6 w-6 border-b-2 border-purple-600"></div>
+            <span class="text-gray-700">Processing...</span>
+        </div>
+    </div>
+
+    <script>
+        // Global variables
+        let isConnected = false;
+        let syncInProgress = false;
+
+        // DOM elements
+        const statusIndicator = document.getElementById('status-indicator');
+        const connectionInfo = document.getElementById('connection-info');
+        const connectBtn = document.getElementById('connect-btn');
+        const disconnectBtn = document.getElementById('disconnect-btn');
+        const syncTransactionsBtn = document.getElementById('sync-transactions-btn');
+        const viewTransactionsBtn = document.getElementById('view-transactions-btn');
+        const testConnectionBtn = document.getElementById('test-connection-btn');
+        const syncProgress = document.getElementById('sync-progress');
+        const syncStatus = document.getElementById('sync-status');
+        const syncCount = document.getElementById('sync-count');
+        const syncBar = document.getElementById('sync-bar');
+        const syncErrors = document.getElementById('sync-errors');
+        const syncHistory = document.getElementById('sync-history');
+        const transactionsSection = document.getElementById('transactions-section');
+        const transactionsList = document.getElementById('transactions-list');
+        const loadingOverlay = document.getElementById('loading-overlay');
+
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', function() {
+            loadConnectionStatus();
+            loadSyncHistory();
+        });
+
+        // Event listeners
+        connectBtn.addEventListener('click', connectStripe);
+        disconnectBtn.addEventListener('click', disconnectStripe);
+        syncTransactionsBtn.addEventListener('click', syncTransactions);
+        viewTransactionsBtn.addEventListener('click', viewTransactions);
+        testConnectionBtn.addEventListener('click', testConnection);
+
+        async function loadConnectionStatus() {
+            try {
+                const response = await fetch('/api/integrations/stripe/status');
+                const data = await response.json();
+                
+                isConnected = data.is_connected;
+                updateConnectionUI(data);
+            } catch (error) {
+                console.error('Failed to load connection status:', error);
+                updateConnectionUI({ is_connected: false });
+            }
+        }
+
+        function updateConnectionUI(data) {
+            if (data.is_connected) {
+                statusIndicator.className = 'w-3 h-3 rounded-full status-connected';
+                connectionInfo.innerHTML = `
+                    <p class="text-sm text-gray-600 mb-2">Connected to:</p>
+                    <p class="font-semibold text-gray-900">${data.business_name || 'Stripe Account'}</p>
+                `;
+                connectBtn.classList.add('hidden');
+                disconnectBtn.classList.remove('hidden');
+                syncTransactionsBtn.disabled = false;
+                viewTransactionsBtn.disabled = false;
+                
+                // Update stats
+                document.getElementById('total-synced').textContent = data.total_transactions_synced || 0;
+                document.getElementById('total-amount').textContent = data.total_amount_synced ? `$${data.total_amount_synced.toFixed(2)}` : '$0.00';
+                document.getElementById('last-sync').textContent = data.last_sync_at ? new Date(data.last_sync_at).toLocaleDateString() : 'Never';
+                document.getElementById('auto-sync').textContent = data.auto_sync_enabled ? 'Enabled' : 'Disabled';
+            } else {
+                statusIndicator.className = 'w-3 h-3 rounded-full status-disconnected';
+                connectionInfo.innerHTML = `
+                    <p class="text-sm text-gray-600">Not connected to Stripe</p>
+                `;
+                connectBtn.classList.remove('hidden');
+                disconnectBtn.classList.add('hidden');
+                syncTransactionsBtn.disabled = true;
+                viewTransactionsBtn.disabled = true;
+                
+                // Clear stats
+                document.getElementById('total-synced').textContent = '-';
+                document.getElementById('total-amount').textContent = '-';
+                document.getElementById('last-sync').textContent = '-';
+                document.getElementById('auto-sync').textContent = '-';
+            }
+        }
+
+        async function connectStripe() {
+            try {
+                showLoading();
+                const response = await fetch('/api/integrations/stripe/auth');
+                const data = await response.json();
+                
+                if (data.auth_url) {
+                    window.location.href = data.auth_url;
+                } else {
+                    throw new Error('Failed to get auth URL');
+                }
+            } catch (error) {
+                console.error('Failed to connect:', error);
+                alert('Failed to connect to Stripe. Please try again.');
+                hideLoading();
+            }
+        }
+
+        async function disconnectStripe() {
+            if (!confirm('Are you sure you want to disconnect Stripe? This will stop automatic syncing.')) {
+                return;
+            }
+            
+            try {
+                showLoading();
+                const response = await fetch('/api/integrations/stripe/disconnect', {
+                    method: 'DELETE'
+                });
+                
+                if (response.ok) {
+                    await loadConnectionStatus();
+                    alert('Stripe disconnected successfully');
+                } else {
+                    throw new Error('Failed to disconnect');
+                }
+            } catch (error) {
+                console.error('Failed to disconnect:', error);
+                alert('Failed to disconnect Stripe. Please try again.');
+            } finally {
+                hideLoading();
+            }
+        }
+
+        async function syncTransactions() {
+            if (syncInProgress) return;
+            
+            try {
+                syncInProgress = true;
+                showSyncProgress();
+                
+                const response = await fetch('/api/integrations/stripe/sync', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ limit: 100 })
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    updateSyncProgress(100, `${data.synced_count} transactions synced successfully`);
+                    setTimeout(() => {
+                        hideSyncProgress();
+                        loadConnectionStatus();
+                        loadSyncHistory();
+                    }, 2000);
+                } else {
+                    showSyncErrors(data.errors);
+                }
+            } catch (error) {
+                console.error('Sync failed:', error);
+                showSyncErrors(['Failed to sync transactions. Please try again.']);
+            } finally {
+                syncInProgress = false;
+            }
+        }
+
+        async function viewTransactions() {
+            try {
+                showLoading();
+                const response = await fetch('/api/integrations/stripe/transactions?limit=50');
+                const data = await response.json();
+                
+                if (data.transactions && data.transactions.length > 0) {
+                    displayTransactions(data.transactions);
+                    transactionsSection.classList.remove('hidden');
+                } else {
+                    alert('No transactions found.');
+                }
+            } catch (error) {
+                console.error('Failed to load transactions:', error);
+                alert('Failed to load transactions. Please try again.');
+            } finally {
+                hideLoading();
+            }
+        }
+
+        function displayTransactions(transactions) {
+            transactionsList.innerHTML = transactions.map(transaction => `
+                <tr>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                        ${new Date(transaction.created).toLocaleDateString()}
+                    </td>
+                    <td class="px-6 py-4 text-sm text-gray-900">
+                        ${transaction.description || 'No description'}
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                        $${transaction.amount.toFixed(2)} ${transaction.currency.toUpperCase()}
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        <span class="inline-flex px-2 py-1 text-xs font-semibold rounded-full ${
+                            transaction.status === 'succeeded' 
+                                ? 'bg-green-100 text-green-800' 
+                                : 'bg-yellow-100 text-yellow-800'
+                        }">
+                            ${transaction.status.toUpperCase()}
+                        </span>
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                        ${transaction.receipt_url ? 
+                            `<a href="${transaction.receipt_url}" target="_blank" class="text-purple-600 hover:text-purple-900">View Receipt</a>` : 
+                            'No receipt'
+                        }
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        async function testConnection() {
+            try {
+                showLoading();
+                const response = await fetch('/api/integrations/stripe/status');
+                const data = await response.json();
+                
+                if (data.is_connected) {
+                    alert('Connection test successful! Stripe is connected and ready.');
+                } else {
+                    alert('Connection test failed. Please connect to Stripe first.');
+                }
+            } catch (error) {
+                console.error('Connection test failed:', error);
+                alert('Connection test failed. Please try again.');
+            } finally {
+                hideLoading();
+            }
+        }
+
+        async function loadSyncHistory() {
+            try {
+                const response = await fetch('/api/integrations/stripe/sync/history?limit=50');
+                const data = await response.json();
+                
+                if (data.sync_history && data.sync_history.length > 0) {
+                    syncHistory.innerHTML = data.sync_history.map(entry => `
+                        <tr>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                                ${new Date(entry.created_at).toLocaleString()}
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                                ${entry.sync_type.replace('_', ' ').toUpperCase()}
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <span class="inline-flex px-2 py-1 text-xs font-semibold rounded-full ${
+                                    entry.stripe_status === 'success' 
+                                        ? 'bg-green-100 text-green-800' 
+                                        : 'bg-red-100 text-red-800'
+                                }">
+                                    ${entry.stripe_status.toUpperCase()}
+                                </span>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                                ${entry.amount ? `$${entry.amount.toFixed(2)}` : '-'}
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                                ${entry.sync_duration}ms
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                                ${entry.error_message || entry.description || 'Success'}
+                            </td>
+                        </tr>
+                    `).join('');
+                } else {
+                    syncHistory.innerHTML = `
+                        <tr>
+                            <td colspan="6" class="px-6 py-4 text-center text-gray-500">
+                                No sync history available
+                            </td>
+                        </tr>
+                    `;
+                }
+            } catch (error) {
+                console.error('Failed to load sync history:', error);
+                syncHistory.innerHTML = `
+                    <tr>
+                        <td colspan="6" class="px-6 py-4 text-center text-red-500">
+                            Failed to load sync history
+                        </td>
+                    </tr>
+                `;
+            }
+        }
+
+        function showSyncProgress() {
+            syncProgress.classList.remove('hidden');
+            updateSyncProgress(0, 'Starting sync...');
+        }
+
+        function hideSyncProgress() {
+            syncProgress.classList.add('hidden');
+        }
+
+        function updateSyncProgress(percentage, status) {
+            syncBar.style.width = `${percentage}%`;
+            syncStatus.textContent = status;
+            syncCount.textContent = `${Math.round(percentage)}%`;
+        }
+
+        function showSyncErrors(errors) {
+            syncErrors.innerHTML = errors.map(error => `<div>• ${error}</div>`).join('');
+            syncErrors.classList.remove('hidden');
+        }
+
+        function showLoading() {
+            loadingOverlay.classList.remove('hidden');
+        }
+
+        function hideLoading() {
+            loadingOverlay.classList.add('hidden');
+        }
+
+        // Check for URL parameters (for OAuth callback)
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.get('stripe') === 'connected') {
+            alert('Stripe connected successfully!');
+            loadConnectionStatus();
+        } else if (urlParams.get('stripe') === 'error') {
+            alert(`Stripe connection failed: ${urlParams.get('message') || 'Unknown error'}`);
+        }
+    </script>
+</body>
+</html> 

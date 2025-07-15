@@ -1,163 +1,229 @@
 #!/usr/bin/env python3
 """
 🧭 LOCATION: /CORA/app.py
-🎯 PURPOSE: FastAPI server - main application entry point (MINIMAL WORKING VERSION)
-🔗 IMPORTS: FastAPI, StaticFiles, basic routes only
-📤 EXPORTS: app (FastAPI instance)
+🎯 PURPOSE: FastAPI server - complete CORA AI system with auth, expenses, integrations
+🔗 IMPORTS: FastAPI, Jinja2Templates, StaticFiles, all route modules
+📤 EXPORTS: app (FastAPI instance) 
+🔄 PATTERN: Connected monolith with existing route modules
+📝 STATUS: Production ready with full CRUD API
+
+💡 AI HINT: This connects all existing route modules for complete functionality.
+⚠️ NEVER: Add business logic here. Just routing and basic validation.
 """
 
+# Cora Version: 4.0
+# Created: 2025-07-07
+# Previous versions had 400+ files - keeping this one simple!
+
+# Fix import path for production environment
+import sys
+from pathlib import Path
+sys.path.insert(0, str(Path(__file__).parent))
+
 from fastapi import FastAPI, Request, Form
-from fastapi.responses import HTMLResponse, JSONResponse
+from fastapi.responses import HTMLResponse, JSONResponse, FileResponse
 from fastapi.staticfiles import StaticFiles
+from fastapi.templating import Jinja2Templates
 from fastapi.middleware.cors import CORSMiddleware
 from pathlib import Path
 import json
-from datetime import datetime
-import logging
+from datetime import datetime, timedelta
+import os
+import sentry_sdk
+from sentry_sdk.integrations.fastapi import FastApiIntegration
+from middleware.rate_limit import setup_rate_limiting
+from middleware.security_headers import setup_security_headers
+from middleware.logging_middleware import setup_request_logging
+from middleware.error_handler import setup_error_handlers
+from middleware.user_activity import setup_user_activity
 
-# Import our minimal async utilities
-from utils.async_file_utils import async_read_json, async_write_json, async_ensure_dir
+# Initialize Sentry for error tracking
+sentry_dsn = os.getenv('SENTRY_DSN')
+if sentry_dsn:
+    sentry_sdk.init(
+        dsn=sentry_dsn,
+        integrations=[FastApiIntegration()],
+        traces_sample_rate=0.1,
+        environment=os.getenv('ENVIRONMENT', 'production')
+    )
 
-# Import routes
-from routes import health_router, pages_router, auth_router, expense_router, payment_router
+# Import all existing route modules
+from routes.auth_coordinator import auth_router
+from routes.expenses import expense_router
+from routes.payments import payment_router
+from routes.dashboard_routes import dashboard_router
+from routes.onboarding_routes import onboarding_router
+from routes.admin_routes import admin_router
+from routes.plaid_integration import plaid_router
 from routes.quickbooks_integration import quickbooks_router
 from routes.stripe_integration import stripe_router
-from routes.plaid_integration import plaid_router
+from routes.pages import router as pages_router
 
-# Import middleware
-from middleware import setup_rate_limiting, setup_security_headers, setup_request_logging, setup_error_handlers
+# Debug logging for route registration
+print(f"[CORA] Admin router imported: {admin_router}")
+print(f"[CORA] Admin router routes: {len(admin_router.routes)}")
+print(f"[CORA] Onboarding router imported: {onboarding_router}")
+print(f"[CORA] Onboarding router routes: {len(onboarding_router.routes)}")
 
 # Initialize FastAPI
 app = FastAPI(
-    title="CORA AI",
-    description="AI Bookkeeping for Introverted Founders",
-    version="4.0.0",
-    docs_url="/api/docs",
-    redoc_url="/api/redoc"
+    title="Cora AI",
+    description="AI Bookkeeping for Introverted Founders", 
+    version="4.0.0"
 )
 
-# Setup CORS
+# CORS settings
+PROD_ORIGINS = [
+    "https://coraai.tech",
+    "https://www.coraai.tech"
+]
+DEV_ORIGINS = [
+    "http://localhost",
+    "http://localhost:8000",
+    "http://127.0.0.1:8000"
+]
+
+origins = PROD_ORIGINS + DEV_ORIGINS
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000", "http://localhost:8000", "*"],
+    allow_origins=origins,
     allow_credentials=True,
     allow_methods=["*"],
-    allow_headers=["*"],
+    allow_headers=["*"]
 )
 
-# Setup middleware
+# === SECURITY & LOGGING MIDDLEWARE ===
+setup_rate_limiting(app)
 setup_security_headers(app)
+setup_request_logging(app)
 setup_error_handlers(app)
-# setup_rate_limiting(app)  # Commented out until slowapi installed
-# setup_request_logging(app)  # Commented out until logs directory exists
+setup_user_activity(app)
+
+# Setup templates
+templates_dir = Path(__file__).parent / "web" / "templates"
+templates = Jinja2Templates(directory=str(templates_dir))
 
 # Mount static files
 static_dir = Path(__file__).parent / "web" / "static"
 if static_dir.exists():
     app.mount("/static", StaticFiles(directory=str(static_dir)), name="static")
-    logging.info(f"Mounted static files from {static_dir}")
 
-# Include routers
-app.include_router(health_router)
-app.include_router(pages_router)
+# Include all existing route modules
 app.include_router(auth_router)
 app.include_router(expense_router)
 app.include_router(payment_router)
+app.include_router(dashboard_router)
+app.include_router(onboarding_router)
+app.include_router(admin_router)
+app.include_router(plaid_router)
 app.include_router(quickbooks_router)
 app.include_router(stripe_router)
-app.include_router(plaid_router)
+app.include_router(pages_router)
 
-# The health check is now handled by the health_router
+# Debug logging after route registration
+print(f"[CORA] Total routes registered: {len(app.routes)}")
+print(f"[CORA] Admin routes: {[r.path for r in app.routes if hasattr(r, 'path') and 'admin' in str(r.path)]}")
+print(f"[CORA] Onboarding routes: {[r.path for r in app.routes if hasattr(r, 'path') and 'onboarding' in str(r.path)]}")
 
-# The root page is now handled by the pages_router
+# Module-level server start time
+server_start_time = datetime.now()
 
-# Email Capture Route (existing functionality)
+# Basic route
+@app.get("/", response_class=HTMLResponse)
+async def home(request: Request):
+    """Serve the landing page"""
+    return templates.TemplateResponse(
+        "index.html",
+        {"request": request, "title": "Cora AI - AI Bookkeeping"}
+    )
+
+# Health check
+@app.get("/health")
+async def health_check():
+    """Basic health check endpoint"""
+    return {"status": "healthy", "version": "4.0.0"}
+
+# --- NEW ENDPOINT ---
+@app.get("/api/status")
+async def api_status():
+    """Return server status and basic stats"""
+    now = datetime.now()
+    uptime_delta = now - server_start_time
+    # Format uptime as human-readable string
+    hours, remainder = divmod(int(uptime_delta.total_seconds()), 3600)
+    minutes, seconds = divmod(remainder, 60)
+    if hours > 0:
+        uptime = f"{hours}h {minutes}m"
+    elif minutes > 0:
+        uptime = f"{minutes}m {seconds}s"
+    else:
+        uptime = f"{seconds}s"
+    # Count .py files in CORA directory
+    cora_dir = Path(__file__).parent
+    total_files = sum(1 for f in cora_dir.glob('*.py'))
+    return {
+        "status": "healthy",
+        "version": "4.0",
+        "uptime": uptime,
+        "timestamp": now.isoformat(),
+        "total_files": total_files
+    }
+
+# Email capture endpoint
 @app.post("/api/v1/capture-email")
-async def capture_email(request: Request, email: str = Form(...)):
-    """Capture email from landing page form"""
-    try:
-        # Create data directory if it doesn't exist
-        data_dir = Path(__file__).parent / "data"
-        await async_ensure_dir(data_dir)
-        
-        # Read existing emails or create new list
-        email_file = data_dir / "captured_emails.json"
-        emails = await async_read_json(email_file)
-        
-        # Add new email with timestamp
-        emails.append({
-            "email": email,
-            "timestamp": datetime.now().isoformat(),
-            "source": "landing_page"
-        })
-        
-        # Save updated list
-        await async_write_json(email_file, emails)
-        
-        # Return success as JSON for AJAX requests
-        if request.headers.get("accept") == "application/json":
-            return JSONResponse({
-                "status": "success",
-                "message": "Thank you! We'll notify you when CORA launches."
-            })
-        
-        # Return HTML for form submissions
-        return HTMLResponse(f"""
-        <!DOCTYPE html>
-        <html>
+async def capture_email(email: str = Form(...)):
+    """Capture email addresses from landing page"""
+    # For now, just save to a JSON file (later: database)
+    emails_file = Path(__file__).parent / "captured_emails.json"
+    
+    # Load existing emails or create new list
+    if emails_file.exists():
+        with open(emails_file, 'r') as f:
+            emails = json.load(f)
+    else:
+        emails = []
+    
+    # Add new email
+    emails.append({
+        "email": email,
+        "timestamp": datetime.now().isoformat(),
+        "source": "landing_page_v4"
+    })
+    
+    # Save back to file
+    with open(emails_file, 'w') as f:
+        json.dump(emails, f, indent=2)
+    
+    # Return success page (later: proper thank you page)
+    return HTMLResponse("""
+    <html>
         <head>
-            <title>Thank You - CORA</title>
+            <title>Thanks! - Cora AI</title>
             <style>
-                body {{
-                    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                    min-height: 100vh;
-                    margin: 0;
-                    background-color: #f8f9fa;
-                }}
-                .message {{
-                    text-align: center;
-                    padding: 40px;
-                    background: white;
-                    border-radius: 8px;
-                    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-                }}
-                h1 {{ color: #7c3aed; }}
-                a {{
-                    color: #7c3aed;
-                    text-decoration: none;
-                }}
+                body { font-family: sans-serif; text-align: center; padding: 50px; }
+                .message { background: #8B00FF; color: white; padding: 20px; border-radius: 10px; display: inline-block; }
+                a { color: #8B00FF; }
             </style>
         </head>
         <body>
             <div class="message">
-                <h1>✅ Thank You!</h1>
-                <p>We've captured your email: <strong>{email}</strong></p>
-                <p>We'll notify you as soon as CORA is ready!</p>
-                <p><a href="/">← Back to Home</a></p>
+                <h1>You're on the list!</h1>
+                <p>We'll notify you when Cora AI launches.</p>
             </div>
+            <p style="margin-top: 20px;">
+                <a href="/">← Back to home</a>
+            </p>
         </body>
-        </html>
-        """)
-        
-    except Exception as e:
-        logging.error(f"Failed to capture email: {e}")
-        return JSONResponse({
-            "status": "error",
-            "message": "Failed to capture email"
-        }, status_code=500)
+    </html>
+    """)
 
-# Startup event
-@app.on_event("startup")
-async def startup_event():
-    """Simple startup tasks"""
-    logging.basicConfig(level=logging.INFO)
-    logging.info("CORA AI starting up - minimal working version")
-    logging.info("Run 'python app.py' to start the server")
+# Robots.txt for search engines
+@app.get("/robots.txt")
+async def robots():
+    """Serve robots.txt for search engines"""
+    return FileResponse("web/static/robots.txt", media_type="text/plain")
 
-# Run server
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run(app, host="0.0.0.0", port=8000)

@@ -1,0 +1,373 @@
+{
+  "expenses": [
+    {
+      "description": "Office supplies from Staples",
+      "vendor": "Staples",
+      "amount_cents": 8547,
+      "currency": "USD",
+      "expense_date": "2025-07-13T17:04:51.224253",
+      "payment_method": "Credit Card",
+      "category": "Office Supplies",
+      "expected_qb_account": "Office Supplies"
+    },
+    {
+      "description": "Team lunch meeting with client",
+      "vendor": "Chipotle",
+      "amount_cents": 12650,
+      "currency": "USD",
+      "expense_date": "2025-07-12T17:04:51.224270",
+      "payment_method": "Credit Card",
+      "category": "Meals & Entertainment",
+      "expected_qb_account": "Meals and Entertainment"
+    },
+    {
+      "description": "Monthly Adobe Creative Cloud subscription",
+      "vendor": "Adobe",
+      "amount_cents": 5499,
+      "currency": "USD",
+      "expense_date": "2025-07-11T17:04:51.224272",
+      "payment_method": "Credit Card",
+      "category": "Software & Subscriptions",
+      "expected_qb_account": "Computer and Internet Expenses"
+    },
+    {
+      "description": "Uber ride to client meeting",
+      "vendor": "Uber",
+      "amount_cents": 2847,
+      "currency": "USD",
+      "expense_date": "2025-07-10T17:04:51.224273",
+      "payment_method": "Credit Card",
+      "category": "Transportation",
+      "expected_qb_account": "Automobile"
+    },
+    {
+      "description": "Facebook ads campaign",
+      "vendor": "Facebook",
+      "amount_cents": 50000,
+      "currency": "USD",
+      "expense_date": "2025-07-09T17:04:51.224274",
+      "payment_method": "Credit Card",
+      "category": "Marketing & Advertising",
+      "expected_qb_account": "Advertising and Promotion"
+    },
+    {
+      "description": "Conference registration - QuickBooks Connect",
+      "vendor": "Intuit Events",
+      "amount_cents": 29900,
+      "currency": "USD",
+      "expense_date": "2025-07-07T17:04:51.224275",
+      "payment_method": "Credit Card",
+      "category": "Professional Development",
+      "expected_qb_account": "Professional Development"
+    },
+    {
+      "description": "Business insurance monthly premium",
+      "vendor": "State Farm",
+      "amount_cents": 15000,
+      "currency": "USD",
+      "expense_date": "2025-07-04T17:04:51.224276",
+      "payment_method": "Bank Transfer",
+      "category": "Insurance",
+      "expected_qb_account": "Insurance"
+    },
+    {
+      "description": "Internet service for office",
+      "vendor": "Comcast Business",
+      "amount_cents": 12999,
+      "currency": "USD",
+      "expense_date": "2025-06-29T17:04:51.224277",
+      "payment_method": "Credit Card",
+      "category": "Utilities",
+      "expected_qb_account": "Utilities"
+    },
+    {
+      "description": "Shipping supplies and postage",
+      "vendor": "USPS",
+      "amount_cents": 4532,
+      "currency": "USD",
+      "expense_date": "2025-06-24T17:04:51.224279",
+      "payment_method": "Credit Card",
+      "category": "Shipping & Postage",
+      "expected_qb_account": "Shipping and Delivery"
+    },
+    {
+      "description": "Hotel for business trip",
+      "vendor": "Marriott",
+      "amount_cents": 24900,
+      "currency": "USD",
+      "expense_date": "2025-06-14T17:04:51.224280",
+      "payment_method": "Credit Card",
+      "category": "Travel",
+      "expected_qb_account": "Travel"
+    }
+  ],
+  "scenarios": {
+    "happy_path": {
+      "name": "Successful Sync",
+      "description": "All expenses sync successfully to QuickBooks",
+      "expenses": [
+        {
+          "description": "Office supplies from Staples",
+          "vendor": "Staples",
+          "amount_cents": 8547,
+          "currency": "USD",
+          "expense_date": "2025-07-13T17:04:51.224253",
+          "payment_method": "Credit Card",
+          "category": "Office Supplies",
+          "expected_qb_account": "Office Supplies"
+        },
+        {
+          "description": "Team lunch meeting with client",
+          "vendor": "Chipotle",
+          "amount_cents": 12650,
+          "currency": "USD",
+          "expense_date": "2025-07-12T17:04:51.224270",
+          "payment_method": "Credit Card",
+          "category": "Meals & Entertainment",
+          "expected_qb_account": "Meals and Entertainment"
+        },
+        {
+          "description": "Monthly Adobe Creative Cloud subscription",
+          "vendor": "Adobe",
+          "amount_cents": 5499,
+          "currency": "USD",
+          "expense_date": "2025-07-11T17:04:51.224272",
+          "payment_method": "Credit Card",
+          "category": "Software & Subscriptions",
+          "expected_qb_account": "Computer and Internet Expenses"
+        },
+        {
+          "description": "Uber ride to client meeting",
+          "vendor": "Uber",
+          "amount_cents": 2847,
+          "currency": "USD",
+          "expense_date": "2025-07-10T17:04:51.224273",
+          "payment_method": "Credit Card",
+          "category": "Transportation",
+          "expected_qb_account": "Automobile"
+        },
+        {
+          "description": "Facebook ads campaign",
+          "vendor": "Facebook",
+          "amount_cents": 50000,
+          "currency": "USD",
+          "expense_date": "2025-07-09T17:04:51.224274",
+          "payment_method": "Credit Card",
+          "category": "Marketing & Advertising",
+          "expected_qb_account": "Advertising and Promotion"
+        }
+      ],
+      "expected_result": "success",
+      "expected_synced": 5
+    },
+    "vendor_creation": {
+      "name": "New Vendor Creation",
+      "description": "Test creating new vendors in QuickBooks",
+      "expenses": [
+        {
+          "description": "New vendor test",
+          "vendor": "Test Vendor ABC",
+          "amount_cents": 10000,
+          "currency": "USD",
+          "expense_date": "2025-07-14T17:04:51.224283",
+          "payment_method": "Credit Card",
+          "category": "Office Supplies"
+        }
+      ],
+      "expected_result": "success",
+      "expected_synced": 1
+    },
+    "batch_sync": {
+      "name": "Batch Sync Performance",
+      "description": "Test syncing multiple expenses at once",
+      "expenses": [
+        {
+          "description": "Office supplies from Staples",
+          "vendor": "Staples",
+          "amount_cents": 8547,
+          "currency": "USD",
+          "expense_date": "2025-07-13T17:04:51.224253",
+          "payment_method": "Credit Card",
+          "category": "Office Supplies",
+          "expected_qb_account": "Office Supplies"
+        },
+        {
+          "description": "Team lunch meeting with client",
+          "vendor": "Chipotle",
+          "amount_cents": 12650,
+          "currency": "USD",
+          "expense_date": "2025-07-12T17:04:51.224270",
+          "payment_method": "Credit Card",
+          "category": "Meals & Entertainment",
+          "expected_qb_account": "Meals and Entertainment"
+        },
+        {
+          "description": "Monthly Adobe Creative Cloud subscription",
+          "vendor": "Adobe",
+          "amount_cents": 5499,
+          "currency": "USD",
+          "expense_date": "2025-07-11T17:04:51.224272",
+          "payment_method": "Credit Card",
+          "category": "Software & Subscriptions",
+          "expected_qb_account": "Computer and Internet Expenses"
+        },
+        {
+          "description": "Uber ride to client meeting",
+          "vendor": "Uber",
+          "amount_cents": 2847,
+          "currency": "USD",
+          "expense_date": "2025-07-10T17:04:51.224273",
+          "payment_method": "Credit Card",
+          "category": "Transportation",
+          "expected_qb_account": "Automobile"
+        },
+        {
+          "description": "Facebook ads campaign",
+          "vendor": "Facebook",
+          "amount_cents": 50000,
+          "currency": "USD",
+          "expense_date": "2025-07-09T17:04:51.224274",
+          "payment_method": "Credit Card",
+          "category": "Marketing & Advertising",
+          "expected_qb_account": "Advertising and Promotion"
+        },
+        {
+          "description": "Conference registration - QuickBooks Connect",
+          "vendor": "Intuit Events",
+          "amount_cents": 29900,
+          "currency": "USD",
+          "expense_date": "2025-07-07T17:04:51.224275",
+          "payment_method": "Credit Card",
+          "category": "Professional Development",
+          "expected_qb_account": "Professional Development"
+        },
+        {
+          "description": "Business insurance monthly premium",
+          "vendor": "State Farm",
+          "amount_cents": 15000,
+          "currency": "USD",
+          "expense_date": "2025-07-04T17:04:51.224276",
+          "payment_method": "Bank Transfer",
+          "category": "Insurance",
+          "expected_qb_account": "Insurance"
+        },
+        {
+          "description": "Internet service for office",
+          "vendor": "Comcast Business",
+          "amount_cents": 12999,
+          "currency": "USD",
+          "expense_date": "2025-06-29T17:04:51.224277",
+          "payment_method": "Credit Card",
+          "category": "Utilities",
+          "expected_qb_account": "Utilities"
+        },
+        {
+          "description": "Shipping supplies and postage",
+          "vendor": "USPS",
+          "amount_cents": 4532,
+          "currency": "USD",
+          "expense_date": "2025-06-24T17:04:51.224279",
+          "payment_method": "Credit Card",
+          "category": "Shipping & Postage",
+          "expected_qb_account": "Shipping and Delivery"
+        },
+        {
+          "description": "Hotel for business trip",
+          "vendor": "Marriott",
+          "amount_cents": 24900,
+          "currency": "USD",
+          "expense_date": "2025-06-14T17:04:51.224280",
+          "payment_method": "Credit Card",
+          "category": "Travel",
+          "expected_qb_account": "Travel"
+        }
+      ],
+      "expected_result": "success",
+      "expected_synced": 10
+    },
+    "duplicate_prevention": {
+      "name": "Duplicate Prevention",
+      "description": "Test that expenses aren't duplicated in QuickBooks",
+      "expenses": [
+        {
+          "description": "Office supplies from Staples",
+          "vendor": "Staples",
+          "amount_cents": 8547,
+          "currency": "USD",
+          "expense_date": "2025-07-13T17:04:51.224253",
+          "payment_method": "Credit Card",
+          "category": "Office Supplies",
+          "expected_qb_account": "Office Supplies"
+        },
+        {
+          "description": "Team lunch meeting with client",
+          "vendor": "Chipotle",
+          "amount_cents": 12650,
+          "currency": "USD",
+          "expense_date": "2025-07-12T17:04:51.224270",
+          "payment_method": "Credit Card",
+          "category": "Meals & Entertainment",
+          "expected_qb_account": "Meals and Entertainment"
+        }
+      ],
+      "sync_twice": true,
+      "expected_result": "success",
+      "expected_synced": 2
+    }
+  },
+  "quickbooks_accounts": [
+    {
+      "name": "Office Supplies",
+      "id": "7",
+      "type": "Expense"
+    },
+    {
+      "name": "Meals and Entertainment",
+      "id": "13",
+      "type": "Expense"
+    },
+    {
+      "name": "Automobile",
+      "id": "8",
+      "type": "Expense"
+    },
+    {
+      "name": "Computer and Internet Expenses",
+      "id": "45",
+      "type": "Expense"
+    },
+    {
+      "name": "Advertising and Promotion",
+      "id": "2",
+      "type": "Expense"
+    },
+    {
+      "name": "Professional Development",
+      "id": "46",
+      "type": "Expense"
+    },
+    {
+      "name": "Insurance",
+      "id": "11",
+      "type": "Expense"
+    },
+    {
+      "name": "Utilities",
+      "id": "23",
+      "type": "Expense"
+    },
+    {
+      "name": "Shipping and Delivery",
+      "id": "19",
+      "type": "Expense"
+    },
+    {
+      "name": "Travel",
+      "id": "21",
+      "type": "Expense"
+    }
+  ],
+  "generated_at": "2025-07-14T17:04:51.224287",
+  "total_amount_cents": 166874,
+  "total_amount_formatted": "$1668.74"
+}

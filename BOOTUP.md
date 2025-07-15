@@ -14,8 +14,9 @@ I'm starting a new CORA session. Please:
    - Active Rules: [confirm enforcement]
 6. Include quick commands reminder: checkpoint (save), status (health), focus (current task)
 7. Confirm you've read ALL three enforcement docs (SYSTEM_RULES, PREFLIGHT, WORKFLOW)
-8. IMPORTANT: Use TodoWrite immediately when given ANY task (even 2-step tasks)
-9. STOP and wait for my direction (do not run commands yet)
+8. Check docs/INFRASTRUCTURE.md for deployment/hosting details (DigitalOcean, coraai.tech)
+9. IMPORTANT: Use TodoWrite immediately when given ANY task (even 2-step tasks)
+10. STOP and wait for my direction (do not run commands yet)
 
 ## 🔄 Quick Refresh (Use Often!)
 

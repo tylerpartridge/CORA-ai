@@ -7,6 +7,7 @@
 """
 
 from fastapi import APIRouter, HTTPException, Depends, Query
+from fastapi.responses import Response
 from pydantic import BaseModel
 from sqlalchemy.orm import Session
 from datetime import datetime
@@ -317,3 +318,42 @@ async def delete_expense(
     db.delete(db_expense)
     db.commit()
     return {"message": "Expense deleted successfully"}
+
+@expense_router.get("/export/csv")
+async def export_expenses_csv(
+    user_email: str,
+    db: Session = Depends(get_db)
+):
+    """Export user's expenses as CSV file"""
+    expenses = db.query(Expense).filter(
+        Expense.user_email == user_email
+    ).order_by(Expense.expense_date.desc()).all()
+    
+    # Get category names for display
+    categories = {cat.id: cat.name for cat in db.query(ExpenseCategory).all()}
+    
+    # Create CSV content
+    csv_content = "Date,Description,Amount,Currency,Vendor,Category,Payment Method,Receipt URL\n"
+    
+    for expense in expenses:
+        category_name = categories.get(expense.category_id, "Uncategorized") if expense.category_id else "Uncategorized"
+        amount_formatted = format_currency(expense.amount_cents, expense.currency)
+        
+        # Escape commas and quotes in CSV
+        description = f'"{expense.description.replace('"', '""')}"' if ',' in expense.description or '"' in expense.description else expense.description
+        vendor = f'"{expense.vendor.replace('"', '""')}"' if expense.vendor and (',' in expense.vendor or '"' in expense.vendor) else (expense.vendor or "")
+        
+        csv_content += f"{expense.expense_date.strftime('%Y-%m-%d')},{description},{amount_formatted},{expense.currency},{vendor},{category_name},{expense.payment_method or ''},{expense.receipt_url or ''}\n"
+    
+    # Generate filename with current date
+    from datetime import date
+    filename = f"cora_expenses_{user_email}_{date.today().strftime('%Y%m%d')}.csv"
+    
+    return Response(
+        content=csv_content,
+        media_type="text/csv",
+        headers={
+            "Content-Disposition": f"attachment; filename={filename}",
+            "Content-Type": "text/csv; charset=utf-8"
+        }
+    )

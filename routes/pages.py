@@ -6,15 +6,21 @@
 📤 EXPORTS: router with page endpoints
 """
 
-from fastapi import APIRouter
+from fastapi import APIRouter, Request, Depends
 from fastapi.responses import HTMLResponse
+from fastapi.templating import Jinja2Templates
 from pathlib import Path
+from dependencies.auth import get_current_user
 
 # Create router
 router = APIRouter(
     tags=["Pages"],
     responses={404: {"description": "Not found"}},
 )
+
+# Setup templates
+templates_dir = Path(__file__).parent.parent / "web" / "templates"
+templates = Jinja2Templates(directory=str(templates_dir))
 
 @router.get("/")
 async def root_page():
@@ -137,3 +143,35 @@ async def plaid_integration_page():
         with open(template_path, 'r', encoding='utf-8') as f:
             return HTMLResponse(content=f.read())
     return HTMLResponse(content="<h1>Plaid Integration - Page Not Found</h1>")
+
+@router.get("/dashboard")
+async def dashboard(request: Request, current_user: str = Depends(get_current_user)):
+    """Serve the dashboard page"""
+    return templates.TemplateResponse("dashboard.html", {"request": request, "user": current_user})
+
+@router.get("/admin")
+async def admin_dashboard(request: Request):
+    """Serve the admin dashboard page"""
+    template_path = Path(__file__).parent.parent / "web" / "templates" / "admin.html"
+    if template_path.exists():
+        with open(template_path, 'r', encoding='utf-8') as f:
+            return HTMLResponse(content=f.read())
+    return HTMLResponse(content="<h1>Admin Dashboard - Page Not Found</h1>")
+
+@router.get("/terms")
+async def terms_page():
+    """Serve Terms of Service page"""
+    template_path = Path(__file__).parent.parent / "web" / "templates" / "terms.html"
+    if template_path.exists():
+        with open(template_path, 'r', encoding='utf-8') as f:
+            return HTMLResponse(content=f.read())
+    return HTMLResponse(content="<h1>Terms of Service - Page Not Found</h1>")
+
+@router.get("/privacy")
+async def privacy_page():
+    """Serve Privacy Policy page"""
+    template_path = Path(__file__).parent.parent / "web" / "templates" / "privacy.html"
+    if template_path.exists():
+        with open(template_path, 'r', encoding='utf-8') as f:
+            return HTMLResponse(content=f.read())
+    return HTMLResponse(content="<h1>Privacy Policy - Page Not Found</h1>")

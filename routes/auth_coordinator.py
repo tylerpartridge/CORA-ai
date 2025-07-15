@@ -17,8 +17,10 @@ from services.auth_service import (
     authenticate_user, create_access_token, create_user,
     ACCESS_TOKEN_EXPIRE_MINUTES, validate_user_input,
     AuthenticationError, InvalidCredentialsError, 
-    UserAlreadyExistsError, ValidationError
+    UserAlreadyExistsError, ValidationError, PasswordResetError,
+    create_password_reset_token, validate_password_reset_token, reset_password_with_token
 )
+from services.email_service import send_password_reset_email, send_welcome_email
 from typing import List, Optional
 from dependencies.auth import get_current_user
 
@@ -37,6 +39,14 @@ class LoginRequest(BaseModel):
 class RegisterRequest(BaseModel):
     email: str
     password: str
+    confirm_password: str
+
+class PasswordResetRequest(BaseModel):
+    email: str
+
+class PasswordResetConfirmRequest(BaseModel):
+    token: str
+    new_password: str
     confirm_password: str
 
 class PreferenceRequest(BaseModel):
@@ -108,6 +118,13 @@ async def register(request: RegisterRequest, db: Session = Depends(get_db)):
         
         # Create user
         user = create_user(db, request.email, request.password)
+        
+        # Send welcome email
+        try:
+            send_welcome_email(user.email)
+        except Exception as e:
+            # Log email failure but don't fail registration
+            print(f"Failed to send welcome email to {user.email}: {str(e)}")
         
         # Generate token for immediate login
         access_token_expires = timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
@@ -288,3 +305,112 @@ async def delete_preference(
     db.commit()
     
     return {"message": f"Preference '{key}' deleted successfully"}
+
+@auth_router.post("/request-password-reset")
+async def request_password_reset(
+    request: PasswordResetRequest, 
+    db: Session = Depends(get_db)
+):
+    """Request a password reset token"""
+    try:
+        # Create password reset token
+        token = create_password_reset_token(db, request.email)
+        
+        # Send password reset email if token was created
+        if token:
+            reset_url = f"https://coraai.tech/reset-password?token={token}"
+            try:
+                send_password_reset_email(request.email, token, reset_url)
+            except Exception as e:
+                print(f"Failed to send password reset email to {request.email}: {str(e)}")
+        
+        # Always return success to prevent email enumeration
+        return {
+            "message": "If an account with this email exists, a password reset link has been sent",
+            "email": request.email
+        }
+        
+    except PasswordResetError as e:
+        raise HTTPException(
+            status_code=503,
+            detail=str(e)
+        )
+    except Exception as e:
+        raise HTTPException(
+            status_code=500,
+            detail="Failed to process password reset request"
+        )
+
+@auth_router.post("/reset-password")
+async def reset_password(
+    request: PasswordResetConfirmRequest,
+    db: Session = Depends(get_db)
+):
+    """Reset password using a valid token"""
+    try:
+        # Validate new password (we'll get email from token validation)
+        validate_user_input("temp@example.com", request.new_password, request.confirm_password)
+        
+        # Reset password
+        success = reset_password_with_token(db, request.token, request.new_password)
+        
+        if not success:
+            raise HTTPException(
+                status_code=400,
+                detail="Invalid or expired reset token"
+            )
+        
+        # Get email from token for response
+        email = validate_password_reset_token(db, request.token)
+        
+        return {
+            "message": "Password reset successfully",
+            "email": email if email else "unknown"
+        }
+        
+    except ValidationError as e:
+        raise HTTPException(
+            status_code=400,
+            detail={"errors": e.errors, "message": "Validation failed"}
+        )
+    except PasswordResetError as e:
+        raise HTTPException(
+            status_code=400,
+            detail=str(e)
+        )
+    except Exception as e:
+        raise HTTPException(
+            status_code=500,
+            detail="Failed to reset password"
+        )
+
+@auth_router.get("/validate-reset-token/{token}")
+async def validate_reset_token(
+    token: str,
+    db: Session = Depends(get_db)
+):
+    """Validate a password reset token"""
+    try:
+        email = validate_password_reset_token(db, token)
+        
+        if not email:
+            raise HTTPException(
+                status_code=400,
+                detail="Invalid or expired reset token"
+            )
+        
+        return {
+            "valid": True,
+            "email": email
+        }
+        
+    except PasswordResetError as e:
+        raise HTTPException(
+            status_code=503,
+            detail=str(e)
+        )
+    except Exception as e:
+        raise HTTPException(
+            status_code=500,
+            detail="Failed to validate reset token"
+        )

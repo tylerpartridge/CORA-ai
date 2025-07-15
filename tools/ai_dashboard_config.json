@@ -1,0 +1,51 @@
+{
+  "dashboard": {
+    "output_file": "AI_DASHBOARD.md",
+    "max_lines": 100,
+    "generation_timeout": 2,
+    "cache_duration": 3600,
+    "auto_refresh_events": [
+      "file_save",
+      "git_commit", 
+      "test_run",
+      "error_detected"
+    ]
+  },
+  "sections": {
+    "focus": {
+      "source": "NOW.md",
+      "pattern": "**Current Task:**",
+      "max_length": 80
+    },
+    "blockers": {
+      "sources": ["error_logs", "test_results", "health_check"],
+      "max_items": 5,
+      "priority": ["errors", "test_failures", "size_violations"]
+    },
+    "navigation": {
+      "quick_paths": {
+        "routes": "/routes/",
+        "tools": "/tools/",
+        "tests": "/tests/",
+        "models": "/models/",
+        "docs": "/docs/"
+      }
+    },
+    "health_indicators": {
+      "good": "🟢",
+      "warning": "🟡", 
+      "critical": "🔴",
+      "thresholds": {
+        "files": {"good": 0, "warning": 5, "critical": 10},
+        "tests": {"good": 0.95, "warning": 0.8, "critical": 0.5},
+        "changes": {"good": 50, "warning": 100, "critical": 200}
+      }
+    }
+  },
+  "commands": {
+    "refresh": "python tools/ai_dashboard_generator.py",
+    "awareness": "python tools/ai_awareness.py",
+    "handoff": "python tools/ai_handoff.py",
+    "navigate": "python tools/ai_navigate.py"
+  }
+}

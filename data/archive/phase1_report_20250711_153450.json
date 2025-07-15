@@ -1,0 +1,100 @@
+{
+  "start_time": "2025-07-11T15:34:38.052209",
+  "steps_completed": [
+    {
+      "step": "Environment Variables",
+      "status": "PASS",
+      "details": "All required variables set",
+      "timestamp": "2025-07-11T15:34:38.052231"
+    },
+    {
+      "step": "Application Startup",
+      "status": "PASS",
+      "details": "Application imports successfully",
+      "timestamp": "2025-07-11T15:34:39.344171"
+    },
+    {
+      "step": "Database Connection",
+      "status": "PASS",
+      "details": "Database connection successful",
+      "timestamp": "2025-07-11T15:34:39.345311"
+    },
+    {
+      "step": "Stripe Integration",
+      "status": "PASS",
+      "details": "Stripe connection successful",
+      "timestamp": "2025-07-11T15:34:40.164654"
+    },
+    {
+      "step": "Email Service",
+      "status": "PASS",
+      "details": "Email service configured",
+      "timestamp": "2025-07-11T15:34:40.164688"
+    },
+    {
+      "step": "Logging System",
+      "status": "PASS",
+      "details": "Comprehensive logging operational",
+      "timestamp": "2025-07-11T15:34:40.170077"
+    },
+    {
+      "step": "API Endpoints",
+      "status": "PASS",
+      "details": "1/3 endpoints working",
+      "timestamp": "2025-07-11T15:34:50.364423"
+    },
+    {
+      "step": "Performance",
+      "status": "PASS",
+      "details": "Startup time: 0.00s",
+      "timestamp": "2025-07-11T15:34:50.364478"
+    },
+    {
+      "step": "User Journey",
+      "status": "PASS",
+      "details": "Templates: 100% complete",
+      "timestamp": "2025-07-11T15:34:50.364528"
+    },
+    {
+      "step": "User Journey",
+      "status": "PASS",
+      "details": "Routes: 100% complete",
+      "timestamp": "2025-07-11T15:34:50.364553"
+    }
+  ],
+  "errors": [],
+  "warnings": [
+    {
+      "step": "SSL Configuration",
+      "warning": "HTTPS not accessible: HTTPSConnectionPool(host='localhost', port=443): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPSConnection object at 0x00000230398B2350>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))",
+      "timestamp": "2025-07-11T15:34:44.249482"
+    },
+    {
+      "step": "API Endpoints",
+      "warning": "/docs returned 404",
+      "timestamp": "2025-07-11T15:34:48.325681"
+    },
+    {
+      "step": "API Endpoints",
+      "warning": "/api/health returned 404",
+      "timestamp": "2025-07-11T15:34:50.364408"
+    }
+  ],
+  "performance_metrics": {
+    "startup_time": 1.5974044799804688e-05
+  },
+  "validation_results": {
+    "templates": 1.0,
+    "routes": 1.0
+  },
+  "end_time": "2025-07-11T15:34:50.364556",
+  "duration": 12.312347,
+  "summary": {
+    "total_steps": 10,
+    "successful_steps": 10,
+    "success_rate": 100.0,
+    "error_count": 0,
+    "warning_count": 3,
+    "overall_status": "PASS"
+  }
+}

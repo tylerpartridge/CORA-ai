@@ -19,6 +19,7 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 from health_check import check_health
 from index_cora import update_indexes
+from python_selector import PYTHON_CMD
 
 def print_banner():
     """Show CORA startup banner"""
@@ -86,7 +87,8 @@ def main():
     print()
     
     try:
-        subprocess.run([sys.executable, 'app.py'])
+        # Use the correct Python interpreter
+        subprocess.run([PYTHON_CMD, '-m', 'uvicorn', 'app:app', '--port', '8000', '--reload'])
     except KeyboardInterrupt:
         print("\n\n👋 CORA stopped gracefully")
         return 0

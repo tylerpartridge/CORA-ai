@@ -7,6 +7,7 @@
 """
 
 from sqlalchemy import Column, Integer, String, DateTime, ForeignKey
+from sqlalchemy.orm import relationship
 from sqlalchemy.sql import func
 from .base import Base
 
@@ -19,6 +20,9 @@ class Customer(Base):
     user_email = Column(String, ForeignKey("users.email"))
     stripe_customer_id = Column(String)
     created_at = Column(DateTime, server_default=func.now())
+    
+    # Relationships
+    user = relationship("User", back_populates="customers")
     
     def __repr__(self):
         return f"<Customer(id={self.id}, user_email='{self.user_email}')>"

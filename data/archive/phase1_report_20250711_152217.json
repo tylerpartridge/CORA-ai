@@ -1,0 +1,100 @@
+{
+  "start_time": "2025-07-11T15:22:06.328531",
+  "steps_completed": [
+    {
+      "step": "Environment Variables",
+      "status": "PASS",
+      "details": "All required variables set",
+      "timestamp": "2025-07-11T15:22:06.328531"
+    },
+    {
+      "step": "Application Startup",
+      "status": "PASS",
+      "details": "Application imports successfully",
+      "timestamp": "2025-07-11T15:22:07.236103"
+    },
+    {
+      "step": "Database Connection",
+      "status": "PASS",
+      "details": "Database connection successful",
+      "timestamp": "2025-07-11T15:22:07.237505"
+    },
+    {
+      "step": "Email Service",
+      "status": "PASS",
+      "details": "Email service configured",
+      "timestamp": "2025-07-11T15:22:07.691327"
+    },
+    {
+      "step": "Logging System",
+      "status": "PASS",
+      "details": "Comprehensive logging operational",
+      "timestamp": "2025-07-11T15:22:07.694770"
+    },
+    {
+      "step": "API Endpoints",
+      "status": "PASS",
+      "details": "1/3 endpoints working",
+      "timestamp": "2025-07-11T15:22:17.900194"
+    },
+    {
+      "step": "Performance",
+      "status": "PASS",
+      "details": "Startup time: 0.00s",
+      "timestamp": "2025-07-11T15:22:17.900194"
+    },
+    {
+      "step": "User Journey",
+      "status": "PASS",
+      "details": "Templates: 100% complete",
+      "timestamp": "2025-07-11T15:22:17.900194"
+    },
+    {
+      "step": "User Journey",
+      "status": "PASS",
+      "details": "Routes: 100% complete",
+      "timestamp": "2025-07-11T15:22:17.900194"
+    }
+  ],
+  "errors": [
+    {
+      "step": "Stripe Integration",
+      "error": "Invalid API Key provided: sk_live_*********************HERE",
+      "timestamp": "2025-07-11T15:22:07.691327"
+    }
+  ],
+  "warnings": [
+    {
+      "step": "SSL Configuration",
+      "warning": "HTTPS not accessible: HTTPSConnectionPool(host='localhost', port=443): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPSConnection object at 0x0000026D3FA52D80>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))",
+      "timestamp": "2025-07-11T15:22:11.767539"
+    },
+    {
+      "step": "API Endpoints",
+      "warning": "/docs returned 404",
+      "timestamp": "2025-07-11T15:22:15.847697"
+    },
+    {
+      "step": "API Endpoints",
+      "warning": "/api/health returned 404",
+      "timestamp": "2025-07-11T15:22:17.900194"
+    }
+  ],
+  "performance_metrics": {
+    "startup_time": 0.0
+  },
+  "validation_results": {
+    "templates": 1.0,
+    "routes": 1.0
+  },
+  "end_time": "2025-07-11T15:22:17.900194",
+  "duration": 11.571663,
+  "summary": {
+    "total_steps": 9,
+    "successful_steps": 9,
+    "success_rate": 100.0,
+    "error_count": 1,
+    "warning_count": 3,
+    "overall_status": "FAIL"
+  }
+}

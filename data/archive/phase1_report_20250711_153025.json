@@ -1,0 +1,29 @@
+{
+  "start_time": "2025-07-11T15:30:25.773805",
+  "steps_completed": [],
+  "errors": [
+    {
+      "step": "Environment Variables",
+      "error": "Missing: SECRET_KEY, JWT_SECRET_KEY, ENCRYPTION_KEY, DATABASE_URL, STRIPE_SECRET_KEY, STRIPE_PUBLISHABLE_KEY",
+      "timestamp": "2025-07-11T15:30:25.773805"
+    },
+    {
+      "step": "Phase 1",
+      "error": "Environment validation failed",
+      "timestamp": "2025-07-11T15:30:25.773805"
+    }
+  ],
+  "warnings": [],
+  "performance_metrics": {},
+  "validation_results": {},
+  "end_time": "2025-07-11T15:30:25.774806",
+  "duration": 0.001001,
+  "summary": {
+    "total_steps": 0,
+    "successful_steps": 0,
+    "success_rate": 0,
+    "error_count": 2,
+    "warning_count": 0,
+    "overall_status": "FAIL"
+  }
+}

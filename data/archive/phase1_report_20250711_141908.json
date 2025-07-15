@@ -1,0 +1,42 @@
+{
+  "start_time": "2025-07-11T14:19:08.101645",
+  "steps_completed": [
+    {
+      "step": "Environment Variables",
+      "status": "PASS",
+      "details": "All required variables set",
+      "timestamp": "2025-07-11T14:19:08.102545"
+    },
+    {
+      "step": "Application Startup",
+      "status": "PASS",
+      "details": "Application imports successfully",
+      "timestamp": "2025-07-11T14:19:08.995880"
+    }
+  ],
+  "errors": [
+    {
+      "step": "Database Connection",
+      "error": "Not an executable object: 'SELECT 1'",
+      "timestamp": "2025-07-11T14:19:08.996747"
+    },
+    {
+      "step": "Phase 1",
+      "error": "Database connection failed",
+      "timestamp": "2025-07-11T14:19:08.996747"
+    }
+  ],
+  "warnings": [],
+  "performance_metrics": {},
+  "validation_results": {},
+  "end_time": "2025-07-11T14:19:08.996747",
+  "duration": 0.895102,
+  "summary": {
+    "total_steps": 2,
+    "successful_steps": 2,
+    "success_rate": 100.0,
+    "error_count": 2,
+    "warning_count": 0,
+    "overall_status": "FAIL"
+  }
+}

@@ -7,6 +7,7 @@
 """
 
 from sqlalchemy import Column, Integer, String, DateTime, ForeignKey
+from sqlalchemy.orm import relationship
 from sqlalchemy.sql import func
 from .base import Base
 
@@ -20,6 +21,9 @@ class UserPreference(Base):
     value = Column(String)
     created_at = Column(DateTime(timezone=True), server_default=func.now())
     updated_at = Column(DateTime(timezone=True), onupdate=func.now())
+    
+    # Relationships
+    user = relationship("User", back_populates="preferences")
     
     def __repr__(self):
         return f"<UserPreference(user={self.user_email}, key={self.key})>"

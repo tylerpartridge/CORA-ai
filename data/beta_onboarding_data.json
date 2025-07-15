@@ -1,0 +1,7 @@
+{
+  "onboarding_data": [
+    {
+      "user_id": "user_testuser1",
+      "email": "testuser1@example.com",
+      "name": "Test User 1",
+      "signup_date": 

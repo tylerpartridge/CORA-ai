@@ -17,7 +17,7 @@ class QuickBooksIntegration(Base):
     __tablename__ = "quickbooks_integrations"
     
     id = Column(Integer, primary_key=True)
-    user_id = Column(Integer, ForeignKey("users.id"), nullable=False)
+    user_email = Column(String, ForeignKey('users.email'), nullable=False)
     realm_id = Column(String(50), nullable=False)  # QuickBooks company ID
     company_name = Column(String(200))  # QuickBooks company name
     

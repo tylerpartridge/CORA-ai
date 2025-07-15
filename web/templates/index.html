@@ -1,9 +1,8 @@
 <!DOCTYPE html>
-<!--
-🧭 LOCATION: /CORA/templates/index.html
-🎯 PURPOSE: Landing page - captures emails and shows value props
-📝 TODOS: Add meta tags for SEO, compress images
-💡 AI HINT: This is getting long (600+ lines). If adding features, consider splitting into partials.
+<!-- 
+  Template: /web/templates/index.html
+  Purpose: Landing page - captures emails and shows value props
+  Related: signup.html, login.html
 -->
 <html lang="en">
 <head>
@@ -13,7 +12,7 @@
     <meta name="description" content="Meet Cora, the AI bookkeeper who handles your finances with 99.2% accuracy. No meetings, no judgment, just clean books.">
     
     <!-- Favicon -->
-    <link rel="icon" type="image/svg+xml" href="/static/favicon.svg">
+    <link rel="icon" type="image/svg+xml" href="/static/favicon-transparent.svg">
     
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -122,7 +121,10 @@
                         <a class="nav-link" href="/contact">Contact</a>
                     </li>
                     <li class="nav-item">
-                        <a class="btn btn-nav-purple ms-2" href="#get-started">Get Started</a>
+                        <a class="nav-link" href="/login">Login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="btn btn-nav-purple ms-2" href="/signup">Get Started</a>
                     </li>
                 </ul>
             </div>
@@ -147,9 +149,25 @@
                         <a href="/demo" class="btn btn-outline-light btn-lg">Watch Demo</a>
                     </div>
                     <div class="mt-4">
-                        <form class="d-flex gap-2 mb-3" style="max-width: 500px;" onsubmit="quickCapture(event)">
-                            <input type="email" class="form-control rounded-pill" placeholder="Enter your email for early access" required style="background: rgba(255,255,255,0.9); padding: 0.6rem 1.5rem; flex: 1;">
-                            <button type="submit" class="btn btn-light rounded-pill px-4" style="padding: 0.6rem 1.75rem;">Get Started</button>
+                        <form class="d-flex flex-column flex-sm-row gap-2 mb-3" style="max-width: 500px;" onsubmit="quickCapture(event)" id="emailForm">
+                            <input type="email" 
+                                   class="form-control rounded-pill" 
+                                   placeholder="Enter your email for early access" 
+                                   required 
+                                   style="background: rgba(255,255,255,0.9); padding: 0.6rem 1.5rem;"
+                                   minlength="5"
+                                   pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
+                                   id="emailInput">
+                            <button type="submit" 
+                                    class="btn btn-light rounded-pill px-4" 
+                                    style="padding: 0.6rem 1.75rem;"
+                                    id="submitBtn">
+                                <span class="btn-text">Get Started</span>
+                                <span class="btn-loading d-none">
+                                    <span class="spinner-border spinner-border-sm me-2"></span>
+                                    Processing...
+                                </span>
+                            </button>
                         </form>
                         <small class="opacity-75">✓ 30-day free trial ✓ No credit card required ✓ Setup in 5 minutes</small>
                     </div>
@@ -158,9 +176,10 @@
                     <div class="text-center">
                         <div class="position-relative d-inline-block">
                             <img src="/static/images/dashboard-preview.svg" alt="Cora AI Dashboard" class="img-fluid rounded shadow" style="max-width: 500px; opacity: 0.9;">
-                            <div class="position-absolute top-50 start-50 translate-middle text-center">
-                                <div class="bg-white rounded-pill px-4 py-3 shadow-lg">
-                                    <span class="text-primary fw-bold fs-5">Coming Soon: See Your Demo</span>
+                            <div class="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center">
+                                <div class="bg-white bg-opacity-90 rounded-lg p-4 shadow-lg" style="max-width: 300px;">
+                                    <h5 class="text-primary fw-bold mb-2">AI-Powered Insights</h5>
+                                    <p class="text-muted mb-0 small">Real-time financial analysis and automated categorization</p>
                                 </div>
                             </div>
                         </div>
@@ -361,35 +380,33 @@
     </section>
 
     <!-- Future Vision Section -->
-    <section class="py-5">
+    <section class="py-5 bg-light">
         <div class="container">
             <div class="row align-items-center">
                 <div class="col-lg-6">
-                    <h3 class="fw-bold mb-3">The Future: Your Complete Financial AI</h3>
-                    <p class="mb-3">
-                        Today, Cora handles your bookkeeping with unmatched accuracy. But we're building something bigger.
+                    <h2 class="display-5 fw-bold mb-4">The Future of AI-Powered Business</h2>
+                    <p class="lead mb-4">
+                        CORA is just the beginning. We're building the foundation for truly intelligent business management.
                     </p>
                     <p class="mb-3">
-                        As Cora learns your business, she'll expand beyond bookkeeping - tax planning, financial forecasting, 
-                        regulatory compliance, even legal structure optimization. One AI that understands every aspect of your business finances.
+                        As AI technology evolves, CORA will expand beyond bookkeeping to become your complete financial intelligence platform.
                     </p>
                     <p class="mb-4">
                         <strong>Built for the AI-first future:</strong> When your personal AI assistant needs financial data, 
-                        it won't interrupt you - it'll ask Cora directly. The AI your AI trusts for financial intelligence.
+                        it won't interrupt you - it'll ask CORA directly. The AI your AI trusts for financial intelligence.
                     </p>
                 </div>
                 <div class="col-lg-6">
-                    <div class="bg-light rounded p-4">
-                        <h5 class="mb-3">Coming Soon to Cora:</h5>
+                    <div class="bg-white rounded-lg p-6 shadow">
+                        <h5 class="mb-4 text-primary">CORA's Vision:</h5>
                         <ul class="list-unstyled">
-                            <li class="mb-2">📊 <strong>Tax Planning AI</strong> - Real-time tax optimization strategies</li>
-                            <li class="mb-2">📈 <strong>Financial Forecasting</strong> - ML-powered cash flow predictions</li>
-                            <li class="mb-2">⚖️ <strong>Regulatory Compliance</strong> - Stay compliant across jurisdictions</li>
-                            <li class="mb-2">🏛️ <strong>Legal Structure Advisor</strong> - Entity optimization recommendations</li>
-                            <li class="mb-2">🤖 <strong>AI Assistant Integration</strong> - Native APIs for ChatGPT, Claude, and more</li>
+                            <li class="mb-3">📊 <strong>Complete Financial Intelligence</strong> - Beyond bookkeeping to strategic insights</li>
+                            <li class="mb-3">🤖 <strong>AI Assistant Integration</strong> - Native APIs for ChatGPT, Claude, and more</li>
+                            <li class="mb-3">📈 <strong>Predictive Analytics</strong> - ML-powered business forecasting</li>
+                            <li class="mb-3">⚡ <strong>Real-time Optimization</strong> - Instant financial recommendations</li>
                         </ul>
                         <p class="text-muted small mb-0">
-                            The more you connect, the smarter Cora becomes. Your entire business ecosystem, unified and intelligent.
+                            The more you connect, the smarter CORA becomes. Your entire business ecosystem, unified and intelligent.
                         </p>
                     </div>
                 </div>
@@ -531,25 +548,78 @@
         function selectPlan(planName) {
             // Store selected plan and redirect to checkout
             sessionStorage.setItem('selectedPlan', planName);
-            window.location.href = '/checkout?plan=' + planName;
+            window.location.href = '/pricing/' + planName;
         }
         
         // Quick email capture in hero
         async function quickCapture(e) {
             e.preventDefault();
             const form = e.target;
-            const email = form.querySelector('input[type="email"]').value;
-            const btn = form.querySelector('button');
-            const originalText = btn.textContent;
+            const emailInput = form.querySelector('#emailInput');
+            const submitBtn = form.querySelector('#submitBtn');
+            const btnText = submitBtn.querySelector('.btn-text');
+            const btnLoading = submitBtn.querySelector('.btn-loading');
             
-            btn.textContent = 'Adding...';
-            btn.disabled = true;
+            // Validate email
+            if (!emailInput.checkValidity()) {
+                emailInput.classList.add('is-invalid');
+                return;
+            }
             
-            // For now, just show success (later: actual API call)
-            setTimeout(() => {
-                form.innerHTML = '<div class="text-white">✓ You\'re on the list! Check your email.</div>';
-            }, 1000);
+            emailInput.classList.remove('is-invalid');
+            
+            // Show loading state
+            btnText.classList.add('d-none');
+            btnLoading.classList.remove('d-none');
+            submitBtn.disabled = true;
+            
+            try {
+                const formData = new FormData();
+                formData.append('email', emailInput.value);
+                
+                const response = await fetch('/api/v1/capture-email', {
+                    method: 'POST',
+                    body: formData
+                });
+                
+                if (response.ok) {
+                    // Show success message
+                    form.innerHTML = '<div class="text-center text-white"><i class="fas fa-check-circle me-2"></i>You\'re on the list! Check your email for early access.</div>';
+                } else {
+                    throw new Error('Failed to capture email');
+                }
+            } catch (error) {
+                console.error('Email capture error:', error);
+                // Show error message
+                form.innerHTML = '<div class="text-center text-white"><i class="fas fa-exclamation-triangle me-2"></i>Something went wrong. Please try again.</div>';
+                
+                // Reset form after 3 seconds
+                setTimeout(() => {
+                    location.reload();
+                }, 3000);
+            }
         }
+        
+        // Footer subscribe functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const subscribeBtn = document.querySelector('footer .btn-primary');
+            const subscribeInput = document.querySelector('footer input[type="email"]');
+            
+            if (subscribeBtn && subscribeInput) {
+                subscribeBtn.addEventListener('click', function() {
+                    const email = subscribeInput.value;
+                    if (email) {
+                        subscribeBtn.textContent = 'Subscribed!';
+                        subscribeBtn.disabled = true;
+                        subscribeInput.value = '';
+                        setTimeout(() => {
+                            subscribeBtn.textContent = 'Subscribe';
+                            subscribeBtn.disabled = false;
+                        }, 2000);
+                    }
+                });
+            }
+        });
         
         // Smooth scrolling for anchor links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {

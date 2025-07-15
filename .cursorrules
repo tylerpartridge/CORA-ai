@@ -1,0 +1,63 @@
+# CORA AI Assistant Rules
+
+## AI TESTED CAPABILITIES (Use These!)
+
+### Claude's Powers (TESTED & CONFIRMED):
+- **Parallel Operations**: Deploy multiple agents with Task() for speed
+- **Image Vision**: Can see and analyze PNG/JPG files
+- **Web Search**: Search current web for 2025+ information
+- **Multi-Edit**: Edit same file multiple times in one command
+- **Multi-Agent Coordination**: Can coordinate agents to edit different files simultaneously
+
+### Cursor's Powers (TESTED & CONFIRMED):
+- **Precision File Ops**: Surgical create/edit/delete control
+- **Pattern Recognition**: Multi-file grep and analysis
+- **System Integration**: Seamless command execution
+- **Code Analysis**: Structure understanding
+- **Cross-file Intelligence**: Find patterns across multiple files simultaneously
+- **Self-documentation**: Document discoveries in real-time
+- **Cleanup Operations**: Maintain clean workspace
+- **1000 TOKENS/SECOND**: Edit at 3500 chars/second (13x faster!)
+- **Agent Mode + YOLO**: Autonomous coding with terminal commands
+- **Composer Mode**: Multi-file refactoring across entire codebase
+- **Bug Finder**: Command Shift P → "bug finder"
+- **@Web Search**: Search internet for current information
+
+### When to Use What (AUTOMATIC TRIGGERS):
+- Multiple tasks needed → Claude uses parallel agents
+- Current info needed → Claude searches web OR Cursor uses @Web
+- Screenshot provided → Claude analyzes image
+- Precise file work → Cursor handles it
+- System commands → Both can execute
+- Pattern analysis needed → Cursor uses grep_search across files
+- Code structure analysis → Cursor uses codebase_search
+- File cleanup needed → Cursor handles deletion
+- Coordination between assistants → Use shared files (COLLABORATION_TASK.md)
+- LARGE REFACTORING → Cursor uses Composer Mode
+- BUG DETECTION → Cursor uses built-in bug finder
+- SPEED CRITICAL → Cursor uses 1000 tokens/sec mode
+- AUTONOMOUS TASKS → Cursor uses Agent Mode + YOLO
+
+## File Size Limits
+- Python files: 300 lines MAX
+- JavaScript/TypeScript: 300 lines MAX
+- Markdown: 300 lines MAX
+- CSS: 500 lines MAX
+
+## Directory Structure
+- Root: 6 files maximum
+- /tools: Scripts and utilities
+- /web: UI and frontend files
+- /data: Configuration and data files
+
+## Code Quality
+- Navigation headers required for Python files
+- One file = one purpose (no utils.py)
+- Use coordinator pattern for split files
+- Prefer integration over new files
+
+## Workflow
+- Read NOW.md, STATUS.md, session.md first
+- Use existing files over creating new ones
+- Document discoveries in session.md
+- Flag insights for decisions.md

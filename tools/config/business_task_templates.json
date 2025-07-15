@@ -1,0 +1,94 @@
+{
+  "task_templates": {
+    "daily_payment_processing": {
+      "task_type": "PAYMENT_PROCESSING",
+      "description": "Daily payment processing and failure analysis",
+      "frequency": "DAILY",
+      "priority": "HIGH",
+      "data_template": {"payments": [], "failed_payments": []},
+      "auto_execute": true,
+      "requires_approval": false
+    },
+    "weekly_subscription_management": {
+      "task_type": "SUBSCRIPTION_MANAGEMENT",
+      "description": "Weekly subscription health check and renewal tracking",
+      "frequency": "WEEKLY",
+      "priority": "MEDIUM",
+      "data_template": {"subscriptions": [], "expiring_soon": []},
+      "auto_execute": true,
+      "requires_approval": false
+    },
+    "monthly_financial_reporting": {
+      "task_type": "FINANCIAL_REPORTING",
+      "description": "Monthly financial report generation and analysis",
+      "frequency": "MONTHLY",
+      "priority": "MEDIUM",
+      "data_template": {"expenses": [], "revenue": 0, "period": "monthly"},
+      "auto_execute": true,
+      "requires_approval": true
+    },
+    "quarterly_tax_preparation": {
+      "task_type": "TAX_PREPARATION",
+      "description": "Quarterly tax preparation and filing",
+      "frequency": "QUARTERLY",
+      "priority": "CRITICAL",
+      "data_template": {"expenses": [], "revenue": 0, "quarter": "Q1"},
+      "auto_execute": false,
+      "requires_approval": true
+    },
+    "weekly_user_analytics": {
+      "task_type": "USER_ONBOARDING",
+      "description": "Weekly user behavior analysis and onboarding optimization",
+      "frequency": "WEEKLY",
+      "priority": "LOW",
+      "data_template": {"users": [], "onboarding_data": {}},
+      "auto_execute": true,
+      "requires_approval": false
+    },
+    "daily_expense_categorization": {
+      "task_type": "EXPENSE_CATEGORIZATION",
+      "description": "Daily expense categorization and accuracy analysis",
+      "frequency": "DAILY",
+      "priority": "MEDIUM",
+      "data_template": {"expenses": [], "uncategorized": []},
+      "auto_execute": true,
+      "requires_approval": false
+    },
+    "monthly_compliance_monitoring": {
+      "task_type": "COMPLIANCE_MONITORING",
+      "description": "Monthly compliance check and regulatory monitoring",
+      "frequency": "MONTHLY",
+      "priority": "HIGH",
+      "data_template": {"compliance_checks": {}, "data_retention": {}},
+      "auto_execute": true,
+      "requires_approval": true
+    },
+    "weekly_customer_support": {
+      "task_type": "CUSTOMER_SUPPORT",
+      "description": "Weekly customer support analysis and optimization",
+      "frequency": "WEEKLY",
+      "priority": "MEDIUM",
+      "data_template": {"support_tickets": [], "response_times": []},
+      "auto_execute": true,
+      "requires_approval": false
+    },
+    "monthly_revenue_analytics": {
+      "task_type": "REVENUE_ANALYTICS",
+      "description": "Monthly revenue analysis and growth tracking",
+      "frequency": "MONTHLY",
+      "priority": "HIGH",
+      "data_template": {"revenue_data": {}, "growth_metrics": {}},
+      "auto_execute": true,
+      "requires_approval": false
+    },
+    "weekly_churn_prediction": {
+      "task_type": "CHURN_PREDICTION",
+      "description": "Weekly churn prediction and retention analysis",
+      "frequency": "WEEKLY",
+      "priority": "MEDIUM",
+      "data_template": {"user_data": [], "usage_patterns": {}},
+      "auto_execute": true,
+      "requires_approval": false
+    }
+  }
+}

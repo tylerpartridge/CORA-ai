@@ -1,0 +1,29 @@
+{
+  "start_time": "2025-07-11T14:47:46.936182",
+  "steps_completed": [],
+  "errors": [
+    {
+      "step": "Environment Variables",
+      "error": "Missing: SECRET_KEY, ENCRYPTION_KEY",
+      "timestamp": "2025-07-11T14:47:46.936257"
+    },
+    {
+      "step": "Phase 1",
+      "error": "Environment validation failed",
+      "timestamp": "2025-07-11T14:47:46.936262"
+    }
+  ],
+  "warnings": [],
+  "performance_metrics": {},
+  "validation_results": {},
+  "end_time": "2025-07-11T14:47:46.936265",
+  "duration": 8.3e-05,
+  "summary": {
+    "total_steps": 0,
+    "successful_steps": 0,
+    "success_rate": 0,
+    "error_count": 2,
+    "warning_count": 0,
+    "overall_status": "FAIL"
+  }
+}

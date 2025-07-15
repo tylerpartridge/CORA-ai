@@ -15,8 +15,9 @@ from sqlalchemy.exc import IntegrityError, SQLAlchemyError
 import os
 import re
 import logging
+import secrets
 
-from models import User
+from models import User, PasswordResetToken
 
 # Configure logging
 logger = logging.getLogger(__name__)
@@ -25,9 +26,12 @@ logger = logging.getLogger(__name__)
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 # JWT settings
-SECRET_KEY = os.getenv("SECRET_KEY", "your-secret-key-here")
+SECRET_KEY = os.getenv("SECRET_KEY", secrets.token_urlsafe(32))
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = 30
+
+# Password reset settings
+PASSWORD_RESET_TOKEN_EXPIRE_HOURS = 24
 
 # Validation patterns
 EMAIL_PATTERN = re.compile(r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$')
@@ -48,6 +52,10 @@ class UserAlreadyExistsError(AuthenticationError):
 
 class TokenValidationError(AuthenticationError):
     """Raised when token validation fails"""
+    pass
+
+class PasswordResetError(AuthenticationError):
+    """Raised when password reset fails"""
     pass
 
 class ValidationError(Exception):
@@ -272,3 +280,123 @@ def get_user_by_email(db: Session, email: str) -> Optional[User]:
     except Exception as e:
         logger.error(f"Unexpected error getting user by email: {str(e)}")
         raise AuthenticationError("Failed to retrieve user information")
+
+def generate_password_reset_token() -> str:
+    """Generate a secure random token for password reset"""
+    return secrets.token_urlsafe(32)
+
+def create_password_reset_token(db: Session, email: str) -> Optional[str]:
+    """Create a password reset token for the given email"""
+    try:
+        # Check if user exists
+        user = db.query(User).filter(User.email == email).first()
+        if not user:
+            logger.warning(f"Password reset requested for non-existent email: {email}")
+            return None
+        
+        # Invalidate any existing tokens for this email
+        db.query(PasswordResetToken).filter(
+            PasswordResetToken.email == email,
+            PasswordResetToken.used == "false"
+        ).update({"used": "true"})
+        
+        # Generate new token
+        token = generate_password_reset_token()
+        expires_at = datetime.utcnow() + timedelta(hours=PASSWORD_RESET_TOKEN_EXPIRE_HOURS)
+        
+        # Create token record
+        reset_token = PasswordResetToken(
+            email=email,
+            token=token,
+            expires_at=expires_at,
+            used="false"
+        )
+        
+        db.add(reset_token)
+        db.commit()
+        
+        logger.info(f"Password reset token created for {email}")
+        return token
+        
+    except SQLAlchemyError as e:
+        logger.error(f"Database error creating password reset token: {str(e)}")
+        db.rollback()
+        raise PasswordResetError("Failed to create password reset token")
+    except Exception as e:
+        logger.error(f"Unexpected error creating password reset token: {str(e)}")
+        raise PasswordResetError("Failed to create password reset token")
+
+def validate_password_reset_token(db: Session, token: str) -> Optional[str]:
+    """Validate a password reset token and return the associated email"""
+    try:
+        # Find the token
+        reset_token = db.query(PasswordResetToken).filter(
+            PasswordResetToken.token == token,
+            PasswordResetToken.used == "false"
+        ).first()
+        
+        if not reset_token:
+            logger.warning(f"Invalid or used password reset token: {token[:10]}...")
+            return None
+        
+        # Check if token is expired
+        if reset_token.expires_at < datetime.utcnow():
+            logger.warning(f"Expired password reset token: {token[:10]}...")
+            # Mark as used
+            reset_token.used = "true"
+            db.commit()
+            return None
+        
+        logger.info(f"Valid password reset token for {reset_token.email}")
+        return reset_token.email
+        
+    except SQLAlchemyError as e:
+        logger.error(f"Database error validating password reset token: {str(e)}")
+        raise PasswordResetError("Failed to validate password reset token")
+    except Exception as e:
+        logger.error(f"Unexpected error validating password reset token: {str(e)}")
+        raise PasswordResetError("Failed to validate password reset token")
+
+def reset_password_with_token(db: Session, token: str, new_password: str) -> bool:
+    """Reset password using a valid token"""
+    try:
+        # Validate the token
+        email = validate_password_reset_token(db, token)
+        if not email:
+            return False
+        
+        # Validate new password
+        validate_user_input(email, new_password)
+        
+        # Update user password
+        user = db.query(User).filter(User.email == email).first()
+        if not user:
+            logger.error(f"User not found for password reset: {email}")
+            return False
+        
+        # Hash new password
+        hashed_password = get_password_hash(new_password)
+        user.hashed_password = hashed_password
+        
+        # Mark token as used
+        reset_token = db.query(PasswordResetToken).filter(
+            PasswordResetToken.token == token
+        ).first()
+        if reset_token:
+            reset_token.used = "true"
+        
+        db.commit()
+        
+        logger.info(f"Password reset successful for {email}")
+        return True
+        
+    except ValidationError:
+        # Re-raise validation errors
+        raise
+    except SQLAlchemyError as e:
+        logger.error(f"Database error during password reset: {str(e)}")
+        db.rollback()
+        raise PasswordResetError("Failed to reset password")
+    except Exception as e:
+        logger.error(f"Unexpected error during password reset: {str(e)}")
+        raise PasswordResetError("Failed to reset password")

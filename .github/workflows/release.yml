@@ -1,0 +1,84 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'  # Trigger on version tags (v1.0.0, v2.1.0, etc.)
+
+jobs:
+  release:
+    name: Create Release
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.12'
+        
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r data/requirements.txt
+        
+    - name: Run tests
+      run: |
+        pip install pytest pytest-cov
+        pytest
+        
+    - name: Generate changelog
+      id: changelog
+      run: |
+        echo "## What's Changed" > changelog.md
+        echo "" >> changelog.md
+        
+        # Get commits since last tag
+        if git describe --tags --abbrev=0 HEAD^ 2>/dev/null; then
+          LAST_TAG=$(git describe --tags --abbrev=0 HEAD^)
+          git log $LAST_TAG..HEAD --pretty=format:"- %s (%an)" >> changelog.md
+        else
+          git log --pretty=format:"- %s (%an)" >> changelog.md
+        fi
+        
+        echo "" >> changelog.md
+        echo "**Full Changelog**: https://github.com/${{ github.repository }}/compare/$LAST_TAG...${{ github.ref_name }}" >> changelog.md
+        
+    - name: Create Release
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        tag_name: ${{ github.ref_name }}
+        release_name: Release ${{ github.ref_name }}
+        body_path: changelog.md
+        draft: false
+        prerelease: false
+        
+    - name: Upload release assets
+      run: |
+        # Create release archive
+        mkdir -p release/cora-${{ github.ref_name }}
+        cp -r app.py tools web data docs release/cora-${{ github.ref_name }}/
+        cp README.md NOW.md NEXT.md STATUS.md release/cora-${{ github.ref_name }}/
+        
+        # Remove unnecessary files
+        find release -name "__pycache__" -type d -exec rm -rf {} + 2>/dev/null || true
+        find release -name "*.pyc" -delete 2>/dev/null || true
+        
+        # Create zip
+        cd release
+        zip -r cora-${{ github.ref_name }}.zip cora-${{ github.ref_name }}
+        
+    # Future: Upload zip to release
+    # - name: Upload Release Asset
+    #   uses: actions/upload-release-asset@v1
+    #   env:
+    #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    #   with:
+    #     upload_url: ${{ steps.create_release.outputs.upload_url }}
+    #     asset_path: ./release/cora-${{ github.ref_name }}.zip
+    #     asset_name: cora-${{ github.ref_name }}.zip
+    #     asset_content_type: application/zip
