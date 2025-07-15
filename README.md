@@ -4,12 +4,18 @@ CORA is more than bookkeeping. She's your complete AI business advisor - handlin
 
 ## 🚀 Quick Start
 
+**Requirements:** Python 3.12 (not 3.13+)
+
 ```bash
+# Create virtual environment
+python3.12 -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
+
 # Install dependencies
 pip install -r data/requirements.txt
 
 # Start CORA
-python tools/start_cora.py
+python app.py
 ```
 
 ## 🧠 What CORA Does

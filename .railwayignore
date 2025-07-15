@@ -1,0 +1,57 @@
+# Railway ignore file - reduces deployment size
+# Development files
+venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.coverage
+htmlcov/
+.env
+.env.*
+
+# Local databases
+*.db
+*.sqlite3
+cora.db
+
+# Mind and archive directories
+.mind/
+.archive/
+.private/
+.ai/
+
+# Documentation artifacts
+docs/_build/
+docs/archive/
+
+# Test files
+tests/
+data/phase1_report_*.json
+data/beta_*.json
+tools/test_*.py
+tools/creative_*.py
+tools/*_demo.py
+
+# OS and IDE files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Git files
+.git/
+.gitignore
+
+# Local configuration
+.cursorrules
+security_scan_report.json
+
+# Backups and temporary files
+*.bak
+*.backup
+*.old
+*.tmp
+*.temp
+.temp/

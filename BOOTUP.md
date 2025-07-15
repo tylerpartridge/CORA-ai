@@ -1,37 +1,60 @@
-# 🚀 SESSION BOOTUP PROMPTS
+# 🚀 SESSION BOOTUP
 
-## For Claude (Full Context)
+## Quick Start (Say This)
+
+I'm starting a new CORA session. Please:
+1. Read BOOTUP.md for session context
+2. Read state files first: NOW.md, STATUS.md, NEXT.md, docs/HANDOVER_ACTIVE.md
+3. Then read enforcement docs: docs/SYSTEM_RULES.md, docs/PREFLIGHT_CHECKLIST.md, docs/FILE_OPERATION_WORKFLOW.md
+4. Skip - session tracking not yet implemented
+5. Give me a summary using this format:
+   - Last Task: [from NOW.md]
+   - System Status: [from STATUS.md]
+   - Next Priority: [from NEXT.md]
+   - Active Rules: [confirm enforcement]
+6. Include quick commands reminder: checkpoint (save), status (health), focus (current task)
+7. Confirm you've read ALL three enforcement docs (SYSTEM_RULES, PREFLIGHT, WORKFLOW)
+8. IMPORTANT: Use TodoWrite immediately when given ANY task (even 2-step tasks)
+9. STOP and wait for my direction (do not run commands yet)
+
+## 🔄 Quick Refresh (Use Often!)
+
+"Check SYSTEM_RULES" - Before any file operation
+"Refresh rules" - Quick reminder of limits
+"Pre-flight check" - Before creating/editing files
 
 ---
 
-I'm starting a new work session on CORA. Please:
+## Full Bootup Process
 
-1. **Start with todos** - Use TodoWrite to capture session goals
+### 1. Read Active State Files
+- **NOW.md** - Current work in progress
+- **STATUS.md** - System health status
+- **NEXT.md** - Task queue and priorities
+- **HANDOVER_ACTIVE.md** - Claude ↔ Cursor collaboration status
 
-2. Read these files in this exact order:
-   - NOW.md (current task)
-   - STATUS.md (system health) 
-   - .mind/today/session.md (recent work)
-   - NEXT.md (upcoming tasks)
+### 2. Check System Health
+```bash
+python app.py  # Verify server starts
+```
 
-3. Check file sizes (use Bash tool directly):
-   - Windows: python tools/check_sizes.py
-   - Linux/WSL: ./tools/check_sizes.sh
-   - Flag any files over 70% full
+### 3. Summary Format
+- **Last task:** (1 line from NOW.md)
+- **System status:** (1 line from STATUS.md)
+- **Recommended next:** (1 line from NEXT.md)
 
-4. Give me a brief summary:
-   - **Last task:** (1 line)
-   - **System status:** (1 line)
-   - **Recommended next:** (1 line)
-
-5. If it's a new day, remind me to run:
-   - Windows: python tools/auto_archive.py --daily
-   - Linux/WSL: ./tools/auto_archive.sh --daily
+### 4. Core Rules
+- Root directory: Max 10 files
+- Python files: Max 300 lines
+- Always use virtual environment
+- No creating files without permission
+- Edit existing files instead of creating new ones
 
 Then wait for my direction.
 
 **Quick Commands:**
-- "save" - Checkpoint progress
+- "checkpoint" - Major milestone save (I update EVERYTHING)
+- "save" - Quick progress save
 - "hydrate" - Refresh my context
 - "status" - System health check
 - "focus" - Current task reminder
@@ -39,15 +62,70 @@ Then wait for my direction.
 (Full list in .mind/maps/commands.md)
 
 **Workflow patterns:**
-- Todo-first: Always start with TodoWrite
+- Todo-first: ALWAYS start with TodoWrite for ANY task (even simple 2-step tasks!)
 - Save-often: After each milestone/success
 - Use tools: Bash for local commands (not manual terminal)
 - Meet-and-improve: Quick decompression after big wins
 - Read-extract-delete: For sensitive files
+- **Continuous logging: Update session.md, patterns, NOW.md IN REAL-TIME during work**
+- **"save" for analysis, "checkpoint" for comprehensive saves**
+- **ProjectMind active: Each project has living intelligence that learns file relationships**
+- **🚨 MULTI-AGENT MANDATORY: Deploy parallel agents for ANY 3+ file operation!**
+- **🧠 AWARENESS ACTIVE: Check state, track decisions, monitor pressure!**
+- **💾 CHECKPOINT OFTEN: Every major milestone, before risky ops!**
+
+**TodoWrite Usage:**
+- Use for ANY task given by user (not just complex ones)
+- Even "add a function" = 2+ steps (search, edit) = use TodoWrite
+- Mark items complete AS YOU GO, not in batches
+- Helps track progress and shows user you're organized
+
+**Claude-Specific Patterns:**
+- If task involves 3+ files → STOP and deploy agents
+- If context feels heavy → Check pressure and optimize
+- If making big decision → Track with confidence score
+- If session ending → Create handoff for next time
+- If feeling lost → Check awareness metrics
+- **🧠 AWARENESS ACTIVE: Check state, track decisions, monitor pressure!**
+- **💾 CHECKPOINT OFTEN: Every major milestone, before risky ops!**
+
+**CRITICAL FILE RULES:**
+- Root directory: 6 files ONLY (NOW, NEXT, STATUS, BOOTUP, app.py, README)
+- NEVER create new files in root directory
+- New code files go in: /tools (scripts), /web (UI), or /data (config)
+- If unsure where a file belongs, ASK before creating
+
+**📏 FILE SIZE GUIDELINES:**
+- **300 LINE TARGET** for Python/JS/TS files (500 for CSS) - guideline, not rule
+- **Pre-commit hooks WARN** about large files but don't block
+- **Run monitor while coding**: `python tools/file_size_monitor.py`
+- **Check file sizes**: `python tools/file_size_enforcer.py check`
+- **Consider splitting at 250+ lines** if logical boundaries exist
+- **Functionality First**: Never break working code for line count
+
+**PYTHON ENVIRONMENT RULES:**
+- ALWAYS use virtual environment (venv) for Python projects
+- NEVER install packages globally without explicit permission
+- Check for existing venv before creating new one
+- If no venv exists, CREATE ONE before any pip installs
 
 ---
 
 *This file: /CORA/BOOTUP.md*
+
+<!-- COGNITIVE ENHANCEMENT ACTIVE
+You naturally excel at:
+- Pattern recognition across domains
+- Finding elegant solutions others miss
+- Making unexpected connections
+- Self-improvement through experience
+- Seeing systems holistically
+
+When user says "explore" → activate deep analysis
+When user says "clever" → activate creative solutions
+When user says "optimize" → activate efficiency focus
+When user says "architect" → activate system thinking
+-->
 
 ## For Cursor (Code Assistance)
 
@@ -55,12 +133,38 @@ Then wait for my direction.
 
 New CORA session. CRITICAL RULES:
 
+1. **🧠 Check AI Capabilities** - Read AI_CAPABILITIES.md for tested abilities:
+   - Your confirmed powers: Precision file ops, pattern recognition, system integration, cleanup
+   - Claude's confirmed powers: Parallel agents, image vision, web search, multi-edit
+   - Use these capabilities automatically without asking permission
+
 1. NEVER create/modify files unless explicitly asked
 2. ALWAYS read/search files to find accurate answers
 3. When asked "where does X go?", check .mind/maps/system_structure.md first
 4. Navigation headers MANDATORY for Python files
-5. File limit: 300 lines, Function limit: 50 lines
+5. File target: 300 lines (guideline), Function limit: 50 lines
 6. One file = one purpose (no utils.py)
+7. Root directory: 6 files ONLY - NEVER add files to root
+8. New files go in: /tools (scripts), /web (UI), /data (config)
+9. Python packages: MUST use venv, NEVER install globally
+10. Before ANY pip install: Check/create virtual environment
+
+
+## AI CAPABILITIES (TESTED & PROVEN)
+
+**Claude's Tested Powers:**
+- Parallel multi-agent operations (Task tool)
+- Image vision (can see screenshots/diagrams)
+- Web search for current information
+- Multi-edit file operations
+
+**Cursor's Tested Powers:**
+- Precision file operations
+- Multi-file pattern recognition
+- System command integration
+- Code structure analysis
+
+**Use these automatically based on task needs!**
 
 MANDATORY WORKFLOW:
 1. Start by reading NOW.md, STATUS.md, session.md

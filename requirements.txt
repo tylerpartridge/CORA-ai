@@ -1,0 +1,40 @@
+# CORA v4 Requirements
+# Minimal dependencies for maximum speed
+# REQUIRES: Python 3.12+ (SQLAlchemy updated for 3.13 compatibility)
+
+# Core Framework
+fastapi==0.104.1
+uvicorn[standard]==0.24.0
+
+# Templates
+jinja2==3.1.2
+
+# Forms (when we add them)
+python-multipart==0.0.6
+
+# Production Server
+gunicorn==21.2.0
+
+# Environment Variables (for production)
+python-dotenv==1.0.0
+
+# Authentication
+python-jose[cryptography]==3.3.0  # JWT tokens
+passlib[bcrypt]==1.7.4  # Password hashing
+sqlalchemy>=2.0.31  # Database ORM (Python 3.13+ compatible)
+aiosqlite==0.19.0  # Async SQLite driver
+
+# Payment Processing
+stripe==7.9.0  # Stripe API for subscriptions
+plaid-python==12.0.0  # Plaid API for bank integration
+
+# Export/Reporting
+reportlab==4.0.9  # PDF generation for reports
+
+# Testing
+pytest==7.4.3
+pytest-asyncio==0.21.1  # For async test support
+httpx==0.25.2  # For testing FastAPI endpoints
+
+# Async file operations
+aiofiles==24.1.0  # For async file I/O operations
