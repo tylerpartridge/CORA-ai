@@ -1,0 +1,119 @@
+{
+  "userData": {
+    "name": "CORA",
+    "businessType": [
+      "plumbing",
+      "remodeling",
+      "concrete",
+      "painting",
+      "framing"
+    ],
+    "yearsInBusiness": "veteran",
+    "businessSize": "growing",
+    "serviceArea": "regional",
+    "customerType": [
+      "residential",
+      "commercial"
+    ],
+    "trackingMethod": [
+      "paper",
+      "spreadsheets",
+      "quickbooks"
+    ],
+    "mainChallenge": [
+      "profit_tracking",
+      "paperwork",
+      "taxes",
+      "time",
+      "cashflow"
+    ],
+    "fullConversation": [
+      {
+        "role": "assistant",
+        "content": "Hey! I'm CORA, and I'm going to help you see exactly how much profit you're leaving on the table. Takes about 3 minutes. First - what should I call you?"
+      },
+      {
+        "role": "user",
+        "content": "john"
+      },
+      {
+        "role": "assistant",
+        "content": "Great to meet you, John! What type of construction work do you do? [business_types]"
+      },
+      {
+        "role": "user",
+        "content": "Plumbing, Remodeling, Concrete, Painting and Framing"
+      },
+      {
+        "role": "assistant",
+        "content": "How long have you been in business? [years_in_business]"
+      },
+      {
+        "role": "user",
+        "content": "Industry Veteran"
+      },
+      {
+        "role": "assistant",
+        "content": "And how would you describe your business size? [business_sizes]"
+      },
+      {
+        "role": "user",
+        "content": "Growing Company"
+      },
+      {
+        "role": "assistant",
+        "content": "Where do you primarily work? [service_areas]"
+      },
+      {
+        "role": "user",
+        "content": "Regional"
+      },
+      {
+        "role": "assistant",
+        "content": "Who are your typical customers? [customer_types]"
+      },
+      {
+        "role": "user",
+        "content": "Homeowners and Businesses"
+      },
+      {
+        "role": "assistant",
+        "content": "How do you currently track your expenses and jobs? [tracking_methods]"
+      },
+      {
+        "role": "user",
+        "content": "Paper & Folders, Spreadsheets and QuickBooks"
+      },
+      {
+        "role": "assistant",
+        "content": "What's your biggest challenge with the business side? [pain_points]"
+      },
+      {
+        "role": "user",
+        "content": "Can't track profits, Paperwork chaos, Missing tax deductions, No time for books and Cash flow issues"
+      },
+      {
+        "role": "assistant",
+        "content": "When's your busiest time of year? [busy_seasons]"
+      },
+      {
+        "role": "user",
+        "content": "Summer"
+      },
+      {
+        "role": "assistant",
+        "content": "What's your main goal for the next year? [business_goals]"
+      },
+      {
+        "role": "user",
+        "content": "Increase Profits"
+      },
+      {
+        "role": "assistant",
+        "content": "Excellent! I've got a great picture of your business. Your personalized dashboard is ready. Remember, the more data you add, the smarter I get. Ready to dive in? [complete_onboarding]"
+      }
+    ]
+  },
+  "completedAt": "2025-08-02T10:53:15.159Z",
+  "savedAt": "2025-08-02T10:53:15.162387"
+}

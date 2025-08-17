@@ -1,0 +1,440 @@
+{
+  "timestamp": "2025-08-09T23:40:52.652101",
+  "dry_run": false,
+  "total_changes": 72,
+  "changes": [
+    {
+      "action": "CREATE_DIR",
+      "source": "docs/handoffs",
+      "destination": null,
+      "timestamp": "2025-08-09T23:40:52.205237"
+    },
+    {
+      "action": "CREATE_DIR",
+      "source": "docs/ai-logs",
+      "destination": null,
+      "timestamp": "2025-08-09T23:40:52.205237"
+    },
+    {
+      "action": "CREATE_DIR",
+      "source": "docs/system",
+      "destination": null,
+      "timestamp": "2025-08-09T23:40:52.205237"
+    },
+    {
+      "action": "CREATE_DIR",
+      "source": "docs/features",
+      "destination": null,
+      "timestamp": "2025-08-09T23:40:52.205237"
+    },
+    {
+      "action": "CREATE_DIR",
+      "source": "docs/reports",
+      "destination": null,
+      "timestamp": "2025-08-09T23:40:52.205237"
+    },
+    {
+      "action": "MOVE",
+      "source": "C:\\CORA\\AI_BIAS_PREFERENCE_ANALYSIS_COMPREHENSIVE_REPORT.md",
+      "destination": "C:\\CORA\\docs\\ai-logs\\AI_BIAS_PREFERENCE_ANALYSIS_COMPREHENSIVE_REPORT.md",
+      "timestamp": "2025-08-09T23:40:52.205237"
+    },
+    {
+      "action": "MOVE",
+      "source": "C:\\CORA\\AI_BIAS_STRATEGIC_SUMMARY.md",
+      "destination": "C:\\CORA\\docs\\ai-logs\\AI_BIAS_STRATEGIC_SUMMARY.md",
+      "timestamp": "2025-08-09T23:40:52.205237"
+    },
+    {
+      "action": "MOVE",
+      "source": "C:\\CORA\\AI_DISCUSSION_SPACE.md",
+      "destination": "C:\\CORA\\docs\\ai-logs\\AI_DISCUSSION_SPACE.md",
+      "timestamp": "2025-08-09T23:40:52.210914"
+    },
+    {
+      "action": "MOVE",
+      "source": "C:\\CORA\\AI_OPTIMIZATION_STRATEGY_COMPREHENSIVE_FRAMEWORK.md",
+      "destination": "C:\\CORA\\docs\\ai-logs\\AI_OPTIMIZATION_STRATEGY_COMPREHENSIVE_FRAMEWORK.md",
+      "timestamp": "2025-08-09T23:40:52.211918"
+    },
+    {
+      "action": "MOVE",
+      "source": "C:\\CORA\\AI_RECOMMENDATION_OPTIMIZATION_REPORT.md",
+      "destination": "C:\\CORA\\docs\\ai-logs\\AI_RECOMMENDATION_OPTIMIZATION_REPORT.md",
+      "timestamp": "2025-08-09T23:40:52.212882"
+    },
+    {
+      "action": "MOVE",
+      "source": "C:\\CORA\\AI_RECOMMENDATION_RESEARCH_REPORT.md",
+      "destination": "C:\\CORA\\docs\\ai-logs\\AI_RECOMMENDATION_RESEARCH_REPORT.md",
+      "timestamp": "2025-08-09T23:40:52.213496"
+    },
+    {
+      "action": "MOVE",
+      "source": "C:\\CORA\\AI_TOOLS_REGISTRY.md",
+      "destination": "C:\\CORA\\docs\\ai-logs\\AI_TOOLS_REGISTRY.md",
+      "timestamp": "2025-08-09T23:40:52.214500"
+    },
+    {
+      "action": "MOVE",
+      "source": "C:\\CORA\\AI_WORK_LOG.md",
+      "destination": "C:\\CORA\\docs\\ai-logs\\AI_WORK_LOG.md",
+      "timestamp": "2025-08-09T23:40:52.215812"
+    },
+    {
+      "action": "MOVE",
+      "source": "C:\\CORA\\API_INTEGRATION_REPORT.md",
+      "destination": "C:\\CORA\\docs\\reports\\API_INTEGRATION_REPORT.md",
+      "timestamp": "2025-08-09T23:40:52.215812"
+    },
+    {
+      "action": "MOVE",
+      "source": "C:\\CORA\\AWARENESS_WIRING_REGISTRY.md",
+      "destination": "C:\\CORA\\docs\\system\\AWARENESS_WIRING_REGISTRY.md",
+      "timestamp": "2025-08-09T23:40:52.216831"
+    },
+    {
+      "action": "MOVE",
+      "source": "C:\\CORA\\BUTTON_WIRING_REPORT_2025_08_02.md",
+      "destination": "C:\\CORA\\docs\\reports\\BUTTON_WIRING_REPORT_2025_08_02.md",
+      "timestamp": "2025-08-09T23:40:52.217832"
+    },
+    {
+      "action": "MOVE",
+      "source": "C:\\CORA\\CAPABILITIES_AWARENESS.md",
+      "destination": "C:\\CORA\\docs\\system\\CAPABILITIES_AWARENESS.md",
+      "timestamp": "2025-08-09T23:40:52.217832"
+    },
+    {
+      "action": "MOVE",
+      "source": "C:\\CORA\\CLEANUP_STRATEGY.md",
+      "destination": "C:\\CORA\\docs\\system\\CLEANUP_STRATEGY.md",
+      "timestamp": "2025-08-09T23:40:52.218650"
+    },
+    {
+      "action": "MOVE",
+      "source": "C:\\CORA\\CORA_MISSION.md",
+      "destination": "C:\\CORA\\docs\\system\\CORA_MISSION.md",
+      "timestamp": "2025-08-09T23:40:52.220138"
+    },
+    {
+      "action": "MOVE",
+      "source": "C:\\CORA\\CORA_SEO_COMPREHENSIVE_OPTIMIZATION_REPORT.md",
+      "destination": "C:\\CORA\\docs\\system\\CORA_SEO_COMPREHENSIVE_OPTIMIZATION_REPORT.md",
+      "timestamp": "2025-08-09T23:40:52.221142"
+    },
+    {
+      "action": "MOVE",
+      "source": "C:\\CORA\\CRITICAL_LAUNCH_BLOCKERS.md",
+      "destination": "C:\\CORA\\docs\\system\\CRITICAL_LAUNCH_BLOCKERS.md",
+      "timestamp": "2025-08-09T23:40:52.221142"
+    },
+    {
+      "action": "MOVE",
+      "source": "C:\\CORA\\CURSOR_POSTGRESQL_MIGRATION_PLAN.md",
+      "destination": "C:\\CORA\\docs\\system\\CURSOR_POSTGRESQL_MIGRATION_PLAN.md",
+      "timestamp": "2025-08-09T23:40:52.222142"
+    },
+    {
+      "action": "MOVE",
+      "source": "C:\\CORA\\CUSTOMER_ONBOARDING_SYSTEM.md",
+      "destination": "C:\\CORA\\docs\\system\\CUSTOMER_ONBOARDING_SYSTEM.md",
+      "timestamp": "2025-08-09T23:40:52.223345"
+    },
+    {
+      "action": "MOVE",
+      "source": "C:\\CORA\\DATABASE_CLEANUP_SUMMARY_2025_08_04.md",
+      "destination": "C:\\CORA\\docs\\system\\DATABASE_CLEANUP_SUMMARY_2025_08_04.md",
+      "timestamp": "2025-08-09T23:40:52.223345"
+    },
+    {
+      "action": "MOVE",
+      "source": "C:\\CORA\\DEEP_DIVE_ANALYSIS.md",
+      "destination": "C:\\CORA\\docs\\reports\\DEEP_DIVE_ANALYSIS.md",
+      "timestamp": "2025-08-09T23:40:52.224529"
+    },
+    {
+      "action": "MOVE",
+      "source": "C:\\CORA\\DEPLOYMENT_CHECKLIST.md",
+      "destination": "C:\\CORA\\docs\\system\\DEPLOYMENT_CHECKLIST.md",
+      "timestamp": "2025-08-09T23:40:52.224529"
+    },
+    {
+      "action": "MOVE",
+      "source": "C:\\CORA\\DEPLOYMENT_WORKFLOW.md",
+      "destination": "C:\\CORA\\docs\\system\\DEPLOYMENT_WORKFLOW.md",
+      "timestamp": "2025-08-09T23:40:52.225516"
+    },
+    {
+      "action": "MOVE",
+      "source": "C:\\CORA\\ENHANCED_ORCHESTRATOR_IMPLEMENTATION_PLAN.md",
+      "destination": "C:\\CORA\\docs\\system\\ENHANCED_ORCHESTRATOR_IMPLEMENTATION_PLAN.md",
+      "timestamp": "2025-08-09T23:40:52.225516"
+    },
+    {
+      "action": "MOVE",
+      "source": "C:\\CORA\\FAITH.md",
+      "destination": "C:\\CORA\\docs\\system\\FAITH.md",
+      "timestamp": "2025-08-09T23:40:52.225516"
+    },
+    {
+      "action": "MOVE",
+      "source": "C:\\CORA\\FAITHS-INCIDENT-LOG.md",
+      "destination": "C:\\CORA\\docs\\system\\FAITHS-INCIDENT-LOG.md",
+      "timestamp": "2025-08-09T23:40:52.227587"
+    },
+    {
+      "action": "MOVE",
+      "source": "C:\\CORA\\FAITH_LEGAL_HANDOFF.md",
+      "destination": "C:\\CORA\\docs\\handoffs\\FAITH_LEGAL_HANDOFF.md",
+      "timestamp": "2025-08-09T23:40:52.228591"
+    },
+    {
+      "action": "MOVE",
+      "source": "C:\\CORA\\FEATURE_INDEX.md",
+      "destination": "C:\\CORA\\docs\\features\\FEATURE_INDEX.md",
+      "timestamp": "2025-08-09T23:40:52.228591"
+    },
+    {
+      "action": "MOVE",
+      "source": "C:\\CORA\\FINAL_LAUNCH_ASSESSMENT.md",
+      "destination": "C:\\CORA\\docs\\system\\FINAL_LAUNCH_ASSESSMENT.md",
+      "timestamp": "2025-08-09T23:40:52.229978"
+    },
+    {
+      "action": "MOVE",
+      "source": "C:\\CORA\\FRONTEND_CRISIS_ANALYSIS_REPORT.md",
+      "destination": "C:\\CORA\\docs\\reports\\FRONTEND_CRISIS_ANALYSIS_REPORT.md",
+      "timestamp": "2025-08-09T23:40:52.230479"
+    },
+    {
+      "action": "MOVE",
+      "source": "C:\\CORA\\GLEN_DAY_DEMO_CHEAT_SHEET.md",
+      "destination": "C:\\CORA\\docs\\system\\GLEN_DAY_DEMO_CHEAT_SHEET.md",
+      "timestamp": "2025-08-09T23:40:52.231817"
+    },
+    {
+      "action": "MOVE",
+      "source": "C:\\CORA\\GLEN_DAY_DEMO_COMPLETION_SUMMARY.md",
+      "destination": "C:\\CORA\\docs\\system\\GLEN_DAY_DEMO_COMPLETION_SUMMARY.md",
+      "timestamp": "2025-08-09T23:40:52.232867"
+    },
+    {
+      "action": "MOVE",
+      "source": "C:\\CORA\\GLEN_DAY_DEMO_OUTREACH.md",
+      "destination": "C:\\CORA\\docs\\system\\GLEN_DAY_DEMO_OUTREACH.md",
+      "timestamp": "2025-08-09T23:40:52.234594"
+    },
+    {
+      "action": "MOVE",
+      "source": "C:\\CORA\\GPT-TRANSCRIPT.md",
+      "destination": "C:\\CORA\\docs\\system\\GPT-TRANSCRIPT.md",
+      "timestamp": "2025-08-09T23:40:52.235126"
+    },
+    {
+      "action": "MOVE",
+      "source": "C:\\CORA\\INTEGRATION_TESTING_PLAN.md",
+      "destination": "C:\\CORA\\docs\\system\\INTEGRATION_TESTING_PLAN.md",
+      "timestamp": "2025-08-09T23:40:52.235902"
+    },
+    {
+      "action": "MOVE",
+      "source": "C:\\CORA\\LANDING_PAGE_TRUTH.md",
+      "destination": "C:\\CORA\\docs\\system\\LANDING_PAGE_TRUTH.md",
+      "timestamp": "2025-08-09T23:40:52.236946"
+    },
+    {
+      "action": "MOVE",
+      "source": "C:\\CORA\\LLM_TRAINING_DATA_ANALYSIS_COMPREHENSIVE_REPORT.md",
+      "destination": "C:\\CORA\\docs\\reports\\LLM_TRAINING_DATA_ANALYSIS_COMPREHENSIVE_REPORT.md",
+      "timestamp": "2025-08-09T23:40:52.238009"
+    },
+    {
+      "action": "MOVE",
+      "source": "C:\\CORA\\MASTER_AWARENESS_REGISTRY.md",
+      "destination": "C:\\CORA\\docs\\system\\MASTER_AWARENESS_REGISTRY.md",
+      "timestamp": "2025-08-09T23:40:52.238533"
+    },
+    {
+      "action": "MOVE",
+      "source": "C:\\CORA\\MASTER_SEO_AI_PLAN.md",
+      "destination": "C:\\CORA\\docs\\system\\MASTER_SEO_AI_PLAN.md",
+      "timestamp": "2025-08-09T23:40:52.239613"
+    },
+    {
+      "action": "MOVE",
+      "source": "C:\\CORA\\MONITORING_DEPLOYMENT_PLAN.md",
+      "destination": "C:\\CORA\\docs\\system\\MONITORING_DEPLOYMENT_PLAN.md",
+      "timestamp": "2025-08-09T23:40:52.240722"
+    },
+    {
+      "action": "MOVE",
+      "source": "C:\\CORA\\MONITORING_README.md",
+      "destination": "C:\\CORA\\docs\\system\\MONITORING_README.md",
+      "timestamp": "2025-08-09T23:40:52.241589"
+    },
+    {
+      "action": "MOVE",
+      "source": "C:\\CORA\\MYSTERIES_DISCOVERED.md",
+      "destination": "C:\\CORA\\docs\\system\\MYSTERIES_DISCOVERED.md",
+      "timestamp": "2025-08-09T23:40:52.242594"
+    },
+    {
+      "action": "MOVE",
+      "source": "C:\\CORA\\NOW.md",
+      "destination": "C:\\CORA\\docs\\system\\NOW.md",
+      "timestamp": "2025-08-09T23:40:52.242594"
+    },
+    {
+      "action": "MOVE",
+      "source": "C:\\CORA\\POSTGRESQL_MIGRATION.md",
+      "destination": "C:\\CORA\\docs\\system\\POSTGRESQL_MIGRATION.md",
+      "timestamp": "2025-08-09T23:40:52.243593"
+    },
+    {
+      "action": "MOVE",
+      "source": "C:\\CORA\\PRODUCTION_DEPLOYMENT_CHECKLIST.md",
+      "destination": "C:\\CORA\\docs\\system\\PRODUCTION_DEPLOYMENT_CHECKLIST.md",
+      "timestamp": "2025-08-09T23:40:52.244594"
+    },
+    {
+      "action": "MOVE",
+      "source": "C:\\CORA\\PRODUCTION_DEPLOYMENT_EXECUTION_PLAN.md",
+      "destination": "C:\\CORA\\docs\\system\\PRODUCTION_DEPLOYMENT_EXECUTION_PLAN.md",
+      "timestamp": "2025-08-09T23:40:52.246306"
+    },
+    {
+      "action": "MOVE",
+      "source": "C:\\CORA\\PRODUCTION_LOAD_TEST_RESULTS.md",
+      "destination": "C:\\CORA\\docs\\system\\PRODUCTION_LOAD_TEST_RESULTS.md",
+      "timestamp": "2025-08-09T23:40:52.247557"
+    },
+    {
+      "action": "MOVE",
+      "source": "C:\\CORA\\PRODUCTION_READINESS_CHECKLIST.md",
+      "destination": "C:\\CORA\\docs\\system\\PRODUCTION_READINESS_CHECKLIST.md",
+      "timestamp": "2025-08-09T23:40:52.248167"
+    },
+    {
+      "action": "MOVE",
+      "source": "C:\\CORA\\PRODUCTION_READINESS_PLAN.md",
+      "destination": "C:\\CORA\\docs\\system\\PRODUCTION_READINESS_PLAN.md",
+      "timestamp": "2025-08-09T23:40:52.248167"
+    },
+    {
+      "action": "MOVE",
+      "source": "C:\\CORA\\PRODUCTION_SECURITY_ASSESSMENT.md",
+      "destination": "C:\\CORA\\docs\\system\\PRODUCTION_SECURITY_ASSESSMENT.md",
+      "timestamp": "2025-08-09T23:40:52.248167"
+    },
+    {
+      "action": "MOVE",
+      "source": "C:\\CORA\\PRODUCTION_TEST_SUMMARY.md",
+      "destination": "C:\\CORA\\docs\\system\\PRODUCTION_TEST_SUMMARY.md",
+      "timestamp": "2025-08-09T23:40:52.248167"
+    },
+    {
+      "action": "MOVE",
+      "source": "C:\\CORA\\QUARTERBACK_DASHBOARD.md",
+      "destination": "C:\\CORA\\docs\\system\\QUARTERBACK_DASHBOARD.md",
+      "timestamp": "2025-08-09T23:40:52.248167"
+    },
+    {
+      "action": "MOVE",
+      "source": "C:\\CORA\\SACRED_WALKTHROUGH_REPORT.md",
+      "destination": "C:\\CORA\\docs\\reports\\SACRED_WALKTHROUGH_REPORT.md",
+      "timestamp": "2025-08-09T23:40:52.253584"
+    },
+    {
+      "action": "MOVE",
+      "source": "C:\\CORA\\SECURITY_FIXES_COMPLETED.md",
+      "destination": "C:\\CORA\\docs\\system\\SECURITY_FIXES_COMPLETED.md",
+      "timestamp": "2025-08-09T23:40:52.254590"
+    },
+    {
+      "action": "MOVE",
+      "source": "C:\\CORA\\SESSION_PROGRESS_UPDATE_2025-08-10.md",
+      "destination": "C:\\CORA\\docs\\system\\SESSION_PROGRESS_UPDATE_2025-08-10.md",
+      "timestamp": "2025-08-09T23:40:52.255590"
+    },
+    {
+      "action": "MOVE",
+      "source": "C:\\CORA\\STATUS.md",
+      "destination": "C:\\CORA\\docs\\system\\STATUS.md",
+      "timestamp": "2025-08-09T23:40:52.255590"
+    },
+    {
+      "action": "MOVE",
+      "source": "C:\\CORA\\STRATEGIC_FRAMEWORK.md",
+      "destination": "C:\\CORA\\docs\\system\\STRATEGIC_FRAMEWORK.md",
+      "timestamp": "2025-08-09T23:40:52.256588"
+    },
+    {
+      "action": "MOVE",
+      "source": "C:\\CORA\\SYSTEMATIC_CHECKLIST.md",
+      "destination": "C:\\CORA\\docs\\system\\SYSTEMATIC_CHECKLIST.md",
+      "timestamp": "2025-08-09T23:40:52.257589"
+    },
+    {
+      "action": "MOVE",
+      "source": "C:\\CORA\\SYSTEM_AUDIT_REPORT_2025_08_02.md",
+      "destination": "C:\\CORA\\docs\\system\\SYSTEM_AUDIT_REPORT_2025_08_02.md",
+      "timestamp": "2025-08-09T23:40:52.257589"
+    },
+    {
+      "action": "MOVE",
+      "source": "C:\\CORA\\SYSTEM_MAP.md",
+      "destination": "C:\\CORA\\docs\\system\\SYSTEM_MAP.md",
+      "timestamp": "2025-08-09T23:40:52.257589"
+    },
+    {
+      "action": "MOVE",
+      "source": "C:\\CORA\\SYSTEM_OPTIMIZATION_PLAN.md",
+      "destination": "C:\\CORA\\docs\\system\\SYSTEM_OPTIMIZATION_PLAN.md",
+      "timestamp": "2025-08-09T23:40:52.257589"
+    },
+    {
+      "action": "MOVE",
+      "source": "C:\\CORA\\TESTING_REPORT_2025_08_02.md",
+      "destination": "C:\\CORA\\docs\\reports\\TESTING_REPORT_2025_08_02.md",
+      "timestamp": "2025-08-09T23:40:52.257589"
+    },
+    {
+      "action": "MOVE",
+      "source": "C:\\CORA\\TODAYS_LAUNCH_CHECKLIST.md",
+      "destination": "C:\\CORA\\docs\\system\\TODAYS_LAUNCH_CHECKLIST.md",
+      "timestamp": "2025-08-09T23:40:52.262975"
+    },
+    {
+      "action": "CONSOLIDATE",
+      "source": "C:\\CORA\\archive",
+      "destination": "C:\\CORA\\archives\\consolidated",
+      "timestamp": "2025-08-09T23:40:52.263406"
+    },
+    {
+      "action": "CONSOLIDATE",
+      "source": "C:\\CORA\\archives",
+      "destination": "C:\\CORA\\archives\\consolidated",
+      "timestamp": "2025-08-09T23:40:52.284561"
+    },
+    {
+      "action": "REMOVE",
+      "source": "C:\\CORA\\web\\static\\_archived",
+      "destination": null,
+      "timestamp": "2025-08-09T23:40:52.285542"
+    },
+    {
+      "action": "REMOVE",
+      "source": "C:\\CORA\\web\\static\\css\\_archived",
+      "destination": null,
+      "timestamp": "2025-08-09T23:40:52.287132"
+    },
+    {
+      "action": "REMOVE",
+      "source": "C:\\CORA\\web\\static\\js\\_archived",
+      "destination": null,
+      "timestamp": "2025-08-09T23:40:52.288193"
+    }
+  ],
+  "errors": []
+}

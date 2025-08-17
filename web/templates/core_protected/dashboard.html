@@ -1,0 +1,599 @@
+{% extends "base_app.html" %}
+
+{% block page_title %}CORA Dashboard v2.0 | Updated{% endblock %}
+{% block page_description %}Track job costs, profits, and cash flow in real-time for your contracting business.{% endblock %}
+
+{% block content %}
+<style>
+    /* Dashboard-specific styles that inherit construction theme */
+    :root {
+        --dashboard-card-bg: rgba(45, 55, 72, 0.95);
+        --dashboard-border: rgba(255, 152, 0, 0.2);
+        --profit-green: #22c55e;
+        --loss-red: #ef4444;
+        --warning-yellow: #f59e0b;
+    }
+
+    .dashboard-container {
+        max-width: 1600px;
+        margin: 0 auto;
+        padding: 3rem;
+        background: linear-gradient(135deg, rgba(26, 26, 26, 0.9) 0%, rgba(13, 13, 13, 0.95) 100%);
+        border-radius: 32px;
+        box-shadow: inset 0 2px 4px rgba(255, 152, 0, 0.1);
+    }
+
+    .dashboard-header {
+        margin-bottom: 2rem;
+    }
+
+    .dashboard-title {
+        color: #e2e8f0;
+        font-size: 1.875rem;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+        letter-spacing: -0.025em;
+    }
+    
+    .dashboard-title .highlight {
+        color: #FF9800;
+        font-weight: 700;
+    }
+
+    .dashboard-subtitle {
+        color: #a0aec0;
+        font-size: 1rem;
+        font-weight: 400;
+        margin-bottom: 2.5rem;
+    }
+
+    .metrics-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+        margin-bottom: 3rem;
+    }
+
+    .metric-card {
+        background: #2d3748;
+        border: 4px solid #FF9800;
+        border-radius: 20px;
+        padding: 3rem 2rem;
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+        box-shadow: 0 8px 32px rgba(255, 152, 0, 0.2);
+    }
+
+    .metric-card:hover {
+        transform: translateY(-10px) scale(1.05);
+        border-color: #FFC107;
+        box-shadow: 0 16px 40px rgba(255, 152, 0, 0.4);
+        background: #FF9800;
+    }
+    
+    .metric-card:hover .metric-value {
+        color: #1a1a1a;
+    }
+    
+    .metric-card:hover .metric-title {
+        color: #1a1a1a;
+    }
+
+    .metric-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 1px;
+        background: linear-gradient(90deg, #FF9800, rgba(255, 152, 0, 0.1));
+    }
+
+    .metric-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 1rem;
+    }
+
+    .metric-title {
+        color: #a0aec0;
+        font-size: 0.875rem;
+        font-weight: 500;
+        letter-spacing: 0.025em;
+    }
+
+    .metric-icon {
+        width: 40px;
+        height: 40px;
+        background: rgba(255, 152, 0, 0.2);
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #FF9800;
+        font-size: 1.2rem;
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .metric-card:hover .metric-icon {
+        background: rgba(255, 152, 0, 0.3);
+        transform: scale(1.1);
+        box-shadow: 0 4px 12px rgba(255, 152, 0, 0.3);
+    }
+    
+    .metric-icon::before {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: -100%;
+        width: 100%;
+        height: 1px;
+        background: rgba(255, 255, 255, 0.6);
+        transition: left 0.6s ease;
+    }
+    
+    .metric-card:hover .metric-icon::before {
+        left: 100%;
+    }
+
+    .metric-value {
+        font-size: 4rem;
+        font-weight: 900;
+        margin: 1rem 0;
+        font-variant-numeric: tabular-nums;
+        letter-spacing: -0.05em;
+        line-height: 0.9;
+        color: #FF9800;
+        text-shadow: 3px 3px 12px rgba(255, 152, 0, 0.5);
+    }
+
+    .metric-value.profit { color: var(--profit-green); }
+    .metric-value.loss { color: var(--loss-red); }
+    .metric-value.warning { color: var(--warning-yellow); }
+    .metric-value.primary { color: #FF9800; }
+
+    .metric-change {
+        font-size: 0.9rem;
+        font-weight: 500;
+    }
+
+    .metric-change.positive { color: var(--profit-green); }
+    .metric-change.negative { color: var(--loss-red); }
+
+    .dashboard-sections {
+        display: grid;
+        grid-template-columns: 1.5fr 1fr;
+        gap: 2rem;
+        margin-top: 3rem;
+    }
+    
+    @media (max-width: 1024px) {
+        .dashboard-sections {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    .section-card {
+        background: linear-gradient(135deg, rgba(45, 55, 72, 0.95) 0%, rgba(45, 55, 72, 0.8) 100%);
+        border: 1px solid rgba(255, 152, 0, 0.1);
+        border-radius: 16px;
+        padding: 2rem;
+        backdrop-filter: blur(20px);
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    }
+
+    .section-title {
+        color: #e2e8f0;
+        font-size: 1.25rem;
+        font-weight: 600;
+        margin-bottom: 1.5rem;
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+    }
+    
+    .section-title .icon {
+        color: #FF9800;
+        font-size: 1.1rem;
+    }
+
+    .job-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1.25rem 0;
+        border-bottom: 1px solid rgba(255, 152, 0, 0.08);
+        transition: all 0.2s ease;
+        cursor: pointer;
+        border-radius: 8px;
+        margin: 0 -0.5rem;
+        padding-left: 0.5rem;
+        padding-right: 0.5rem;
+    }
+    
+    .job-item:hover {
+        background: rgba(255, 152, 0, 0.03);
+        transform: translateX(4px);
+        border-color: rgba(255, 152, 0, 0.15);
+    }
+    
+    .job-item:last-child {
+        border-bottom: none;
+        margin-bottom: 0;
+    }
+
+    .job-item:last-child {
+        border-bottom: none;
+    }
+
+    .job-name {
+        color: #e2e8f0;
+        font-weight: 600;
+        font-size: 1rem;
+    }
+
+    .job-status {
+        padding: 0.3rem 0.8rem;
+        border-radius: 4px;
+        font-size: 0.8rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .job-status.on-track {
+        background: rgba(34, 197, 94, 0.2);
+        color: var(--profit-green);
+        border: 1px solid var(--profit-green);
+    }
+
+    .job-status.over-budget {
+        background: rgba(239, 68, 68, 0.2);
+        color: var(--loss-red);
+        border: 1px solid var(--loss-red);
+    }
+
+    .job-status.warning {
+        background: rgba(245, 158, 11, 0.2);
+        color: var(--warning-yellow);
+        border: 1px solid var(--warning-yellow);
+    }
+
+    .quick-actions {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 1rem;
+        margin-top: 1.5rem;
+    }
+
+    .action-btn {
+        background: linear-gradient(135deg, #FF9800 0%, #F57C00 100%);
+        color: #1a1a1a;
+        border: none;
+        padding: 1rem 1.5rem;
+        border-radius: 8px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        transition: all 0.3s ease;
+        cursor: pointer;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .action-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(255, 152, 0, 0.4);
+        background: linear-gradient(135deg, #F57C00 0%, #E65100 100%);
+    }
+    
+    .action-btn:active {
+        transform: translateY(0px);
+        transition: transform 0.1s ease;
+    }
+    
+    .action-btn::after {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 0;
+        height: 0;
+        background: rgba(255, 255, 255, 0.2);
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+        transition: all 0.6s ease;
+    }
+    
+    .action-btn:hover::after {
+        width: 300px;
+        height: 300px;
+    }
+
+    .loading-state {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 200px;
+        color: #a0aec0;
+        flex-direction: column;
+        gap: 1rem;
+    }
+    
+    .loading-spinner {
+        width: 32px;
+        height: 32px;
+        border: 3px solid rgba(255, 152, 0, 0.2);
+        border-top: 3px solid #FF9800;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+    }
+    
+    @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+    
+    .loading-text {
+        font-weight: 500;
+        letter-spacing: 0.5px;
+    }
+
+    @media (max-width: 768px) {
+        .dashboard-container {
+            padding: 1rem;
+        }
+        
+        .dashboard-sections {
+            grid-template-columns: 1fr;
+        }
+        
+        .metrics-grid {
+            grid-template-columns: 1fr;
+        }
+        
+        .dashboard-title {
+            font-size: 2rem;
+        }
+    }
+</style>
+
+<div class="dashboard-container">
+    <!-- Dashboard Header -->
+    <div class="dashboard-header">
+        <h1 class="dashboard-title">🚀 COMPLETELY NEW DESIGN: Welcome to <span class="highlight">CORA</span></h1>
+        <p class="dashboard-subtitle">Your intelligent construction finance companion</p>
+    </div>
+
+    <!-- Key Metrics with charts -->
+    <!-- Filters -->
+    <div class="dashboard-filters" style="display: flex; gap: 1rem; margin-bottom: 1.5rem; align-items:center;">
+        <select id="periodFilter" onchange="loadFilteredData()" style="padding: 0.5rem 1rem; background: #2d3748; color: #e2e8f0; border: 1px solid #FF9800; border-radius: 8px;">
+            <option value="week">This Week</option>
+            <option value="month" selected>This Month</option>
+            <option value="quarter">This Quarter</option>
+            <option value="year">This Year</option>
+        </select>
+        <select id="statusFilter" onchange="loadFilteredData()" style="padding: 0.5rem 1rem; background: #2d3748; color: #e2e8f0; border: 1px solid #FF9800; border-radius: 8px;">
+            <option value="">All Jobs</option>
+            <option value="active">Active</option>
+            <option value="completed">Completed</option>
+            <option value="on-hold">On-Hold</option>
+        </select>
+    </div>
+
+    <div class="metrics-grid">
+        <div class="metric-card">
+            <div class="metric-header">
+                <span class="metric-title">Monthly Revenue</span>
+                <div class="metric-icon"><i class="fas fa-dollar-sign"></i></div>
+            </div>
+            <div class="metric-value primary" id="monthly-revenue">$0</div>
+            <div class="metric-change" id="revenue-change">Loading...</div>
+            <canvas id="revenueChart" width="300" height="150" style="margin-top:1rem;"></canvas>
+        </div>
+
+        <div class="metric-card">
+            <div class="metric-header">
+                <span class="metric-title">Monthly Expenses</span>
+                <div class="metric-icon"><i class="fas fa-chart-line"></i></div>
+            </div>
+            <div class="metric-value warning" id="monthly-expenses">$0</div>
+            <div class="metric-change" id="expenses-change">Loading...</div>
+            <canvas id="costChart" width="300" height="150" style="margin-top:1rem;"></canvas>
+        </div>
+
+        <div class="metric-card">
+            <div class="metric-header">
+                <span class="metric-title">Net Profit</span>
+                <div class="metric-icon"><i class="fas fa-bullseye"></i></div>
+            </div>
+            <div class="metric-value" id="net-profit">$0</div>
+            <div class="metric-change" id="profit-change">Loading...</div>
+            <canvas id="profitChart" width="300" height="150" style="margin-top:1rem;"></canvas>
+        </div>
+
+        <div class="metric-card">
+            <div class="metric-header">
+                <span class="metric-title">Active Jobs</span>
+                <div class="metric-icon"><i class="fas fa-hard-hat"></i></div>
+            </div>
+            <div class="metric-value primary" id="active-jobs">0</div>
+            <div class="metric-change" id="jobs-change">Loading...</div>
+            <canvas id="jobsChart" width="300" height="150" style="margin-top:1rem;"></canvas>
+        </div>
+    </div>
+
+    <!-- Main Dashboard Sections -->
+    <div class="dashboard-sections">
+        <!-- Left Column: Job Overview -->
+        <div class="section-card">
+            <h2 class="section-title">
+                <i class="fas fa-building icon"></i>
+                Current Projects
+            </h2>
+            <div id="jobs-list" class="loading-state">
+                <div class="loading-spinner"></div>
+                <div class="loading-text">Loading job data...</div>
+            </div>
+            
+            <div class="quick-actions">
+                <button class="action-btn" onclick="addNewExpense()"><i class="fas fa-plus me-2"></i>Add Expense</button>
+                <button class="action-btn" onclick="viewReports()"><i class="fas fa-chart-bar me-2"></i>View Reports</button>
+            </div>
+        </div>
+
+        <!-- Right Column: Insights -->
+        <div class="section-card">
+            <h2 class="section-title">
+                <i class="fas fa-lightbulb icon"></i>
+                Smart Insights
+            </h2>
+            <div id="insights-list" class="loading-state">
+                <div class="loading-spinner"></div>
+                <div class="loading-text">Loading insights...</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<script>
+// Dashboard JavaScript - Loads real data
+document.addEventListener('DOMContentLoaded', async function() {
+    try {
+        // Load dashboard metrics
+        const response = await fetch('/api/dashboard/metrics');
+        const data = await response.json();
+        
+        if (data.status === 'success') {
+            // Update metrics
+            document.getElementById('monthly-revenue').textContent = `$${data.metrics.revenue.toLocaleString()}`;
+            document.getElementById('monthly-expenses').textContent = `$${data.metrics.expenses.toLocaleString()}`;
+            
+            const netProfit = data.metrics.profit;
+            const profitElement = document.getElementById('net-profit');
+            profitElement.textContent = `$${netProfit.toLocaleString()}`;
+            profitElement.className = `metric-value ${netProfit >= 0 ? 'profit' : 'loss'}`;
+            
+            // Update profit margin change indicator
+            const profitChange = document.getElementById('profit-change');
+            profitChange.textContent = `${data.metrics.profit_margin}% margin`;
+            profitChange.className = `metric-change ${netProfit >= 0 ? 'positive' : 'negative'}`;
+            // Initialize simple charts
+            const dates = ["W1","W2","W3","W4"]; // placeholder labels
+            const revCtx = document.getElementById('revenueChart');
+            const expCtx = document.getElementById('costChart');
+            const profCtx = document.getElementById('profitChart');
+            const jobsCtx = document.getElementById('jobsChart');
+
+            if (window.Chart && revCtx) {
+                new Chart(revCtx, { type: 'line', data: { labels: dates, datasets: [{ label: 'Revenue', data: [data.metrics.revenue/4, data.metrics.revenue/3, data.metrics.revenue/2, data.metrics.revenue], borderColor: '#22c55e', backgroundColor: 'rgba(34,197,94,0.2)', tension: 0.3 }]}, options: {responsive:true, plugins:{legend:{display:false}}}});
+            }
+            if (window.Chart && expCtx) {
+                new Chart(expCtx, { type: 'doughnut', data: { labels: ['Materials','Labor','Other'], datasets: [{ data: [60,30,10], backgroundColor: ['#FF9800','#F57C00','#FFC107'] }]}, options: {responsive:true, plugins:{legend:{display:true}}}});
+            }
+            if (window.Chart && profCtx) {
+                new Chart(profCtx, { type: 'bar', data: { labels: dates, datasets: [{ label: 'Profit', data: [data.metrics.profit/4, data.metrics.profit/3, data.metrics.profit/2, data.metrics.profit], backgroundColor: '#4ade80' }]}, options: {responsive:true, plugins:{legend:{display:false}}}});
+            }
+            if (window.Chart && jobsCtx) {
+                new Chart(jobsCtx, { type: 'bar', data: { labels: ['Active','Completed','On-Hold'], datasets: [{ data: [data.metrics.active_jobs || 0, 2, 1], backgroundColor: ['#4db8ff','#22c55e','#f59e0b'] }]}, options: {responsive:true, plugins:{legend:{display:false}}, scales:{y:{ticks:{precision:0}}}}});
+            }
+        }
+        
+        // Load insights
+        const insightsResponse = await fetch('/api/dashboard/insights');
+        const insightsData = await insightsResponse.json();
+        
+        if (insightsData.status === 'success') {
+            const insightsList = document.getElementById('insights-list');
+            if (insightsData.insights.length > 0) {
+                insightsList.innerHTML = insightsData.insights.slice(0, 3).map(insight => `
+                    <div class="job-item">
+                        <div>
+                            <div class="job-name">${insight.title}</div>
+                            <div style="color: #a0aec0; font-size: 0.9rem; margin-top: 0.3rem;">${insight.message}</div>
+                        </div>
+                        <div class="job-status ${insight.priority}">${insight.priority}</div>
+                    </div>
+                `).join('');
+            } else {
+                insightsList.innerHTML = '<div style="color: #a0aec0;">No insights available. Start tracking expenses to get AI-powered recommendations.</div>';
+            }
+        }
+        
+        // Load real jobs
+        const jobsList = document.getElementById('jobs-list');
+        try {
+            const jobsRes = await fetch('/api/dashboard/jobs');
+            const jobsJson = await jobsRes.json();
+            const jobs = Array.isArray(jobsJson.jobs) ? jobsJson.jobs : [];
+            if (jobs.length > 0) {
+                jobsList.innerHTML = jobs.map(j => `
+                    <div class="job-item">
+                        <div>
+                            <div class="job-name">${j.name}</div>
+                            <div style="color:#a0aec0; font-size:0.85rem;">Profit: $${(j.profit||0).toFixed(2)} • Margin: ${(j.margin||0).toFixed(1)}%</div>
+                        </div>
+                        <div class="job-status ${j.margin >= 20 ? 'on-track' : j.margin < 0 ? 'over-budget' : 'warning'}">${j.margin >= 20 ? 'Profitable' : j.margin < 0 ? 'Loss' : 'Low Margin'}</div>
+                    </div>
+                `).join('');
+            } else {
+                jobsList.innerHTML = '<div style="color: #a0aec0;">No jobs found. Add your first job to begin tracking.</div>';
+            }
+            // Update active jobs count
+            const activeCount = jobs.filter(j => (j.status || '').toLowerCase() === 'active').length;
+            document.getElementById('active-jobs').textContent = String(activeCount);
+            document.getElementById('jobs-change').textContent = activeCount > 0 ? 'Active projects in progress' : 'No active projects';
+            document.getElementById('jobs-change').className = `metric-change ${activeCount > 0 ? 'positive' : 'negative'}`;
+        } catch (_) {
+            jobsList.innerHTML = '<div style="color: #ef4444;">Unable to load jobs.</div>';
+        }
+        
+    } catch (error) {
+        console.error('Error loading dashboard:', error);
+        // Show error state but don't break the page
+        document.querySelectorAll('.loading-state').forEach(el => {
+            el.innerHTML = '<div style="color: #ef4444;">Unable to load data. Please refresh.</div>';
+        });
+    }
+});
+
+// Action button functions
+function addNewExpense() {
+    alert('Add expense feature - integrate with existing expense tracking system');
+}
+
+function viewReports() {
+    alert('Reports feature - integrate with existing reports system');
+}
+// Filters loader
+async function loadFilteredData(){
+    const period = document.getElementById('periodFilter').value;
+    const status = document.getElementById('statusFilter').value;
+    try {
+        const res = await fetch(`/api/dashboard/jobs/filtered?period=${encodeURIComponent(period)}&status=${encodeURIComponent(status)}`);
+        const data = await res.json();
+        const jobs = Array.isArray(data.jobs) ? data.jobs : [];
+        const jobsList = document.getElementById('jobs-list');
+        jobsList.innerHTML = jobs.map(j => `
+            <div class="job-item">
+                <div>
+                    <div class="job-name">${j.name}</div>
+                    <div style=\"color:#a0aec0; font-size:0.85rem;\">Profit: $${(j.profit||0).toFixed(2)} (${(j.margin||0).toFixed(1)}%)</div>
+                </div>
+                <div class="job-status ${j.margin >= 20 ? 'on-track' : j.margin < 0 ? 'over-budget' : 'warning'}">${j.margin >= 20 ? 'Profitable' : j.margin < 0 ? 'Loss' : 'Low Margin'}</div>
+            </div>
+        `).join('');
+        const activeCount = jobs.filter(j => (j.status||'').toLowerCase()==='active').length;
+        document.getElementById('active-jobs').textContent = String(activeCount);
+        document.getElementById('jobs-change').textContent = activeCount > 0 ? 'Active projects in progress' : 'No active projects';
+        document.getElementById('jobs-change').className = `metric-change ${activeCount > 0 ? 'positive' : 'negative'}`;
+    } catch (e) { /* ignore */ }
+}
+</script>
+{% endblock %}

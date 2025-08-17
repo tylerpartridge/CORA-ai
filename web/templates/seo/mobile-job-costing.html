@@ -1,0 +1,104 @@
+{% extends "base.html" %}
+
+{% block title %}Mobile Construction Job Costing App | Track Profits Anywhere{% endblock %}
+{% block description %}Track job costs from your phone on any construction site. Real-time profit updates, voice input, and instant budget alerts.{% endblock %}
+{% block keywords %}mobile construction job costing, construction app contractors, job costing app, mobile profit tracking{% endblock %}
+
+{% block og_title %}Mobile Job Costing App for Contractors{% endblock %}
+{% block og_description %}Construction job costing that works on your phone. Track profits anywhere, anytime, even with dirty hands.{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero-section text-center py-5" style="background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6 text-lg-start">
+                <h1 class="display-4 fw-bold text-white mb-4">
+                    Mobile Construction<br>
+                    <span style="color: #FF9800;">Job Costing App</span>
+                </h1>
+                <p class="lead text-white mb-4">
+                    Track job costs from your phone, on any site, even with dirty hands. 
+                    Real-time profit tracking that works where you work.
+                </p>
+                <div class="d-flex flex-column flex-sm-row gap-3 justify-content-lg-start justify-content-center">
+                    <a href="/signup" class="btn btn-primary btn-lg px-5 py-3">
+                        Get Mobile App →
+                    </a>
+                    <button class="btn btn-outline-light btn-lg px-5 py-3" onclick="openCoraChat()">
+                        See Mobile Demo
+                    </button>
+                </div>
+                <p class="mt-3 text-white-50">
+                    <i class="fas fa-mobile-alt text-success"></i> Works on any phone
+                    <i class="fas fa-microphone text-success ms-3"></i> Voice input ready
+                </p>
+            </div>
+            <div class="col-lg-6 mt-5 mt-lg-0">
+                <img src="/static/images/mobile-job-costing.png" alt="Mobile job costing app" class="img-fluid rounded shadow-lg">
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Mobile Features Section -->
+<section class="py-5 bg-light">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto text-center">
+                <h2 class="display-5 fw-bold mb-4">
+                    Built for the Job Site Reality
+                </h2>
+                <p class="lead text-muted">
+                    Other apps weren't designed for construction. CORA works when your hands are dirty, 
+                    when you're wearing gloves, and when you need answers fast.
+                </p>
+            </div>
+        </div>
+        <div class="row mt-5">
+            <div class="col-md-4 text-center mb-4">
+                <div class="icon-box p-4 h-100 bg-white rounded shadow-sm">
+                    <i class="fas fa-microphone fa-3x mb-3" style="color: #FF9800;"></i>
+                    <h4>Voice Input</h4>
+                    <p class="text-muted">"Add 250 dollars concrete materials to Johnson job" - done. No typing required.</p>
+                </div>
+            </div>
+            <div class="col-md-4 text-center mb-4">
+                <div class="icon-box p-4 h-100 bg-white rounded shadow-sm">
+                    <i class="fas fa-wifi fa-3x mb-3" style="color: #FF9800;"></i>
+                    <h4>Offline Mode</h4>
+                    <p class="text-muted">Track expenses without internet. Syncs automatically when connection returns.</p>
+                </div>
+            </div>
+            <div class="col-md-4 text-center mb-4">
+                <div class="icon-box p-4 h-100 bg-white rounded shadow-sm">
+                    <i class="fas fa-hand-paper fa-3x mb-3" style="color: #FF9800;"></i>
+                    <h4>Glove-Friendly</h4>
+                    <p class="text-muted">Large buttons, voice controls, and simple interface that works with work gloves.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="py-5" style="background: linear-gradient(135deg, #FF9800 0%, #F57C00 100%);">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto text-center">
+                <h2 class="display-6 fw-bold text-white mb-4">
+                    Stop Losing Money Because You Can't Track It
+                </h2>
+                <p class="lead text-white mb-4">
+                    Join 500+ contractors who track job costs in real-time, right from their phones.
+                </p>
+                <a href="/signup" class="btn btn-light btn-lg px-5 py-3">
+                    Start Free Trial →
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% include "components/cora_widget.html" %}
+{% endblock %}

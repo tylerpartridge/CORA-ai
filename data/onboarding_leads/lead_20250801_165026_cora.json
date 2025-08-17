@@ -1,0 +1,46 @@
+{
+  "userData": {
+    "name": "CORA",
+    "lastJobAmount": 12,
+    "fullConversation": [
+      {
+        "role": "assistant",
+        "content": "Hey! I'm CORA, and I'm going to help you see exactly how much profit you're leaving on the table. Takes about 3 minutes. First - what should I call you?"
+      },
+      {
+        "role": "user",
+        "content": "Adam"
+      },
+      {
+        "role": "assistant",
+        "content": "Great, Adam! Now, what type of construction work do you do? (select all that apply) \n\n[business_types]"
+      },
+      {
+        "role": "user",
+        "content": "General Contractor, Plumbing, Remodeling, Concrete and Painting"
+      },
+      {
+        "role": "assistant",
+        "content": "Got it. What's your biggest challenge with tracking jobs right now? \n\n[pain_points]"
+      },
+      {
+        "role": "user",
+        "content": "Can't track profits, Paperwork chaos, Missing tax deductions, No time for books and Cash flow issues"
+      },
+      {
+        "role": "assistant",
+        "content": "Let me show you something cool. Tell me about a recent job - what was the total dollar amount you charged the customer? For example, if you did a bathroom remodel for $12,000 or a plumbing repair for $500, just tell me that number."
+      },
+      {
+        "role": "user",
+        "content": "I did a kitchen and bath remodel for $35,872.84"
+      },
+      {
+        "role": "assistant",
+        "content": "Great! A $35,872.84 job. Here's the thing - to show you real insights about your profit margins and where you're leaving money, I need to track a few more jobs. The magic happens when I can see patterns across your work.\n\nReady to get started? I'll help you track your next job in under 2 minutes. No more guessing if you made money.\n\nLet's go to your dashboard and I'll walk you through it! \n\n[complete_onboarding]"
+      }
+    ]
+  },
+  "completedAt": "2025-08-01T16:50:26.201Z",
+  "savedAt": "2025-08-01T16:50:26.202945"
+}

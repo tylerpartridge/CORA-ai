@@ -1,38 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bank Integration - CORA</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+{% extends "base_app.html" %}
+
+{% block page_scripts %}
     <script src="https://cdn.plaid.com/link/v2/stable/link-initialize.js"></script>
-    <style>
-        .gradient-bg {
-            background: linear-gradient(135deg, #00d4aa 0%, #0099cc 100%);
-        }
-        .card-hover {
-            transition: all 0.3s ease;
-        }
-        .card-hover:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-        }
-        .sync-progress {
-            transition: width 0.3s ease;
-        }
-        .status-connected {
-            background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
-        }
-        .status-disconnected {
-            background: linear-gradient(135deg, #f56565 0%, #e53e3e 100%);
-        }
-        .account-card {
-            background: linear-gradient(135deg, #f7fafc 0%, #edf2f7 100%);
-        }
-    </style>
-</head>
-<body class="bg-gray-50">
+{% endblock %}
+
+{% block content %}
+    <div id="mobile-nav-container"></div>
+
     <!-- Navigation -->
     <nav class="bg-white shadow-sm border-b">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -265,10 +239,21 @@
         viewTransactionsBtn.addEventListener('click', viewTransactions);
         testConnectionBtn.addEventListener('click', testConnection);
 
+        function requireAuth(response, nextUrl = '/integrations/plaid') {
+            if (response && response.status === 401) {
+                alert('Please log in to continue.');
+                window.location.href = `/login?next=${encodeURIComponent(nextUrl)}`;
+                return null;
+            }
+            return response;
+        }
+
         async function loadConnectionStatus() {
             try {
                 const response = await fetch('/api/integrations/plaid/status');
-                const data = await response.json();
+                const auth = requireAuth(response);
+                if (!auth) return;
+                const data = await auth.json();
                 
                 isConnected = data.is_connected;
                 updateConnectionUI(data);
@@ -285,9 +270,10 @@
         function updateConnectionUI(data) {
             if (data.is_connected) {
                 statusIndicator.className = 'w-3 h-3 rounded-full status-connected';
+                const safeInstitutionName = CORASecurity.sanitizeHtml(data.institution_name || 'Bank Account');
                 connectionInfo.innerHTML = `
                     <p class="text-sm text-gray-600 mb-2">Connected to:</p>
-                    <p class="font-semibold text-gray-900">${data.institution_name || 'Bank Account'}</p>
+                    <p class="font-semibold text-gray-900">${safeInstitutionName}</p>
                 `;
                 connectBtn.classList.add('hidden');
                 disconnectBtn.classList.remove('hidden');
@@ -321,19 +307,17 @@
             try {
                 showLoading();
                 
-                // Get current user ID (you'll need to implement this)
-                const userId = 1; // TODO: Get from session
-                
-                // Create link token
+                // Create link token (backend associates with current session)
                 const response = await fetch('/api/integrations/plaid/link-token', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
                     },
-                    body: JSON.stringify({ user_id: userId })
+                    body: JSON.stringify({ client_user_id: 'web-session' })
                 });
-                
-                const data = await response.json();
+                const auth = requireAuth(response);
+                if (!auth) return;
+                const data = await auth.json();
                 
                 if (data.link_token) {
                     // Initialize Plaid Link
@@ -377,8 +361,9 @@
                         metadata: metadata
                     })
                 });
-                
-                const data = await response.json();
+                const auth = requireAuth(response);
+                if (!auth) return;
+                const data = await auth.json();
                 
                 if (data.success) {
                     await loadConnectionStatus();
@@ -404,7 +389,8 @@
                 const response = await fetch('/api/integrations/plaid/disconnect', {
                     method: 'DELETE'
                 });
-                
+                const auth = requireAuth(response);
+                if (!auth) return;
                 if (response.ok) {
                     await loadConnectionStatus();
                     alert('Bank account disconnected successfully');
@@ -422,7 +408,9 @@
         async function loadAccounts() {
             try {
                 const response = await fetch('/api/integrations/plaid/accounts');
-                const data = await response.json();
+                const auth = requireAuth(response);
+                if (!auth) return;
+                const data = await auth.json();
                 
                 if (data.accounts && data.accounts.length > 0) {
                     displayAccounts(data.accounts);
@@ -434,33 +422,8 @@
         }
 
         function displayAccounts(accounts) {
-            accountsList.innerHTML = accounts.map(account => `
-                <div class="account-card rounded-lg p-4 border">
-                    <div class="flex items-center justify-between mb-2">
-                        <h4 class="font-semibold text-gray-900">${account.name}</h4>
-                        <span class="text-xs px-2 py-1 rounded-full ${
-                            account.verification_status === 'verified' 
-                                ? 'bg-green-100 text-green-800' 
-                                : 'bg-yellow-100 text-yellow-800'
-                        }">
-                            ${account.verification_status || 'Unknown'}
-                        </span>
-                    </div>
-                    <div class="text-sm text-gray-600 mb-2">
-                        ${account.type} • ${account.subtype || 'N/A'}
-                    </div>
-                    <div class="space-y-1">
-                        <div class="flex justify-between text-sm">
-                            <span class="text-gray-600">Current:</span>
-                            <span class="font-semibold">$${account.current_balance?.toFixed(2) || '0.00'}</span>
-                        </div>
-                        <div class="flex justify-between text-sm">
-                            <span class="text-gray-600">Available:</span>
-                            <span class="font-semibold">$${account.available_balance?.toFixed(2) || '0.00'}</span>
-                        </div>
-                    </div>
-                </div>
-            `).join('');
+            // Use secure function to create safe account rows
+            accountsList.innerHTML = CORASecurity.createSafeAccountRows(accounts);
         }
 
         async function syncTransactions() {
@@ -477,8 +440,9 @@
                     },
                     body: JSON.stringify({ days_back: 30 })
                 });
-                
-                const data = await response.json();
+                const auth = requireAuth(response);
+                if (!auth) return;
+                const data = await auth.json();
                 
                 if (data.success) {
                     updateSyncProgress(100, `${data.synced_count} transactions synced successfully`);
@@ -502,7 +466,9 @@
             try {
                 showLoading();
                 const response = await fetch('/api/integrations/plaid/transactions?limit=50');
-                const data = await response.json();
+                const auth = requireAuth(response);
+                if (!auth) return;
+                const data = await auth.json();
                 
                 if (data.transactions && data.transactions.length > 0) {
                     displayTransactions(data.transactions);
@@ -519,44 +485,17 @@
         }
 
         function displayTransactions(transactions) {
-            transactionsList.innerHTML = transactions.map(transaction => `
-                <tr>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                        ${new Date(transaction.date).toLocaleDateString()}
-                    </td>
-                    <td class="px-6 py-4 text-sm text-gray-900">
-                        ${transaction.name}
-                        ${transaction.merchant_name ? `<br><span class="text-gray-500">${transaction.merchant_name}</span>` : ''}
-                    </td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                        <span class="${transaction.is_expense ? 'text-red-600' : 'text-green-600'}">
-                            ${transaction.is_expense ? '-' : '+'}$${Math.abs(transaction.amount).toFixed(2)}
-                        </span>
-                    </td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                        ${transaction.category}
-                    </td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                        ${transaction.account_name}
-                    </td>
-                    <td class="px-6 py-4 whitespace-nowrap">
-                        <span class="inline-flex px-2 py-1 text-xs font-semibold rounded-full ${
-                            transaction.pending 
-                                ? 'bg-yellow-100 text-yellow-800' 
-                                : 'bg-green-100 text-green-800'
-                        }">
-                            ${transaction.pending ? 'PENDING' : 'POSTED'}
-                        </span>
-                    </td>
-                </tr>
-            `).join('');
+            // Use secure function to create safe transaction rows
+            transactionsList.innerHTML = CORASecurity.createSafeTransactionRows(transactions);
         }
 
         async function testConnection() {
             try {
                 showLoading();
                 const response = await fetch('/api/integrations/plaid/status');
-                const data = await response.json();
+                const auth = requireAuth(response);
+                if (!auth) return;
+                const data = await auth.json();
                 
                 if (data.is_connected) {
                     alert('Connection test successful! Bank account is connected and ready.');
@@ -574,37 +513,13 @@
         async function loadSyncHistory() {
             try {
                 const response = await fetch('/api/integrations/plaid/sync/history?limit=50');
-                const data = await response.json();
+                const auth = requireAuth(response);
+                if (!auth) return;
+                const data = await auth.json();
                 
                 if (data.sync_history && data.sync_history.length > 0) {
-                    syncHistory.innerHTML = data.sync_history.map(entry => `
-                        <tr>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                                ${new Date(entry.created_at).toLocaleString()}
-                            </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                                ${entry.sync_type.replace('_', ' ').toUpperCase()}
-                            </td>
-                            <td class="px-6 py-4 whitespace-nowrap">
-                                <span class="inline-flex px-2 py-1 text-xs font-semibold rounded-full ${
-                                    entry.sync_status === 'success' 
-                                        ? 'bg-green-100 text-green-800' 
-                                        : 'bg-red-100 text-red-800'
-                                }">
-                                    ${entry.sync_status.toUpperCase()}
-                                </span>
-                            </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                                ${entry.amount ? `$${entry.amount.toFixed(2)}` : '-'}
-                            </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                                ${entry.sync_duration}ms
-                            </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                                ${entry.error_message || entry.description || 'Success'}
-                            </td>
-                        </tr>
-                    `).join('');
+                    // Use secure function to create safe sync history
+                    syncHistory.innerHTML = CORASecurity.createSafeSyncHistory(data.sync_history);
                 } else {
                     syncHistory.innerHTML = `
                         <tr>
@@ -642,7 +557,8 @@
         }
 
         function showSyncErrors(errors) {
-            syncErrors.innerHTML = errors.map(error => `<div>• ${error}</div>`).join('');
+            // Use secure function to create safe error list
+            syncErrors.innerHTML = CORASecurity.createSafeErrorList(errors);
             syncErrors.classList.remove('hidden');
         }
 
@@ -654,5 +570,110 @@
             loadingOverlay.classList.add('hidden');
         }
     </script>
-</body>
-</html> 
+
+    <!-- Widget/zoom handled by base_app.html; removing duplicate includes and SW registration -->
+
+        <!-- Footer -->
+    <footer class="mt-0" style="background: linear-gradient(180deg, #1a1a1a 0%, #0d0d0d 100%); position: relative; overflow: hidden; border-top: 4px solid #FF9800;">
+        <!-- Construction grid pattern -->
+        <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background-image: repeating-linear-gradient(90deg, transparent, transparent 100px, rgba(255,152,0,0.02) 100px, rgba(255,152,0,0.02) 101px); pointer-events: none;"></div>
+        
+        <div class="container py-5">
+            <div class="row align-items-center">
+                <!-- Left side - Logo and tagline -->
+                <div class="col-lg-4 mb-4 mb-lg-0">
+                    <div class="mb-3">
+                        <img src="/static/images/logos/cora-logo.png" alt="CORA" height="40" style="filter: brightness(0.9);">
+                    </div>
+                    <p style="color: #a0aec0; font-size: 0.9rem; margin-bottom: 2rem; text-transform: uppercase; letter-spacing: 1px;">
+                        Job costing that actually works. 
+                        <span style="color: #FF9800; font-weight: 700;">15 minutes/week.</span>
+                    </p>
+                    <!-- Social links -->
+                    <div class="d-flex gap-3">
+                        <a href="https://twitter.com/corafinancial" target="_blank" rel="noopener noreferrer" style="width: 40px; height: 40px; background: rgba(255,152,0,0.1); border: 2px solid rgba(255,152,0,0.2); border-radius: 4px; display: flex; align-items: center; justify-content: center; transition: all 0.3s ease;" 
+                           onmouseover="this.style.background='#FF9800'; this.style.borderColor='#FF9800'; this.style.transform='translateY(-2px)'" 
+                           onmouseout="this.style.background='rgba(255,152,0,0.1)'; this.style.borderColor='rgba(255,152,0,0.2)'; this.style.transform='translateY(0)'">
+                            <i class="fab fa-twitter" style="color: #FF9800;"></i>
+                        </a>
+                        <a href="https://linkedin.com/company/cora-financial" target="_blank" rel="noopener noreferrer" style="width: 40px; height: 40px; background: rgba(255,152,0,0.1); border: 2px solid rgba(255,152,0,0.2); border-radius: 4px; display: flex; align-items: center; justify-content: center; transition: all 0.3s ease;" 
+                           onmouseover="this.style.background='#FF9800'; this.style.borderColor='#FF9800'; this.style.transform='translateY(-2px)'" 
+                           onmouseout="this.style.background='rgba(255,152,0,0.1)'; this.style.borderColor='rgba(255,152,0,0.2)'; this.style.transform='translateY(0)'">
+                            <i class="fab fa-linkedin" style="color: #FF9800;"></i>
+                        </a>
+                        <a href="https://youtube.com/@corafinancial" target="_blank" rel="noopener noreferrer" style="width: 40px; height: 40px; background: rgba(255,152,0,0.1); border: 2px solid rgba(255,152,0,0.2); border-radius: 4px; display: flex; align-items: center; justify-content: center; transition: all 0.3s ease;" 
+                           onmouseover="this.style.background='#FF9800'; this.style.borderColor='#FF9800'; this.style.transform='translateY(-2px)'" 
+                           onmouseout="this.style.background='rgba(255,152,0,0.1)'; this.style.borderColor='rgba(255,152,0,0.2)'; this.style.transform='translateY(0)'">
+                            <i class="fab fa-youtube" style="color: #FF9800;"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Middle - Quick links -->
+                <div class="col-lg-4 mb-4 mb-lg-0">
+                    <div class="row">
+                        <div class="col-6">
+                            <h6 style="color: #FF9800; font-weight: 700; margin-bottom: 1rem; text-transform: uppercase; letter-spacing: 1px;">Features</h6>
+                            <ul style="list-style: none; padding: 0; margin: 0;">
+                                <li class="mb-2"><a href="/features" style="color: #a0aec0; text-decoration: none; transition: color 0.3s ease; text-transform: uppercase; font-size: 0.8rem; letter-spacing: 0.5px;" onmouseover="this.style.color='#FF9800'" onmouseout="this.style.color='#a0aec0'">Features</a></li>
+                                <li class="mb-2"><a href="/pricing" style="color: #a0aec0; text-decoration: none; transition: color 0.3s ease; text-transform: uppercase; font-size: 0.8rem; letter-spacing: 0.5px;" onmouseover="this.style.color='#FF9800'" onmouseout="this.style.color='#a0aec0'">Pricing</a></li>
+                                <li class="mb-2"><a href="/reviews" style="color: #a0aec0; text-decoration: none; transition: color 0.3s ease; text-transform: uppercase; font-size: 0.8rem; letter-spacing: 0.5px;" onmouseover="this.style.color='#FF9800'" onmouseout="this.style.color='#a0aec0'">Testimonials</a></li>
+                                <li class="mb-2"><a href="/#integrations" style="color: #a0aec0; text-decoration: none; transition: color 0.3s ease; text-transform: uppercase; font-size: 0.8rem; letter-spacing: 0.5px;" onmouseover="this.style.color='#FF9800'" onmouseout="this.style.color='#a0aec0'">Integrations</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-6">
+                            <h6 style="color: #4db8ff; font-weight: 700; margin-bottom: 1rem; text-transform: uppercase; letter-spacing: 1px;">Resources</h6>
+                            <ul style="list-style: none; padding: 0; margin: 0;">
+                                <li class="mb-2"><a href="/help" style="color: #a0aec0; text-decoration: none; transition: color 0.3s ease; text-transform: uppercase; font-size: 0.8rem; letter-spacing: 0.5px;" onmouseover="this.style.color='#4db8ff'" onmouseout="this.style.color='#a0aec0'">Help Center</a></li>
+                                <li class="mb-2"><a href="/blog" style="color: #a0aec0; text-decoration: none; transition: color 0.3s ease; text-transform: uppercase; font-size: 0.8rem; letter-spacing: 0.5px;" onmouseover="this.style.color='#4db8ff'" onmouseout="this.style.color='#a0aec0'">Blog</a></li>
+                                <li class="mb-2"><a href="/contact" style="color: #a0aec0; text-decoration: none; transition: color 0.3s ease; text-transform: uppercase; font-size: 0.8rem; letter-spacing: 0.5px;" onmouseover="this.style.color='#4db8ff'" onmouseout="this.style.color='#a0aec0'">Contact</a></li>
+                                <li class="mb-2"><a href="/privacy" style="color: #a0aec0; text-decoration: none; transition: color 0.3s ease; text-transform: uppercase; font-size: 0.8rem; letter-spacing: 0.5px;" onmouseover="this.style.color='#4db8ff'" onmouseout="this.style.color='#a0aec0'">Privacy</a></li>
+                                <li class="mb-2"><a href="/terms" style="color: #a0aec0; text-decoration: none; transition: color 0.3s ease; text-transform: uppercase; font-size: 0.8rem; letter-spacing: 0.5px;" onmouseover="this.style.color='#4db8ff'" onmouseout="this.style.color='#a0aec0'">Terms</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Right side - Newsletter -->
+                <div class="col-lg-4 mb-4 mb-lg-0">
+                    <div style="background: rgba(255,152,0,0.05); border: 2px solid rgba(255,152,0,0.2); border-radius: 8px; padding: 1.5rem;">
+                        <h6 style="color: #69F0AE; font-weight: 700; margin-bottom: 0.5rem; text-transform: uppercase; letter-spacing: 1px;">Weekly Job Tips</h6>
+                        <p style="color: #a0aec0; font-size: 0.85rem; margin-bottom: 1rem;">Profit-boosting tricks from the field.</p>
+                        <form>
+                            <div class="d-flex gap-2">
+                                <input type="email" 
+                                       placeholder="your@email.com" 
+                                       style="flex: 1; background: rgba(45, 55, 72, 0.5); border: 1px solid rgba(255,152,0,0.3); padding: 0.5rem 1rem; border-radius: 4px; color: #ffffff; font-size: 0.875rem;"
+                                       onfocus="this.style.borderColor='#FF9800'; this.style.boxShadow='0 0 0 2px rgba(255,152,0,0.1)'"
+                                       onblur="this.style.borderColor='rgba(255,152,0,0.3)'; this.style.boxShadow='none'">
+                                <button type="submit" 
+                                        style="background: #FF9800; color: #1a1a1a; border: none; padding: 0.5rem 1.5rem; border-radius: 4px; font-weight: 700; text-transform: uppercase; font-size: 0.875rem; letter-spacing: 0.5px; transition: all 0.3s ease; white-space: nowrap;"
+                                        onmouseover="this.style.background='#F57C00'; this.style.transform='translateY(-2px)'"
+                                        onmouseout="this.style.background='#FF9800'; this.style.transform='translateY(0)'">
+                                    Subscribe
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Bottom section -->
+            <div class="text-center mt-5 pt-4" style="border-top: 1px solid rgba(255,152,0,0.2);">
+                <p style="color: #6B7280; font-size: 0.875rem; margin-bottom: 1rem;">
+                    © 2025 CORA. Built for <span style="color: #FF9800; font-weight: 700;">CONTRACTORS</span> who want to make money.
+                </p>
+                <p style="color: #6B7280; font-size: 0.75rem; margin-bottom: 0;">
+                    <span style="color: #69F0AE;">✓</span> SOC 2 Compliant 
+                    <span class="mx-2">|</span> 
+                    <span style="color: #69F0AE;">✓</span> Bank-Level Security 
+                    <span class="mx-2">|</span> 
+                    <span style="color: #69F0AE;">✓</span> Your Data, Always Yours
+                </p>
+            </div>
+        </div>
+        
+        <!-- Bottom accent bar -->
+        <div style="position: absolute; bottom: 0; left: 0; right: 0; height: 4px; background: linear-gradient(90deg, #FF9800 0%, #1976D2 50%, #69F0AE 100%);"></div>
+    </footer>
+{% endblock %} 

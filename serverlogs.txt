@@ -1,0 +1,824 @@
+🐍 Activating Python virtual environment...
+(venv) PS C:\CORA> & c:/CORA/venv/Scripts/Activate.ps1
+(venv) PS C:\CORA> py -m uvicorn app:app --host 0.0.0.0 --port 8000 --log-level info
+2025-08-12 19:34:33 - cora.startup - INFO - Logging system initialized
+[CORA] Sentry DSN not configured or not available, skipping Sentry initialization
+2025-08-12 19:34:34 - cora.startup - INFO - Logging system initialized
+2025-08-12 19:34:35 - services.task_scheduler - INFO - Loaded 10 task configurations
+2025-08-12 19:34:35 - middleware.api_security_config - INFO - API security configuration applied
+[CORA] QueryMonitoringMiddleware not available; continuing without it
+2025-08-12 19:34:35 - tools.backup_manager - INFO - Starting backup scheduler on application startup...
+2025-08-12 19:34:35,812 - backup_scheduler - INFO - Backup schedule configured successfully
+2025-08-12 19:34:35 - backup_scheduler - INFO - Backup schedule configured successfully
+2025-08-12 19:34:35,812 - backup_scheduler - INFO - Automated backup scheduler started
+2025-08-12 19:34:35 - backup_scheduler - INFO - Automated backup scheduler started
+2025-08-12 19:34:35 - tools.backup_manager - INFO - Automated backup scheduler started
+2025-08-12 19:34:35 - services.task_scheduler - INFO - Setup 9 scheduled tasks
+2025-08-12 19:34:35 - services.task_scheduler - INFO - Task scheduler started successfully
+INFO:     Started server process [25696]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+2025-08-12 19:37:54 - cora.requests - INFO - Request: POST /api/auth/login
+2025-08-12 19:37:55 - services.auth_service - INFO - User cpartridge00@gmail.com authenticated successfully
+2025-08-12 19:37:55 - cora.requests - INFO - Response: POST /api/auth/login - 200 (0.360s)
+INFO:     127.0.0.1:58523 - "POST /api/auth/login HTTP/1.1" 200 OK
+2025-08-12 19:37:55 - cora.requests - INFO - Request: {"timestamp": "2025-08-12T19:37:55.141353", "method": "GET", "path": "/dashboard", "query": "", "client": "127.0.0.1", "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36"}
+2025-08-12 19:37:55 - cora.requests - INFO - Response: GET /dashboard - 200 (0.023s)
+INFO:     127.0.0.1:58523 - "GET /dashboard HTTP/1.1" 200 OK
+2025-08-12 19:37:55 - cora.requests - INFO - Request: {"timestamp": "2025-08-12T19:37:55.181549", "method": "GET", "path": "/static/css/navbar.css", "query": "", "client": "127.0.0.1", "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36"}
+2025-08-12 19:37:55 - cora.requests - INFO - Response: GET /static/css/navbar.css - 304 (0.024s)
+INFO:     127.0.0.1:58523 - "GET /css/navbar.css HTTP/1.1" 304 Not Modified
+2025-08-12 19:37:55 - cora.requests - INFO - Request: {"timestamp": "2025-08-12T19:37:55.300308", "method": "GET", "path": "/api/dashboard/metrics", "query": "", "client": "127.0.0.1", "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36"}
+2025-08-12 19:37:55 - cora.requests - INFO - Request: {"timestamp": "2025-08-12T19:37:55.301258", "method": "GET", "path": "/api/feature-flags", "query": "", "client": "127.0.0.1", "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36"}
+2025-08-12 19:37:55 - cora.errors - WARNING - HTTP Exception: 401 - Not authenticated - Path: http://localhost:8000/api/dashboard/metrics
+2025-08-12 19:37:55 - cora.requests - INFO - Response: GET /api/dashboard/metrics - 401 (0.001s)
+INFO:     127.0.0.1:58523 - "GET /api/dashboard/metrics HTTP/1.1" 401 Unauthorized
+2025-08-12 19:37:55 - cora.errors - WARNING - HTTP Exception: 401 - Not authenticated - Path: http://localhost:8000/api/feature-flags
+2025-08-12 19:37:55 - cora.requests - INFO - Response: GET /api/feature-flags - 401 (0.007s)
+INFO:     127.0.0.1:58524 - "GET /api/feature-flags HTTP/1.1" 401 Unauthorized
+2025-08-12 19:37:55 - cora.requests - INFO - Request: {"timestamp": "2025-08-12T19:37:55.317823", "method": "GET", "path": "/api/dashboard/insights", "query": "", "client": "127.0.0.1", "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36"}
+2025-08-12 19:37:55 - cora.errors - WARNING - HTTP Exception: 401 - Not authenticated - Path: http://localhost:8000/api/dashboard/insights
+2025-08-12 19:37:55 - cora.requests - INFO - Response: GET /api/dashboard/insights - 401 (0.006s)
+INFO:     127.0.0.1:58523 - "GET /api/dashboard/insights HTTP/1.1" 401 Unauthorized
+2025-08-12 19:37:55 - cora.requests - INFO - Request: {"timestamp": "2025-08-12T19:37:55.332960", "method": "GET", "path": "/api/dashboard/jobs", "query": "", "client": "127.0.0.1", "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36"}
+2025-08-12 19:37:55 - cora.errors - WARNING - HTTP Exception: 401 - Not authenticated - Path: http://localhost:8000/api/dashboard/jobs
+2025-08-12 19:37:55 - cora.requests - INFO - Response: GET /api/dashboard/jobs - 401 (0.007s)
+INFO:     127.0.0.1:58523 - "GET /api/dashboard/jobs HTTP/1.1" 401 Unauthorized
+2025-08-12 19:39:15 - cora.requests - INFO - Request: {"timestamp": "2025-08-12T19:39:15.615224", "method": "GET", "path": "/api/dashboard/jobs/filtered", "query": "period=week&status=", "client": "127.0.0.1", "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36"}
+2025-08-12 19:39:15 - cora.errors - WARNING - HTTP Exception: 401 - Not authenticated - Path: http://localhost:8000/api/dashboard/jobs/filtered?period=week&status=
+2025-08-12 19:39:15 - cora.requests - INFO - Response: GET /api/dashboard/jobs/filtered - 401 (0.003s)
+INFO:     127.0.0.1:58549 - "GET /api/dashboard/jobs/filtered?period=week&status= HTTP/1.1" 401 Unauthorized
+2025-08-12 19:39:17 - cora.requests - INFO - Request: {"timestamp": "2025-08-12T19:39:17.566241", "method": "GET", "path": "/api/dashboard/jobs/filtered", "query": "period=week&status=active", "client": "127.0.0.1", "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36"}
+2025-08-12 19:39:17 - cora.errors - WARNING - HTTP Exception: 401 - Not authenticated - Path: http://localhost:8000/api/dashboard/jobs/filtered?period=week&status=active
+2025-08-12 19:39:17 - cora.requests - INFO - Response: GET /api/dashboard/jobs/filtered - 401 (0.003s)
+INFO:     127.0.0.1:58549 - "GET /api/dashboard/jobs/filtered?period=week&status=active HTTP/1.1" 401 Unauthorized
+2025-08-12 19:39:24 - cora.requests - INFO - Request: {"timestamp": "2025-08-12T19:39:24.219950", "method": "GET", "path": "/api/dashboard/jobs/filtered", "query": "period=week&status=on-hold", "client": "127.0.0.1", "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36"}
+2025-08-12 19:39:24 - cora.errors - WARNING - HTTP Exception: 401 - Not authenticated - Path: http://localhost:8000/api/dashboard/jobs/filtered?period=week&status=on-hold
+2025-08-12 19:39:24 - cora.requests - INFO - Response: GET /api/dashboard/jobs/filtered - 401 (0.009s)
+INFO:     127.0.0.1:58550 - "GET /api/dashboard/jobs/filtered?period=week&status=on-hold HTTP/1.1" 401 Unauthorized
+2025-08-12 19:39:58 - cora.requests - INFO - Request: {"timestamp": "2025-08-12T19:39:58.359419", "method": "GET", "path": "/expenses", "query": "", "client": "127.0.0.1", "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36"}
+2025-08-12 19:39:58 - cora.requests - INFO - Response: GET /expenses - 200 (0.004s)
+INFO:     127.0.0.1:58565 - "GET /expenses HTTP/1.1" 200 OK
+2025-08-12 19:39:58 - cora.requests - INFO - Request: {"timestamp": "2025-08-12T19:39:58.381044", "method": "GET", "path": "/static/css/construction-theme.css", "query": "", "client": "127.0.0.1", "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36"}
+2025-08-12 19:39:58 - cora.requests - INFO - Response: GET /static/css/construction-theme.css - 304 (0.002s)
+INFO:     127.0.0.1:58565 - "GET /css/construction-theme.css HTTP/1.1" 304 Not Modified
+2025-08-12 19:40:01 - cora.requests - INFO - Request: {"timestamp": "2025-08-12T19:40:01.197407", "method": "GET", "path": "/projects", "query": "", "client": "127.0.0.1", "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36"}
+2025-08-12 19:40:01 - cora.errors - WARNING - HTTP Exception: 404 - Not Found - Path: http://localhost:8000/projects
+2025-08-12 19:40:01 - cora.requests - INFO - Response: GET /projects - 404 (0.010s)
+INFO:     127.0.0.1:58565 - "GET /projects HTTP/1.1" 404 Not Found
+2025-08-12 19:40:03 - cora.requests - INFO - Request: {"timestamp": "2025-08-12T19:40:03.753610", "method": "GET", "path": "/reports", "query": "", "client": "127.0.0.1", "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36"}
+2025-08-12 19:40:03 - cora.requests - INFO - Response: GET /reports - 200 (0.003s)
+INFO:     127.0.0.1:58565 - "GET /reports HTTP/1.1" 200 OK
+2025-08-12 19:40:06 - cora.requests - INFO - Request: {"timestamp": "2025-08-12T19:40:06.016806", "method": "GET", "path": "/insights", "query": "", "client": "127.0.0.1", "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36"}
+2025-08-12 19:40:06 - cora.requests - INFO - Response: GET /insights - 200 (0.007s)
+INFO:     127.0.0.1:58565 - "GET /insights HTTP/1.1" 200 OK
+2025-08-12 19:40:06 - cora.requests - INFO - Request: {"timestamp": "2025-08-12T19:40:06.049239", "method": "GET", "path": "/api/profit-intelligence/insights", "query": "", "client": "127.0.0.1", "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36"}
+2025-08-12 19:40:06 - services.auth_service - WARNING - Invalid token: Not enough segments
+2025-08-12 19:40:06 - middleware.monitoring - ERROR - Request failed: Invalid token
+2025-08-12 19:40:06 - cora.errors - ERROR - Unhandled exception: TokenValidationError: Invalid token
+Traceback (most recent call last):
+  File "C:\CORA\venv\Lib\site-packages\anyio\streams\memory.py", line 98, in receive
+    return self.receive_nowait()
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\CORA\venv\Lib\site-packages\anyio\streams\memory.py", line 93, in receive_nowait
+    raise WouldBlock
+anyio.WouldBlock
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\CORA\venv\Lib\site-packages\starlette\middleware\base.py", line 78, in call_next
+    message = await recv_stream.receive()
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\CORA\venv\Lib\site-packages\anyio\streams\memory.py", line 118, in receive
+    raise EndOfStream
+anyio.EndOfStream
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\CORA\venv\Lib\site-packages\starlette\middleware\errors.py", line 162, in __call__
+    await self.app(scope, receive, _send)
+  File "C:\CORA\venv\Lib\site-packages\starlette\middleware\base.py", line 108, in __call__
+    response = await self.dispatch_func(request, call_next)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\CORA\middleware\rate_limiter.py", line 122, in dispatch
+    response = await call_next(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\CORA\venv\Lib\site-packages\starlette\middleware\base.py", line 84, in call_next
+    raise app_exc
+  File "C:\CORA\venv\Lib\site-packages\starlette\middleware\base.py", line 70, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "C:\CORA\venv\Lib\site-packages\starlette\middleware\base.py", line 108, in __call__
+    response = await self.dispatch_func(request, call_next)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\CORA\middleware\monitoring.py", line 35, in monitoring_middleware
+    response = await call_next(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\CORA\venv\Lib\site-packages\starlette\middleware\base.py", line 84, in call_next
+    raise app_exc
+  File "C:\CORA\venv\Lib\site-packages\starlette\middleware\base.py", line 70, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "C:\CORA\venv\Lib\site-packages\starlette\middleware\base.py", line 108, in __call__
+    response = await self.dispatch_func(request, call_next)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\CORA\middleware\authorization.py", line 303, in authorize_request
+    return await call_next(request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\CORA\venv\Lib\site-packages\starlette\middleware\base.py", line 84, in call_next
+    raise app_exc
+  File "C:\CORA\venv\Lib\site-packages\starlette\middleware\base.py", line 70, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "C:\CORA\venv\Lib\site-packages\starlette\middleware\base.py", line 108, in __call__
+    response = await self.dispatch_func(request, call_next)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\CORA\middleware\account_lockout.py", line 105, in account_lockout_middleware
+    response = await call_next(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\CORA\venv\Lib\site-packages\starlette\middleware\base.py", line 84, in call_next
+    raise app_exc
+  File "C:\CORA\venv\Lib\site-packages\starlette\middleware\base.py", line 70, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "C:\CORA\venv\Lib\site-packages\starlette\middleware\base.py", line 108, in __call__
+    response = await self.dispatch_func(request, call_next)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\CORA\middleware\csrf.py", line 76, in csrf_middleware
+    response = await call_next(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\CORA\venv\Lib\site-packages\starlette\middleware\base.py", line 84, in call_next
+    raise app_exc
+  File "C:\CORA\venv\Lib\site-packages\starlette\middleware\base.py", line 70, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "C:\CORA\venv\Lib\site-packages\starlette\middleware\base.py", line 108, in __call__
+    response = await self.dispatch_func(request, call_next)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\CORA\middleware\logging_middleware.py", line 45, in dispatch
+    response = await call_next(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\CORA\venv\Lib\site-packages\starlette\middleware\base.py", line 84, in call_next
+    raise app_exc
+  File "C:\CORA\venv\Lib\site-packages\starlette\middleware\base.py", line 70, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "C:\CORA\venv\Lib\site-packages\starlette\middleware\base.py", line 108, in __call__
+    response = await self.dispatch_func(request, call_next)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\CORA\middleware\security_headers_enhanced.py", line 25, in dispatch
+    response = await call_next(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\CORA\venv\Lib\site-packages\starlette\middleware\base.py", line 84, in call_next
+    raise app_exc
+  File "C:\CORA\venv\Lib\site-packages\starlette\middleware\base.py", line 70, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "C:\CORA\venv\Lib\site-packages\starlette\middleware\base.py", line 108, in __call__
+    response = await self.dispatch_func(request, call_next)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\CORA\middleware\auth_security_enhanced.py", line 230, in dispatch
+    response = await call_next(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\CORA\venv\Lib\site-packages\starlette\middleware\base.py", line 84, in call_next
+    raise app_exc
+  File "C:\CORA\venv\Lib\site-packages\starlette\middleware\base.py", line 70, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "C:\CORA\venv\Lib\site-packages\starlette\middleware\base.py", line 108, in __call__
+    response = await self.dispatch_func(request, call_next)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\CORA\middleware\api_security_config.py", line 185, in dispatch
+    response = await call_next(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\CORA\venv\Lib\site-packages\starlette\middleware\base.py", line 84, in call_next
+    raise app_exc
+  File "C:\CORA\venv\Lib\site-packages\starlette\middleware\base.py", line 70, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "C:\CORA\venv\Lib\site-packages\starlette\middleware\base.py", line 108, in __call__
+    response = await self.dispatch_func(request, call_next)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\CORA\middleware\api_security_config.py", line 82, in dispatch
+    response = await call_next(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\CORA\venv\Lib\site-packages\starlette\middleware\base.py", line 84, in call_next
+    raise app_exc
+  File "C:\CORA\venv\Lib\site-packages\starlette\middleware\base.py", line 70, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "C:\CORA\venv\Lib\site-packages\starlette\middleware\base.py", line 108, in __call__
+    response = await self.dispatch_func(request, call_next)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\CORA\middleware\api_security_config.py", line 46, in dispatch
+    response = await call_next(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\CORA\venv\Lib\site-packages\starlette\middleware\base.py", line 84, in call_next
+    raise app_exc
+  File "C:\CORA\venv\Lib\site-packages\starlette\middleware\base.py", line 70, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "C:\CORA\venv\Lib\site-packages\starlette\middleware\cors.py", line 83, in __call__
+    await self.app(scope, receive, send)
+  File "C:\CORA\venv\Lib\site-packages\starlette\middleware\cors.py", line 83, in __call__
+    await self.app(scope, receive, send)
+  File "C:\CORA\venv\Lib\site-packages\starlette\middleware\exceptions.py", line 79, in __call__
+    raise exc
+  File "C:\CORA\venv\Lib\site-packages\starlette\middleware\exceptions.py", line 68, in __call__
+    await self.app(scope, receive, sender)
+  File "C:\CORA\venv\Lib\site-packages\fastapi\middleware\asyncexitstack.py", line 20, in __call__
+    raise e
+  File "C:\CORA\venv\Lib\site-packages\fastapi\middleware\asyncexitstack.py", line 17, in __call__
+    await self.app(scope, receive, send)
+  File "C:\CORA\venv\Lib\site-packages\starlette\routing.py", line 718, in __call__
+    await route.handle(scope, receive, send)
+  File "C:\CORA\venv\Lib\site-packages\starlette\routing.py", line 276, in handle
+    await self.app(scope, receive, send)
+  File "C:\CORA\venv\Lib\site-packages\starlette\routing.py", line 66, in app
+    response = await func(request)
+               ^^^^^^^^^^^^^^^^^^^
+  File "C:\CORA\venv\Lib\site-packages\fastapi\routing.py", line 264, in app
+    solved_result = await solve_dependencies(
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\CORA\venv\Lib\site-packages\fastapi\dependencies\utils.py", line 592, in solve_dependencies
+    solved = await call(**sub_values)
+             ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\CORA\dependencies\auth.py", line 48, in get_current_user
+    email = verify_token(token)
+            ^^^^^^^^^^^^^^^^^^^
+  File "C:\CORA\services\auth_service.py", line 295, in verify_token
+    raise TokenValidationError("Invalid token")
+services.auth_service.TokenValidationError: Invalid token
+INFO:     127.0.0.1:58565 - "GET /api/profit-intelligence/insights HTTP/1.1" 500 Internal Server Error
+ERROR:    Exception in ASGI application
+Traceback (most recent call last):
+  File "C:\CORA\venv\Lib\site-packages\anyio\streams\memory.py", line 98, in receive
+    return self.receive_nowait()
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\CORA\venv\Lib\site-packages\anyio\streams\memory.py", line 93, in receive_nowait
+    raise WouldBlock
+anyio.WouldBlock
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\CORA\venv\Lib\site-packages\starlette\middleware\base.py", line 78, in call_next
+    message = await recv_stream.receive()
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\CORA\venv\Lib\site-packages\anyio\streams\memory.py", line 118, in receive
+    raise EndOfStream
+anyio.EndOfStream
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\CORA\venv\Lib\site-packages\uvicorn\protocols\http\httptools_impl.py", line 426, in run_asgi
+    result = await app(  # type: ignore[func-returns-value]
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\CORA\venv\Lib\site-packages\uvicorn\middleware\proxy_headers.py", line 84, in __call__
+    return await self.app(scope, receive, send)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\CORA\venv\Lib\site-packages\fastapi\applications.py", line 1106, in __call__
+    await super().__call__(scope, receive, send)
+  File "C:\CORA\venv\Lib\site-packages\starlette\applications.py", line 122, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "C:\CORA\venv\Lib\site-packages\starlette\middleware\errors.py", line 184, in __call__
+    raise exc
+  File "C:\CORA\venv\Lib\site-packages\starlette\middleware\errors.py", line 162, in __call__
+    await self.app(scope, receive, _send)
+  File "C:\CORA\venv\Lib\site-packages\starlette\middleware\base.py", line 108, in __call__
+    response = await self.dispatch_func(request, call_next)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\CORA\middleware\rate_limiter.py", line 122, in dispatch
+    response = await call_next(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\CORA\venv\Lib\site-packages\starlette\middleware\base.py", line 84, in call_next
+    raise app_exc
+  File "C:\CORA\venv\Lib\site-packages\starlette\middleware\base.py", line 70, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "C:\CORA\venv\Lib\site-packages\starlette\middleware\base.py", line 108, in __call__
+    response = await self.dispatch_func(request, call_next)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\CORA\middleware\monitoring.py", line 35, in monitoring_middleware
+    response = await call_next(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\CORA\venv\Lib\site-packages\starlette\middleware\base.py", line 84, in call_next
+    raise app_exc
+  File "C:\CORA\venv\Lib\site-packages\starlette\middleware\base.py", line 70, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "C:\CORA\venv\Lib\site-packages\starlette\middleware\base.py", line 108, in __call__
+    response = await self.dispatch_func(request, call_next)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\CORA\middleware\authorization.py", line 303, in authorize_request
+    return await call_next(request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\CORA\venv\Lib\site-packages\starlette\middleware\base.py", line 84, in call_next
+    raise app_exc
+  File "C:\CORA\venv\Lib\site-packages\starlette\middleware\base.py", line 70, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "C:\CORA\venv\Lib\site-packages\starlette\middleware\base.py", line 108, in __call__
+    response = await self.dispatch_func(request, call_next)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\CORA\middleware\account_lockout.py", line 105, in account_lockout_middleware
+    response = await call_next(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\CORA\venv\Lib\site-packages\starlette\middleware\base.py", line 84, in call_next
+    raise app_exc
+  File "C:\CORA\venv\Lib\site-packages\starlette\middleware\base.py", line 70, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "C:\CORA\venv\Lib\site-packages\starlette\middleware\base.py", line 108, in __call__
+    response = await self.dispatch_func(request, call_next)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\CORA\middleware\csrf.py", line 76, in csrf_middleware
+    response = await call_next(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\CORA\venv\Lib\site-packages\starlette\middleware\base.py", line 84, in call_next
+    raise app_exc
+  File "C:\CORA\venv\Lib\site-packages\starlette\middleware\base.py", line 70, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "C:\CORA\venv\Lib\site-packages\starlette\middleware\base.py", line 108, in __call__
+    response = await self.dispatch_func(request, call_next)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\CORA\middleware\logging_middleware.py", line 45, in dispatch
+    response = await call_next(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\CORA\venv\Lib\site-packages\starlette\middleware\base.py", line 84, in call_next
+    raise app_exc
+  File "C:\CORA\venv\Lib\site-packages\starlette\middleware\base.py", line 70, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "C:\CORA\venv\Lib\site-packages\starlette\middleware\base.py", line 108, in __call__
+    response = await self.dispatch_func(request, call_next)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\CORA\middleware\security_headers_enhanced.py", line 25, in dispatch
+    response = await call_next(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\CORA\venv\Lib\site-packages\starlette\middleware\base.py", line 84, in call_next
+    raise app_exc
+  File "C:\CORA\venv\Lib\site-packages\starlette\middleware\base.py", line 70, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "C:\CORA\venv\Lib\site-packages\starlette\middleware\base.py", line 108, in __call__
+    response = await self.dispatch_func(request, call_next)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\CORA\middleware\auth_security_enhanced.py", line 230, in dispatch
+    response = await call_next(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\CORA\venv\Lib\site-packages\starlette\middleware\base.py", line 84, in call_next
+    raise app_exc
+  File "C:\CORA\venv\Lib\site-packages\starlette\middleware\base.py", line 70, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "C:\CORA\venv\Lib\site-packages\starlette\middleware\base.py", line 108, in __call__
+    response = await self.dispatch_func(request, call_next)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\CORA\middleware\api_security_config.py", line 185, in dispatch
+    response = await call_next(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\CORA\venv\Lib\site-packages\starlette\middleware\base.py", line 84, in call_next
+    raise app_exc
+  File "C:\CORA\venv\Lib\site-packages\starlette\middleware\base.py", line 70, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "C:\CORA\venv\Lib\site-packages\starlette\middleware\base.py", line 108, in __call__
+    response = await self.dispatch_func(request, call_next)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\CORA\middleware\api_security_config.py", line 82, in dispatch
+    response = await call_next(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\CORA\venv\Lib\site-packages\starlette\middleware\base.py", line 84, in call_next
+    raise app_exc
+  File "C:\CORA\venv\Lib\site-packages\starlette\middleware\base.py", line 70, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "C:\CORA\venv\Lib\site-packages\starlette\middleware\base.py", line 108, in __call__
+    response = await self.dispatch_func(request, call_next)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\CORA\middleware\api_security_config.py", line 46, in dispatch
+    response = await call_next(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\CORA\venv\Lib\site-packages\starlette\middleware\base.py", line 84, in call_next
+    raise app_exc
+  File "C:\CORA\venv\Lib\site-packages\starlette\middleware\base.py", line 70, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "C:\CORA\venv\Lib\site-packages\starlette\middleware\cors.py", line 83, in __call__
+    await self.app(scope, receive, send)
+  File "C:\CORA\venv\Lib\site-packages\starlette\middleware\cors.py", line 83, in __call__
+    await self.app(scope, receive, send)
+  File "C:\CORA\venv\Lib\site-packages\starlette\middleware\exceptions.py", line 79, in __call__
+    raise exc
+  File "C:\CORA\venv\Lib\site-packages\starlette\middleware\exceptions.py", line 68, in __call__
+    await self.app(scope, receive, sender)
+  File "C:\CORA\venv\Lib\site-packages\fastapi\middleware\asyncexitstack.py", line 20, in __call__
+    raise e
+  File "C:\CORA\venv\Lib\site-packages\fastapi\middleware\asyncexitstack.py", line 17, in __call__
+    await self.app(scope, receive, send)
+  File "C:\CORA\venv\Lib\site-packages\starlette\routing.py", line 718, in __call__
+    await route.handle(scope, receive, send)
+  File "C:\CORA\venv\Lib\site-packages\starlette\routing.py", line 276, in handle
+    await self.app(scope, receive, send)
+  File "C:\CORA\venv\Lib\site-packages\starlette\routing.py", line 66, in app
+    response = await func(request)
+               ^^^^^^^^^^^^^^^^^^^
+  File "C:\CORA\venv\Lib\site-packages\fastapi\routing.py", line 264, in app
+    solved_result = await solve_dependencies(
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\CORA\venv\Lib\site-packages\fastapi\dependencies\utils.py", line 592, in solve_dependencies
+    solved = await call(**sub_values)
+             ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\CORA\dependencies\auth.py", line 48, in get_current_user
+    email = verify_token(token)
+            ^^^^^^^^^^^^^^^^^^^
+  File "C:\CORA\services\auth_service.py", line 295, in verify_token
+    raise TokenValidationError("Invalid token")
+services.auth_service.TokenValidationError: Invalid token
+2025-08-12 19:40:06 - cora.requests - INFO - Request: {"timestamp": "2025-08-12T19:40:06.061206", "method": "GET", "path": "/api/profit-intelligence/predictive-insights", "query": "", "client": "127.0.0.1", "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36"}
+2025-08-12 19:40:06 - services.auth_service - WARNING - Invalid token: Not enough segments
+2025-08-12 19:40:06 - middleware.monitoring - ERROR - Request failed: Invalid token
+2025-08-12 19:40:06 - cora.errors - ERROR - Unhandled exception: TokenValidationError: Invalid token
+Traceback (most recent call last):
+  File "C:\CORA\venv\Lib\site-packages\anyio\streams\memory.py", line 98, in receive
+    return self.receive_nowait()
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\CORA\venv\Lib\site-packages\anyio\streams\memory.py", line 93, in receive_nowait
+    raise WouldBlock
+anyio.WouldBlock
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\CORA\venv\Lib\site-packages\starlette\middleware\base.py", line 78, in call_next
+    message = await recv_stream.receive()
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\CORA\venv\Lib\site-packages\anyio\streams\memory.py", line 118, in receive
+    raise EndOfStream
+anyio.EndOfStream
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\CORA\venv\Lib\site-packages\starlette\middleware\errors.py", line 162, in __call__
+    await self.app(scope, receive, _send)
+  File "C:\CORA\venv\Lib\site-packages\starlette\middleware\base.py", line 108, in __call__
+    response = await self.dispatch_func(request, call_next)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\CORA\middleware\rate_limiter.py", line 122, in dispatch
+    response = await call_next(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\CORA\venv\Lib\site-packages\starlette\middleware\base.py", line 84, in call_next
+    raise app_exc
+  File "C:\CORA\venv\Lib\site-packages\starlette\middleware\base.py", line 70, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "C:\CORA\venv\Lib\site-packages\starlette\middleware\base.py", line 108, in __call__
+    response = await self.dispatch_func(request, call_next)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\CORA\middleware\monitoring.py", line 35, in monitoring_middleware
+    response = await call_next(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\CORA\venv\Lib\site-packages\starlette\middleware\base.py", line 84, in call_next
+    raise app_exc
+  File "C:\CORA\venv\Lib\site-packages\starlette\middleware\base.py", line 70, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "C:\CORA\venv\Lib\site-packages\starlette\middleware\base.py", line 108, in __call__
+    response = await self.dispatch_func(request, call_next)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\CORA\middleware\authorization.py", line 303, in authorize_request
+    return await call_next(request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\CORA\venv\Lib\site-packages\starlette\middleware\base.py", line 84, in call_next
+    raise app_exc
+  File "C:\CORA\venv\Lib\site-packages\starlette\middleware\base.py", line 70, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "C:\CORA\venv\Lib\site-packages\starlette\middleware\base.py", line 108, in __call__
+    response = await self.dispatch_func(request, call_next)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\CORA\middleware\account_lockout.py", line 105, in account_lockout_middleware
+    response = await call_next(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\CORA\venv\Lib\site-packages\starlette\middleware\base.py", line 84, in call_next
+    raise app_exc
+  File "C:\CORA\venv\Lib\site-packages\starlette\middleware\base.py", line 70, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "C:\CORA\venv\Lib\site-packages\starlette\middleware\base.py", line 108, in __call__
+    response = await self.dispatch_func(request, call_next)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\CORA\middleware\csrf.py", line 76, in csrf_middleware
+    response = await call_next(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\CORA\venv\Lib\site-packages\starlette\middleware\base.py", line 84, in call_next
+    raise app_exc
+  File "C:\CORA\venv\Lib\site-packages\starlette\middleware\base.py", line 70, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "C:\CORA\venv\Lib\site-packages\starlette\middleware\base.py", line 108, in __call__
+    response = await self.dispatch_func(request, call_next)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\CORA\middleware\logging_middleware.py", line 45, in dispatch
+    response = await call_next(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\CORA\venv\Lib\site-packages\starlette\middleware\base.py", line 84, in call_next
+    raise app_exc
+  File "C:\CORA\venv\Lib\site-packages\starlette\middleware\base.py", line 70, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "C:\CORA\venv\Lib\site-packages\starlette\middleware\base.py", line 108, in __call__
+    response = await self.dispatch_func(request, call_next)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\CORA\middleware\security_headers_enhanced.py", line 25, in dispatch
+    response = await call_next(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\CORA\venv\Lib\site-packages\starlette\middleware\base.py", line 84, in call_next
+    raise app_exc
+  File "C:\CORA\venv\Lib\site-packages\starlette\middleware\base.py", line 70, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "C:\CORA\venv\Lib\site-packages\starlette\middleware\base.py", line 108, in __call__
+    response = await self.dispatch_func(request, call_next)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\CORA\middleware\auth_security_enhanced.py", line 230, in dispatch
+    response = await call_next(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\CORA\venv\Lib\site-packages\starlette\middleware\base.py", line 84, in call_next
+    raise app_exc
+  File "C:\CORA\venv\Lib\site-packages\starlette\middleware\base.py", line 70, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "C:\CORA\venv\Lib\site-packages\starlette\middleware\base.py", line 108, in __call__
+    response = await self.dispatch_func(request, call_next)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\CORA\middleware\api_security_config.py", line 185, in dispatch
+    response = await call_next(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\CORA\venv\Lib\site-packages\starlette\middleware\base.py", line 84, in call_next
+    raise app_exc
+  File "C:\CORA\venv\Lib\site-packages\starlette\middleware\base.py", line 70, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "C:\CORA\venv\Lib\site-packages\starlette\middleware\base.py", line 108, in __call__
+    response = await self.dispatch_func(request, call_next)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\CORA\middleware\api_security_config.py", line 82, in dispatch
+    response = await call_next(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\CORA\venv\Lib\site-packages\starlette\middleware\base.py", line 84, in call_next
+    raise app_exc
+  File "C:\CORA\venv\Lib\site-packages\starlette\middleware\base.py", line 70, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "C:\CORA\venv\Lib\site-packages\starlette\middleware\base.py", line 108, in __call__
+    response = await self.dispatch_func(request, call_next)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\CORA\middleware\api_security_config.py", line 46, in dispatch
+    response = await call_next(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\CORA\venv\Lib\site-packages\starlette\middleware\base.py", line 84, in call_next
+    raise app_exc
+  File "C:\CORA\venv\Lib\site-packages\starlette\middleware\base.py", line 70, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "C:\CORA\venv\Lib\site-packages\starlette\middleware\cors.py", line 83, in __call__
+    await self.app(scope, receive, send)
+  File "C:\CORA\venv\Lib\site-packages\starlette\middleware\cors.py", line 83, in __call__
+    await self.app(scope, receive, send)
+  File "C:\CORA\venv\Lib\site-packages\starlette\middleware\exceptions.py", line 79, in __call__
+    raise exc
+  File "C:\CORA\venv\Lib\site-packages\starlette\middleware\exceptions.py", line 68, in __call__
+    await self.app(scope, receive, sender)
+  File "C:\CORA\venv\Lib\site-packages\fastapi\middleware\asyncexitstack.py", line 20, in __call__
+    raise e
+  File "C:\CORA\venv\Lib\site-packages\fastapi\middleware\asyncexitstack.py", line 17, in __call__
+    await self.app(scope, receive, send)
+  File "C:\CORA\venv\Lib\site-packages\starlette\routing.py", line 718, in __call__
+    await route.handle(scope, receive, send)
+  File "C:\CORA\venv\Lib\site-packages\starlette\routing.py", line 276, in handle
+    await self.app(scope, receive, send)
+  File "C:\CORA\venv\Lib\site-packages\starlette\routing.py", line 66, in app
+    response = await func(request)
+               ^^^^^^^^^^^^^^^^^^^
+  File "C:\CORA\venv\Lib\site-packages\fastapi\routing.py", line 264, in app
+    solved_result = await solve_dependencies(
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\CORA\venv\Lib\site-packages\fastapi\dependencies\utils.py", line 592, in solve_dependencies
+    solved = await call(**sub_values)
+             ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\CORA\dependencies\auth.py", line 48, in get_current_user
+    email = verify_token(token)
+            ^^^^^^^^^^^^^^^^^^^
+  File "C:\CORA\services\auth_service.py", line 295, in verify_token
+    raise TokenValidationError("Invalid token")
+services.auth_service.TokenValidationError: Invalid token
+INFO:     127.0.0.1:58566 - "GET /api/profit-intelligence/predictive-insights HTTP/1.1" 500 Internal Server Error
+ERROR:    Exception in ASGI application
+Traceback (most recent call last):
+  File "C:\CORA\venv\Lib\site-packages\anyio\streams\memory.py", line 98, in receive
+    return self.receive_nowait()
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\CORA\venv\Lib\site-packages\anyio\streams\memory.py", line 93, in receive_nowait
+    raise WouldBlock
+anyio.WouldBlock
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\CORA\venv\Lib\site-packages\starlette\middleware\base.py", line 78, in call_next
+    message = await recv_stream.receive()
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\CORA\venv\Lib\site-packages\anyio\streams\memory.py", line 118, in receive
+    raise EndOfStream
+anyio.EndOfStream
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\CORA\venv\Lib\site-packages\uvicorn\protocols\http\httptools_impl.py", line 426, in run_asgi
+    result = await app(  # type: ignore[func-returns-value]
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\CORA\venv\Lib\site-packages\uvicorn\middleware\proxy_headers.py", line 84, in __call__
+    return await self.app(scope, receive, send)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\CORA\venv\Lib\site-packages\fastapi\applications.py", line 1106, in __call__
+    await super().__call__(scope, receive, send)
+  File "C:\CORA\venv\Lib\site-packages\starlette\applications.py", line 122, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "C:\CORA\venv\Lib\site-packages\starlette\middleware\errors.py", line 184, in __call__
+    raise exc
+  File "C:\CORA\venv\Lib\site-packages\starlette\middleware\errors.py", line 162, in __call__
+    await self.app(scope, receive, _send)
+  File "C:\CORA\venv\Lib\site-packages\starlette\middleware\base.py", line 108, in __call__
+    response = await self.dispatch_func(request, call_next)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\CORA\middleware\rate_limiter.py", line 122, in dispatch
+    response = await call_next(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\CORA\venv\Lib\site-packages\starlette\middleware\base.py", line 84, in call_next
+    raise app_exc
+  File "C:\CORA\venv\Lib\site-packages\starlette\middleware\base.py", line 70, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "C:\CORA\venv\Lib\site-packages\starlette\middleware\base.py", line 108, in __call__
+    response = await self.dispatch_func(request, call_next)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\CORA\middleware\monitoring.py", line 35, in monitoring_middleware
+    response = await call_next(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\CORA\venv\Lib\site-packages\starlette\middleware\base.py", line 84, in call_next
+    raise app_exc
+  File "C:\CORA\venv\Lib\site-packages\starlette\middleware\base.py", line 70, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "C:\CORA\venv\Lib\site-packages\starlette\middleware\base.py", line 108, in __call__
+    response = await self.dispatch_func(request, call_next)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\CORA\middleware\authorization.py", line 303, in authorize_request
+    return await call_next(request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\CORA\venv\Lib\site-packages\starlette\middleware\base.py", line 84, in call_next
+    raise app_exc
+  File "C:\CORA\venv\Lib\site-packages\starlette\middleware\base.py", line 70, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "C:\CORA\venv\Lib\site-packages\starlette\middleware\base.py", line 108, in __call__
+    response = await self.dispatch_func(request, call_next)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\CORA\middleware\account_lockout.py", line 105, in account_lockout_middleware
+    response = await call_next(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\CORA\venv\Lib\site-packages\starlette\middleware\base.py", line 84, in call_next
+    raise app_exc
+  File "C:\CORA\venv\Lib\site-packages\starlette\middleware\base.py", line 70, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "C:\CORA\venv\Lib\site-packages\starlette\middleware\base.py", line 108, in __call__
+    response = await self.dispatch_func(request, call_next)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\CORA\middleware\csrf.py", line 76, in csrf_middleware
+    response = await call_next(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\CORA\venv\Lib\site-packages\starlette\middleware\base.py", line 84, in call_next
+    raise app_exc
+  File "C:\CORA\venv\Lib\site-packages\starlette\middleware\base.py", line 70, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "C:\CORA\venv\Lib\site-packages\starlette\middleware\base.py", line 108, in __call__
+    response = await self.dispatch_func(request, call_next)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\CORA\middleware\logging_middleware.py", line 45, in dispatch
+    response = await call_next(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\CORA\venv\Lib\site-packages\starlette\middleware\base.py", line 84, in call_next
+    raise app_exc
+  File "C:\CORA\venv\Lib\site-packages\starlette\middleware\base.py", line 70, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "C:\CORA\venv\Lib\site-packages\starlette\middleware\base.py", line 108, in __call__
+    response = await self.dispatch_func(request, call_next)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\CORA\middleware\security_headers_enhanced.py", line 25, in dispatch
+    response = await call_next(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\CORA\venv\Lib\site-packages\starlette\middleware\base.py", line 84, in call_next
+    raise app_exc
+  File "C:\CORA\venv\Lib\site-packages\starlette\middleware\base.py", line 70, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "C:\CORA\venv\Lib\site-packages\starlette\middleware\base.py", line 108, in __call__
+    response = await self.dispatch_func(request, call_next)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\CORA\middleware\auth_security_enhanced.py", line 230, in dispatch
+    response = await call_next(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\CORA\venv\Lib\site-packages\starlette\middleware\base.py", line 84, in call_next
+    raise app_exc
+  File "C:\CORA\venv\Lib\site-packages\starlette\middleware\base.py", line 70, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "C:\CORA\venv\Lib\site-packages\starlette\middleware\base.py", line 108, in __call__
+    response = await self.dispatch_func(request, call_next)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\CORA\middleware\api_security_config.py", line 185, in dispatch
+    response = await call_next(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\CORA\venv\Lib\site-packages\starlette\middleware\base.py", line 84, in call_next
+    raise app_exc
+  File "C:\CORA\venv\Lib\site-packages\starlette\middleware\base.py", line 70, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "C:\CORA\venv\Lib\site-packages\starlette\middleware\base.py", line 108, in __call__
+    response = await self.dispatch_func(request, call_next)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\CORA\middleware\api_security_config.py", line 82, in dispatch
+    response = await call_next(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\CORA\venv\Lib\site-packages\starlette\middleware\base.py", line 84, in call_next
+    raise app_exc
+  File "C:\CORA\venv\Lib\site-packages\starlette\middleware\base.py", line 70, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "C:\CORA\venv\Lib\site-packages\starlette\middleware\base.py", line 108, in __call__
+    response = await self.dispatch_func(request, call_next)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\CORA\middleware\api_security_config.py", line 46, in dispatch
+    response = await call_next(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\CORA\venv\Lib\site-packages\starlette\middleware\base.py", line 84, in call_next
+    raise app_exc
+  File "C:\CORA\venv\Lib\site-packages\starlette\middleware\base.py", line 70, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "C:\CORA\venv\Lib\site-packages\starlette\middleware\cors.py", line 83, in __call__
+    await self.app(scope, receive, send)
+  File "C:\CORA\venv\Lib\site-packages\starlette\middleware\cors.py", line 83, in __call__
+    await self.app(scope, receive, send)
+  File "C:\CORA\venv\Lib\site-packages\starlette\middleware\exceptions.py", line 79, in __call__
+    raise exc
+  File "C:\CORA\venv\Lib\site-packages\starlette\middleware\exceptions.py", line 68, in __call__
+    await self.app(scope, receive, sender)
+  File "C:\CORA\venv\Lib\site-packages\fastapi\middleware\asyncexitstack.py", line 20, in __call__
+    raise e
+  File "C:\CORA\venv\Lib\site-packages\fastapi\middleware\asyncexitstack.py", line 17, in __call__
+    await self.app(scope, receive, send)
+  File "C:\CORA\venv\Lib\site-packages\starlette\routing.py", line 718, in __call__
+    await route.handle(scope, receive, send)
+  File "C:\CORA\venv\Lib\site-packages\starlette\routing.py", line 276, in handle
+    await self.app(scope, receive, send)
+  File "C:\CORA\venv\Lib\site-packages\starlette\routing.py", line 66, in app
+    response = await func(request)
+               ^^^^^^^^^^^^^^^^^^^
+  File "C:\CORA\venv\Lib\site-packages\fastapi\routing.py", line 264, in app
+    solved_result = await solve_dependencies(
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\CORA\venv\Lib\site-packages\fastapi\dependencies\utils.py", line 592, in solve_dependencies
+    solved = await call(**sub_values)
+             ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\CORA\dependencies\auth.py", line 48, in get_current_user
+    email = verify_token(token)
+            ^^^^^^^^^^^^^^^^^^^
+  File "C:\CORA\services\auth_service.py", line 295, in verify_token
+    raise TokenValidationError("Invalid token")
+services.auth_service.TokenValidationError: Invalid token
+2025-08-12 19:40:09 - cora.requests - INFO - Request: {"timestamp": "2025-08-12T19:40:09.874548", "method": "GET", "path": "/dashboard", "query": "", "client": "127.0.0.1", "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36"}
+2025-08-12 19:40:09 - cora.requests - INFO - Response: GET /dashboard - 200 (0.002s)
+INFO:     127.0.0.1:58567 - "GET /dashboard HTTP/1.1" 200 OK
+2025-08-12 19:40:09 - cora.requests - INFO - Request: {"timestamp": "2025-08-12T19:40:09.904605", "method": "GET", "path": "/api/dashboard/metrics", "query": "", "client": "127.0.0.1", "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36"}
+2025-08-12 19:40:09 - cora.errors - WARNING - HTTP Exception: 401 - Not authenticated - Path: http://localhost:8000/api/dashboard/metrics
+2025-08-12 19:40:09 - cora.requests - INFO - Response: GET /api/dashboard/metrics - 401 (0.002s)
+INFO:     127.0.0.1:58567 - "GET /api/dashboard/metrics HTTP/1.1" 401 Unauthorized
+2025-08-12 19:40:09 - cora.requests - INFO - Request: {"timestamp": "2025-08-12T19:40:09.920049", "method": "GET", "path": "/api/feature-flags", "query": "", "client": "127.0.0.1", "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36"}
+2025-08-12 19:40:09 - cora.errors - WARNING - HTTP Exception: 401 - Not authenticated - Path: http://localhost:8000/api/feature-flags
+2025-08-12 19:40:09 - cora.requests - INFO - Response: GET /api/feature-flags - 401 (0.003s)
+INFO:     127.0.0.1:58567 - "GET /api/feature-flags HTTP/1.1" 401 Unauthorized
+2025-08-12 19:40:09 - cora.requests - INFO - Request: {"timestamp": "2025-08-12T19:40:09.938933", "method": "GET", "path": "/api/dashboard/insights", "query": "", "client": "127.0.0.1", "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36"}
+2025-08-12 19:40:09 - cora.errors - WARNING - HTTP Exception: 401 - Not authenticated - Path: http://localhost:8000/api/dashboard/insights
+2025-08-12 19:40:09 - cora.requests - INFO - Response: GET /api/dashboard/insights - 401 (0.000s)
+INFO:     127.0.0.1:58567 - "GET /api/dashboard/insights HTTP/1.1" 401 Unauthorized
+2025-08-12 19:40:09 - cora.requests - INFO - Request: {"timestamp": "2025-08-12T19:40:09.949023", "method": "GET", "path": "/api/dashboard/jobs", "query": "", "client": "127.0.0.1", "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36"}
+2025-08-12 19:40:09 - cora.errors - WARNING - HTTP Exception: 401 - Not authenticated - Path: http://localhost:8000/api/dashboard/jobs
+2025-08-12 19:40:09 - cora.requests - INFO - Response: GET /api/dashboard/jobs - 401 (0.007s)
+INFO:     127.0.0.1:58567 - "GET /api/dashboard/jobs HTTP/1.1" 401 Unauthorized
+2025-08-12 19:40:10 - cora.requests - INFO - Request: {"timestamp": "2025-08-12T19:40:10.790757", "method": "GET", "path": "/dashboard", "query": "", "client": "127.0.0.1", "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36"}
+2025-08-12 19:40:10 - cora.requests - INFO - Response: GET /dashboard - 200 (0.001s)
+INFO:     127.0.0.1:58567 - "GET /dashboard HTTP/1.1" 200 OK
+2025-08-12 19:40:10 - cora.requests - INFO - Request: {"timestamp": "2025-08-12T19:40:10.816414", "method": "GET", "path": "/api/dashboard/metrics", "query": "", "client": "127.0.0.1", "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36"}
+2025-08-12 19:40:10 - cora.requests - INFO - Request: {"timestamp": "2025-08-12T19:40:10.817415", "method": "GET", "path": "/api/feature-flags", "query": "", "client": "127.0.0.1", "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36"}
+2025-08-12 19:40:10 - cora.errors - WARNING - HTTP Exception: 401 - Not authenticated - Path: http://localhost:8000/api/dashboard/metrics
+2025-08-12 19:40:10 - cora.requests - INFO - Response: GET /api/dashboard/metrics - 401 (0.006s)
+2025-08-12 19:40:10 - cora.errors - WARNING - HTTP Exception: 401 - Not authenticated - Path: http://localhost:8000/api/feature-flags
+INFO:     127.0.0.1:58567 - "GET /api/dashboard/metrics HTTP/1.1" 401 Unauthorized
+2025-08-12 19:40:10 - cora.requests - INFO - Response: GET /api/feature-flags - 401 (0.023s)
+INFO:     127.0.0.1:58570 - "GET /api/feature-flags HTTP/1.1" 401 Unauthorized
+2025-08-12 19:40:10 - cora.requests - INFO - Request: {"timestamp": "2025-08-12T19:40:10.863294", "method": "GET", "path": "/api/dashboard/insights", "query": "", "client": "127.0.0.1", "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36"}
+2025-08-12 19:40:10 - cora.errors - WARNING - HTTP Exception: 401 - Not authenticated - Path: http://localhost:8000/api/dashboard/insights
+2025-08-12 19:40:10 - cora.requests - INFO - Response: GET /api/dashboard/insights - 401 (0.000s)
+INFO:     127.0.0.1:58570 - "GET /api/dashboard/insights HTTP/1.1" 401 Unauthorized
+2025-08-12 19:40:10 - cora.requests - INFO - Request: {"timestamp": "2025-08-12T19:40:10.873364", "method": "GET", "path": "/api/dashboard/jobs", "query": "", "client": "127.0.0.1", "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36"}
+2025-08-12 19:40:10 - cora.errors - WARNING - HTTP Exception: 401 - Not authenticated - Path: http://localhost:8000/api/dashboard/jobs
+2025-08-12 19:40:10 - cora.requests - INFO - Response: GET /api/dashboard/jobs - 401 (0.010s)
+INFO:     127.0.0.1:58570 - "GET /api/dashboard/jobs HTTP/1.1" 401 Unauthorized
+2025-08-12 19:40:11 - cora.requests - INFO - Request: {"timestamp": "2025-08-12T19:40:11.494132", "method": "GET", "path": "/dashboard", "query": "", "client": "127.0.0.1", "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36"}
+2025-08-12 19:40:11 - cora.requests - INFO - Response: GET /dashboard - 200 (0.007s)
+INFO:     127.0.0.1:58570 - "GET /dashboard HTTP/1.1" 200 OK
+2025-08-12 19:40:11 - cora.requests - INFO - Request: {"timestamp": "2025-08-12T19:40:11.524054", "method": "GET", "path": "/api/dashboard/metrics", "query": "", "client": "127.0.0.1", "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36"}
+2025-08-12 19:40:11 - cora.requests - INFO - Request: {"timestamp": "2025-08-12T19:40:11.524711", "method": "GET", "path": "/api/feature-flags", "query": "", "client": "127.0.0.1", "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36"}
+2025-08-12 19:40:11 - cora.errors - WARNING - HTTP Exception: 401 - Not authenticated - Path: http://localhost:8000/api/dashboard/metrics
+2025-08-12 19:40:11 - cora.requests - INFO - Response: GET /api/dashboard/metrics - 401 (0.005s)
+2025-08-12 19:40:11 - cora.errors - WARNING - HTTP Exception: 401 - Not authenticated - Path: http://localhost:8000/api/feature-flags
+INFO:     127.0.0.1:58570 - "GET /api/dashboard/metrics HTTP/1.1" 401 Unauthorized
+2025-08-12 19:40:11 - cora.requests - INFO - Response: GET /api/feature-flags - 401 (0.016s)
+INFO:     127.0.0.1:58567 - "GET /api/feature-flags HTTP/1.1" 401 Unauthorized
+2025-08-12 19:40:11 - cora.requests - INFO - Request: {"timestamp": "2025-08-12T19:40:11.555870", "method": "GET", "path": "/api/dashboard/insights", "query": "", "client": "127.0.0.1", "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36"}
+2025-08-12 19:40:11 - cora.errors - WARNING - HTTP Exception: 401 - Not authenticated - Path: http://localhost:8000/api/dashboard/insights
+2025-08-12 19:40:11 - cora.requests - INFO - Response: GET /api/dashboard/insights - 401 (0.000s)
+INFO:     127.0.0.1:58567 - "GET /api/dashboard/insights HTTP/1.1" 401 Unauthorized
+2025-08-12 19:40:11 - cora.requests - INFO - Request: {"timestamp": "2025-08-12T19:40:11.566010", "method": "GET", "path": "/api/dashboard/jobs", "query": "", "client": "127.0.0.1", "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36"}
+2025-08-12 19:40:11 - cora.errors - WARNING - HTTP Exception: 401 - Not authenticated - Path: http://localhost:8000/api/dashboard/jobs
+2025-08-12 19:40:11 - cora.requests - INFO - Response: GET /api/dashboard/jobs - 401 (0.000s)
+INFO:     127.0.0.1:58567 - "GET /api/dashboard/jobs HTTP/1.1" 401 Unauthorized

@@ -21,7 +21,7 @@ class ExpenseCategory(Base):
     description = Column(Text)
     icon = Column(String(50))
     is_active = Column(Boolean, default=True)
-    created_at = Column(DateTime, server_default=func.now())
+    created_at = Column(DateTime(timezone=True), server_default=func.now())
     
     # Relationships
     expenses = relationship("Expense", back_populates="category")

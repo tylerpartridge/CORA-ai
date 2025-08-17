@@ -1,0 +1,122 @@
+[
+  {
+    "timestamp": "2025-08-10T09:44:27.596368",
+    "metrics": {
+      "files": {
+        "total": 160,
+        "python": 160,
+        "javascript": 0,
+        "html": 0,
+        "css": 0
+      },
+      "lines": {
+        "total": 46141,
+        "code": 36139,
+        "comments": 3009,
+        "blank": 6993
+      },
+      "functions": {
+        "total": 810,
+        "documented": 680,
+        "undocumented": 130
+      },
+      "imports": {
+        "total": 2417,
+        "unused": 302,
+        "duplicate": 0
+      },
+      "errors": {
+        "hardcoded": 242,
+        "standardized": 14,
+        "inconsistent": 0
+      },
+      "todos": {
+        "total": 15,
+        "high_priority": 0,
+        "low_priority": 0
+      },
+      "complexity": {
+        "high": 102,
+        "medium": 16,
+        "low": 42
+      },
+      "test_coverage": {
+        "files_with_tests": 9,
+        "files_without_tests": 412
+      },
+      "documentation": {
+        "readme_exists": false,
+        "api_docs": false,
+        "inline_comments_ratio": 0
+      },
+      "security": {
+        "hardcoded_secrets": 0,
+        "sql_injection_risks": 0,
+        "unsafe_eval": 0
+      }
+    },
+    "health_score": 71,
+    "issues_count": 5,
+    "recommendations_count": 5
+  },
+  {
+    "timestamp": "2025-08-10T10:00:30.614085",
+    "metrics": {
+      "files": {
+        "total": 209,
+        "python": 209,
+        "javascript": 0,
+        "html": 0,
+        "css": 0
+      },
+      "lines": {
+        "total": 62055,
+        "code": 48576,
+        "comments": 4033,
+        "blank": 9446
+      },
+      "functions": {
+        "total": 1079,
+        "documented": 920,
+        "undocumented": 159
+      },
+      "imports": {
+        "total": 3092,
+        "unused": 333,
+        "duplicate": 0
+      },
+      "errors": {
+        "hardcoded": 242,
+        "standardized": 14,
+        "inconsistent": 0
+      },
+      "todos": {
+        "total": 14,
+        "high_priority": 0,
+        "low_priority": 0
+      },
+      "complexity": {
+        "high": 136,
+        "medium": 18,
+        "low": 55
+      },
+      "test_coverage": {
+        "files_with_tests": 9,
+        "files_without_tests": 462
+      },
+      "documentation": {
+        "readme_exists": false,
+        "api_docs": false,
+        "inline_comments_ratio": 0
+      },
+      "security": {
+        "hardcoded_secrets": 0,
+        "sql_injection_risks": 0,
+        "unsafe_eval": 0
+      }
+    },
+    "health_score": 72,
+    "issues_count": 5,
+    "recommendations_count": 5
+  }
+]

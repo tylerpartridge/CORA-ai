@@ -1,0 +1,31 @@
+{
+  "userEmail": "test311pm@example.com",
+  "businessProfile": {
+    "businessName": "jake's framing Business",
+    "businessType": "framing",
+    "industry": "Construction",
+    "monthlyRevenueRange": "$10,000-$50,000"
+  },
+  "detailedOnboardingData": {
+    "name": "jake",
+    "yearsInBusiness": "new",
+    "businessSize": "small_crew",
+    "serviceArea": "statewide",
+    "customerType": [
+      "commercial",
+      "government"
+    ],
+    "trackingMethod": [
+      "paper"
+    ],
+    "mainChallenge": [
+      "time"
+    ],
+    "busySeason": "fall",
+    "businessGoal": [
+      "grow_revenue",
+      "expand_team"
+    ]
+  },
+  "createdAt": "2025-08-16T17:45:03.958739"
+}

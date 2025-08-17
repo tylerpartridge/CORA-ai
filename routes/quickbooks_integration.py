@@ -13,12 +13,15 @@ from pydantic import BaseModel
 from typing import Optional, List
 import requests
 import json
+import logging
 from datetime import datetime, timedelta
 
 from models import get_db
 from models.quickbooks_integration import QuickBooksIntegration, QuickBooksSyncHistory
 from dependencies.auth import get_current_user
 from services.quickbooks_service import QuickBooksService
+
+logger = logging.getLogger(__name__)
 
 # Create router
 quickbooks_router = APIRouter(
@@ -77,14 +80,16 @@ async def get_auth_url(
                 detail="QuickBooks integration already exists for this user"
             )
         
+        # Import centralized config
+        from config import config
+        
         # Generate authorization URL
-        import os
-        auth_url = os.getenv("QUICKBOOKS_AUTH_URL", "https://appcenter.intuit.com/connect/oauth2")
+        auth_url = "https://appcenter.intuit.com/connect/oauth2"
         params = {
-            "client_id": os.getenv("QUICKBOOKS_CLIENT_ID", "YOUR_QUICKBOOKS_CLIENT_ID"),
+            "client_id": config.QUICKBOOKS_CLIENT_ID,
             "response_type": "code",
             "scope": "com.intuit.quickbooks.accounting",
-            "redirect_uri": os.getenv("QUICKBOOKS_REDIRECT_URI", "https://cora.ai/api/integrations/quickbooks/callback"),
+            "redirect_uri": f"{config.BASE_URL}/api/integrations/quickbooks/callback",
             "state": str(current_user)  # CSRF protection
         }
         
@@ -112,17 +117,19 @@ async def oauth_callback(
         # Validate state parameter (CSRF protection)
         user_id = int(state)
         
+        # Import centralized config
+        from config import config
+        
         # Exchange code for tokens
-        import os
-        token_url = os.getenv("QUICKBOOKS_TOKEN_URL", "https://oauth.platform.intuit.com/oauth2/v1/tokens/bearer")
+        token_url = "https://oauth.platform.intuit.com/oauth2/v1/tokens/bearer"
         data = {
             "grant_type": "authorization_code",
             "code": code,
-            "redirect_uri": os.getenv("QUICKBOOKS_REDIRECT_URI", "https://cora.ai/api/integrations/quickbooks/callback")
+            "redirect_uri": f"{config.BASE_URL}/api/integrations/quickbooks/callback"
         }
         
         headers = {
-            "Authorization": f"Basic {os.getenv('QUICKBOOKS_BASIC_AUTH', 'YOUR_BASIC_AUTH')}",
+            "Authorization": f"Basic {config.QUICKBOOKS_CLIENT_SECRET}",
             "Content-Type": "application/x-www-form-urlencoded"
         }
         
@@ -218,8 +225,24 @@ async def sync_expenses(
         
         # Check if token needs refresh
         if integration.needs_token_refresh:
-            # TODO: Implement token refresh logic
-            pass
+            # Refresh the access token using refresh token
+            try:
+                qb_service = QuickBooksService(integration)
+                new_tokens = await qb_service.refresh_access_token()
+                
+                # Update integration with new tokens
+                integration.access_token = new_tokens['access_token']
+                integration.refresh_token = new_tokens.get('refresh_token', integration.refresh_token)
+                integration.token_expiry = datetime.utcnow() + timedelta(seconds=new_tokens.get('expires_in', 3600))
+                
+                db.commit()
+                logger.info(f"Refreshed QuickBooks token for user {current_user.email}")
+            except Exception as e:
+                logger.error(f"Failed to refresh QuickBooks token: {str(e)}")
+                raise HTTPException(
+                    status_code=401,
+                    detail="Failed to refresh QuickBooks token. Please reconnect your account."
+                )
         
         # Initialize QuickBooks service
         qb_service = QuickBooksService(integration)

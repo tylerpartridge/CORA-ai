@@ -1,0 +1,126 @@
+groups:
+  - name: cora-alerts
+    rules:
+      # Application Health Alerts
+      - alert: CORAAppDown
+        expr: up{job="cora-app"} == 0
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: "CORA application is down"
+          description: "CORA application has been down for more than 1 minute"
+
+      - alert: CORAAppHighResponseTime
+        expr: http_request_duration_seconds{job="cora-app"} > 2
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "CORA application high response time"
+          description: "CORA application response time is above 2 seconds for 5 minutes"
+
+      # Database Alerts
+      - alert: PostgresDown
+        expr: up{job="postgres"} == 0
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: "PostgreSQL database is down"
+          description: "PostgreSQL database has been down for more than 1 minute"
+
+      - alert: PostgresHighConnections
+        expr: pg_stat_database_numbackends > 80
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "PostgreSQL high connection count"
+          description: "PostgreSQL has more than 80 active connections for 5 minutes"
+
+      # Redis Alerts
+      - alert: RedisDown
+        expr: up{job="redis"} == 0
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Redis is down"
+          description: "Redis has been down for more than 1 minute"
+
+      - alert: RedisHighMemory
+        expr: redis_memory_used_bytes / redis_memory_max_bytes > 0.8
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Redis high memory usage"
+          description: "Redis memory usage is above 80% for 5 minutes"
+
+      # System Resource Alerts
+      - alert: HighCPUUsage
+        expr: 100 - (avg by(instance) (irate(node_cpu_seconds_total{mode="idle"}[5m])) * 100) > 80
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "High CPU usage"
+          description: "CPU usage is above 80% for 5 minutes"
+
+      - alert: HighMemoryUsage
+        expr: (node_memory_MemTotal_bytes - node_memory_MemAvailable_bytes) / node_memory_MemTotal_bytes * 100 > 85
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "High memory usage"
+          description: "Memory usage is above 85% for 5 minutes"
+
+      - alert: HighDiskUsage
+        expr: (node_filesystem_size_bytes - node_filesystem_free_bytes) / node_filesystem_size_bytes * 100 > 85
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "High disk usage"
+          description: "Disk usage is above 85% for 5 minutes"
+
+      # Application Specific Alerts
+      - alert: CORAHighErrorRate
+        expr: rate(http_requests_total{job="cora-app", status=~"5.."}[5m]) / rate(http_requests_total{job="cora-app"}[5m]) > 0.05
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "CORA high error rate"
+          description: "CORA application error rate is above 5% for 5 minutes"
+
+      - alert: CORAHighRequestRate
+        expr: rate(http_requests_total{job="cora-app"}[5m]) > 100
+        for: 5m
+        labels:
+          severity: info
+        annotations:
+          summary: "CORA high request rate"
+          description: "CORA application is receiving more than 100 requests per second for 5 minutes"
+
+      # Backup Alerts
+      - alert: BackupFailed
+        expr: time() - cora_backup_last_success_timestamp > 86400
+        for: 1h
+        labels:
+          severity: warning
+        annotations:
+          summary: "Backup failed"
+          description: "No successful backup in the last 24 hours"
+
+      # SSL Certificate Alerts
+      - alert: SSLCertExpiringSoon
+        expr: probe_ssl_earliest_cert_expiry - time() < 86400 * 30
+        for: 1h
+        labels:
+          severity: warning
+        annotations:
+          summary: "SSL certificate expiring soon"
+          description: "SSL certificate will expire in less than 30 days" 

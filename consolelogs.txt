@@ -1,0 +1,2820 @@
+Microsoft Windows [Version 10.0.26100.4946]
+(c) Microsoft Corporation. All rights reserved.
+
+C:\Users\tyler>dir C:\
+ Volume in drive C is Windows-SSD
+ Volume Serial Number is 2CF0-C4F3
+
+ Directory of C:\
+
+2025-08-17  09:34 AM    <DIR>          CORA
+2024-10-31  12:28 AM    <DIR>          Drivers
+2025-07-15  08:42 AM    <DIR>          Ghost
+2025-07-06  11:51 AM    <DIR>          Ghost-Secrets
+2025-05-26  12:38 PM    <DIR>          Ghost_Backups
+2025-04-06  02:43 AM    <DIR>          Grafana
+2025-06-13  06:03 PM    <DIR>          home
+2025-04-09  10:56 AM    <DIR>          inetpub
+2025-06-16  02:32 AM    <DIR>          mnt
+2025-07-03  07:35 PM    <DIR>          opt
+2025-06-28  02:49 PM    <DIR>          Program Files
+2025-03-17  10:11 AM    <DIR>          Program Files (x86)
+2025-06-13  05:54 PM    <DIR>          Python313
+2025-02-20  11:11 PM             2,120 Setup.log
+2025-03-16  04:16 PM    <DIR>          StripeCLI
+2025-05-30  08:51 AM    <DIR>          system
+2025-03-06  12:27 PM    <DIR>          Users
+2025-08-13  12:29 AM    <DIR>          Windows
+               1 File(s)          2,120 bytes
+              17 Dir(s)  339,376,717,824 bytes free
+
+C:\Users\tyler>cd C:\CORA
+
+C:\CORA>dir
+ Volume in drive C is Windows-SSD
+ Volume Serial Number is 2CF0-C4F3
+
+ Directory of C:\CORA
+
+2025-08-17  09:34 AM    <DIR>          .
+2025-07-17  01:30 PM    <DIR>          .ai
+2025-07-11  08:29 PM    <DIR>          .archive
+2025-08-17  09:39 AM    <DIR>          .claude
+2025-08-09  04:38 PM               603 .coveragerc
+2025-07-12  03:25 PM             2,668 .cursorrules
+2025-08-15  10:59 AM             6,184 .env
+2025-08-10  01:46 PM             1,296 .env.example
+2025-08-05  01:32 PM             5,999 .env.production
+2025-07-12  11:08 AM    <DIR>          .github
+2025-08-17  09:41 AM               118 .gitignore
+2025-07-12  01:33 AM    <DIR>          .mind
+2025-07-12  04:07 PM    <DIR>          .private
+2025-07-09  11:46 AM    <DIR>          .pytest_cache
+2025-07-11  10:36 PM    <DIR>          .vscode
+2025-08-16  09:55 AM                 0 actual_login.html
+2025-08-16  10:21 PM            16,198 AI_DISCUSSION_SPACE.md
+2025-08-16  10:20 PM            34,319 AI_WORK_LOG.md
+2025-08-02  10:36 AM           703,370 app.log
+2025-08-16  09:46 PM            34,329 app.py
+2025-07-23  05:17 PM    <DIR>          archive
+2025-08-09  11:40 PM    <DIR>          archives
+2025-08-12  05:49 PM             2,145 AWARENESS_TEST.md
+2025-08-12  05:50 PM               914 awareness_test_results.json
+2025-08-12  09:37 AM    <DIR>          backups
+2025-08-16  10:59 PM             6,613 bootup.md
+2025-08-12  05:41 PM             3,152 BOOTUP_BREADCRUMBS.md
+2025-08-10  10:23 AM            10,801 bulletproof_verification.py
+2025-08-10  04:26 PM             2,072 check_christina.py
+2025-08-04  05:54 PM             2,973 check_db_schema.py
+2025-08-16  09:55 AM             1,759 check_login_html.py
+2025-08-12  05:06 PM             3,673 check_nav.py
+2025-08-10  03:45 PM               496 check_user.py
+2025-08-16  10:51 AM             1,491 check_users.py
+2025-08-10  04:30 PM             2,448 CHRISTINA_ACCOUNT_STATUS.md
+2025-08-16  06:08 PM             6,308 CLAUDE.md
+2025-07-30  02:12 PM    <DIR>          clients
+2025-08-10  10:09 AM             3,673 code_improvements_summary.md
+2025-08-10  10:07 AM             4,925 code_quality_analysis.py
+2025-08-06  12:15 PM             3,541 comprehensive_test.py
+2025-08-02  12:11 PM    <DIR>          config
+2025-08-09  10:12 PM             4,318 config.py
+2025-08-11  01:59 PM    <DIR>          content_bank
+2025-08-12  07:08 PM            18,557 CONTRACTOR_DASHBOARD_SPEC.md
+2025-08-10  08:12 PM               131 cookies.txt
+2025-08-17  08:21 AM           729,088 cora.db
+2025-08-09  04:57 PM           501,512 coverage.xml
+2025-08-16  10:52 AM             1,435 create_test_login_user.py
+2025-08-10  04:46 PM             1,086 create_waitlist_table.py
+2025-08-16  06:41 PM             4,811 CSS_SURVIVAL_GUIDE.md
+2025-08-12  06:45 PM             3,996 DASHBOARD_BUILD_SPEC.md
+2025-08-10  01:26 PM    <DIR>          data
+2025-08-02  10:34 AM            19,309 database_optimization_analysis.py
+2025-08-05  11:45 AM             1,820 debug_imports.py
+2025-08-12  05:01 PM             3,739 debug_nav.html
+2025-08-16  10:01 AM             1,000 debug_template.py
+2025-08-10  04:33 PM             2,289 delete_accounts.py
+2025-07-23  06:47 PM    <DIR>          demo
+2025-08-04  06:02 PM    <DIR>          dependencies
+2025-08-14  09:46 AM    <DIR>          deployment
+2025-08-10  01:47 PM             3,755 DEPLOYMENT_100_PERCENT_READY.md
+2025-08-10  01:54 PM             4,461 DEPLOYMENT_CHECKPOINT_20250810.md
+2025-08-10  01:07 PM            11,839 DEPLOYMENT_READINESS_PLAN.md
+2025-08-10  01:31 PM             5,179 DEPLOYMENT_STATUS_REPORT.md
+2025-08-16  11:07 AM             4,282 diagnose_login_styles.html
+2025-08-05  01:27 PM               581 docker-compose.prod.yml
+2025-08-05  09:43 AM               237 docker-compose.yml
+2025-07-15  07:01 AM               506 Dockerfile
+2025-08-05  01:27 PM               838 Dockerfile.prod
+2025-08-14  10:52 AM    <DIR>          docs
+2025-08-10  04:19 PM             1,979 EMAIL_CAPABILITY_WIRED.md
+2025-08-10  04:43 PM             3,429 EMAIL_CAPTURE_RECOMMENDATION.md
+2025-08-03  12:32 PM             4,966 env.example.template
+2025-08-02  01:30 PM             3,213 env.secure.template
+2025-08-05  11:18 AM             2,670 environment_analysis_report.json
+2025-08-16  10:13 PM             3,998 EXPENSE_TRACKER_LAUNCH_STATUS.md
+2025-08-16  07:34 PM    <DIR>          features
+2025-08-10  01:41 PM             3,823 FINAL_DEPLOYMENT_VALIDATION.md
+2025-08-10  11:36 AM             4,437 FINAL_VERIFICATION_REPORT.md
+2025-08-10  07:44 PM               864 fix_christina_account.py
+2025-08-10  03:45 PM               879 fix_test_users.py
+2025-08-10  02:26 PM            11,367 GPT5_TECHNICAL_CONTEXT.md
+2025-08-15  03:51 PM            51,852 GPT_BOOTUP_CHAT_LOG.md
+2025-08-16  10:04 PM            14,201 HANDOFF.md
+2025-08-10  11:40 AM               714 HANDOFF_ARCHIVE_20250810.md
+2025-08-06  04:21 PM             2,818 HOW_WE_WORK.md
+2025-08-10  10:08 AM             3,520 import_optimizer.py
+2025-08-12  10:43 AM               284 KILL_ALL_SERVERS.bat
+2025-08-10  01:09 PM             5,055 KNOWN_DEPLOYMENT_ISSUES.md
+2025-08-11  11:39 AM             2,037 LANDING_PAGE_IMPROVEMENTS_TODO.md
+2025-08-16  07:33 PM             4,373 LAUNCH_WEEK_PLAN.md
+2025-08-10  04:31 PM             2,711 list_all_users.py
+2025-08-05  09:43 AM                50 logging_config.json
+2025-08-16  11:10 AM             1,488 LOGIN_ISSUES_SUMMARY.md
+2025-08-12  09:56 AM    <DIR>          logs
+2025-08-13  12:30 PM             4,424 MANUAL_TESTING_CHECKLIST.md
+2025-08-16  06:04 PM            20,817 MANUAL_TEST_CHECKLIST.md
+2025-08-10  02:36 PM             8,347 MANUAL_TEST_CHECKLIST_DETAILED.md
+2025-07-30  09:23 AM    <DIR>          marketing
+2025-08-14  01:30 PM    <DIR>          middleware
+2025-07-23  09:01 PM    <DIR>          migrations
+2025-08-13  12:01 PM    <DIR>          models
+2025-08-10  09:54 AM               775 models.py
+2025-07-15  09:07 PM    <DIR>          monitoring
+2025-08-10  04:39 PM             2,760 monitor_email_capture.py
+2025-08-16  12:27 PM             1,318 monitor_login.py
+2025-07-11  01:35 PM    <DIR>          node_modules
+2025-08-10  01:24 PM               622 package.json
+2025-08-10  10:03 AM             4,453 PRE_DEPLOYMENT_REPORT.md
+2025-08-17  09:34 AM             1,876 PRIORITY.md
+2025-08-10  10:03 AM             3,580 production_optimization.py
+2025-08-10  10:19 AM            11,827 production_readiness_audit.py
+2025-08-05  01:16 PM             8,494 production_readiness_report_20250805_131626.json
+2025-08-09  04:38 PM               984 pytest.ini
+2025-08-16  06:42 PM             3,062 QUICK_REFERENCE.md
+2025-07-23  02:26 PM             1,338 README.md
+2025-08-05  09:35 AM    <DIR>          reports
+2025-07-23  08:11 PM             1,212 requirements.txt
+2025-08-15  05:17 PM    <DIR>          reset-system
+2025-08-16  09:44 PM    <DIR>          routes
+2025-08-12  11:00 AM               461 RUN_CORA.bat
+2025-08-09  04:41 PM             3,714 run_tests.sh
+2025-08-10  05:08 PM            44,899 SAAS_GAP_CLOSURE_BLUEPRINT.md
+2025-08-10  04:58 PM            25,439 SAAS_PROFESSIONALIZATION_BLUEPRINT.md
+2025-08-02  10:35 AM    <DIR>          schema
+2025-07-24  08:25 AM    <DIR>          scripts
+2025-08-10  10:02 AM             4,017 security_review.py
+2025-08-02  10:39 AM               978 security_test_report_20250802_103930.json
+2025-08-10  04:13 PM             1,991 SENDGRID_STATUS.md
+2025-08-16  10:08 PM             2,107 server.log
+2025-08-12  07:47 PM            61,487 serverlogs.txt
+2025-08-16  04:48 PM    <DIR>          services
+2025-08-10  03:15 PM             3,895 SESSION_SUMMARY_20250810.md
+2025-08-02  12:11 PM             9,005 setup_production_monitoring.py
+2025-08-10  04:27 PM             2,726 SIGNUP_FLOW_ANALYSIS.md
+2025-08-06  12:22 PM               194 START_CORA.bat
+2025-08-12  10:58 AM               238 START_FRESH.bat
+2025-08-12  05:34 PM             6,341 SYSTEM_RULES.md
+2025-08-06  11:56 AM             1,164 template_checksums.json
+2025-08-02  10:25 AM    <DIR>          testing
+2025-08-10  11:03 AM    <DIR>          tests
+2025-08-10  11:01 AM             4,194 test_api_direct.py
+2025-08-09  10:37 PM            10,237 test_api_endpoints.py
+2025-08-09  10:38 PM             8,487 test_api_simple.py
+2025-08-12  05:50 PM             7,293 test_awareness.py
+2025-08-10  04:21 PM             1,362 test_bootup_awareness.sh
+2025-08-10  11:01 AM               807 test_bundles.py
+2025-08-09  10:55 PM             7,868 test_business_automation.py
+2025-08-10  04:29 PM             1,258 test_christina_login.py
+2025-08-10  04:28 PM             3,409 test_christina_signup.py
+2025-08-10  11:01 AM            24,017 test_complete_user_journey.py
+2025-08-10  11:01 AM             1,106 test_cora_direct.py
+2025-08-10  11:01 AM             4,605 test_critical_endpoints.py
+2025-08-10  04:48 PM               957 test_email_capture.py
+2025-08-09  10:34 PM             9,910 test_emotional_demo.py
+2025-08-10  11:01 AM             2,634 test_endpoints.py
+2025-08-09  10:17 PM             8,371 test_enhanced_orchestrator.py
+2025-08-09  10:18 PM             9,850 test_enhanced_response_structure.py
+2025-08-16  10:12 PM             5,083 test_expense_tracker.py
+2025-08-10  11:01 AM             3,605 test_frontend_integration.py
+2025-08-10  11:01 AM            20,743 test_integration_complete.py
+2025-08-03  03:17 PM             1,966 test_intelligence_route.py
+2025-08-16  10:51 AM             1,920 test_login_api.py
+2025-08-10  03:46 PM             1,160 test_login_only.py
+2025-08-10  11:01 AM             5,578 test_openai_integration.py
+2025-08-10  11:01 AM             2,493 test_openai_simple.py
+2025-08-10  11:01 AM            13,507 test_personality_enhancements.py
+2025-08-10  11:01 AM            14,613 test_profit_calculations.py
+2025-07-15  09:33 PM    <DIR>          test_recovery
+2025-08-10  08:13 PM             2,220 test_referral_system.py
+2025-08-10  11:01 AM             1,049 test_routes.py
+2025-08-10  04:12 PM             1,578 test_sendgrid.py
+2025-08-10  03:25 PM             1,437 test_server.py
+2025-08-10  03:44 PM             2,098 test_signup_login.py
+2025-08-10  11:01 AM             6,035 test_stripe_integration.py
+2025-08-10  11:01 AM             7,795 test_system_components.py
+2025-08-10  11:01 AM             1,753 test_which_cora.py
+2025-08-11  09:41 AM             1,308 THEME_CONSISTENCY_TODO.md
+2025-08-10  01:40 PM             1,814 THEME_DECISION.md
+2025-08-16  02:42 PM    <DIR>          tmp
+2025-08-15  08:03 AM    <DIR>          tools
+2025-08-10  04:40 PM             1,187 trace_signup.py
+2025-08-16  10:59 PM             5,883 TYLER_PSYCHE_PROFILE.md
+2025-07-15  09:38 PM    <DIR>          uploads
+2025-08-02  10:41 AM             2,298 user_acceptance_report_20250802_104137.json
+2025-08-15  10:01 AM    <DIR>          utils
+2025-07-11  01:59 PM    <DIR>          venv
+2025-08-10  03:47 PM               945 verify_christina.py
+2025-08-10  04:34 PM             2,697 verify_manual_signup.py
+2025-08-16  12:34 PM             5,200 verify_user_data.py
+2025-08-16  12:35 PM             5,928 verify_user_data_fixed.py
+2025-07-23  04:17 PM    <DIR>          voice_feature
+2025-08-10  03:01 PM             7,314 VOICE_TEST_SCRIPT.md
+2025-08-12  09:35 AM    <DIR>          web
+2025-08-16  10:09 PM    <DIR>          __pycache__
+             150 File(s)      2,797,682 bytes
+              45 Dir(s)  339,330,940,928 bytes free
+
+C:\CORA>git --version
+git version 2.48.1.windows.1
+
+C:\CORA>git init
+Reinitialized existing Git repository in C:/CORA/.git/
+
+C:\CORA>git remote add origin https://github.com/tylerpartridge/CORA-ai.git
+error: remote origin already exists.
+
+C:\CORA>git status
+On branch main
+Your branch is up to date with 'origin/main'.
+
+Changes to be committed:
+  (use "git restore --staged <file>..." to unstage)
+        new file:   .coveragerc
+        deleted:    .env.quickbooks.example
+        new file:   .github/workflows/deploy.yml
+        modified:   .gitignore
+        new file:   AI_DISCUSSION_SPACE.md
+        modified:   BOOTUP.md
+        new file:   Dockerfile.prod
+        new file:   FINAL_VERIFICATION_REPORT.md
+        new file:   HANDOFF.md
+        new file:   HANDOFF_ARCHIVE_20250810.md
+        deleted:    HANDOVER_ACTIVE.md
+        new file:   HOW_WE_WORK.md
+        deleted:    NEXT.md
+        deleted:    NOW.md
+        new file:   PRE_DEPLOYMENT_REPORT.md
+        new file:   PRIORITY.md
+        new file:   QUICK_REFERENCE.md
+        modified:   README.md
+        new file:   START_CORA.bat
+        deleted:    STATUS.md
+        new file:   SYSTEM_RULES.md
+        modified:   app.py
+        new file:   archive/README.md
+        new file:   archives/2025-08-06/CRITICAL_TEMPLATE_RECOVERY.md
+        new file:   archives/2025-08-06/HANDOFF_ARCHIVE_2025-08-06.md
+        new file:   archives/2025-08-06/HANDOFF_NEW.md
+        new file:   archives/2025-08-06/HANDOFF_PRODUCTION_READY.md
+        new file:   archives/2025-08-06/HANDOFF_TEMPLATE.md
+        new file:   archives/2025-08-06/TEMPLATE_INHERITANCE_MIGRATION_COMPLETE.md
+        new file:   archives/2025-08-06/TEMPLATE_INHERITANCE_SUMMARY.md
+        new file:   archives/2025-08-06/TEMPLATE_INHERITANCE_TROUBLESHOOTING_GUIDE.md
+        new file:   archives/2025-08-06/TEMPLATE_LOCKFILE.md
+        new file:   archives/2025-08-06/TEMPLATE_MIGRATION_STATUS.md
+        new file:   archives/2025-08-06/bootup_old.md
+        new file:   archives/bootup_experiments/AI_CHAT.md
+        new file:   archives/bootup_experiments/CONTROL_TOWER.md
+        new file:   archives/bootup_experiments/RADAR.md
+        new file:   archives/bootup_experiments/UPDATE_TRIGGERS.md
+        new file:   archives/bootup_experiments/bootup_fixed.md
+        new file:   archives/bootup_experiments/bootup_simple.md
+        new file:   archives/bootup_experiments/bootup_smart.md
+        new file:   archives/bootup_experiments/bootup_v2.md
+        new file:   archives/consolidated/2025-08-06/CRITICAL_TEMPLATE_RECOVERY.md
+        new file:   archives/consolidated/2025-08-06/HANDOFF_ARCHIVE_2025-08-06.md
+        new file:   archives/consolidated/2025-08-06/HANDOFF_NEW.md
+        new file:   archives/consolidated/2025-08-06/HANDOFF_PRODUCTION_READY.md
+        new file:   archives/consolidated/2025-08-06/HANDOFF_TEMPLATE.md
+        new file:   archives/consolidated/2025-08-06/TEMPLATE_INHERITANCE_MIGRATION_COMPLETE.md
+        new file:   archives/consolidated/2025-08-06/TEMPLATE_INHERITANCE_SUMMARY.md
+        new file:   archives/consolidated/2025-08-06/TEMPLATE_INHERITANCE_TROUBLESHOOTING_GUIDE.md
+        new file:   archives/consolidated/2025-08-06/TEMPLATE_LOCKFILE.md
+        new file:   archives/consolidated/2025-08-06/TEMPLATE_MIGRATION_STATUS.md
+        new file:   archives/consolidated/2025-08-06/bootup_old.md
+        new file:   archives/consolidated/README.md
+        new file:   archives/consolidated/bootup_experiments/AI_CHAT.md
+        new file:   archives/consolidated/bootup_experiments/CONTROL_TOWER.md
+        new file:   archives/consolidated/bootup_experiments/RADAR.md
+        new file:   archives/consolidated/bootup_experiments/UPDATE_TRIGGERS.md
+        new file:   archives/consolidated/bootup_experiments/bootup_fixed.md
+        new file:   archives/consolidated/bootup_experiments/bootup_simple.md
+        new file:   archives/consolidated/bootup_experiments/bootup_smart.md
+        new file:   archives/consolidated/bootup_experiments/bootup_v2.md
+        new file:   archives/consolidated/consolidated/2025-08-06/CRITICAL_TEMPLATE_RECOVERY.md
+        new file:   archives/consolidated/consolidated/2025-08-06/HANDOFF_ARCHIVE_2025-08-06.md
+        new file:   archives/consolidated/consolidated/2025-08-06/HANDOFF_NEW.md
+        new file:   archives/consolidated/consolidated/2025-08-06/HANDOFF_PRODUCTION_READY.md
+        new file:   archives/consolidated/consolidated/2025-08-06/HANDOFF_TEMPLATE.md
+        new file:   archives/consolidated/consolidated/2025-08-06/TEMPLATE_INHERITANCE_MIGRATION_COMPLETE.md
+        new file:   archives/consolidated/consolidated/2025-08-06/TEMPLATE_INHERITANCE_SUMMARY.md
+        new file:   archives/consolidated/consolidated/2025-08-06/TEMPLATE_INHERITANCE_TROUBLESHOOTING_GUIDE.md
+        new file:   archives/consolidated/consolidated/2025-08-06/TEMPLATE_LOCKFILE.md
+        new file:   archives/consolidated/consolidated/2025-08-06/TEMPLATE_MIGRATION_STATUS.md
+        new file:   archives/consolidated/consolidated/2025-08-06/bootup_old.md
+        new file:   archives/consolidated/consolidated/README.md
+        new file:   archives/consolidated/consolidated/bootup_experiments/AI_CHAT.md
+        new file:   archives/consolidated/consolidated/bootup_experiments/CONTROL_TOWER.md
+        new file:   archives/consolidated/consolidated/bootup_experiments/RADAR.md
+        new file:   archives/consolidated/consolidated/bootup_experiments/UPDATE_TRIGGERS.md
+        new file:   archives/consolidated/consolidated/bootup_experiments/bootup_fixed.md
+        new file:   archives/consolidated/consolidated/bootup_experiments/bootup_simple.md
+        new file:   archives/consolidated/consolidated/bootup_experiments/bootup_smart.md
+        new file:   archives/consolidated/consolidated/bootup_experiments/bootup_v2.md
+        new file:   backups/contact_before_template.html
+        new file:   backups/cora_backup_20250715_213228.zip.enc
+        new file:   backups/cora_backup_20250715_213316.zip.enc
+        new file:   backups/cora_backup_20250717_180110.zip.enc
+        new file:   backups/cora_backup_20250718_020008.zip.enc
+        new file:   backups/cora_backup_20250719_091636.zip.enc
+        new file:   backups/cora_backup_20250719_091705.zip.enc
+        new file:   backups/cora_backup_20250721_020021.zip.enc
+        new file:   backups/cora_backup_20250721_020050.zip.enc
+        new file:   backups/cora_backup_20250723_020054.zip.enc
+        new file:   backups/cora_backup_20250724_020004.zip.enc
+        new file:   backups/cora_backup_20250725_020047.zip.enc
+        new file:   backups/cora_backup_20250726_020032.zip.enc
+        new file:   backups/cora_backup_20250727_020001.zip.enc
+        new file:   backups/cora_backup_20250727_030001.zip.enc
+        new file:   backups/cora_backup_20250802_020047.zip.enc
+        new file:   backups/cora_backup_20250803_020011.zip.enc
+        new file:   backups/cora_backup_20250803_030011.zip.enc
+        new file:   backups/cora_backup_20250806_020003.zip.enc
+        new file:   backups/cora_backup_20250806_020054.zip.enc
+        new file:   backups/cora_backup_20250807_020006.zip.enc
+        new file:   backups/cora_backup_20250807_020012.zip.enc
+        new file:   backups/cora_backup_20250807_020016.zip.enc
+        new file:   backups/cora_backup_20250807_020026.zip.enc
+        new file:   backups/cora_backup_20250807_020027.zip.enc
+        new file:   backups/cora_backup_20250807_020030.zip.enc
+        new file:   backups/cora_backup_20250807_020043.zip.enc
+        new file:   backups/cora_backup_20250807_020044.zip.enc
+        new file:   backups/cora_backup_20250807_020047.zip.enc
+        new file:   backups/cora_backup_20250808_071126.zip.enc
+        new file:   backups/cora_backup_20250808_071128.zip.enc
+        new file:   backups/cora_backup_20250808_071143.zip.enc
+        new file:   backups/cora_backup_20250808_071204.zip.enc
+        new file:   backups/cora_backup_20250808_071219.zip.enc
+        new file:   backups/cora_backup_20250808_071220.zip.enc
+        new file:   backups/cora_backup_20250808_071221.zip.enc
+        new file:   backups/cora_backup_20250808_071224.zip.enc
+        new file:   backups/cora_backup_20250809_080253.zip.enc
+        new file:   backups/cora_backup_20250809_080314.zip.enc
+        new file:   backups/cora_backup_20250809_080329.zip.enc
+        new file:   backups/cora_backup_20250809_080330.zip.enc
+        new file:   backups/cora_backup_20250809_080331.zip.enc
+        new file:   backups/cora_backup_20250809_080334.zip.enc
+        new file:   backups/cora_backup_20250809_080335.zip.enc
+        new file:   backups/cora_backup_20250809_080336.zip.enc
+        new file:   backups/cora_backup_20250809_080338.zip.enc
+        new file:   backups/cora_pre_cleanup_backup_20250717_163404.zip
+        new file:   backups/cora_pre_cleanup_backup_20250717_163404_manifest.json
+        new file:   backups/cora_pre_cleanup_backup_20250717_163404_restore.py
+        new file:   backups/deployment_backup_20250805_094215/app.py
+        new file:   backups/deployment_backup_20250805_094215/data/.env.example
+        new file:   backups/deployment_backup_20250805_094215/data/analysis/query_analysis_results.json
+        new file:   backups/deployment_backup_20250805_094215/data/analysis/query_analysis_results_readable.txt
+        new file:   backups/deployment_backup_20250805_094215/data/archive/phase1_report_20250711_141809.json
+        new file:   backups/deployment_backup_20250805_094215/data/archive/phase1_report_20250711_141844.json
+        new file:   backups/deployment_backup_20250805_094215/data/archive/phase1_report_20250711_141908.json
+        new file:   backups/deployment_backup_20250805_094215/data/archive/phase1_report_20250711_141931.json
+        new file:   backups/deployment_backup_20250805_094215/data/archive/phase1_report_20250711_144746.json
+        new file:   backups/deployment_backup_20250805_094215/data/archive/phase1_report_20250711_152217.json
+        new file:   backups/deployment_backup_20250805_094215/data/archive/phase1_report_20250711_152251.json
+        new file:   backups/deployment_backup_20250805_094215/data/archive/phase1_report_20250711_153025.json
+        new file:   backups/deployment_backup_20250805_094215/data/archive/phase1_report_20250711_153052.json
+        new file:   backups/deployment_backup_20250805_094215/data/archive/phase1_report_20250711_153240.json
+        new file:   backups/deployment_backup_20250805_094215/data/archive/phase1_report_20250711_153450.json
+        new file:   backups/deployment_backup_20250805_094215/data/archive/unused_databases/README.md
+        new file:   backups/deployment_backup_20250805_094215/data/beta_onboarding_data.json
+        new file:   backups/deployment_backup_20250805_094215/data/beta_recruitment_data.json
+        new file:   backups/deployment_backup_20250805_094215/data/business_profiles/profile_20250802_135319_test_user_1754142795_example_com.json
+        new file:   backups/deployment_backup_20250805_094215/data/business_profiles/profile_20250802_135406_test_user_1754142842_example_com.json
+        new file:   backups/deployment_backup_20250805_094215/data/business_profiles/profile_20250804_195922_test_example_com.json
+        new file:   backups/deployment_backup_20250805_094215/data/business_profiles/profile_20250804_201653_test_onboarding_example_com.json
+        new file:   backups/deployment_backup_20250805_094215/data/business_profiles/profile_20250805_120547_test_user_1754395544_example_com.json
+        new file:   backups/deployment_backup_20250805_094215/data/business_profiles/profile_20250805_120946_test_sonnet_4228_example_com.json
+        new file:   backups/deployment_backup_20250805_094215/data/captured_emails.json
+        new file:   backups/deployment_backup_20250805_094215/data/cora_contractor_personality.json
+        new file:   backups/deployment_backup_20250805_094215/data/cora_conversation_implementation.json
+        new file:   backups/deployment_backup_20250805_094215/data/cora_knowledge_base.json
+        new file:   backups/deployment_backup_20250805_094215/data/cora_personality_enhancements.json
+        new file:   backups/deployment_backup_20250805_094215/data/cora_quick_reference_guide.md
+        new file:   backups/deployment_backup_20250805_094215/data/demo-expenses.json
+        new file:   backups/deployment_backup_20250805_094215/data/mock_banking_data.py
+        new file:   backups/deployment_backup_20250805_094215/data/onboarding_leads/lead_20250801_155226_tyler.json
+        new file:   backups/deployment_backup_20250805_094215/data/onboarding_leads/lead_20250801_165026_cora.json
+        new file:   backups/deployment_backup_20250805_094215/data/onboarding_leads/lead_20250801_165434_cora.json
+        new file:   backups/deployment_backup_20250805_094215/data/onboarding_leads/lead_20250801_165923_cora.json
+        new file:   backups/deployment_backup_20250805_094215/data/onboarding_leads/lead_20250801_194623_cora.json
+        new file:   backups/deployment_backup_20250805_094215/data/onboarding_leads/lead_20250801_200026_cora.json
+        new file:   backups/deployment_backup_20250805_094215/data/onboarding_leads/lead_20250802_105315_cora.json
+        new file:   backups/deployment_backup_20250805_094215/data/onboarding_leads/lead_20250804_195957_test_user.json
+        new file:   backups/deployment_backup_20250805_094215/data/onboarding_leads/lead_20250804_201655_test_user.json
+        new file:   backups/deployment_backup_20250805_094215/data/onboarding_leads/lead_20250805_120547_test_contractor.json
+        new file:   backups/deployment_backup_20250805_094215/data/requirements.txt
+        new file:   backups/deployment_backup_20250805_094215/data/test_results/complete_user_journey_report.json
+        new file:   backups/deployment_backup_20250805_094215/data/test_results/database_optimization_report.json
+        new file:   backups/deployment_backup_20250805_094215/data/test_results/integration_test_report.json
+        new file:   backups/deployment_backup_20250805_094215/data/test_results/onboarding_test_report.json
+        new file:   backups/deployment_backup_20250805_094215/data/test_results/personality_enhancement_report.json
+        new file:   backups/deployment_backup_20250805_094215/data/test_results/profit_calculation_report.json
+        new file:   backups/deployment_backup_20250805_094215/data/test_scenarios/glen_day_demo_data.json
+        new file:   backups/deployment_backup_20250805_094215/data/test_scenarios/multi_trade_contractor_test.json
+        new file:   backups/deployment_backup_20250805_094215/data/test_scenarios/plumbing_contractor_test.json
+        new file:   backups/deployment_backup_20250805_094215/data/test_scenarios/profit_calculation_demo.json
+        new file:   backups/deployment_backup_20250805_094215/data/ui_ux_registry.json
+        new file:   backups/deployment_backup_20250805_094215/requirements.txt
+        new file:   backups/features_before_template_conversion.html
+        new file:   backups/how-it-works_before_template_conversion.html
+        new file:   backups/index_before_template_conversion.html
+        new file:   backups/login_before_template.html
+        new file:   backups/pre_inheritance_migration/about.html
+        renamed:    web/templates/admin.html -> backups/pre_inheritance_migration/admin.html
+        new file:   backups/pre_inheritance_migration/base.html
+        new file:   backups/pre_inheritance_migration/cora_personality_demo.html
+        new file:   backups/pre_inheritance_migration/dashboard_mobile_first.html
+        new file:   backups/pre_inheritance_migration/exact_footer.html
+        new file:   backups/pre_inheritance_migration/insights_dashboard.html
+        new file:   backups/pre_inheritance_migration/intelligence_demo.html
+        new file:   backups/pre_inheritance_migration/nav-test.html
+        new file:   backups/pre_inheritance_migration/onboarding-ai-wizard.html
+        new file:   backups/pre_inheritance_migration/profit_intelligence.html
+        new file:   backups/pre_inheritance_migration/receipt_upload.html
+        new file:   backups/pre_inheritance_migration/route_test.html
+        new file:   backups/pre_inheritance_migration/security.html
+        new file:   backups/pre_inheritance_migration/unified_ai_demo.html
+        new file:   backups/pre_inheritance_migration/user_analytics.html
+        new file:   backups/pre_inheritance_migration/waitlist.html
+        new file:   backups/pricing_before_template_conversion.html
+        new file:   backups/reviews_before_template.html
+        new file:   backups/signup_before_template.html
+        new file:   bulletproof_verification.py
+        new file:   check_db_schema.py
+        new file:   clients/COREY_CLOWE_INTEL.md
+        new file:   clients/GLEN_DAY_INTEL.md
+        new file:   clients/TRITAN_INTEL.md
+        new file:   code_improvements_summary.md
+        new file:   code_quality_analysis.py
+        new file:   comprehensive_test.py
+        new file:   config.py
+        new file:   config/.env.postgresql
+        modified:   config/env.production.template
+        new file:   config/env.template
+        new file:   config/grafana_dashboard.json
+        new file:   config/monitoring_config.json
+        new file:   config/monitoring_production.json
+        new file:   config/redis_config.json
+        new file:   coverage.xml
+        new file:   data/analysis/query_analysis_results.json
+        new file:   data/analysis/query_analysis_results_readable.txt
+        new file:   data/archive/unused_databases/README.md
+        new file:   data/business_profiles/profile_20250802_135319_test_user_1754142795_example_com.json
+        new file:   data/business_profiles/profile_20250802_135406_test_user_1754142842_example_com.json
+        new file:   data/business_profiles/profile_20250804_195922_test_example_com.json
+        new file:   data/business_profiles/profile_20250804_201653_test_onboarding_example_com.json
+        new file:   data/business_profiles/profile_20250805_120547_test_user_1754395544_example_com.json
+        new file:   data/business_profiles/profile_20250805_120946_test_sonnet_4228_example_com.json
+        new file:   data/business_profiles/profile_20250805_121258_test_example_com.json
+        new file:   data/cora_contractor_personality.json
+        new file:   data/cora_conversation_implementation.json
+        new file:   data/cora_knowledge_base.json
+        new file:   data/cora_personality_enhancements.json
+        new file:   data/cora_quick_reference_guide.md
+        new file:   data/mock_banking_data.py
+        new file:   data/onboarding_leads/lead_20250801_155226_tyler.json
+        new file:   data/onboarding_leads/lead_20250801_165026_cora.json
+        new file:   data/onboarding_leads/lead_20250801_165434_cora.json
+        new file:   data/onboarding_leads/lead_20250801_165923_cora.json
+        new file:   data/onboarding_leads/lead_20250801_194623_cora.json
+        new file:   data/onboarding_leads/lead_20250801_200026_cora.json
+        new file:   data/onboarding_leads/lead_20250802_105315_cora.json
+        new file:   data/onboarding_leads/lead_20250804_195957_test_user.json
+        new file:   data/onboarding_leads/lead_20250804_201655_test_user.json
+        new file:   data/onboarding_leads/lead_20250805_120547_test_contractor.json
+        new file:   data/test_results/complete_user_journey_report.json
+        new file:   data/test_results/database_optimization_report.json
+        new file:   data/test_results/integration_test_report.json
+        new file:   data/test_results/onboarding_test_report.json
+        new file:   data/test_results/personality_enhancement_report.json
+        new file:   data/test_results/profit_calculation_report.json
+        new file:   data/test_scenarios/glen_day_demo_data.json
+        new file:   data/test_scenarios/multi_trade_contractor_test.json
+        new file:   data/test_scenarios/plumbing_contractor_test.json
+        new file:   data/test_scenarios/profit_calculation_demo.json
+        new file:   data/ui_ux_registry.json
+        new file:   database_optimization_analysis.py
+        new file:   debug_imports.py
+        new file:   demo/setup_demo_data.py
+        modified:   dependencies/auth.py
+        new file:   dependencies/auth_hybrid.py
+        new file:   dependencies/database.py
+        new file:   deploy.sh
+        new file:   deploy_production.py
+        renamed:    .dockerignore -> deployment/.dockerignore
+        renamed:    .railwayignore -> deployment/.railwayignore
+        new file:   deployment/Dockerfile.production
+        renamed:    Procfile -> deployment/Procfile
+        new file:   deployment/STATUS
+        new file:   deployment/deploy.ps1
+        new file:   deployment/deploy.sh
+        new file:   deployment/docker-compose.postgres-local.yml
+        new file:   deployment/docker-compose.production.yml
+        new file:   deployment/ecosystem.config.js
+        new file:   deployment/monitoring/cora-alerts.yml
+        new file:   deployment/monitoring/cora-dashboard.json
+        new file:   deployment/monitoring/prometheus.yml
+        new file:   deployment/nginx.production.conf
+        renamed:    railway.json -> deployment/railway.json
+        renamed:    runtime.txt -> deployment/runtime.txt
+        new file:   deployment_package/Dockerfile
+        new file:   deployment_package/app.py
+        new file:   deployment_package/config.py
+        new file:   deployment_package/middleware/__init__.py
+        new file:   deployment_package/middleware/account_lockout.py
+        new file:   deployment_package/middleware/audit_logging.py
+        new file:   deployment_package/middleware/authorization.py
+        new file:   deployment_package/middleware/csrf.py
+        new file:   deployment_package/middleware/error_handler.py
+        new file:   deployment_package/middleware/file_upload_security.py
+        new file:   deployment_package/middleware/logging_middleware.py
+        new file:   deployment_package/middleware/monitoring.py
+        new file:   deployment_package/middleware/query_monitoring.py
+        new file:   deployment_package/middleware/rate_limit.py
+        new file:   deployment_package/middleware/rate_limiter.py
+        new file:   deployment_package/middleware/rate_limiting.py
+        new file:   deployment_package/middleware/security_headers_enhanced.py
+        new file:   deployment_package/middleware/user_activity.py
+        new file:   deployment_package/models/__init__.py
+        new file:   deployment_package/models/base.py
+        new file:   deployment_package/models/business_profile.py
+        new file:   deployment_package/models/customer.py
+        new file:   deployment_package/models/expense.py
+        new file:   deployment_package/models/expense_category.py
+        new file:   deployment_package/models/feedback.py
+        new file:   deployment_package/models/job.py
+        new file:   deployment_package/models/job_alert.py
+        new file:   deployment_package/models/password_reset_token.py
+        new file:   deployment_package/models/payment.py
+        new file:   deployment_package/models/plaid_integration.py
+        new file:   deployment_package/models/quickbooks_integration.py
+        new file:   deployment_package/models/stripe_integration.py
+        new file:   deployment_package/models/subscription.py
+        new file:   deployment_package/models/user.py
+        new file:   deployment_package/models/user_activity.py
+        new file:   deployment_package/models/user_preference.py
+        new file:   deployment_package/models/waitlist.py
+        new file:   deployment_package/requirements.txt
+        new file:   deployment_package/routes/__init__.py
+        new file:   deployment_package/routes/admin_routes.py
+        new file:   deployment_package/routes/alert_routes.py
+        new file:   deployment_package/routes/auth_coordinator.py
+        new file:   deployment_package/routes/chat.py
+        new file:   deployment_package/routes/cora_chat.py
+        new file:   deployment_package/routes/cora_chat_enhanced.py
+        new file:   deployment_package/routes/cora_chat_enhanced_v2.py
+        new file:   deployment_package/routes/dashboard_routes.py
+        new file:   deployment_package/routes/expense_coordinator.py
+        new file:   deployment_package/routes/expenses.py
+        new file:   deployment_package/routes/feedback_routes.py
+        new file:   deployment_package/routes/health.py
+        new file:   deployment_package/routes/jobs.py
+        new file:   deployment_package/routes/onboarding_routes.py
+        new file:   deployment_package/routes/onboarding_v2.py
+        new file:   deployment_package/routes/pages.py
+        new file:   deployment_package/routes/payment_coordinator.py
+        new file:   deployment_package/routes/payments.py
+        new file:   deployment_package/routes/plaid_integration.py
+        new file:   deployment_package/routes/profit_analysis.py
+        new file:   deployment_package/routes/quick_wins.py
+        new file:   deployment_package/routes/quickbooks_integration.py
+        new file:   deployment_package/routes/receipt_upload.py
+        new file:   deployment_package/routes/stripe_integration.py
+        new file:   deployment_package/routes/waitlist.py
+        new file:   deployment_package/routes/websocket.py
+        new file:   deployment_package/services/__init__.py
+        new file:   deployment_package/services/alert_checker.py
+        new file:   deployment_package/services/auth_service.py
+        new file:   deployment_package/services/email_service.py
+        new file:   deployment_package/services/job_alerts.py
+        new file:   deployment_package/services/notification_service.py
+        new file:   deployment_package/services/plaid_service.py
+        new file:   deployment_package/services/profit_leak_detector.py
+        new file:   deployment_package/services/quickbooks_service.py
+        new file:   deployment_package/services/stripe_service.py
+        new file:   deployment_package/utils/async_file_utils.py
+        new file:   deployment_package/utils/redis_manager.py
+        new file:   deployment_package/web/design-system/construction-theme.md
+        new file:   deployment_package/web/package-lock.json
+        new file:   deployment_package/web/package.json
+        new file:   deployment_package/web/static/DISABLE_SERVICE_WORKER.html
+        new file:   deployment_package/web/static/_archived/test-files/test-css-only.html
+        new file:   deployment_package/web/static/_archived/test-files/test-login-clean.html
+        new file:   deployment_package/web/static/_archived/test-files/test-wellness.html
+        new file:   deployment_package/web/static/css/cora-chat-enhanced.css
+        new file:   deployment_package/web/static/css/cora-chat.css
+        new file:   deployment_package/web/static/css/mobile-navigation.css
+        new file:   deployment_package/web/static/css/onboarding-ai-wizard.css
+        new file:   deployment_package/web/static/css/onboarding-wizard.css
+        new file:   deployment_package/web/static/css/onboarding.css
+        new file:   deployment_package/web/static/css/wellness.css
+        renamed:    web/web/static/favicon.svg -> deployment_package/web/static/favicon-transparent.svg
+        new file:   deployment_package/web/static/images/logos/Logo Files/For Print/eps/Black logo - no background.eps
+        new file:   deployment_package/web/static/images/logos/Logo Files/For Print/eps/Color logo - no background.eps
+        new file:   deployment_package/web/static/images/logos/Logo Files/For Print/eps/Color logo with background.eps
+        new file:   deployment_package/web/static/images/logos/Logo Files/For Print/eps/White logo - no background.eps
+        new file:   deployment_package/web/static/images/logos/Logo Files/For Print/pdf/Black logo - no background.pdf
+        new file:   deployment_package/web/static/images/logos/Logo Files/For Print/pdf/Color logo - no background.pdf
+        new file:   deployment_package/web/static/images/logos/Logo Files/For Print/pdf/Color logo with background.pdf
+        new file:   deployment_package/web/static/images/logos/Logo Files/For Print/pdf/White logo - no background.pdf
+        new file:   deployment_package/web/static/images/logos/Logo Files/For Web/Favicons/Android.png
+        new file:   deployment_package/web/static/images/logos/Logo Files/For Web/Favicons/Android2.png
+        new file:   deployment_package/web/static/images/logos/Logo Files/For Web/Favicons/browser.png
+        new file:   deployment_package/web/static/images/logos/Logo Files/For Web/Favicons/iPhone.png
+        new file:   deployment_package/web/static/images/logos/Logo Files/For Web/png/213475993_padded_logo.png
+        new file:   deployment_package/web/static/images/logos/Logo Files/For Web/png/Black logo - no background.png
+        renamed:    web/web/static/images/logos/cora-logo.png -> deployment_package/web/static/images/logos/Logo Files/For Web/png/Color logo - no background.png
+        new file:   deployment_package/web/static/images/logos/Logo Files/For Web/png/Color logo with background.png
+        new file:   deployment_package/web/static/images/logos/Logo Files/For Web/png/White logo - no background.png
+        new file:   deployment_package/web/static/images/logos/Logo Files/For Web/svg/Black logo - no background.svg
+        new file:   deployment_package/web/static/images/logos/Logo Files/For Web/svg/Color logo - no background.svg
+        new file:   deployment_package/web/static/images/logos/Logo Files/For Web/svg/Color logo with background.svg
+        new file:   deployment_package/web/static/images/logos/Logo Files/For Web/svg/White logo - no background.svg
+        new file:   deployment_package/web/static/images/logos/Logo Files/getting_started_guide.html
+        new file:   deployment_package/web/static/images/logos/cora-logo.png
+        renamed:    web/web/static/images/logos/integrations/quickbooks-logo.svg -> deployment_package/web/static/images/logos/integrations/quickbooks-logo.svg
+        renamed:    web/web/static/images/logos/integrations/shopify-logo.svg -> deployment_package/web/static/images/logos/integrations/shopify-logo.svg
+        renamed:    web/web/static/images/logos/integrations/square-logo.svg -> deployment_package/web/static/images/logos/integrations/square-logo.svg
+        renamed:    web/web/static/images/logos/integrations/stripe-logo.svg -> deployment_package/web/static/images/logos/integrations/stripe-logo.svg
+        renamed:    web/web/static/images/logos/integrations/woocommerce-logo.svg -> deployment_package/web/static/images/logos/integrations/woocommerce-logo.svg
+        new file:   deployment_package/web/static/images/placeholder.svg
+        renamed:    web/web/static/images/profiles/lisa-park.png -> deployment_package/web/static/images/profiles/lisa-park.png
+        renamed:    web/static/images/profiles/mike-rodriguez.png -> deployment_package/web/static/images/profiles/marcus-johnson.png
+        new file:   deployment_package/web/static/js/_archived/automated_demo.js
+        new file:   deployment_package/web/static/js/_archived/demo_recording_ui.js
+        new file:   deployment_package/web/static/js/_archived/demo_video_ui.js
+        new file:   deployment_package/web/static/js/_archived/onboarding-ai.js
+        new file:   deployment_package/web/static/js/_archived/onboarding-flow.js
+        new file:   deployment_package/web/static/js/_archived/onboarding-hybrid.js
+        new file:   deployment_package/web/static/js/_archived/onboarding-wizard.js
+        new file:   deployment_package/web/static/js/accessibility.js
+        new file:   deployment_package/web/static/js/alerts_panel.js
+        new file:   deployment_package/web/static/js/api-error-handler.js
+        new file:   deployment_package/web/static/js/api_cache.js
+        new file:   deployment_package/web/static/js/chat-debug.js
+        new file:   deployment_package/web/static/js/cora-chat-enhanced.js
+        new file:   deployment_package/web/static/js/cora-chat.js
+        new file:   deployment_package/web/static/js/dark-mode.js
+        new file:   deployment_package/web/static/js/dashboard.js
+        new file:   deployment_package/web/static/js/enhanced_chat_onboarding.js
+        new file:   deployment_package/web/static/js/error-manager.js
+        new file:   deployment_package/web/static/js/error_recovery.js
+        new file:   deployment_package/web/static/js/export_manager.js
+        new file:   deployment_package/web/static/js/feedback_widget.js
+        new file:   deployment_package/web/static/js/health_monitor.js
+        new file:   deployment_package/web/static/js/i18n.js
+        new file:   deployment_package/web/static/js/install_prompt.js
+        new file:   deployment_package/web/static/js/job_profitability.js
+        new file:   deployment_package/web/static/js/job_query_handler.js
+        new file:   deployment_package/web/static/js/landing-page.js
+        new file:   deployment_package/web/static/js/mobile-navigation.js
+        new file:   deployment_package/web/static/js/mobile_gestures.js
+        new file:   deployment_package/web/static/js/notification_settings.js
+        new file:   deployment_package/web/static/js/onboarding-ai-wizard.js
+        new file:   deployment_package/web/static/js/performance.js
+        new file:   deployment_package/web/static/js/plaid-connect.js
+        new file:   deployment_package/web/static/js/quick_tour.js
+        new file:   deployment_package/web/static/js/quick_win_dashboard.js
+        new file:   deployment_package/web/static/js/realtime_updates.js
+        new file:   deployment_package/web/static/js/security.js
+        new file:   deployment_package/web/static/js/sw.js
+        new file:   deployment_package/web/static/js/timeout-handler.js
+        new file:   deployment_package/web/static/js/virtual_scroll.js
+        new file:   deployment_package/web/static/js/voice_button_fix.js
+        new file:   deployment_package/web/static/js/voice_expense_entry.js
+        new file:   deployment_package/web/static/js/voice_help.js
+        new file:   deployment_package/web/static/js/voice_onboarding.js
+        new file:   deployment_package/web/static/manifest.json
+        renamed:    web/web/static/robots.txt -> deployment_package/web/static/robots.txt
+        new file:   deployment_package/web/static/service-worker.js
+        new file:   deployment_package/web/static/simple-login.html
+        new file:   deployment_package/web/static/sw-calm.js
+        new file:   deployment_package/web/templates/CLEANUP_COMPLETE.md
+        new file:   deployment_package/web/templates/CLEANUP_PLAN.md
+        new file:   deployment_package/web/templates/_archived/dashboard.html
+        new file:   deployment_package/web/templates/_archived/dashboards/dashboard_balanced.html
+        new file:   deployment_package/web/templates/_archived/dashboards/dashboard_calm.html
+        new file:   deployment_package/web/templates/_archived/dashboards/dashboard_chat.html
+        new file:   deployment_package/web/templates/_archived/dashboards/dashboard_construction.html
+        new file:   deployment_package/web/templates/_archived/dashboards/dashboard_construction_v2.html
+        new file:   deployment_package/web/templates/_archived/dashboards/dashboard_minimal.html
+        new file:   deployment_package/web/templates/_archived/dashboards/dashboard_review.html
+        new file:   deployment_package/web/templates/_archived/dashboards/dashboard_unified.html
+        new file:   deployment_package/web/templates/_archived/dashboards/dashboard_voice_first.html
+        new file:   deployment_package/web/templates/_archived/job_dashboard.html
+        new file:   deployment_package/web/templates/_archived/onboarding/onboarding-wizard.html
+        new file:   deployment_package/web/templates/_archived/onboarding/onboarding.html
+        new file:   deployment_package/web/templates/_archived/plaid_dashboard.html
+        new file:   deployment_package/web/templates/_archived/test/chat-position-test.html
+        new file:   deployment_package/web/templates/_archived/test/chat-test.html
+        new file:   deployment_package/web/templates/_archived/test/simple_test_dashboard.html
+        new file:   deployment_package/web/templates/_archived/test/test-nav.html
+        new file:   deployment_package/web/templates/_archived/test/test.html
+        new file:   deployment_package/web/templates/admin.html
+        new file:   deployment_package/web/templates/base.html
+        new file:   deployment_package/web/templates/components/nav-footer-template.html
+        new file:   deployment_package/web/templates/core_protected/MANIFEST.md
+        new file:   deployment_package/web/templates/core_protected/dashboard.html
+        new file:   deployment_package/web/templates/dashboard_mobile_first.html
+        new file:   deployment_package/web/templates/exact_footer.html
+        new file:   deployment_package/web/templates/integrations/plaid.html
+        new file:   deployment_package/web/templates/integrations/quickbooks.html
+        new file:   deployment_package/web/templates/integrations/stripe.html
+        new file:   deployment_package/web/templates/onboarding-ai-wizard.html
+        new file:   deployment_package/web/templates/onboarding/connect_bank.html
+        new file:   deployment_package/web/templates/onboarding/success.html
+        new file:   deployment_package/web/templates/onboarding/welcome.html
+        new file:   deployment_package/web/templates/waitlist.html
+        new file:   deployment_package/web/testing-report.md
+        new file:   deployment_validation_report.json
+        new file:   docker-compose.prod.yml
+        new file:   docker-compose.yml
+        new file:   docs/ACCESS_CONTROLS_POLICY.doc
+        new file:   docs/ANIMATION_PERFORMANCE_AUDIT.md
+        new file:   docs/API_KEYS_GUIDE.md
+        new file:   docs/API_RESPONSE_OPTIMIZATION_REPORT.md
+        new file:   docs/ARCHITECTURE_REVIEW_2025.md
+        new file:   docs/AUDIT_FINDINGS_2025.md
+        new file:   docs/BETA_LAUNCH_STRATEGY.md
+        new file:   docs/BETA_USER_READINESS_AUDIT_2025_08_02.md
+        new file:   docs/BUSINESS_STRATEGY_LOG.md
+        new file:   docs/BUYER_PERSONAS_2025.md
+        new file:   docs/CLAUDE_TASKS_COMPLETE.md
+        new file:   docs/CLEANUP_COMPLETE.md
+        new file:   docs/CLEANUP_LEGACY_FILES.md
+        new file:   docs/CLEAR_SERVICE_WORKER_INSTRUCTIONS.md
+        new file:   docs/CLIENT_DELIVERABLES.md
+        new file:   docs/COLLABORATION_TASKS.md
+        new file:   docs/COLLABORATIVE_AI_PRINCIPLES.md
+        new file:   docs/COMPREHENSIVE_PERFORMANCE_ACCESSIBILITY_AUDIT_2025-01-17.md
+        new file:   docs/COMPREHENSIVE_UI_AUDIT_2025.md
+        new file:   docs/CONSTRUCTION_IMMEDIATE_ACTIONS.md
+        new file:   docs/CONSTRUCTION_IMPLEMENTATION_SUMMARY.md
+        new file:   docs/CONSTRUCTION_PIVOT_SUMMARY.md
+        new file:   docs/CONSULTING_TEST_PLAN.md
+        new file:   docs/CONVERSATIONAL_ONBOARDING.md
+        new file:   docs/CORA_CAPABILITIES_ACTUAL.md
+        new file:   docs/CORA_SALES_INTELLIGENCE_SYSTEM.md
+        new file:   docs/CORA_Universal_Onboarding_Form.md
+        new file:   docs/CRITICAL_FIXES_EXECUTION_PLAN.md
+        new file:   docs/CRITICAL_INTEGRATION_GAPS_REPORT.md
+        new file:   docs/CSIS_IMPROVEMENTS_SUMMARY.md
+        new file:   docs/CSIS_ITERATION_LIST.md
+        new file:   docs/CSIS_QUICK_REFERENCE.md
+        new file:   docs/CSP_SECURITY_FIX_DEPLOYMENT.md
+        new file:   docs/CURSOR_CLEANUP.md
+        new file:   docs/CURSOR_TASKS.md
+        new file:   docs/DARK_MODE_AUDIT_REPORT.md
+        new file:   docs/DASHBOARD_RESEARCH_FINDINGS.md
+        new file:   docs/DATA_CONTEXT_STRATEGY.md
+        new file:   docs/DATA_RETENTION_DISPOSAL_POLICY.doc
+        new file:   docs/ENVIRONMENT_SETUP.md
+        new file:   docs/ERROR_HANDLING_IMPROVEMENTS.md
+        new file:   docs/ETHICAL_AI_ONBOARDING.md
+        new file:   docs/FEATURE_PRIORITIZATION_MATRIX_2025.md
+        new file:   docs/GLEN_DAY_DEMO_SCRIPT.md
+        new file:   docs/GOOGLE_FORM_TEST_STEPS.md
+        modified:   docs/HANDOVER_ACTIVE.md
+        new file:   docs/HANDOVER_TO_CURSOR_ENHANCED_2025-01-17.md
+        new file:   docs/IMPLEMENTATION_STRATEGY.md
+        new file:   docs/INFORMATION_SECURITY_POLICY.doc
+        new file:   docs/JOB_PROFITABILITY_READY.md
+        new file:   docs/LATEST_WORK.md
+        new file:   docs/LOADING_ERROR_HANDLING_AUDIT.md
+        new file:   docs/MARKET_RESEARCH_2025.md
+        new file:   docs/MOBILE_RESPONSIVENESS_TEST_REPORT.md
+        new file:   docs/NEXT.md
+        new file:   docs/NEXT_TASKS_CLAUDE_CURSOR.md
+        new file:   docs/NEXT_TASKS_PHASE2.md
+        new file:   docs/ONBOARDING_FIXES_COMPLETE.md
+        new file:   docs/ONBOARDING_FLOW_FIXES_2025_08_02.md
+        new file:   docs/PHASE2_PROGRESS.md
+        new file:   docs/POSTGRESQL_DEPLOYMENT_GUIDE.md
+        new file:   docs/POSTGRESQL_MIGRATION_PLAN.md
+        new file:   docs/POSTGRESQL_SETUP_GUIDE.md
+        new file:   docs/PRIVACY_ARCHITECTURE.md
+        new file:   docs/PRIVACY_POLICY.md
+        new file:   docs/PRODUCTION_MONITORING_SETUP.md
+        new file:   docs/PRODUCT_STRATEGY_UPDATE_JAN2025.md
+        new file:   docs/PROFESSIONAL_GOOGLE_FORM_COMPLETE.md
+        new file:   docs/PROFESSIONAL_REMOTE_CONSULTING.md
+        new file:   docs/PROFIT_INTELLIGENCE_ONBOARDING.md
+        new file:   docs/PROFIT_INTELLIGENCE_SESSION.md
+        new file:   docs/PROJECT_SUMMARY.md
+        new file:   docs/QUERY_OPTIMIZATION_REPORT.md
+        modified:   docs/QUICK_REFERENCE.md
+        new file:   docs/QUICK_WEBSITE_FIX.md
+        new file:   docs/RATE_LIMITING_GUIDE.md
+        new file:   docs/READY_FOR_LAUNCH.md
+        new file:   docs/SECURITY_AUDIT_2025-01-17.md
+        new file:   docs/SECURITY_PATCH_2025_08_02.md
+        new file:   docs/SESSION_SUMMARY.md
+        new file:   docs/STATUS
+        new file:   docs/STRATEGIC_DIRECTIVE.md
+        new file:   docs/STRATEGIC_RECOMMENDATIONS_2025.md
+        new file:   docs/SYSTEM_CLEANUP_COMPLETE_2025_08_02.md
+        new file:   docs/SYSTEM_READINESS_REPORT.md
+        new file:   docs/TEMPLATE_ENHANCEMENT_REPORT.md
+        new file:   docs/TERMS_OF_SERVICE.md
+        new file:   docs/TEST_PANEL_STATUS.md
+        new file:   docs/THE_REAL_GLEN_PROCESS.md
+        new file:   docs/TONIGHT_ACTION_PLAN.md
+        new file:   docs/TYLER_CONTEXT.md
+        new file:   docs/UI_CONFUSION_WARNING.md
+        new file:   docs/UI_LEGACY_FILES_REPORT.md
+        new file:   docs/UI_UX_COMPREHENSIVE_REVIEW_SUMMARY.md
+        new file:   docs/UI_UX_CRITICAL_FIXES_COMPLETE.md
+        new file:   docs/UI_UX_ENHANCEMENTS_COMPLETE.md
+        new file:   docs/UI_UX_ENHANCEMENT_COMPLETION_REPORT.md
+        new file:   docs/UI_UX_ENHANCEMENT_MASTER_PLAN_2025.md
+        new file:   docs/UI_UX_HANDOVER_2025-01-17.md
+        new file:   docs/UI_UX_TRANSFORMATION_PLAN.md
+        new file:   docs/UI_VERSION_CONTROL.md
+        new file:   docs/USER_JOURNEY_MAP.md
+        new file:   docs/VOICE_INTEGRATION_TEST_REPORT.md
+        new file:   docs/ai-logs/AI_BIAS_PREFERENCE_ANALYSIS_COMPREHENSIVE_REPORT.md
+        new file:   docs/ai-logs/AI_BIAS_STRATEGIC_SUMMARY.md
+        new file:   docs/ai-logs/AI_DISCUSSION_SPACE.md
+        new file:   docs/ai-logs/AI_OPTIMIZATION_STRATEGY_COMPREHENSIVE_FRAMEWORK.md
+        new file:   docs/ai-logs/AI_RECOMMENDATION_OPTIMIZATION_REPORT.md
+        new file:   docs/ai-logs/AI_RECOMMENDATION_RESEARCH_REPORT.md
+        new file:   docs/ai-logs/AI_TOOLS_REGISTRY.md
+        new file:   docs/ai-logs/AI_WORK_LOG.md
+        renamed:    ACTION_ITEMS.md -> docs/archive/ACTION_ITEMS.md
+        new file:   docs/archive/ARCHITECTURE_REVIEW_2025.md
+        new file:   docs/archive/ARCHIVE_SUMMARY_2025.md
+        new file:   docs/archive/BETA_LAUNCH_EXECUTION_LOG.md
+        new file:   docs/archive/COMPREHENSIVE_SECURITY_AUDIT_2025.md
+        renamed:    COMPREHENSIVE_SYSTEM_ANALYSIS.md -> docs/archive/COMPREHENSIVE_SYSTEM_ANALYSIS.md
+        renamed:    CRITICAL_FIXES_BEFORE_MANUAL_TESTING.md -> docs/archive/CRITICAL_FIXES_BEFORE_MANUAL_TESTING.md
+        renamed:    CRITICAL_FIXES_COMPLETED.md -> docs/archive/CRITICAL_FIXES_COMPLETED.md
+        renamed:    CURSOR_ROUTE_FIX_PLAN.md -> docs/archive/CURSOR_ROUTE_FIX_PLAN.md
+        new file:   docs/archive/FINAL_PRE_LAUNCH_CHECKLIST.md
+        renamed:    FIX_GIT_MIND_SOLUTION.md -> docs/archive/FIX_GIT_MIND_SOLUTION.md
+        new file:   docs/archive/HANDOVER_ACTIVE.md
+        new file:   docs/archive/LAUNCH_EXECUTION_SUMMARY.md
+        new file:   docs/archive/PRIORITY_EXECUTION_CHECKLIST.md
+        renamed:    PRODUCTION_ROUTE_FIX_COMPLETE.md -> docs/archive/PRODUCTION_ROUTE_FIX_COMPLETE.md
+        renamed:    PROGRESS_SUMMARY.md -> docs/archive/PROGRESS_SUMMARY.md
+        new file:   docs/archive/SECURITY_AUDIT_2025.md
+        new file:   docs/archive/SECURITY_STATUS_UPDATE_2025.md
+        renamed:    SYSTEM_ANALYSIS_SUMMARY.md -> docs/archive/SYSTEM_ANALYSIS_SUMMARY.md
+        new file:   docs/button_color_comparison.md
+        new file:   docs/chat_onboarding_prototype.html
+        new file:   docs/cleanup/CLEANUP_BACKUP_20250718.md
+        new file:   docs/cleanup/FILE_INVENTORY_ANALYSIS.md
+        new file:   docs/cleanup/FILE_SPRAWL_ANALYSIS.md
+        new file:   docs/cleanup/FINAL_CLEANUP_SUMMARY.md
+        new file:   docs/cleanup/PHASE_1_CLEANUP_COMPLETE.md
+        new file:   docs/cleanup/PHASE_2_BACKUP_20250718.md
+        new file:   docs/cleanup/PHASE_2_CLEANUP_COMPLETE.md
+        new file:   docs/cleanup/ROOT_DIRECTORY_FILE_ANALYSIS.md
+        new file:   docs/cleanup/SAFE_CLEANUP_PLAN.md
+        new file:   docs/competitor_analysis_expense_tracking_2025.md
+        new file:   docs/construction_industry_statistics_report.md
+        new file:   docs/construction_software_competitive_analysis_2024.md
+        new file:   docs/construction_software_competitor_analysis.md
+        new file:   docs/contractor_onboarding_research_report.md
+        new file:   docs/contractor_pain_points_research.md
+        new file:   docs/cora_sales_test_report.md
+        new file:   docs/create_google_form_fields.md
+        new file:   docs/cursor_prompts.md
+        new file:   docs/cursor_testing_prompts.md
+        new file:   docs/development/TODO_FIX_CRITICAL_ISSUES.md
+        new file:   docs/error_fixes_summary.md
+        new file:   docs/expense_tracking_bookkeeping_pain_points_analysis.md
+        new file:   docs/features/FEATURE_INDEX.md
+        new file:   docs/glen_consulting_workflow.md
+        new file:   docs/glen_demo_results.md
+        new file:   docs/glen_profit_report.html
+        new file:   docs/glen_tracking_sheet.csv
+        new file:   docs/google_form_clarification.md
+        new file:   docs/handoffs/FAITH_LEGAL_HANDOFF.md
+        new file:   docs/localhost_8080_error_analysis.md
+        new file:   docs/remote_data_collection_options.txt
+        new file:   docs/reports/API_INTEGRATION_REPORT.md
+        new file:   docs/reports/BUTTON_WIRING_REPORT_2025_08_02.md
+        new file:   docs/reports/DEEP_DIVE_ANALYSIS.md
+        new file:   docs/reports/FRONTEND_AUDIT_REPORT_2025-08-10.md
+        new file:   docs/reports/FRONTEND_CRISIS_ANALYSIS_REPORT.md
+        new file:   docs/reports/LLM_TRAINING_DATA_ANALYSIS_COMPREHENSIVE_REPORT.md
+        new file:   docs/reports/SACRED_WALKTHROUGH_REPORT.md
+        new file:   docs/reports/TESTING_REPORT_2025_08_02.md
+        new file:   docs/system/AWARENESS_WIRING_REGISTRY.md
+        new file:   docs/system/CAPABILITIES_AWARENESS.md
+        new file:   docs/system/CLEANUP_STRATEGY.md
+        new file:   docs/system/CORA_MISSION.md
+        new file:   docs/system/CORA_SEO_COMPREHENSIVE_OPTIMIZATION_REPORT.md
+        new file:   docs/system/CRITICAL_LAUNCH_BLOCKERS.md
+        new file:   docs/system/CURSOR_POSTGRESQL_MIGRATION_PLAN.md
+        new file:   docs/system/CUSTOMER_ONBOARDING_SYSTEM.md
+        new file:   docs/system/DATABASE_CLEANUP_SUMMARY_2025_08_04.md
+        new file:   docs/system/DEPLOYMENT_CHECKLIST.md
+        new file:   docs/system/DEPLOYMENT_WORKFLOW.md
+        new file:   docs/system/ENHANCED_ORCHESTRATOR_IMPLEMENTATION_PLAN.md
+        new file:   docs/system/FAITH.md
+        new file:   docs/system/FAITHS-INCIDENT-LOG.md
+        new file:   docs/system/FINAL_LAUNCH_ASSESSMENT.md
+        new file:   docs/system/GLEN_DAY_DEMO_CHEAT_SHEET.md
+        new file:   docs/system/GLEN_DAY_DEMO_COMPLETION_SUMMARY.md
+        new file:   docs/system/GLEN_DAY_DEMO_OUTREACH.md
+        new file:   docs/system/GPT-TRANSCRIPT.md
+        new file:   docs/system/INTEGRATION_TESTING_PLAN.md
+        new file:   docs/system/LANDING_PAGE_TRUTH.md
+        new file:   docs/system/MASTER_AWARENESS_REGISTRY.md
+        new file:   docs/system/MASTER_SEO_AI_PLAN.md
+        new file:   docs/system/MONITORING_DEPLOYMENT_PLAN.md
+        new file:   docs/system/MONITORING_README.md
+        new file:   docs/system/MYSTERIES_DISCOVERED.md
+        new file:   docs/system/NOW.md
+        new file:   docs/system/PHASE2_OPTIMIZATION_PLAN.md
+        new file:   docs/system/POSTGRESQL_MIGRATION.md
+        new file:   docs/system/PRODUCTION_DEPLOYMENT_CHECKLIST.md
+        new file:   docs/system/PRODUCTION_DEPLOYMENT_EXECUTION_PLAN.md
+        new file:   docs/system/PRODUCTION_LOAD_TEST_RESULTS.md
+        new file:   docs/system/PRODUCTION_READINESS_CHECKLIST.md
+        new file:   docs/system/PRODUCTION_READINESS_PLAN.md
+        new file:   docs/system/PRODUCTION_SECURITY_ASSESSMENT.md
+        new file:   docs/system/PRODUCTION_TEST_SUMMARY.md
+        new file:   docs/system/QUARTERBACK_DASHBOARD.md
+        new file:   docs/system/SECURITY_FIXES_COMPLETED.md
+        new file:   docs/system/SESSION_PROGRESS_UPDATE_2025-08-10.md
+        new file:   docs/system/STATUS.md
+        new file:   docs/system/STRATEGIC_FRAMEWORK.md
+        new file:   docs/system/SYSTEMATIC_CHECKLIST.md
+        new file:   docs/system/SYSTEM_AUDIT_REPORT_2025_08_02.md
+        new file:   docs/system/SYSTEM_MAP.md
+        new file:   docs/system/SYSTEM_OPTIMIZATION_PLAN.md
+        new file:   docs/system/TODAYS_LAUNCH_CHECKLIST.md
+        new file:   env.example.template
+        new file:   env.secure.template
+        new file:   environment_analysis_report.json
+        new file:   features/__init__.py
+        new file:   features/app_ux_strategy/STATUS
+        new file:   features/app_ux_strategy/UX_STRATEGY.md
+        new file:   features/audit_fixes/CLAUDE_TASKS.md
+        new file:   features/audit_fixes/CLAUDE_TASKS_PHASE2.md
+        new file:   features/audit_fixes/CLAUDE_TASKS_PHASE3.md
+        new file:   features/audit_fixes/CLAUDE_TASKS_PHASE4.md
+        new file:   features/audit_fixes/CURSOR_TASKS.md
+        new file:   features/audit_fixes/CURSOR_TASKS_PHASE2.md
+        new file:   features/audit_fixes/CURSOR_TASKS_PHASE3.md
+        new file:   features/audit_fixes/CURSOR_TASKS_PHASE4.md
+        new file:   features/audit_fixes/FINAL_TASK_DELEGATION.md
+        new file:   features/audit_fixes/LAUNCH_READINESS_REPORT.md
+        new file:   features/audit_fixes/NIGHT_COMPLETION_REPORT.md
+        new file:   features/audit_fixes/STATUS
+        new file:   features/auth_health/claude/test_auth_system.py
+        new file:   features/backend_routes/STATUS
+        new file:   features/backend_routes/STATUS.md
+        new file:   features/codebase_exploration/claude/EXPLORATION_NOTES_2025_08_09.md
+        new file:   features/consulting-pivot/STATUS
+        new file:   features/conversational-onboarding/CURSOR_INTEGRATION_PROMPT.md
+        new file:   features/conversational-onboarding/INTEGRATION_GUIDE.md
+        new file:   features/conversational-onboarding/STATUS
+        new file:   features/conversational-onboarding/__init__.py
+        new file:   features/conversational-onboarding/conversational_onboarding_integration.py
+        new file:   features/conversational-onboarding/enhanced_chat_onboarding.js
+        new file:   features/conversational-onboarding/onboarding_chat_routes.py
+        new file:   features/cora_ai_assistant/STATUS
+        new file:   features/css_cleanup/claude/PLAN.md
+        new file:   features/database_cleanup/STATUS
+        new file:   features/database_cleanup/claude/DATABASE_TRUTH.md
+        new file:   features/database_health/claude/check_db_health.py
+        new file:   features/database_health/claude/database_health_check.py
+        new file:   features/faith_support/claude/FAITH_QUESTIONNAIRE_PRINT.md
+        new file:   features/faith_support/claude/faith_questionnaire.md
+        new file:   features/frontend_analysis/STATUS
+        new file:   features/frontend_analysis/claude/FRONTEND_ANALYSIS.md
+        new file:   features/frontend_analysis/claude/pages_to_fix.txt
+        new file:   features/gpt5_inline_js_removal/FINAL_CLEANUP.md
+        new file:   features/gpt5_inline_js_removal/NEXT_TASK.md
+        new file:   features/gpt5_large_tasks/TASKS_FOR_GPT5.md
+        new file:   features/health_check/claude/health_check.py
+        new file:   features/launch_preparation/claude/LAUNCH_WEEK_CHECKLIST.md
+        new file:   features/launch_preparation/claude/PRE_LAUNCH_AUDIT.md
+        new file:   features/navbar_investigation/CSS_DUPLICATION_INVESTIGATION.md
+        new file:   features/navbar_investigation/FOOTER_INVESTIGATION.md
+        new file:   features/navbar_investigation/GPT5_INVESTIGATION_BRIEF.md
+        new file:   features/navbar_investigation/GPT5_NEXT_TASKS.md
+        new file:   features/navbar_investigation/INVESTIGATION_FINDINGS.md
+        new file:   features/navbar_investigation/JAVASCRIPT_LOADING_INVESTIGATION.md
+        new file:   features/navbar_investigation/OPTIMIZATION_REPORT.md
+        new file:   features/navbar_investigation/OPUS_TASKS.md
+        new file:   features/navbar_investigation/PERFORMANCE_IMPACT_ANALYSIS.md
+        new file:   features/navbar_investigation/SCRIPT_DEPENDENCIES_INVESTIGATION.md
+        new file:   features/navbar_investigation/STATUS.md
+        new file:   features/navbar_investigation/TASK_DISTRIBUTION.md
+        new file:   features/navbar_investigation/TEMPLATE_ERROR_INVESTIGATION.md
+        new file:   features/navbar_investigation/TEMPLATE_INHERITANCE_DEEP_DIVE.md
+        new file:   features/navbar_investigation/claude/DEEP_DIVE_ANALYSIS.md
+        new file:   features/navbar_investigation/claude/TEMPLATE_SYSTEM_DOCUMENTATION.md
+        new file:   features/navbar_investigation/claude/convert_to_templates.py
+        new file:   features/notifications/ACTIVATION_COMPLETE.md
+        new file:   features/performance_diagnosis/DIAGNOSIS_PLAN.md
+        new file:   features/performance_diagnosis/GPT5_PARALLEL_TASKS.md
+        new file:   features/performance_diagnosis/ISSUES_FOUND.md
+        new file:   features/performance_optimization/claude/STATUS
+        new file:   features/performance_optimization/claude/backup_cleanup_analyzer.py
+        new file:   features/performance_optimization/claude/comprehensive_optimization_summary.md
+        new file:   features/performance_optimization/claude/css_optimization_analyzer.py
+        new file:   features/performance_optimization/claude/duplicate_cleanup_analysis.py
+        new file:   features/performance_optimization/claude/minify_large_files.py
+        new file:   features/performance_optimization/claude/performance_analysis.md
+        new file:   features/performance_optimization/claude/safe_duplicate_cleanup.py
+        new file:   features/performance_optimization/claude/safe_optimizations_phase2.md
+        new file:   features/performance_optimization/claude/turtle_cleanup_summary.md
+        new file:   features/profit_intelligence/README.md
+        new file:   features/profit_intelligence/STATUS
+        new file:   features/profit_intelligence/advanced_analytics.py
+        new file:   features/profit_intelligence/test_intelligence.py
+        new file:   features/quick_win_engine/ACTIVATION_COMPLETE.md
+        new file:   features/safe_refactoring/claude/CLEANUP_PROGRESS.md
+        new file:   features/safe_refactoring/claude/CLEAN_SYSTEM_PRIORITY.md
+        new file:   features/safe_refactoring/claude/CORA_TODO_REPORT.md
+        new file:   features/safe_refactoring/claude/DELETE_BACKUPS.sh
+        new file:   features/safe_refactoring/claude/FINAL_CLEANUP_REPORT.md
+        new file:   features/safe_refactoring/claude/FINAL_CLEANUP_REPORT_V2.md
+        new file:   features/safe_refactoring/claude/FINAL_CLEANUP_REPORT_V3.md
+        new file:   features/safe_refactoring/claude/PHASE_18_COMPLETE.md
+        new file:   features/safe_refactoring/claude/PYTHON313_FIX_REPORT.md
+        new file:   features/safe_refactoring/claude/STATUS
+        new file:   features/safe_refactoring/claude/TEST_STATUS_REPORT.md
+        new file:   features/safe_refactoring/claude/TODO_REPORT.md
+        new file:   features/safe_refactoring/claude/archived_imports/admin_routes_20250810_095501.py
+        new file:   features/safe_refactoring/claude/archived_imports/alert_checker_20250810_095545.py
+        new file:   features/safe_refactoring/claude/archived_imports/analytics_20250810_095529.py
+        new file:   features/safe_refactoring/claude/archived_imports/batch_unicode_fix_20250810_110823.py
+        new file:   features/safe_refactoring/claude/archived_imports/blog_20250810_095529.py
+        new file:   features/safe_refactoring/claude/archived_imports/business_model_analyzer_20250810_110823.py
+        new file:   features/safe_refactoring/claude/archived_imports/business_profile_20250810_095545.py
+        new file:   features/safe_refactoring/claude/archived_imports/business_task_automation_20250810_095545.py
+        new file:   features/safe_refactoring/claude/archived_imports/chat_20250810_095529.py
+        new file:   features/safe_refactoring/claude/archived_imports/cora_ai_routes_20250810_095529.py
+        new file:   features/safe_refactoring/claude/archived_imports/cora_ai_service_20250810_095546.py
+        new file:   features/safe_refactoring/claude/archived_imports/cora_chat_20250810_095529.py
+        new file:   features/safe_refactoring/claude/archived_imports/cora_chat_enhanced_20250810_095529.py
+        new file:   features/safe_refactoring/claude/archived_imports/dashboard_routes_20250810_095529.py
+        new file:   features/safe_refactoring/claude/archived_imports/dashboard_routes_upgraded_example_20250810_110823.py
+        new file:   features/safe_refactoring/claude/archived_imports/deployment_validator_20250810_110823.py
+        new file:   features/safe_refactoring/claude/archived_imports/emotional_intelligence_20250810_095546.py
+        new file:   features/safe_refactoring/claude/archived_imports/environment_setup_guide_20250810_110823.py
+        new file:   features/safe_refactoring/claude/archived_imports/error_handler_example_20250810_110823.py
+        new file:   features/safe_refactoring/claude/archived_imports/error_tracking_20250810_095529.py
+        new file:   features/safe_refactoring/claude/archived_imports/expense_20250810_095545.py
+        new file:   features/safe_refactoring/claude/archived_imports/feedback_20250810_095545.py
+        new file:   features/safe_refactoring/claude/archived_imports/find_unused_imports_20250810_110823.py
+        new file:   features/safe_refactoring/claude/archived_imports/fix_unicode_20250810_110823.py
+        new file:   features/safe_refactoring/claude/archived_imports/insights_20250810_095529.py
+        new file:   features/safe_refactoring/claude/archived_imports/intelligence_orchestrator_20250810_095529.py
+        new file:   features/safe_refactoring/claude/archived_imports/intelligence_orchestrator_20250810_095546.py
+        new file:   features/safe_refactoring/claude/archived_imports/job_20250810_095545.py
+        new file:   features/safe_refactoring/claude/archived_imports/job_alerts_20250810_095546.py
+        new file:   features/safe_refactoring/claude/archived_imports/jobs_20250810_095529.py
+        new file:   features/safe_refactoring/claude/archived_imports/materialized_views_20250810_110823.py
+        new file:   features/safe_refactoring/claude/archived_imports/notification_service_20250810_095546.py
+        new file:   features/safe_refactoring/claude/archived_imports/onboarding_report_service_20250810_095546.py
+        new file:   features/safe_refactoring/claude/archived_imports/onboarding_v2_20250810_095529.py
+        new file:   features/safe_refactoring/claude/archived_imports/pages_20250810_095529.py
+        new file:   features/safe_refactoring/claude/archived_imports/pages_secured_20250810_095529.py
+        new file:   features/safe_refactoring/claude/archived_imports/pages_secured_20250810_110823.py
+        new file:   features/safe_refactoring/claude/archived_imports/payment_20250810_095545.py
+        new file:   features/safe_refactoring/claude/archived_imports/payment_coordinator_20250810_095529.py
+        new file:   features/safe_refactoring/claude/archived_imports/pdf_export_20250810_095529.py
+        new file:   features/safe_refactoring/claude/archived_imports/pdf_exporter_20250810_110823.py
+        new file:   features/safe_refactoring/claude/archived_imports/performance_monitor_20250810_110823.py
+        new file:   features/safe_refactoring/claude/archived_imports/plaid_service_20250810_095546.py
+        new file:   features/safe_refactoring/claude/archived_imports/predictions_20250810_095529.py
+        new file:   features/safe_refactoring/claude/archived_imports/predictive_intelligence_20250810_095546.py
+        new file:   features/safe_refactoring/claude/archived_imports/profit_leak_detector_20250810_095546.py
+        new file:   features/safe_refactoring/claude/archived_imports/query_optimizer_20250810_110823.py
+        new file:   features/safe_refactoring/claude/archived_imports/quickbooks_service_20250810_095546.py
+        new file:   features/safe_refactoring/claude/archived_imports/receipt_upload_20250810_095529.py
+        new file:   features/safe_refactoring/claude/archived_imports/receipts_20250810_095529.py
+        new file:   features/safe_refactoring/claude/archived_imports/seo_pages_20250810_095529.py
+        new file:   features/safe_refactoring/claude/archived_imports/smart_error_handler_20250810_110823.py
+        new file:   features/safe_refactoring/claude/archived_imports/smart_receipts_20250810_095546.py
+        new file:   features/safe_refactoring/claude/archived_imports/task_scheduler_20250810_095546.py
+        new file:   features/safe_refactoring/claude/archived_imports/user_analytics_20250810_095546.py
+        new file:   features/safe_refactoring/claude/archived_imports/voice_commands_20250810_095529.py
+        new file:   features/safe_refactoring/claude/archived_imports/waitlist_20250810_095545.py
+        new file:   features/safe_refactoring/claude/archived_imports/websocket_20250810_095529.py
+        new file:   features/safe_refactoring/claude/archived_imports/wellness_20250810_095529.py
+        new file:   features/safe_refactoring/claude/archived_routes/app_backup.py
+        new file:   features/safe_refactoring/claude/archived_routes/auth_coordinator_backup.py
+        new file:   features/safe_refactoring/claude/archived_routes/auth_coordinator_backup2.py
+        new file:   features/safe_refactoring/claude/archived_routes/cora_chat_enhanced_v2.py
+        new file:   features/safe_refactoring/claude/archived_routes/dashboard_routes_backup.py
+        new file:   features/safe_refactoring/claude/archived_routes/dashboard_routes_optimized.py
+        new file:   features/safe_refactoring/claude/archived_routes/expenses_backup.py
+        new file:   features/safe_refactoring/claude/archived_routes/jobs_original.py
+        new file:   features/safe_refactoring/claude/archived_routes/pages_backup.py
+        new file:   features/safe_refactoring/claude/archived_routes/payment_coordinator_backup.py
+        new file:   features/safe_refactoring/claude/archived_routes/pdf_export_backup.py
+        new file:   features/safe_refactoring/claude/archived_routes/performance_monitor_backup.py
+        new file:   features/safe_refactoring/claude/archived_routes/plaid_integration_backup.py
+        new file:   features/safe_refactoring/claude/archived_routes/plaid_integration_backup2.py
+        new file:   features/safe_refactoring/claude/archived_routes/quick_win.py
+        new file:   features/safe_refactoring/claude/archived_routes/waitlist_backup.py
+        new file:   features/safe_refactoring/claude/batch_unicode_fix.py
+        new file:   features/safe_refactoring/claude/chat_analysis.md
+        new file:   features/safe_refactoring/claude/chat_backup/chat.py
+        new file:   features/safe_refactoring/claude/chat_backup/cora_chat.py
+        new file:   features/safe_refactoring/claude/chat_backup/cora_chat_enhanced.py
+        new file:   features/safe_refactoring/claude/cleanup_backups.py
+        new file:   features/safe_refactoring/claude/code_health_dashboard.py
+        new file:   features/safe_refactoring/claude/dashboard_routes_upgraded_example.py
+        new file:   features/safe_refactoring/claude/delete_backups.py
+        new file:   features/safe_refactoring/claude/docstring_finder.py
+        new file:   features/safe_refactoring/claude/error_analysis.py
+        new file:   features/safe_refactoring/claude/error_constants.py
+        new file:   features/safe_refactoring/claude/error_handler_example.py
+        new file:   features/safe_refactoring/claude/find_generic_exceptions.py
+        new file:   features/safe_refactoring/claude/find_unused_imports.py
+        new file:   features/safe_refactoring/claude/fix_critical_exceptions.py
+        new file:   features/safe_refactoring/claude/fix_critical_exceptions_v2.py
+        new file:   features/safe_refactoring/claude/fix_exceptions.py
+        new file:   features/safe_refactoring/claude/fix_python313.py
+        new file:   features/safe_refactoring/claude/fix_test_imports.py
+        new file:   features/safe_refactoring/claude/fix_unicode.py
+        new file:   features/safe_refactoring/claude/health_metrics.json
+        new file:   features/safe_refactoring/claude/health_report.txt
+        new file:   features/safe_refactoring/claude/import_cleaner.py
+        new file:   features/safe_refactoring/claude/import_cleanup_report.md
+        new file:   features/safe_refactoring/claude/install_test_deps.txt
+        new file:   features/safe_refactoring/claude/jobs_refactor_demo.py
+        new file:   features/safe_refactoring/claude/phase4_changes.md
+        new file:   features/safe_refactoring/claude/phase6_report.md
+        new file:   features/safe_refactoring/claude/refactoring_example.md
+        new file:   features/safe_refactoring/claude/refactoring_log.md
+        new file:   features/safe_refactoring/claude/refactoring_tracker.py
+        new file:   features/safe_refactoring/claude/rollback_plan.md
+        new file:   features/safe_refactoring/claude/run_all_tests.py
+        new file:   features/safe_refactoring/claude/run_cleanup_all.py
+        new file:   features/safe_refactoring/claude/run_cleanup_routes.py
+        new file:   features/safe_refactoring/claude/simple_test.py
+        new file:   features/safe_refactoring/claude/test_runner.py
+        new file:   features/safe_refactoring/claude/todo_cora_only.py
+        new file:   features/safe_refactoring/claude/todo_tracker.py
+        new file:   features/security_fixes/SECURITY_FIXES_DOCUMENTATION.md
+        new file:   features/security_fixes/SECURITY_FIX_PLAN.md
+        new file:   features/smart_error_handler/STATUS
+        new file:   features/system_health/STATUS
+        new file:   features/system_health/claude/system_status.py
+        new file:   features/system_health/claude/system_status_20250809_171413.json
+        new file:   features/system_health/claude/system_status_20250809_231121.json
+        new file:   features/system_health/claude/system_status_20250810_073549.json
+        new file:   features/system_health/claude/system_status_20250810_073819.json
+        new file:   features/system_health/claude/system_status_20250810_075736.json
+        new file:   features/system_health/claude/system_status_20250810_080130.json
+        new file:   features/system_health/claude/system_status_20250810_081509.json
+        new file:   features/system_health/claude/system_status_20250810_082220.json
+        new file:   features/system_health/claude/system_status_20250810_090110.json
+        new file:   features/system_health/claude/system_status_20250810_095408.json
+        new file:   features/system_health/claude/system_status_20250810_095522.json
+        new file:   features/system_health/claude/system_status_20250810_104549.json
+        new file:   features/system_health/claude/system_status_20250810_113333.json
+        new file:   features/system_optimization/STATUS
+        new file:   features/system_optimization/claude/API_DOCUMENTATION.md
+        new file:   features/system_optimization/claude/EXCEPTION_HANDLING_GUIDE.md
+        new file:   features/system_optimization/claude/OPTIMIZATION_REPORT_2025-08-10.md
+        new file:   features/system_optimization/claude/SAFE_CLEANUP_SCRIPT.py
+        new file:   features/system_optimization/claude/SECURITY_AUDIT_2025-08-10.md
+        new file:   features/system_optimization/claude/TEST_COVERAGE_REPORT_2025-08-10.md
+        new file:   features/system_optimization/claude/TODO_REPORT_2025-08-10.md
+        new file:   features/system_optimization/claude/add_performance_indexes.py
+        new file:   features/system_optimization/claude/backup_cleanup_report.json
+        new file:   features/system_optimization/claude/backup_manager.py
+        new file:   features/system_optimization/claude/cleanup_report.json
+        new file:   features/system_optimization/claude/performance_baseline.py
+        new file:   features/tool_registry/claude/TOOL_INTEGRATION_PROCESS.md
+        new file:   features/tool_registry/claude/list_tools.py
+        new file:   features/voice_expense/ACTIVATION_COMPLETE.md
+        new file:   features/voice_expense/CURSOR_PARALLEL_TASKS.md
+        new file:   features/voice_expense/HANDOFF_FOR_TESTING.md
+        new file:   features/voice_expense/STATUS
+        new file:   features/voice_expense/claude/integration.js
+        new file:   features/voice_expense/claude/job_parser.js
+        new file:   features/voice_expense/cursor/construction_categories.js
+        new file:   features/voice_expense/cursor/dashboard_integration.js
+        new file:   features/voice_expense/cursor/demo_video_ui.js
+        new file:   features/voice_expense/cursor/error_handling.js
+        new file:   features/voice_expense/cursor/voice_button.js
+        new file:   features/voice_expense/cursor/voice_modal.js
+        new file:   features/voice_expense/shared/api_contract.md
+        new file:   htmlcov/app_py.html
+        new file:   htmlcov/check_db_schema_py.html
+        new file:   htmlcov/comprehensive_test_py.html
+        new file:   htmlcov/coverage_html.js
+        new file:   htmlcov/data_mock_banking_data_py.html
+        new file:   htmlcov/database_optimization_analysis_py.html
+        new file:   htmlcov/debug_imports_py.html
+        new file:   htmlcov/dependencies___init___py.html
+        new file:   htmlcov/dependencies_auth_hybrid_py.html
+        new file:   htmlcov/dependencies_auth_py.html
+        new file:   htmlcov/dependencies_database_py.html
+        new file:   htmlcov/deploy_production_py.html
+        new file:   htmlcov/favicon_32.png
+        new file:   htmlcov/index.html
+        new file:   htmlcov/jquery.ba-throttle-debounce.min.js
+        new file:   htmlcov/jquery.hotkeys.js
+        new file:   htmlcov/jquery.isonscreen.js
+        new file:   htmlcov/jquery.min.js
+        new file:   htmlcov/jquery.tablesorter.min.js
+        new file:   htmlcov/keybd_closed.png
+        new file:   htmlcov/keybd_open.png
+        new file:   htmlcov/middleware___init___py.html
+        new file:   htmlcov/middleware_account_lockout_py.html
+        new file:   htmlcov/middleware_audit_logging_py.html
+        new file:   htmlcov/middleware_authorization_py.html
+        new file:   htmlcov/middleware_csrf_enhanced_py.html
+        new file:   htmlcov/middleware_csrf_py.html
+        new file:   htmlcov/middleware_error_handler_py.html
+        new file:   htmlcov/middleware_file_upload_security_py.html
+        new file:   htmlcov/middleware_logging_middleware_py.html
+        new file:   htmlcov/middleware_monitoring_py.html
+        new file:   htmlcov/middleware_query_monitoring_py.html
+        new file:   htmlcov/middleware_rate_limit_py.html
+        new file:   htmlcov/middleware_rate_limiter_py.html
+        new file:   htmlcov/middleware_rate_limiting_py.html
+        new file:   htmlcov/middleware_response_optimization_py.html
+        new file:   htmlcov/middleware_security_headers_enhanced_py.html
+        new file:   htmlcov/middleware_security_headers_py.html
+        new file:   htmlcov/middleware_user_activity_py.html
+        new file:   htmlcov/models___init___py.html
+        new file:   htmlcov/models_base_py.html
+        new file:   htmlcov/models_business_profile_py.html
+        new file:   htmlcov/models_customer_py.html
+        new file:   htmlcov/models_email_verification_token_py.html
+        new file:   htmlcov/models_expense_category_py.html
+        new file:   htmlcov/models_expense_py.html
+        new file:   htmlcov/models_feedback_py.html
+        new file:   htmlcov/models_job_alert_py.html
+        new file:   htmlcov/models_job_py.html
+        new file:   htmlcov/models_password_reset_token_py.html
+        new file:   htmlcov/models_payment_py.html
+        new file:   htmlcov/models_plaid_integration_py.html
+        new file:   htmlcov/models_quickbooks_integration_py.html
+        new file:   htmlcov/models_stripe_integration_py.html
+        new file:   htmlcov/models_subscription_py.html
+        new file:   htmlcov/models_user_activity_py.html
+        new file:   htmlcov/models_user_preference_py.html
+        new file:   htmlcov/models_user_py.html
+        new file:   htmlcov/models_waitlist_py.html
+        new file:   htmlcov/routes___init___py.html
+        new file:   htmlcov/routes_admin_routes_py.html
+        new file:   htmlcov/routes_alert_routes_py.html
+        new file:   htmlcov/routes_analytics_py.html
+        new file:   htmlcov/routes_auth_coordinator_py.html
+        new file:   htmlcov/routes_blog_py.html
+        new file:   htmlcov/routes_chat_py.html
+        new file:   htmlcov/routes_cora_ai_routes_py.html
+        new file:   htmlcov/routes_cora_chat_enhanced_py.html
+        new file:   htmlcov/routes_cora_chat_enhanced_v2_py.html
+        new file:   htmlcov/routes_cora_chat_py.html
+        new file:   htmlcov/routes_dashboard_routes_optimized_py.html
+        new file:   htmlcov/routes_dashboard_routes_py.html
+        new file:   htmlcov/routes_error_tracking_py.html
+        new file:   htmlcov/routes_expense_coordinator_py.html
+        new file:   htmlcov/routes_expenses_py.html
+        new file:   htmlcov/routes_feedback_routes_py.html
+        new file:   htmlcov/routes_health_py.html
+        new file:   htmlcov/routes_insights_py.html
+        new file:   htmlcov/routes_intelligence_orchestrator_py.html
+        new file:   htmlcov/routes_jobs_py.html
+        new file:   htmlcov/routes_monitoring_py.html
+        new file:   htmlcov/routes_onboarding_routes_py.html
+        new file:   htmlcov/routes_onboarding_v2_py.html
+        new file:   htmlcov/routes_pages_py.html
+        new file:   htmlcov/routes_pages_secured_py.html
+        new file:   htmlcov/routes_payment_coordinator_py.html
+        new file:   htmlcov/routes_payments_py.html
+        new file:   htmlcov/routes_pdf_export_py.html
+        new file:   htmlcov/routes_performance_monitor_py.html
+        new file:   htmlcov/routes_plaid_integration_py.html
+        new file:   htmlcov/routes_predictions_py.html
+        new file:   htmlcov/routes_profit_analysis_py.html
+        new file:   htmlcov/routes_profit_intelligence_py.html
+        new file:   htmlcov/routes_quick_wins_py.html
+        new file:   htmlcov/routes_quickbooks_integration_py.html
+        new file:   htmlcov/routes_receipt_upload_py.html
+        new file:   htmlcov/routes_receipts_py.html
+        new file:   htmlcov/routes_seo_pages_py.html
+        new file:   htmlcov/routes_sitemap_py.html
+        new file:   htmlcov/routes_stripe_integration_py.html
+        new file:   htmlcov/routes_voice_commands_py.html
+        new file:   htmlcov/routes_waitlist_py.html
+        new file:   htmlcov/routes_websocket_py.html
+        new file:   htmlcov/routes_wellness_py.html
+        new file:   htmlcov/services___init___py.html
+        new file:   htmlcov/services_alert_checker_py.html
+        new file:   htmlcov/services_auth_service_py.html
+        new file:   htmlcov/services_cora_ai_service_py.html
+        new file:   htmlcov/services_email_service_py.html
+        new file:   htmlcov/services_emotional_intelligence_py.html
+        new file:   htmlcov/services_enhanced_orchestrator_py.html
+        new file:   htmlcov/services_intelligence_orchestrator_py.html
+        new file:   htmlcov/services_job_alerts_py.html
+        new file:   htmlcov/services_notification_service_py.html
+        new file:   htmlcov/services_onboarding_report_service_py.html
+        new file:   htmlcov/services_plaid_service_py.html
+        new file:   htmlcov/services_predictive_intelligence_py.html
+        new file:   htmlcov/services_profit_leak_detector_py.html
+        new file:   htmlcov/services_quickbooks_service_py.html
+        new file:   htmlcov/services_smart_receipts_py.html
+        new file:   htmlcov/services_stripe_service_py.html
+        new file:   htmlcov/services_user_analytics_py.html
+        new file:   htmlcov/setup_production_monitoring_py.html
+        new file:   htmlcov/status.json
+        new file:   htmlcov/style.css
+        new file:   htmlcov/tools_backup_manager_py.html
+        new file:   htmlcov/tools_quick_win_engine_py.html
+        new file:   htmlcov/tools_secure_backup_py.html
+        new file:   htmlcov/utils_api_response_optimizer_py.html
+        new file:   htmlcov/utils_api_response_py.html
+        new file:   htmlcov/utils_pdf_exporter_py.html
+        new file:   htmlcov/utils_performance_monitor_py.html
+        new file:   htmlcov/utils_redis_manager_py.html
+        new file:   htmlcov/utils_validation_py.html
+        new file:   import_optimizer.py
+        new file:   logging_config.json
+        new file:   marketing/CORA_Identity_Positioning.md
+        new file:   marketing/CORA_Marketing_Research_Data.md
+        new file:   marketing/Email_Sequences.md
+        new file:   marketing/Landing_Page_Copy.md
+        new file:   marketing/Sales_Scripts.md
+        new file:   marketing/Social_Media_Posts.md
+        new file:   marketing/facebook_posts.md
+        modified:   middleware/__init__.py
+        new file:   middleware/account_lockout.py
+        new file:   middleware/api_security_config.py
+        new file:   middleware/audit_logging.py
+        new file:   middleware/auth_security_enhanced.py
+        new file:   middleware/authorization.py
+        new file:   middleware/csrf.py
+        new file:   middleware/csrf_enhanced.py
+        modified:   middleware/error_handler.py
+        new file:   middleware/file_upload_security.py
+        new file:   middleware/monitoring.py
+        new file:   middleware/query_monitoring.py
+        modified:   middleware/rate_limiter.py
+        new file:   middleware/rate_limiting.py
+        new file:   middleware/response_optimization.py
+        modified:   middleware/security_headers.py
+        new file:   middleware/security_headers_enhanced.py
+        new file:   models.py
+        modified:   models/__init__.py
+        new file:   models/analytics.py
+        modified:   models/base.py
+        modified:   models/business_profile.py
+        new file:   models/email_verification_token.py
+        modified:   models/expense.py
+        modified:   models/expense_category.py
+        modified:   models/feedback.py
+        new file:   models/job.py
+        new file:   models/job_alert.py
+        modified:   models/payment.py
+        new file:   models/prediction_feedback.py
+        modified:   models/user.py
+        modified:   models/user_activity.py
+        new file:   models/waitlist.py
+        new file:   monitoring/README.md
+        new file:   monitoring/alertmanager/alertmanager.yml
+        new file:   monitoring/docker-compose.yml
+        new file:   monitoring/grafana/dashboards/cora-overview.json
+        new file:   monitoring/grafana/provisioning/dashboards/dashboards.yml
+        new file:   monitoring/grafana/provisioning/datasources/datasources.yml
+        new file:   monitoring/prometheus/prometheus.yml
+        new file:   monitoring/prometheus/rules/cora-alerts.yml
+        new file:   monitoring/prometheus/rules/cora-production.yml
+        new file:   monitoring/promtail/promtail.yml
+        new file:   monitoring/start-monitoring.sh
+        new file:   production_optimization.py
+        new file:   production_readiness_audit.py
+        new file:   production_readiness_report_20250805_131626.json
+        new file:   pytest.ini
+        new file:   reports/beta_report_20250716_082023.csv
+        new file:   reports/beta_report_20250716_082037.csv
+        new file:   reports/beta_report_20250716_082045.csv
+        new file:   reports/beta_report_20250716_082725.csv
+        new file:   reports/ui_ux_registry_20250717_172549.json
+        new file:   reports/ui_ux_registry_20250717_172720.json
+        new file:   reports/welcome_report_test_contractor_20250803_123621.pdf
+        new file:   reports/welcome_report_test_contractor_20250803_123926.pdf
+        new file:   reports/welcome_report_test_contractor_20250805_093547.pdf
+        new file:   reports/welcome_report_test_user_20250804_172957.pdf
+        new file:   reports/welcome_report_test_user_20250804_174655.pdf
+        modified:   requirements.txt
+        new file:   routes/STATUS
+        modified:   routes/__init__.py
+        modified:   routes/admin_routes.py
+        new file:   routes/alert_routes.py
+        new file:   routes/analytics.py
+        modified:   routes/auth_coordinator.py
+        new file:   routes/auth_coordinator.py.exception_backup_v2
+        new file:   routes/automation.py
+        new file:   routes/blog.py
+        new file:   routes/business_tasks.py
+        new file:   routes/chat.py
+        new file:   routes/cora_ai_routes.py
+        new file:   routes/cora_chat.py
+        new file:   routes/cora_chat_enhanced.py
+        modified:   routes/dashboard_routes.py
+        new file:   routes/deprecated/README.md
+        new file:   routes/deprecated/cora_chat_enhanced_v2.py
+        new file:   routes/deprecated/dashboard_routes_optimized.py
+        new file:   routes/deprecated/quick_win.py
+        new file:   routes/error_tracking.py
+        modified:   routes/expense_coordinator.py
+        modified:   routes/expenses.py
+        new file:   routes/expenses.py.exception_backup_v2
+        new file:   routes/feedback_routes.py
+        modified:   routes/health.py
+        new file:   routes/insights.py
+        new file:   routes/intelligence_orchestrator.py
+        new file:   routes/jobs.py
+        new file:   routes/monitoring.py
+        modified:   routes/onboarding_routes.py
+        new file:   routes/onboarding_v2.py
+        modified:   routes/pages.py
+        new file:   routes/pages.py.exception_backup
+        new file:   routes/pages_secured.py
+        modified:   routes/payment_coordinator.py
+        new file:   routes/pdf_export.py
+        new file:   routes/performance_monitor.py
+        modified:   routes/plaid_integration.py
+        new file:   routes/predictions.py
+        new file:   routes/profit_analysis.py
+        new file:   routes/profit_intelligence.py
+        new file:   routes/quick_wins.py
+        modified:   routes/quickbooks_integration.py
+        new file:   routes/receipt_upload.py
+        new file:   routes/receipts.py
+        new file:   routes/seo_pages.py
+        new file:   routes/sitemap.py
+        modified:   routes/stripe_integration.py
+        new file:   routes/voice_commands.py
+        new file:   routes/voice_commands.py.exception_backup_v2
+        new file:   routes/waitlist.py
+        new file:   routes/websocket.py
+        new file:   routes/wellness.py
+        new file:   run_tests.sh
+        new file:   schema/construction_migration_simple.sql
+        new file:   schema/migrations/001_construction_pivot.sql
+        new file:   schema/migrations/002_add_waitlist_table.sql
+        new file:   schema/optimizations/glen_day_performance_optimizations.sql
+        new file:   schema/postgres_data.sql
+        new file:   schema/postgresql_schema.sql
+        new file:   scripts/create_demo_user.py
+        new file:   scripts/postgresql_deployment.sh
+        new file:   scripts/run_migrations.py
+        new file:   security_review.py
+        new file:   security_test_report_20250802_103930.json
+        new file:   services/alert_checker.py
+        modified:   services/auth_service.py
+        new file:   services/business_task_automation.py
+        new file:   services/cora_ai_service.py
+        modified:   services/email_service.py
+        new file:   services/emotional_intelligence.py
+        new file:   services/enhanced_orchestrator.py
+        new file:   services/intelligence_orchestrator.py
+        new file:   services/job_alerts.py
+        new file:   services/notification_service.py
+        new file:   services/onboarding_report_service.py
+        modified:   services/plaid_service.py
+        new file:   services/predictive_intelligence.py
+        new file:   services/profit_leak_detector.py
+        modified:   services/quickbooks_service.py
+        new file:   services/smart_receipts.py
+        modified:   services/stripe_service.py
+        new file:   services/task_scheduler.py
+        new file:   services/user_analytics.py
+        new file:   setup_production_monitoring.py
+        new file:   t_landing_page_functionality.py
+        new file:   template_checksums.json
+        new file:   templates/Glen_Day_Data_Collection_Form.html
+        new file:   templates/glen_data_collection.md
+        new file:   templates/simple_nda.md
+        modified:   templates/welcome-email.html
+        new file:   test_api_direct.py
+        new file:   test_api_endpoints.py
+        new file:   test_api_simple.py
+        new file:   test_bundles.py
+        new file:   test_business_automation.py
+        new file:   test_complete_flow.py
+        new file:   test_complete_user_journey.py
+        new file:   test_cora_direct.py
+        new file:   test_critical_endpoints.py
+        new file:   test_emotional_demo.py
+        new file:   test_endpoints.py
+        new file:   test_enhanced_orchestrator.py
+        new file:   test_enhanced_response_structure.py
+        deleted:    test_final_system.py
+        new file:   test_frontend_integration.py
+        new file:   test_integration_complete.py
+        new file:   test_intelligence_route.py
+        new file:   test_login_endpoint.py
+        deleted:    test_minimal.py
+        new file:   test_onboarding_flow.py
+        new file:   test_openai_integration.py
+        new file:   test_openai_simple.py
+        new file:   test_personality_enhancements.py
+        new file:   test_profit_calculations.py
+        new file:   test_recovery/backup_metadata.json
+        new file:   test_recovery/config/Procfile
+        new file:   test_recovery/config/env.production.template
+        new file:   test_recovery/config/requirements.txt
+        new file:   test_recovery/config/runtime.txt
+        new file:   test_recovery/database/cora_dump.sql
+        new file:   test_routes.py
+        new file:   test_stripe_integration.py
+        new file:   test_system_components.py
+        new file:   test_which_cora.py
+        new file:   tests/README.md
+        new file:   tests/conftest.py
+        new file:   tests/create_simple_user.py
+        new file:   tests/create_test_user.py
+        new file:   tests/integration_test_results.json
+        new file:   tests/integration_test_suite.py
+        new file:   tests/load_testing/README.md
+        new file:   tests/load_testing/load_test_report_20250802_103536.json
+        new file:   tests/load_testing/load_test_report_20250802_103729.json
+        new file:   tests/load_testing/locustfile.py
+        new file:   tests/load_testing/results_smoke_exceptions.csv
+        new file:   tests/load_testing/results_smoke_failures.csv
+        new file:   tests/load_testing/results_smoke_stats.csv
+        new file:   tests/load_testing/results_smoke_stats_history.csv
+        new file:   tests/load_testing/run_load_tests.py
+        new file:   tests/load_testing/scenarios.py
+        new file:   tests/load_testing/simple_load_test.py
+        new file:   tests/quick_test_cora.py
+        new file:   tests/security_test.py
+        modified:   tests/setup_test_user.py
+        renamed:    test_admin.py -> tests/test_admin.py
+        new file:   tests/test_admin_authorization.py
+        modified:   tests/test_api.py
+        new file:   tests/test_auth.py
+        modified:   tests/test_auth_and_expense_api.py
+        new file:   tests/test_auth_connection.py
+        modified:   tests/test_comprehensive_api.py
+        new file:   tests/test_cora_functionality.py
+        new file:   tests/test_cora_sales.py
+        new file:   tests/test_cora_simple.py
+        new file:   tests/test_dashboard_data.py
+        modified:   tests/test_database_connectivity.py
+        modified:   tests/test_endpoints.py
+        new file:   tests/test_expenses.py
+        renamed:    test_feedback.py -> tests/test_feedback.py
+        new file:   tests/test_final_system.py
+        new file:   tests/test_improved_cora.py
+        new file:   tests/test_job_profitability.py
+        new file:   tests/test_job_profitability_api.py
+        new file:   tests/test_jobs_no_auth.py
+        renamed:    test_onboarding.py -> tests/test_onboarding.py
+        new file:   tests/test_onboarding_user.py
+        new file:   tests/test_public_pages_status.py
+        modified:   tests/test_quickbooks_integration.py
+        modified:   tests/test_quickbooks_oauth.py
+        modified:   tests/test_restoration.py
+        new file:   tests/test_template_inheritance.py
+        modified:   tests/test_user_journey.py
+        modified:   tests/test_user_journey_corrected.py
+        new file:   tests/test_voice_activation.py
+        new file:   tests/test_voice_parser.py
+        new file:   tests/user_acceptance_test.py
+        new file:   tools/STATUS
+        new file:   tools/TODO.md
+        new file:   tools/activate_notifications.py
+        new file:   tools/activate_voice_expense.js
+        new file:   tools/add_admin_column.py
+        new file:   tools/add_icon_underlines.py
+        new file:   tools/add_test_data_for_profit_intelligence.py
+        new file:   tools/add_underline_style.py
+        new file:   tools/analyze_ui_files.py
+        new file:   tools/archive/deployment_scripts/deploy_full.py
+        new file:   tools/archive/deployment_scripts/deploy_security_fix.py
+        renamed:    tools/deploy_simple.py -> tools/archive/deployment_scripts/deploy_simple.py
+        new file:   tools/archive/deployment_scripts/final_502_fix.py
+        new file:   tools/archive/deployment_scripts/final_check_502.py
+        new file:   tools/archive/deployment_scripts/final_fixes.py
+        new file:   tools/archive/deployment_scripts/final_health_check.py
+        new file:   tools/archive/deployment_scripts/final_test.py
+        new file:   tools/archive/fix_502_complete.py
+        new file:   tools/archive/fix_502_minimal.py
+        new file:   tools/archive/fix_502_now.py
+        new file:   tools/archive/fix_nginx_proxy.py
+        new file:   tools/archive/fix_with_venv.py
+        renamed:    create_test_user.py -> tools/archive/testing_scripts/create_test_user.py
+        renamed:    tools/test_ai_dashboard.py -> tools/archive/testing_scripts/test_ai_dashboard.py
+        renamed:    tools/test_ai_dashboard_simple.py -> tools/archive/testing_scripts/test_ai_dashboard_simple.py
+        new file:   tools/archive/testing_scripts/test_all_endpoints.py
+        new file:   tools/archive/testing_scripts/test_endpoints_simple.py
+        new file:   tools/archive/testing_scripts/test_health_final.py
+        new file:   tools/archive/testing_scripts/test_postgresql_connection.py
+        new file:   tools/archive/testing_scripts/test_postgresql_migration.py
+        new file:   tools/archive/utility_scripts/check_all_imports.py
+        new file:   tools/archive/utility_scripts/check_dependencies.sh
+        new file:   tools/archive/utility_scripts/check_env_and_start.py
+        new file:   tools/archive/utility_scripts/check_pm2_issue.py
+        new file:   tools/archive/utility_scripts/check_port_8000.py
+        renamed:    tools/check_sizes.sh -> tools/archive/utility_scripts/check_sizes.sh
+        new file:   tools/archive/utility_scripts/copy_all_middleware.py
+        new file:   tools/archive/utility_scripts/copy_config_fix_final.py
+        new file:   tools/archive/utility_scripts/copy_env_file.py
+        new file:   tools/archive/utility_scripts/copy_monitoring.py
+        new file:   tools/archive/utility_scripts/copy_utils_final.py
+        new file:   tools/archive/utility_scripts/diagnose_502_error.py
+        new file:   tools/archive/utility_scripts/diagnose_final.py
+        new file:   tools/archive/utility_scripts/direct_start.py
+        renamed:    fix_git_mind.bat -> tools/archive/utility_scripts/fix_git_mind.bat
+        renamed:    fix_git_mind.sh -> tools/archive/utility_scripts/fix_git_mind.sh
+        new file:   tools/archive/utility_scripts/fix_uvicorn_simple.bat
+        renamed:    tools/install_missing.py -> tools/archive/utility_scripts/install_missing.py
+        new file:   tools/archive/utility_scripts/install_prometheus.py
+        new file:   tools/archive/utility_scripts/install_psutil_final.py
+        new file:   tools/archive/utility_scripts/install_schedule_final.py
+        new file:   tools/archive/utility_scripts/install_uvicorn_fix.py
+        new file:   tools/archive/utility_scripts/quick_fix_502.sh
+        new file:   tools/archive/utility_scripts/start_app_now.py
+        renamed:    tools/start_session.sh -> tools/archive/utility_scripts/start_session.sh
+        new file:   tools/archive/utility_scripts/verify_deployment.py
+        new file:   tools/archive/utility_scripts/verify_final_status.py
+        new file:   tools/backup_before_cleanup.py
+        new file:   tools/backup_manager.py
+        new file:   tools/beta_launch_manager.py
+        new file:   tools/cleanup_legacy_files.py
+        new file:   tools/complete_postgresql_migration.py
+        new file:   tools/comprehensive_test.py
+        new file:   tools/construction_migration.py
+        new file:   tools/conversational_data_mapping.py
+        new file:   tools/convert_sqlite_to_postgres.py
+        new file:   tools/create_professional_forms.py
+        new file:   tools/create_test_user.py
+        new file:   tools/deep_audit.py
+        new file:   tools/deploy_to_production.py
+        new file:   tools/deployment_check.py
+        new file:   tools/deployment_summary.md
+        new file:   tools/enhance_templates.py
+        new file:   tools/final_fixes.py
+        new file:   tools/fix_critical_gaps.py
+        new file:   tools/fix_fontawesome_position.py
+        new file:   tools/generate_env.py
+        new file:   tools/generate_production_env.py
+        new file:   tools/generate_secure_secrets.py
+        new file:   tools/glen_analysis_simple.py
+        new file:   tools/glen_job_analysis_template.py
+        new file:   tools/infrastructure_setup.py
+        renamed:    init_db.py -> tools/init_db.py
+        new file:   tools/manual_profit_analysis.py
+        new file:   tools/migrate_to_postgresql.py
+        new file:   tools/optimize_queries.py
+        new file:   tools/practice_glen_math.py
+        new file:   tools/production_readiness_check.py
+        new file:   tools/protect_templates.py
+        new file:   tools/query_performance_analyzer.py
+        new file:   tools/quick_browser_tests.js
+        new file:   tools/quick_win_engine.py
+        new file:   tools/remove_icon_underlines.py
+        new file:   tools/remove_underline_css.py
+        new file:   tools/repair_broken_pages.py
+        new file:   tools/replace_all_footers.py
+        new file:   tools/restore_pages.py
+        new file:   tools/secure_backup.py
+        new file:   tools/setup_postgresql.py
+        new file:   tools/show_plaid_data.py
+        modified:   tools/start_cora.py
+        new file:   tools/test_analytics.py
+        new file:   tools/test_glen_day_demo.py
+        new file:   tools/test_glen_demo_simple.py
+        new file:   tools/test_onboarding_flow.py
+        new file:   tools/test_pdf_export.py
+        new file:   tools/test_postgresql_concurrent.py
+        new file:   tools/test_profit_engine.py
+        new file:   tools/test_profit_intelligence_api.py
+        new file:   tools/test_rate_limiting.py
+        new file:   tools/test_security_enhancements.py
+        new file:   tools/test_sqlite_concurrent.py
+        new file:   tools/ui_file_usage_analyzer.py
+        new file:   tools/ui_ux_commands.py
+        new file:   tools/ui_ux_file_registry.py
+        new file:   tools/update_fontawesome_all.py
+        new file:   tools/update_footers.py
+        new file:   user_acceptance_report_20250802_104137.json
+        new file:   utils/api_response.py
+        new file:   utils/api_response_optimizer.py
+        new file:   utils/business_model_analyzer.py
+        new file:   utils/currency.py
+        new file:   utils/db_optimizer.py
+        new file:   utils/deployment_validator.py
+        new file:   utils/deployment_validator_simple.py
+        new file:   utils/environment_analyzer.py
+        new file:   utils/environment_setup_guide.py
+        new file:   utils/error_constants.py
+        new file:   utils/error_handler.py
+        new file:   utils/logging_config.py
+        new file:   utils/materialized_views.py
+        new file:   utils/notifier.py
+        new file:   utils/pdf_exporter.py
+        new file:   utils/performance_monitor.py
+        new file:   utils/query_optimizer.py
+        new file:   utils/redis_manager.py
+        new file:   utils/security_enhanced.py
+        new file:   utils/smart_error_handler.py
+        new file:   utils/validation.py
+        new file:   voice_feature/VOICE_FEATURE_PLAN.md
+        new file:   voice_feature/claude_tasks/README.md
+        new file:   voice_feature/cursor_tasks/README.md
+        new file:   voice_feature/shared/voice_api_spec.md
+        new file:   voice_feature/testing/test_phrases.txt
+        new file:   web/STATUS
+        new file:   web/build.mjs
+        new file:   web/components/CORAPersonality.js
+        new file:   web/components/EmotionalWellness.js
+        new file:   web/components/InsightMoments.js
+        new file:   web/components/IntelligenceOrchestrator.js
+        new file:   web/components/IntelligenceScoreWidget.js
+        new file:   web/components/PredictiveInsights.js
+        new file:   web/components/ProfitIntelligenceWidget.js
+        new file:   web/components/SmartReceiptUpload.js
+        new file:   web/components/VoiceAssistant.js
+        new file:   web/design-system/construction-theme.md
+        modified:   web/package-lock.json
+        modified:   web/package.json
+        new file:   web/static/DISABLE_SERVICE_WORKER.html
+        new file:   web/static/components/CORAPersonality.js
+        new file:   web/static/components/UnifiedAIDashboard.js
+        new file:   web/static/css/components/navigation.css
+        new file:   web/static/css/construction-theme.css
+        new file:   web/static/css/cora-chat-consolidated.css
+        new file:   web/static/css/core/reset.css
+        new file:   web/static/css/core/variables.css
+        new file:   web/static/css/main.css
+        new file:   web/static/css/navbar.css
+        new file:   web/static/css/navigation-consolidated.css
+        new file:   web/static/css/onboarding.css
+        new file:   web/static/css/smart-notifications.css
+        new file:   web/static/css/unified-design-system.css
+        new file:   web/static/css/wellness.css
+        new file:   web/static/favicon-transparent.svg
+        deleted:    web/static/images/dashboard-preview.svg
+        new file:   web/static/images/logos/Logo Files/For Print/eps/Black logo - no background.eps
+        new file:   web/static/images/logos/Logo Files/For Print/eps/Color logo - no background.eps
+        new file:   web/static/images/logos/Logo Files/For Print/eps/Color logo with background.eps
+        new file:   web/static/images/logos/Logo Files/For Print/eps/White logo - no background.eps
+        new file:   web/static/images/logos/Logo Files/For Print/pdf/Black logo - no background.pdf
+        new file:   web/static/images/logos/Logo Files/For Print/pdf/Color logo - no background.pdf
+        new file:   web/static/images/logos/Logo Files/For Print/pdf/Color logo with background.pdf
+        new file:   web/static/images/logos/Logo Files/For Print/pdf/White logo - no background.pdf
+        new file:   web/static/images/logos/Logo Files/For Web/Favicons/Android.png
+        new file:   web/static/images/logos/Logo Files/For Web/Favicons/Android2.png
+        new file:   web/static/images/logos/Logo Files/For Web/Favicons/browser.png
+        new file:   web/static/images/logos/Logo Files/For Web/Favicons/iPhone.png
+        new file:   web/static/images/logos/Logo Files/For Web/png/213475993_padded_logo.png
+        new file:   web/static/images/logos/Logo Files/For Web/png/Black logo - no background.png
+        new file:   web/static/images/logos/Logo Files/For Web/png/Color logo - no background.png
+        new file:   web/static/images/logos/Logo Files/For Web/png/Color logo with background.png
+        new file:   web/static/images/logos/Logo Files/For Web/png/White logo - no background.png
+        new file:   web/static/images/logos/Logo Files/For Web/svg/Black logo - no background.svg
+        new file:   web/static/images/logos/Logo Files/For Web/svg/Color logo - no background.svg
+        new file:   web/static/images/logos/Logo Files/For Web/svg/Color logo with background.svg
+        new file:   web/static/images/logos/Logo Files/For Web/svg/White logo - no background.svg
+        new file:   web/static/images/logos/Logo Files/getting_started_guide.html
+        new file:   web/static/images/placeholder.svg
+        renamed:    web/web/static/images/profiles/mike-rodriguez.png -> web/static/images/profiles/marcus-johnson.png
+        deleted:    web/static/images/profiles/sarah-chen.png
+        new file:   web/static/js/accessibility.js
+        new file:   web/static/js/alerts_panel.js
+        new file:   web/static/js/api-error-handler.js
+        new file:   web/static/js/api_cache.js
+        new file:   web/static/js/auth-helper.js
+        new file:   web/static/js/bundles/accessibility.js
+        new file:   web/static/js/bundles/accessibility.js.map
+        new file:   web/static/js/bundles/chunk-YVLJX3HV.js
+        new file:   web/static/js/bundles/chunk-YVLJX3HV.js.map
+        new file:   web/static/js/bundles/error-manager.js
+        new file:   web/static/js/bundles/error-manager.js.map
+        new file:   web/static/js/bundles/manifest.json
+        new file:   web/static/js/bundles/performance.js
+        new file:   web/static/js/bundles/performance.js.map
+        new file:   web/static/js/bundles/timeout-handler.js
+        new file:   web/static/js/bundles/timeout-handler.js.map
+        new file:   web/static/js/bundles/web-vitals-monitoring.js
+        new file:   web/static/js/bundles/web-vitals-monitoring.js.map
+        new file:   web/static/js/chat-debug.js
+        new file:   web/static/js/cora-bundle.js
+        new file:   web/static/js/cora-chat-enhanced.js
+        new file:   web/static/js/cora-chat.js
+        new file:   web/static/js/cora-personality-demo.js
+        new file:   web/static/js/dark-mode.js
+        new file:   web/static/js/dashboard.js
+        new file:   web/static/js/enhanced_chat_onboarding.js
+        new file:   web/static/js/error-manager.js
+        new file:   web/static/js/error-reporter.js
+        new file:   web/static/js/error_recovery.js
+        new file:   web/static/js/export_manager.js
+        new file:   web/static/js/feedback_widget.js
+        new file:   web/static/js/health_monitor.js
+        new file:   web/static/js/i18n.js
+        new file:   web/static/js/install_prompt.js
+        new file:   web/static/js/job_profitability.js
+        new file:   web/static/js/job_query_handler.js
+        new file:   web/static/js/landing-page-fix.js
+        new file:   web/static/js/landing-page.js
+        new file:   web/static/js/loading-states.js
+        new file:   web/static/js/login-form.js
+        new file:   web/static/js/mobile-navigation.js
+        new file:   web/static/js/mobile_gestures.js
+        new file:   web/static/js/notification_settings.js
+        new file:   web/static/js/onboarding-ai-wizard.js
+        new file:   web/static/js/performance.js
+        new file:   web/static/js/plaid-connect.js
+        new file:   web/static/js/profit_intelligence.js
+        new file:   web/static/js/quick_tour.js
+        new file:   web/static/js/quick_win_dashboard.js
+        new file:   web/static/js/realtime_updates.js
+        new file:   web/static/js/security.js
+        new file:   web/static/js/signup-form.js
+        new file:   web/static/js/smart-notifications.js
+        new file:   web/static/js/structured-data.js
+        new file:   web/static/js/timeout-handler.js
+        new file:   web/static/js/virtual_scroll.js
+        new file:   web/static/js/voice_button_fix.js
+        new file:   web/static/js/voice_expense_entry.js
+        new file:   web/static/js/voice_help.js
+        new file:   web/static/js/voice_onboarding.js
+        new file:   web/static/js/web-vitals-monitoring.js
+        new file:   web/static/manifest.json
+        new file:   web/static/service-worker.js
+        new file:   web/static/simple-login.html
+        new file:   web/static/sw-calm.js
+        new file:   web/templates/about.html
+        new file:   web/templates/base_app.html
+        new file:   web/templates/base_minimal.html
+        new file:   web/templates/base_public.html
+        new file:   web/templates/blog.html
+        new file:   web/templates/blog/5-budget-killers-every-contractor-misses.html
+        new file:   web/templates/blog/index.html
+        new file:   web/templates/blog/real-time-tracking-saved-my-construction-business.html
+        new file:   web/templates/blog/voice-input-construction-game-changer.html
+        new file:   web/templates/components/footer.html
+        new file:   web/templates/components/nav-footer-template.html
+        new file:   web/templates/components/navigation.html
+        new file:   web/templates/components/scripts_core.html
+        new file:   web/templates/contact.html
+        new file:   web/templates/core_protected/MANIFEST.md
+        new file:   web/templates/core_protected/dashboard.html
+        deleted:    web/templates/dashboard.html
+        new file:   web/templates/features.html
+        new file:   web/templates/help.html
+        new file:   web/templates/how-it-works.html
+        modified:   web/templates/index.html
+        new file:   web/templates/insights_dashboard.html
+        modified:   web/templates/integrations/plaid.html
+        modified:   web/templates/integrations/quickbooks.html
+        modified:   web/templates/integrations/stripe.html
+        modified:   web/templates/login.html
+        new file:   web/templates/onboarding-ai-wizard.html
+        new file:   web/templates/onboarding/connect_bank.html
+        new file:   web/templates/onboarding/success.html
+        new file:   web/templates/onboarding/welcome.html
+        new file:   web/templates/pricing.html
+        modified:   web/templates/privacy.html
+        new file:   web/templates/receipt_upload.html
+        new file:   web/templates/reviews.html
+        new file:   web/templates/security.html
+        new file:   web/templates/seo/location/texas-contractors.html
+        new file:   web/templates/seo/real-time-profit-tracking.html
+        new file:   web/templates/seo/voice-input-construction.html
+        new file:   web/templates/seo/why-jobs-lose-money.html
+        modified:   web/templates/signup.html
+        new file:   web/templates/subscription.html
+        modified:   web/templates/terms.html
+        new file:   web/templates/user_analytics.html
+        new file:   web/testing-report.md
+        deleted:    web/web/static/favicon.ico
+        deleted:    web/web/static/images/dashboard-preview.svg
+        deleted:    web/web/static/images/profiles/sarah-chen.png
+        deleted:    web/web/templates/index.html
+
+Changes not staged for commit:
+  (use "git add/rm <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+        modified:   .gitignore
+        modified:   AI_DISCUSSION_SPACE.md
+        modified:   BOOTUP.md
+        modified:   HANDOFF.md
+        modified:   PRIORITY.md
+        modified:   QUICK_REFERENCE.md
+        modified:   SYSTEM_RULES.md
+        modified:   app.py
+        deleted:    backups/contact_before_template.html
+        deleted:    backups/cora_backup_20250715_213228.zip.enc
+        deleted:    backups/cora_backup_20250715_213316.zip.enc
+        deleted:    backups/cora_backup_20250717_180110.zip.enc
+        deleted:    backups/cora_backup_20250718_020008.zip.enc
+        deleted:    backups/cora_backup_20250719_091636.zip.enc
+        deleted:    backups/cora_backup_20250719_091705.zip.enc
+        deleted:    backups/cora_backup_20250721_020021.zip.enc
+        deleted:    backups/cora_backup_20250721_020050.zip.enc
+        deleted:    backups/cora_backup_20250723_020054.zip.enc
+        deleted:    backups/cora_backup_20250724_020004.zip.enc
+        deleted:    backups/cora_backup_20250725_020047.zip.enc
+        deleted:    backups/cora_backup_20250726_020032.zip.enc
+        deleted:    backups/cora_backup_20250727_020001.zip.enc
+        deleted:    backups/cora_backup_20250727_030001.zip.enc
+        deleted:    backups/cora_backup_20250802_020047.zip.enc
+        deleted:    backups/cora_backup_20250803_020011.zip.enc
+        deleted:    backups/cora_backup_20250803_030011.zip.enc
+        deleted:    backups/cora_backup_20250806_020003.zip.enc
+        deleted:    backups/cora_backup_20250806_020054.zip.enc
+        deleted:    backups/cora_backup_20250807_020006.zip.enc
+        deleted:    backups/cora_backup_20250807_020012.zip.enc
+        deleted:    backups/cora_backup_20250807_020016.zip.enc
+        deleted:    backups/cora_backup_20250807_020026.zip.enc
+        deleted:    backups/cora_backup_20250807_020027.zip.enc
+        deleted:    backups/cora_backup_20250807_020030.zip.enc
+        deleted:    backups/cora_backup_20250807_020043.zip.enc
+        deleted:    backups/cora_backup_20250807_020044.zip.enc
+        deleted:    backups/cora_backup_20250807_020047.zip.enc
+        deleted:    backups/cora_backup_20250808_071126.zip.enc
+        deleted:    backups/cora_backup_20250808_071128.zip.enc
+        deleted:    backups/cora_backup_20250808_071143.zip.enc
+        deleted:    backups/cora_backup_20250808_071204.zip.enc
+        deleted:    backups/cora_backup_20250808_071219.zip.enc
+        deleted:    backups/cora_backup_20250808_071220.zip.enc
+        deleted:    backups/cora_backup_20250808_071221.zip.enc
+        deleted:    backups/cora_backup_20250808_071224.zip.enc
+        deleted:    backups/cora_backup_20250809_080253.zip.enc
+        deleted:    backups/cora_backup_20250809_080314.zip.enc
+        deleted:    backups/cora_backup_20250809_080329.zip.enc
+        deleted:    backups/cora_backup_20250809_080330.zip.enc
+        deleted:    backups/cora_backup_20250809_080331.zip.enc
+        deleted:    backups/cora_backup_20250809_080334.zip.enc
+        deleted:    backups/cora_backup_20250809_080335.zip.enc
+        deleted:    backups/cora_backup_20250809_080336.zip.enc
+        deleted:    backups/cora_backup_20250809_080338.zip.enc
+        deleted:    backups/cora_pre_cleanup_backup_20250717_163404.zip
+        deleted:    backups/cora_pre_cleanup_backup_20250717_163404_manifest.json
+        deleted:    backups/cora_pre_cleanup_backup_20250717_163404_restore.py
+        deleted:    backups/deployment_backup_20250805_094215/app.py
+        deleted:    backups/deployment_backup_20250805_094215/data/.env.example
+        deleted:    backups/deployment_backup_20250805_094215/data/analysis/query_analysis_results.json
+        deleted:    backups/deployment_backup_20250805_094215/data/analysis/query_analysis_results_readable.txt
+        deleted:    backups/deployment_backup_20250805_094215/data/archive/phase1_report_20250711_141809.json
+        deleted:    backups/deployment_backup_20250805_094215/data/archive/phase1_report_20250711_141844.json
+        deleted:    backups/deployment_backup_20250805_094215/data/archive/phase1_report_20250711_141908.json
+        deleted:    backups/deployment_backup_20250805_094215/data/archive/phase1_report_20250711_141931.json
+        deleted:    backups/deployment_backup_20250805_094215/data/archive/phase1_report_20250711_144746.json
+        deleted:    backups/deployment_backup_20250805_094215/data/archive/phase1_report_20250711_152217.json
+        deleted:    backups/deployment_backup_20250805_094215/data/archive/phase1_report_20250711_152251.json
+        deleted:    backups/deployment_backup_20250805_094215/data/archive/phase1_report_20250711_153025.json
+        deleted:    backups/deployment_backup_20250805_094215/data/archive/phase1_report_20250711_153052.json
+        deleted:    backups/deployment_backup_20250805_094215/data/archive/phase1_report_20250711_153240.json
+        deleted:    backups/deployment_backup_20250805_094215/data/archive/phase1_report_20250711_153450.json
+        deleted:    backups/deployment_backup_20250805_094215/data/archive/unused_databases/README.md
+        deleted:    backups/deployment_backup_20250805_094215/data/beta_onboarding_data.json
+        deleted:    backups/deployment_backup_20250805_094215/data/beta_recruitment_data.json
+        deleted:    backups/deployment_backup_20250805_094215/data/business_profiles/profile_20250802_135319_test_user_1754142795_example_com.json
+        deleted:    backups/deployment_backup_20250805_094215/data/business_profiles/profile_20250802_135406_test_user_1754142842_example_com.json
+        deleted:    backups/deployment_backup_20250805_094215/data/business_profiles/profile_20250804_195922_test_example_com.json
+        deleted:    backups/deployment_backup_20250805_094215/data/business_profiles/profile_20250804_201653_test_onboarding_example_com.json
+        deleted:    backups/deployment_backup_20250805_094215/data/business_profiles/profile_20250805_120547_test_user_1754395544_example_com.json
+        deleted:    backups/deployment_backup_20250805_094215/data/business_profiles/profile_20250805_120946_test_sonnet_4228_example_com.json
+        deleted:    backups/deployment_backup_20250805_094215/data/captured_emails.json
+        deleted:    backups/deployment_backup_20250805_094215/data/cora_contractor_personality.json
+        deleted:    backups/deployment_backup_20250805_094215/data/cora_conversation_implementation.json
+        deleted:    backups/deployment_backup_20250805_094215/data/cora_knowledge_base.json
+        deleted:    backups/deployment_backup_20250805_094215/data/cora_personality_enhancements.json
+        deleted:    backups/deployment_backup_20250805_094215/data/cora_quick_reference_guide.md
+        deleted:    backups/deployment_backup_20250805_094215/data/demo-expenses.json
+        deleted:    backups/deployment_backup_20250805_094215/data/mock_banking_data.py
+        deleted:    backups/deployment_backup_20250805_094215/data/onboarding_leads/lead_20250801_155226_tyler.json
+        deleted:    backups/deployment_backup_20250805_094215/data/onboarding_leads/lead_20250801_165026_cora.json
+        deleted:    backups/deployment_backup_20250805_094215/data/onboarding_leads/lead_20250801_165434_cora.json
+        deleted:    backups/deployment_backup_20250805_094215/data/onboarding_leads/lead_20250801_165923_cora.json
+        deleted:    backups/deployment_backup_20250805_094215/data/onboarding_leads/lead_20250801_194623_cora.json
+        deleted:    backups/deployment_backup_20250805_094215/data/onboarding_leads/lead_20250801_200026_cora.json
+        deleted:    backups/deployment_backup_20250805_094215/data/onboarding_leads/lead_20250802_105315_cora.json
+        deleted:    backups/deployment_backup_20250805_094215/data/onboarding_leads/lead_20250804_195957_test_user.json
+        deleted:    backups/deployment_backup_20250805_094215/data/onboarding_leads/lead_20250804_201655_test_user.json
+        deleted:    backups/deployment_backup_20250805_094215/data/onboarding_leads/lead_20250805_120547_test_contractor.json
+        deleted:    backups/deployment_backup_20250805_094215/data/requirements.txt
+        deleted:    backups/deployment_backup_20250805_094215/data/test_results/complete_user_journey_report.json
+        deleted:    backups/deployment_backup_20250805_094215/data/test_results/database_optimization_report.json
+        deleted:    backups/deployment_backup_20250805_094215/data/test_results/integration_test_report.json
+        deleted:    backups/deployment_backup_20250805_094215/data/test_results/onboarding_test_report.json
+        deleted:    backups/deployment_backup_20250805_094215/data/test_results/personality_enhancement_report.json
+        deleted:    backups/deployment_backup_20250805_094215/data/test_results/profit_calculation_report.json
+        deleted:    backups/deployment_backup_20250805_094215/data/test_scenarios/glen_day_demo_data.json
+        deleted:    backups/deployment_backup_20250805_094215/data/test_scenarios/multi_trade_contractor_test.json
+        deleted:    backups/deployment_backup_20250805_094215/data/test_scenarios/plumbing_contractor_test.json
+        deleted:    backups/deployment_backup_20250805_094215/data/test_scenarios/profit_calculation_demo.json
+        deleted:    backups/deployment_backup_20250805_094215/data/ui_ux_registry.json
+        deleted:    backups/deployment_backup_20250805_094215/requirements.txt
+        deleted:    backups/features_before_template_conversion.html
+        deleted:    backups/how-it-works_before_template_conversion.html
+        deleted:    backups/index_before_template_conversion.html
+        deleted:    backups/login_before_template.html
+        deleted:    backups/pre_inheritance_migration/about.html
+        deleted:    backups/pre_inheritance_migration/admin.html
+        deleted:    backups/pre_inheritance_migration/base.html
+        deleted:    backups/pre_inheritance_migration/cora_personality_demo.html
+        deleted:    backups/pre_inheritance_migration/dashboard_mobile_first.html
+        deleted:    backups/pre_inheritance_migration/exact_footer.html
+        deleted:    backups/pre_inheritance_migration/insights_dashboard.html
+        deleted:    backups/pre_inheritance_migration/intelligence_demo.html
+        deleted:    backups/pre_inheritance_migration/nav-test.html
+        deleted:    backups/pre_inheritance_migration/onboarding-ai-wizard.html
+        deleted:    backups/pre_inheritance_migration/profit_intelligence.html
+        deleted:    backups/pre_inheritance_migration/receipt_upload.html
+        deleted:    backups/pre_inheritance_migration/route_test.html
+        deleted:    backups/pre_inheritance_migration/security.html
+        deleted:    backups/pre_inheritance_migration/unified_ai_demo.html
+        deleted:    backups/pre_inheritance_migration/user_analytics.html
+        deleted:    backups/pre_inheritance_migration/waitlist.html
+        deleted:    backups/pricing_before_template_conversion.html
+        deleted:    backups/reviews_before_template.html
+        deleted:    backups/signup_before_template.html
+        modified:   data/beta_onboarding_data.json
+        modified:   dependencies/auth.py
+        deleted:    deploy.sh
+        deleted:    deploy_production.py
+        modified:   deployment/STATUS
+        deleted:    deployment_package/Dockerfile
+        deleted:    deployment_package/app.py
+        deleted:    deployment_package/config.py
+        deleted:    deployment_package/middleware/__init__.py
+        deleted:    deployment_package/middleware/account_lockout.py
+        deleted:    deployment_package/middleware/audit_logging.py
+        deleted:    deployment_package/middleware/authorization.py
+        deleted:    deployment_package/middleware/csrf.py
+        deleted:    deployment_package/middleware/error_handler.py
+        deleted:    deployment_package/middleware/file_upload_security.py
+        deleted:    deployment_package/middleware/logging_middleware.py
+        deleted:    deployment_package/middleware/monitoring.py
+        deleted:    deployment_package/middleware/query_monitoring.py
+        deleted:    deployment_package/middleware/rate_limit.py
+        deleted:    deployment_package/middleware/rate_limiter.py
+        deleted:    deployment_package/middleware/rate_limiting.py
+        deleted:    deployment_package/middleware/security_headers_enhanced.py
+        deleted:    deployment_package/middleware/user_activity.py
+        deleted:    deployment_package/models/__init__.py
+        deleted:    deployment_package/models/base.py
+        deleted:    deployment_package/models/business_profile.py
+        deleted:    deployment_package/models/customer.py
+        deleted:    deployment_package/models/expense.py
+        deleted:    deployment_package/models/expense_category.py
+        deleted:    deployment_package/models/feedback.py
+        deleted:    deployment_package/models/job.py
+        deleted:    deployment_package/models/job_alert.py
+        deleted:    deployment_package/models/password_reset_token.py
+        deleted:    deployment_package/models/payment.py
+        deleted:    deployment_package/models/plaid_integration.py
+        deleted:    deployment_package/models/quickbooks_integration.py
+        deleted:    deployment_package/models/stripe_integration.py
+        deleted:    deployment_package/models/subscription.py
+        deleted:    deployment_package/models/user.py
+        deleted:    deployment_package/models/user_activity.py
+        deleted:    deployment_package/models/user_preference.py
+        deleted:    deployment_package/models/waitlist.py
+        deleted:    deployment_package/requirements.txt
+        deleted:    deployment_package/routes/__init__.py
+        deleted:    deployment_package/routes/admin_routes.py
+        deleted:    deployment_package/routes/alert_routes.py
+        deleted:    deployment_package/routes/auth_coordinator.py
+        deleted:    deployment_package/routes/chat.py
+        deleted:    deployment_package/routes/cora_chat.py
+        deleted:    deployment_package/routes/cora_chat_enhanced.py
+        deleted:    deployment_package/routes/cora_chat_enhanced_v2.py
+        deleted:    deployment_package/routes/dashboard_routes.py
+        deleted:    deployment_package/routes/expense_coordinator.py
+        deleted:    deployment_package/routes/expenses.py
+        deleted:    deployment_package/routes/feedback_routes.py
+        deleted:    deployment_package/routes/health.py
+        deleted:    deployment_package/routes/jobs.py
+        deleted:    deployment_package/routes/onboarding_routes.py
+        deleted:    deployment_package/routes/onboarding_v2.py
+        deleted:    deployment_package/routes/pages.py
+        deleted:    deployment_package/routes/payment_coordinator.py
+        deleted:    deployment_package/routes/payments.py
+        deleted:    deployment_package/routes/plaid_integration.py
+        deleted:    deployment_package/routes/profit_analysis.py
+        deleted:    deployment_package/routes/quick_wins.py
+        deleted:    deployment_package/routes/quickbooks_integration.py
+        deleted:    deployment_package/routes/receipt_upload.py
+        deleted:    deployment_package/routes/stripe_integration.py
+        deleted:    deployment_package/routes/waitlist.py
+        deleted:    deployment_package/routes/websocket.py
+        deleted:    deployment_package/services/__init__.py
+        deleted:    deployment_package/services/alert_checker.py
+        deleted:    deployment_package/services/auth_service.py
+        deleted:    deployment_package/services/email_service.py
+        deleted:    deployment_package/services/job_alerts.py
+        deleted:    deployment_package/services/notification_service.py
+        deleted:    deployment_package/services/plaid_service.py
+        deleted:    deployment_package/services/profit_leak_detector.py
+        deleted:    deployment_package/services/quickbooks_service.py
+        deleted:    deployment_package/services/stripe_service.py
+        deleted:    deployment_package/utils/async_file_utils.py
+        deleted:    deployment_package/utils/redis_manager.py
+        deleted:    deployment_package/web/design-system/construction-theme.md
+        deleted:    deployment_package/web/package-lock.json
+        deleted:    deployment_package/web/package.json
+        deleted:    deployment_package/web/static/DISABLE_SERVICE_WORKER.html
+        deleted:    deployment_package/web/static/_archived/test-files/test-css-only.html
+        deleted:    deployment_package/web/static/_archived/test-files/test-login-clean.html
+        deleted:    deployment_package/web/static/_archived/test-files/test-wellness.html
+        deleted:    deployment_package/web/static/css/cora-chat-enhanced.css
+        deleted:    deployment_package/web/static/css/cora-chat.css
+        deleted:    deployment_package/web/static/css/mobile-navigation.css
+        deleted:    deployment_package/web/static/css/onboarding-ai-wizard.css
+        deleted:    deployment_package/web/static/css/onboarding-wizard.css
+        deleted:    deployment_package/web/static/css/onboarding.css
+        deleted:    deployment_package/web/static/css/wellness.css
+        deleted:    deployment_package/web/static/favicon-transparent.svg
+        deleted:    deployment_package/web/static/images/logos/Logo Files/For Print/eps/Black logo - no background.eps
+        deleted:    deployment_package/web/static/images/logos/Logo Files/For Print/eps/Color logo - no background.eps
+        deleted:    deployment_package/web/static/images/logos/Logo Files/For Print/eps/Color logo with background.eps
+        deleted:    deployment_package/web/static/images/logos/Logo Files/For Print/eps/White logo - no background.eps
+        deleted:    deployment_package/web/static/images/logos/Logo Files/For Print/pdf/Black logo - no background.pdf
+        deleted:    deployment_package/web/static/images/logos/Logo Files/For Print/pdf/Color logo - no background.pdf
+        deleted:    deployment_package/web/static/images/logos/Logo Files/For Print/pdf/Color logo with background.pdf
+        deleted:    deployment_package/web/static/images/logos/Logo Files/For Print/pdf/White logo - no background.pdf
+        deleted:    deployment_package/web/static/images/logos/Logo Files/For Web/Favicons/Android.png
+        deleted:    deployment_package/web/static/images/logos/Logo Files/For Web/Favicons/Android2.png
+        deleted:    deployment_package/web/static/images/logos/Logo Files/For Web/Favicons/browser.png
+        deleted:    deployment_package/web/static/images/logos/Logo Files/For Web/Favicons/iPhone.png
+        deleted:    deployment_package/web/static/images/logos/Logo Files/For Web/png/213475993_padded_logo.png
+        deleted:    deployment_package/web/static/images/logos/Logo Files/For Web/png/Black logo - no background.png
+        deleted:    deployment_package/web/static/images/logos/Logo Files/For Web/png/Color logo - no background.png
+        deleted:    deployment_package/web/static/images/logos/Logo Files/For Web/png/Color logo with background.png
+        deleted:    deployment_package/web/static/images/logos/Logo Files/For Web/png/White logo - no background.png
+        deleted:    deployment_package/web/static/images/logos/Logo Files/For Web/svg/Black logo - no background.svg
+        deleted:    deployment_package/web/static/images/logos/Logo Files/For Web/svg/Color logo - no background.svg
+        deleted:    deployment_package/web/static/images/logos/Logo Files/For Web/svg/Color logo with background.svg
+        deleted:    deployment_package/web/static/images/logos/Logo Files/For Web/svg/White logo - no background.svg
+        deleted:    deployment_package/web/static/images/logos/Logo Files/getting_started_guide.html
+        deleted:    deployment_package/web/static/images/logos/cora-logo.png
+        deleted:    deployment_package/web/static/images/logos/integrations/quickbooks-logo.svg
+        deleted:    deployment_package/web/static/images/logos/integrations/shopify-logo.svg
+        deleted:    deployment_package/web/static/images/logos/integrations/square-logo.svg
+        deleted:    deployment_package/web/static/images/logos/integrations/stripe-logo.svg
+        deleted:    deployment_package/web/static/images/logos/integrations/woocommerce-logo.svg
+        deleted:    deployment_package/web/static/images/placeholder.svg
+        deleted:    deployment_package/web/static/images/profiles/lisa-park.png
+        deleted:    deployment_package/web/static/images/profiles/marcus-johnson.png
+        deleted:    deployment_package/web/static/js/_archived/automated_demo.js
+        deleted:    deployment_package/web/static/js/_archived/demo_recording_ui.js
+        deleted:    deployment_package/web/static/js/_archived/demo_video_ui.js
+        deleted:    deployment_package/web/static/js/_archived/onboarding-ai.js
+        deleted:    deployment_package/web/static/js/_archived/onboarding-flow.js
+        deleted:    deployment_package/web/static/js/_archived/onboarding-hybrid.js
+        deleted:    deployment_package/web/static/js/_archived/onboarding-wizard.js
+        deleted:    deployment_package/web/static/js/accessibility.js
+        deleted:    deployment_package/web/static/js/alerts_panel.js
+        deleted:    deployment_package/web/static/js/api-error-handler.js
+        deleted:    deployment_package/web/static/js/api_cache.js
+        deleted:    deployment_package/web/static/js/chat-debug.js
+        deleted:    deployment_package/web/static/js/cora-chat-enhanced.js
+        deleted:    deployment_package/web/static/js/cora-chat.js
+        deleted:    deployment_package/web/static/js/dark-mode.js
+        deleted:    deployment_package/web/static/js/dashboard.js
+        deleted:    deployment_package/web/static/js/enhanced_chat_onboarding.js
+        deleted:    deployment_package/web/static/js/error-manager.js
+        deleted:    deployment_package/web/static/js/error_recovery.js
+        deleted:    deployment_package/web/static/js/export_manager.js
+        deleted:    deployment_package/web/static/js/feedback_widget.js
+        deleted:    deployment_package/web/static/js/health_monitor.js
+        deleted:    deployment_package/web/static/js/i18n.js
+        deleted:    deployment_package/web/static/js/install_prompt.js
+        deleted:    deployment_package/web/static/js/job_profitability.js
+        deleted:    deployment_package/web/static/js/job_query_handler.js
+        deleted:    deployment_package/web/static/js/landing-page.js
+        deleted:    deployment_package/web/static/js/mobile-navigation.js
+        deleted:    deployment_package/web/static/js/mobile_gestures.js
+        deleted:    deployment_package/web/static/js/notification_settings.js
+        deleted:    deployment_package/web/static/js/onboarding-ai-wizard.js
+        deleted:    deployment_package/web/static/js/performance.js
+        deleted:    deployment_package/web/static/js/plaid-connect.js
+        deleted:    deployment_package/web/static/js/quick_tour.js
+        deleted:    deployment_package/web/static/js/quick_win_dashboard.js
+        deleted:    deployment_package/web/static/js/realtime_updates.js
+        deleted:    deployment_package/web/static/js/security.js
+        deleted:    deployment_package/web/static/js/sw.js
+        deleted:    deployment_package/web/static/js/timeout-handler.js
+        deleted:    deployment_package/web/static/js/virtual_scroll.js
+        deleted:    deployment_package/web/static/js/voice_button_fix.js
+        deleted:    deployment_package/web/static/js/voice_expense_entry.js
+        deleted:    deployment_package/web/static/js/voice_help.js
+        deleted:    deployment_package/web/static/js/voice_onboarding.js
+        deleted:    deployment_package/web/static/manifest.json
+        deleted:    deployment_package/web/static/robots.txt
+        deleted:    deployment_package/web/static/service-worker.js
+        deleted:    deployment_package/web/static/simple-login.html
+        deleted:    deployment_package/web/static/sw-calm.js
+        deleted:    deployment_package/web/templates/CLEANUP_COMPLETE.md
+        deleted:    deployment_package/web/templates/CLEANUP_PLAN.md
+        deleted:    deployment_package/web/templates/_archived/dashboard.html
+        deleted:    deployment_package/web/templates/_archived/dashboards/dashboard_balanced.html
+        deleted:    deployment_package/web/templates/_archived/dashboards/dashboard_calm.html
+        deleted:    deployment_package/web/templates/_archived/dashboards/dashboard_chat.html
+        deleted:    deployment_package/web/templates/_archived/dashboards/dashboard_construction.html
+        deleted:    deployment_package/web/templates/_archived/dashboards/dashboard_construction_v2.html
+        deleted:    deployment_package/web/templates/_archived/dashboards/dashboard_minimal.html
+        deleted:    deployment_package/web/templates/_archived/dashboards/dashboard_review.html
+        deleted:    deployment_package/web/templates/_archived/dashboards/dashboard_unified.html
+        deleted:    deployment_package/web/templates/_archived/dashboards/dashboard_voice_first.html
+        deleted:    deployment_package/web/templates/_archived/job_dashboard.html
+        deleted:    deployment_package/web/templates/_archived/onboarding/onboarding-wizard.html
+        deleted:    deployment_package/web/templates/_archived/onboarding/onboarding.html
+        deleted:    deployment_package/web/templates/_archived/plaid_dashboard.html
+        deleted:    deployment_package/web/templates/_archived/test/chat-position-test.html
+        deleted:    deployment_package/web/templates/_archived/test/chat-test.html
+        deleted:    deployment_package/web/templates/_archived/test/simple_test_dashboard.html
+        deleted:    deployment_package/web/templates/_archived/test/test-nav.html
+        deleted:    deployment_package/web/templates/_archived/test/test.html
+        deleted:    deployment_package/web/templates/admin.html
+        deleted:    deployment_package/web/templates/base.html
+        deleted:    deployment_package/web/templates/components/nav-footer-template.html
+        deleted:    deployment_package/web/templates/core_protected/MANIFEST.md
+        deleted:    deployment_package/web/templates/core_protected/dashboard.html
+        deleted:    deployment_package/web/templates/dashboard_mobile_first.html
+        deleted:    deployment_package/web/templates/exact_footer.html
+        deleted:    deployment_package/web/templates/integrations/plaid.html
+        deleted:    deployment_package/web/templates/integrations/quickbooks.html
+        deleted:    deployment_package/web/templates/integrations/stripe.html
+        deleted:    deployment_package/web/templates/onboarding-ai-wizard.html
+        deleted:    deployment_package/web/templates/onboarding/connect_bank.html
+        deleted:    deployment_package/web/templates/onboarding/success.html
+        deleted:    deployment_package/web/templates/onboarding/welcome.html
+        deleted:    deployment_package/web/templates/waitlist.html
+        deleted:    deployment_package/web/testing-report.md
+        deleted:    deployment_validation_report.json
+        modified:   docs/ai-logs/AI_DISCUSSION_SPACE.md
+        modified:   docs/ai-logs/AI_WORK_LOG.md
+        modified:   docs/archive/security_scan_report.json
+        deleted:    docs/chat_onboarding_prototype.html
+        modified:   docs/reports/FRONTEND_AUDIT_REPORT_2025-08-10.md
+        modified:   docs/system/AWARENESS_WIRING_REGISTRY.md
+        modified:   docs/system/CAPABILITIES_AWARENESS.md
+        modified:   docs/system/MASTER_AWARENESS_REGISTRY.md
+        deleted:    features/conversational-onboarding/CURSOR_INTEGRATION_PROMPT.md
+        deleted:    features/conversational-onboarding/INTEGRATION_GUIDE.md
+        deleted:    features/conversational-onboarding/STATUS
+        deleted:    features/conversational-onboarding/__init__.py
+        deleted:    features/conversational-onboarding/conversational_onboarding_integration.py
+        deleted:    features/conversational-onboarding/enhanced_chat_onboarding.js
+        deleted:    features/conversational-onboarding/onboarding_chat_routes.py
+        deleted:    features/safe_refactoring/claude/archived_imports/admin_routes_20250810_095501.py
+        deleted:    features/safe_refactoring/claude/archived_imports/alert_checker_20250810_095545.py
+        deleted:    features/safe_refactoring/claude/archived_imports/analytics_20250810_095529.py
+        deleted:    features/safe_refactoring/claude/archived_imports/batch_unicode_fix_20250810_110823.py
+        deleted:    features/safe_refactoring/claude/archived_imports/blog_20250810_095529.py
+        deleted:    features/safe_refactoring/claude/archived_imports/business_model_analyzer_20250810_110823.py
+        deleted:    features/safe_refactoring/claude/archived_imports/business_profile_20250810_095545.py
+        deleted:    features/safe_refactoring/claude/archived_imports/business_task_automation_20250810_095545.py
+        deleted:    features/safe_refactoring/claude/archived_imports/chat_20250810_095529.py
+        deleted:    features/safe_refactoring/claude/archived_imports/cora_ai_routes_20250810_095529.py
+        deleted:    features/safe_refactoring/claude/archived_imports/cora_ai_service_20250810_095546.py
+        deleted:    features/safe_refactoring/claude/archived_imports/cora_chat_20250810_095529.py
+        deleted:    features/safe_refactoring/claude/archived_imports/cora_chat_enhanced_20250810_095529.py
+        deleted:    features/safe_refactoring/claude/archived_imports/dashboard_routes_20250810_095529.py
+        deleted:    features/safe_refactoring/claude/archived_imports/dashboard_routes_upgraded_example_20250810_110823.py
+        deleted:    features/safe_refactoring/claude/archived_imports/deployment_validator_20250810_110823.py
+        deleted:    features/safe_refactoring/claude/archived_imports/emotional_intelligence_20250810_095546.py
+        deleted:    features/safe_refactoring/claude/archived_imports/environment_setup_guide_20250810_110823.py
+        deleted:    features/safe_refactoring/claude/archived_imports/error_handler_example_20250810_110823.py
+        deleted:    features/safe_refactoring/claude/archived_imports/error_tracking_20250810_095529.py
+        deleted:    features/safe_refactoring/claude/archived_imports/expense_20250810_095545.py
+        deleted:    features/safe_refactoring/claude/archived_imports/feedback_20250810_095545.py
+        deleted:    features/safe_refactoring/claude/archived_imports/find_unused_imports_20250810_110823.py
+        deleted:    features/safe_refactoring/claude/archived_imports/fix_unicode_20250810_110823.py
+        deleted:    features/safe_refactoring/claude/archived_imports/insights_20250810_095529.py
+        deleted:    features/safe_refactoring/claude/archived_imports/intelligence_orchestrator_20250810_095529.py
+        deleted:    features/safe_refactoring/claude/archived_imports/intelligence_orchestrator_20250810_095546.py
+        deleted:    features/safe_refactoring/claude/archived_imports/job_20250810_095545.py
+        deleted:    features/safe_refactoring/claude/archived_imports/job_alerts_20250810_095546.py
+        deleted:    features/safe_refactoring/claude/archived_imports/jobs_20250810_095529.py
+        deleted:    features/safe_refactoring/claude/archived_imports/materialized_views_20250810_110823.py
+        deleted:    features/safe_refactoring/claude/archived_imports/notification_service_20250810_095546.py
+        deleted:    features/safe_refactoring/claude/archived_imports/onboarding_report_service_20250810_095546.py
+        deleted:    features/safe_refactoring/claude/archived_imports/onboarding_v2_20250810_095529.py
+        deleted:    features/safe_refactoring/claude/archived_imports/pages_20250810_095529.py
+        deleted:    features/safe_refactoring/claude/archived_imports/pages_secured_20250810_095529.py
+        deleted:    features/safe_refactoring/claude/archived_imports/pages_secured_20250810_110823.py
+        deleted:    features/safe_refactoring/claude/archived_imports/payment_20250810_095545.py
+        deleted:    features/safe_refactoring/claude/archived_imports/payment_coordinator_20250810_095529.py
+        deleted:    features/safe_refactoring/claude/archived_imports/pdf_export_20250810_095529.py
+        deleted:    features/safe_refactoring/claude/archived_imports/pdf_exporter_20250810_110823.py
+        deleted:    features/safe_refactoring/claude/archived_imports/performance_monitor_20250810_110823.py
+        deleted:    features/safe_refactoring/claude/archived_imports/plaid_service_20250810_095546.py
+        deleted:    features/safe_refactoring/claude/archived_imports/predictions_20250810_095529.py
+        deleted:    features/safe_refactoring/claude/archived_imports/predictive_intelligence_20250810_095546.py
+        deleted:    features/safe_refactoring/claude/archived_imports/profit_leak_detector_20250810_095546.py
+        deleted:    features/safe_refactoring/claude/archived_imports/query_optimizer_20250810_110823.py
+        deleted:    features/safe_refactoring/claude/archived_imports/quickbooks_service_20250810_095546.py
+        deleted:    features/safe_refactoring/claude/archived_imports/receipt_upload_20250810_095529.py
+        deleted:    features/safe_refactoring/claude/archived_imports/receipts_20250810_095529.py
+        deleted:    features/safe_refactoring/claude/archived_imports/seo_pages_20250810_095529.py
+        deleted:    features/safe_refactoring/claude/archived_imports/smart_error_handler_20250810_110823.py
+        deleted:    features/safe_refactoring/claude/archived_imports/smart_receipts_20250810_095546.py
+        deleted:    features/safe_refactoring/claude/archived_imports/task_scheduler_20250810_095546.py
+        deleted:    features/safe_refactoring/claude/archived_imports/user_analytics_20250810_095546.py
+        deleted:    features/safe_refactoring/claude/archived_imports/voice_commands_20250810_095529.py
+        deleted:    features/safe_refactoring/claude/archived_imports/waitlist_20250810_095545.py
+        deleted:    features/safe_refactoring/claude/archived_imports/websocket_20250810_095529.py
+        deleted:    features/safe_refactoring/claude/archived_imports/wellness_20250810_095529.py
+        deleted:    features/safe_refactoring/claude/archived_routes/app_backup.py
+        deleted:    features/safe_refactoring/claude/archived_routes/auth_coordinator_backup.py
+        deleted:    features/safe_refactoring/claude/archived_routes/auth_coordinator_backup2.py
+        deleted:    features/safe_refactoring/claude/archived_routes/cora_chat_enhanced_v2.py
+        deleted:    features/safe_refactoring/claude/archived_routes/dashboard_routes_backup.py
+        deleted:    features/safe_refactoring/claude/archived_routes/dashboard_routes_optimized.py
+        deleted:    features/safe_refactoring/claude/archived_routes/expenses_backup.py
+        deleted:    features/safe_refactoring/claude/archived_routes/jobs_original.py
+        deleted:    features/safe_refactoring/claude/archived_routes/pages_backup.py
+        deleted:    features/safe_refactoring/claude/archived_routes/payment_coordinator_backup.py
+        deleted:    features/safe_refactoring/claude/archived_routes/pdf_export_backup.py
+        deleted:    features/safe_refactoring/claude/archived_routes/performance_monitor_backup.py
+        deleted:    features/safe_refactoring/claude/archived_routes/plaid_integration_backup.py
+        deleted:    features/safe_refactoring/claude/archived_routes/plaid_integration_backup2.py
+        deleted:    features/safe_refactoring/claude/archived_routes/quick_win.py
+        deleted:    features/safe_refactoring/claude/archived_routes/waitlist_backup.py
+        deleted:    features/safe_refactoring/claude/chat_backup/chat.py
+        deleted:    features/safe_refactoring/claude/chat_backup/cora_chat.py
+        deleted:    features/safe_refactoring/claude/chat_backup/cora_chat_enhanced.py
+        modified:   features/system_health/claude/system_status.py
+        deleted:    htmlcov/app_py.html
+        deleted:    htmlcov/check_db_schema_py.html
+        deleted:    htmlcov/comprehensive_test_py.html
+        deleted:    htmlcov/coverage_html.js
+        deleted:    htmlcov/data_mock_banking_data_py.html
+        deleted:    htmlcov/database_optimization_analysis_py.html
+        deleted:    htmlcov/debug_imports_py.html
+        deleted:    htmlcov/dependencies___init___py.html
+        deleted:    htmlcov/dependencies_auth_hybrid_py.html
+        deleted:    htmlcov/dependencies_auth_py.html
+        deleted:    htmlcov/dependencies_database_py.html
+        deleted:    htmlcov/deploy_production_py.html
+        deleted:    htmlcov/favicon_32.png
+        deleted:    htmlcov/index.html
+        deleted:    htmlcov/jquery.ba-throttle-debounce.min.js
+        deleted:    htmlcov/jquery.hotkeys.js
+        deleted:    htmlcov/jquery.isonscreen.js
+        deleted:    htmlcov/jquery.min.js
+        deleted:    htmlcov/jquery.tablesorter.min.js
+        deleted:    htmlcov/keybd_closed.png
+        deleted:    htmlcov/keybd_open.png
+        deleted:    htmlcov/middleware___init___py.html
+        deleted:    htmlcov/middleware_account_lockout_py.html
+        deleted:    htmlcov/middleware_audit_logging_py.html
+        deleted:    htmlcov/middleware_authorization_py.html
+        deleted:    htmlcov/middleware_csrf_enhanced_py.html
+        deleted:    htmlcov/middleware_csrf_py.html
+        deleted:    htmlcov/middleware_error_handler_py.html
+        deleted:    htmlcov/middleware_file_upload_security_py.html
+        deleted:    htmlcov/middleware_logging_middleware_py.html
+        deleted:    htmlcov/middleware_monitoring_py.html
+        deleted:    htmlcov/middleware_query_monitoring_py.html
+        deleted:    htmlcov/middleware_rate_limit_py.html
+        deleted:    htmlcov/middleware_rate_limiter_py.html
+        deleted:    htmlcov/middleware_rate_limiting_py.html
+        deleted:    htmlcov/middleware_response_optimization_py.html
+        deleted:    htmlcov/middleware_security_headers_enhanced_py.html
+        deleted:    htmlcov/middleware_security_headers_py.html
+        deleted:    htmlcov/middleware_user_activity_py.html
+        deleted:    htmlcov/models___init___py.html
+        deleted:    htmlcov/models_base_py.html
+        deleted:    htmlcov/models_business_profile_py.html
+        deleted:    htmlcov/models_customer_py.html
+        deleted:    htmlcov/models_email_verification_token_py.html
+        deleted:    htmlcov/models_expense_category_py.html
+        deleted:    htmlcov/models_expense_py.html
+        deleted:    htmlcov/models_feedback_py.html
+        deleted:    htmlcov/models_job_alert_py.html
+        deleted:    htmlcov/models_job_py.html
+        deleted:    htmlcov/models_password_reset_token_py.html
+        deleted:    htmlcov/models_payment_py.html
+        deleted:    htmlcov/models_plaid_integration_py.html
+        deleted:    htmlcov/models_quickbooks_integration_py.html
+        deleted:    htmlcov/models_stripe_integration_py.html
+        deleted:    htmlcov/models_subscription_py.html
+        deleted:    htmlcov/models_user_activity_py.html
+        deleted:    htmlcov/models_user_preference_py.html
+        deleted:    htmlcov/models_user_py.html
+        deleted:    htmlcov/models_waitlist_py.html
+        deleted:    htmlcov/routes___init___py.html
+        deleted:    htmlcov/routes_admin_routes_py.html
+        deleted:    htmlcov/routes_alert_routes_py.html
+        deleted:    htmlcov/routes_analytics_py.html
+        deleted:    htmlcov/routes_auth_coordinator_py.html
+        deleted:    htmlcov/routes_blog_py.html
+        deleted:    htmlcov/routes_chat_py.html
+        deleted:    htmlcov/routes_cora_ai_routes_py.html
+        deleted:    htmlcov/routes_cora_chat_enhanced_py.html
+        deleted:    htmlcov/routes_cora_chat_enhanced_v2_py.html
+        deleted:    htmlcov/routes_cora_chat_py.html
+        deleted:    htmlcov/routes_dashboard_routes_optimized_py.html
+        deleted:    htmlcov/routes_dashboard_routes_py.html
+        deleted:    htmlcov/routes_error_tracking_py.html
+        deleted:    htmlcov/routes_expense_coordinator_py.html
+        deleted:    htmlcov/routes_expenses_py.html
+        deleted:    htmlcov/routes_feedback_routes_py.html
+        deleted:    htmlcov/routes_health_py.html
+        deleted:    htmlcov/routes_insights_py.html
+        deleted:    htmlcov/routes_intelligence_orchestrator_py.html
+        deleted:    htmlcov/routes_jobs_py.html
+        deleted:    htmlcov/routes_monitoring_py.html
+        deleted:    htmlcov/routes_onboarding_routes_py.html
+        deleted:    htmlcov/routes_onboarding_v2_py.html
+        deleted:    htmlcov/routes_pages_py.html
+        deleted:    htmlcov/routes_pages_secured_py.html
+        deleted:    htmlcov/routes_payment_coordinator_py.html
+        deleted:    htmlcov/routes_payments_py.html
+        deleted:    htmlcov/routes_pdf_export_py.html
+        deleted:    htmlcov/routes_performance_monitor_py.html
+        deleted:    htmlcov/routes_plaid_integration_py.html
+        deleted:    htmlcov/routes_predictions_py.html
+        deleted:    htmlcov/routes_profit_analysis_py.html
+        deleted:    htmlcov/routes_profit_intelligence_py.html
+        deleted:    htmlcov/routes_quick_wins_py.html
+        deleted:    htmlcov/routes_quickbooks_integration_py.html
+        deleted:    htmlcov/routes_receipt_upload_py.html
+        deleted:    htmlcov/routes_receipts_py.html
+        deleted:    htmlcov/routes_seo_pages_py.html
+        deleted:    htmlcov/routes_sitemap_py.html
+        deleted:    htmlcov/routes_stripe_integration_py.html
+        deleted:    htmlcov/routes_voice_commands_py.html
+        deleted:    htmlcov/routes_waitlist_py.html
+        deleted:    htmlcov/routes_websocket_py.html
+        deleted:    htmlcov/routes_wellness_py.html
+        deleted:    htmlcov/services___init___py.html
+        deleted:    htmlcov/services_alert_checker_py.html
+        deleted:    htmlcov/services_auth_service_py.html
+        deleted:    htmlcov/services_cora_ai_service_py.html
+        deleted:    htmlcov/services_email_service_py.html
+        deleted:    htmlcov/services_emotional_intelligence_py.html
+        deleted:    htmlcov/services_enhanced_orchestrator_py.html
+        deleted:    htmlcov/services_intelligence_orchestrator_py.html
+        deleted:    htmlcov/services_job_alerts_py.html
+        deleted:    htmlcov/services_notification_service_py.html
+        deleted:    htmlcov/services_onboarding_report_service_py.html
+        deleted:    htmlcov/services_plaid_service_py.html
+        deleted:    htmlcov/services_predictive_intelligence_py.html
+        deleted:    htmlcov/services_profit_leak_detector_py.html
+        deleted:    htmlcov/services_quickbooks_service_py.html
+        deleted:    htmlcov/services_smart_receipts_py.html
+        deleted:    htmlcov/services_stripe_service_py.html
+        deleted:    htmlcov/services_user_analytics_py.html
+        deleted:    htmlcov/setup_production_monitoring_py.html
+        deleted:    htmlcov/status.json
+        deleted:    htmlcov/style.css
+        deleted:    htmlcov/tools_backup_manager_py.html
+        deleted:    htmlcov/tools_quick_win_engine_py.html
+        deleted:    htmlcov/tools_secure_backup_py.html
+        deleted:    htmlcov/utils_api_response_optimizer_py.html
+        deleted:    htmlcov/utils_api_response_py.html
+        deleted:    htmlcov/utils_pdf_exporter_py.html
+        deleted:    htmlcov/utils_performance_monitor_py.html
+        deleted:    htmlcov/utils_redis_manager_py.html
+        deleted:    htmlcov/utils_validation_py.html
+        modified:   middleware/error_handler.py
+        modified:   middleware/security_headers_enhanced.py
+        modified:   models/__init__.py
+        modified:   models/user.py
+        modified:   routes/STATUS
+        modified:   routes/auth_coordinator.py
+        deleted:    routes/auth_coordinator.py.exception_backup_v2
+        modified:   routes/cora_ai_routes.py
+        modified:   routes/cora_chat_enhanced.py
+        modified:   routes/dashboard_routes.py
+        deleted:    routes/deprecated/README.md
+        deleted:    routes/deprecated/cora_chat_enhanced_v2.py
+        deleted:    routes/deprecated/dashboard_routes_optimized.py
+        deleted:    routes/deprecated/quick_win.py
+        modified:   routes/expense_coordinator.py
+        deleted:    routes/expenses.py.exception_backup_v2
+        modified:   routes/onboarding_routes.py
+        deleted:    routes/onboarding_v2.py
+        modified:   routes/pages.py
+        deleted:    routes/pages.py.exception_backup
+        modified:   routes/payment_coordinator.py
+        modified:   routes/profit_intelligence.py
+        deleted:    routes/voice_commands.py.exception_backup_v2
+        modified:   routes/wellness.py
+        modified:   services/auth_service.py
+        modified:   services/cora_ai_service.py
+        modified:   services/email_service.py
+        deleted:    t_landing_page_functionality.py
+        deleted:    templates/Glen_Day_Data_Collection_Form.html
+        deleted:    templates/glen_data_collection.md
+        deleted:    templates/simple_nda.md
+        deleted:    templates/welcome-email.html
+        deleted:    test_complete_flow.py
+        deleted:    test_login_endpoint.py
+        deleted:    test_onboarding_flow.py
+        modified:   utils/validation.py
+        modified:   web/STATUS
+        modified:   web/components/EmotionalWellness.js
+        modified:   web/components/InsightMoments.js
+        modified:   web/components/IntelligenceOrchestrator.js
+        modified:   web/components/IntelligenceScoreWidget.js
+        modified:   web/components/PredictiveInsights.js
+        modified:   web/components/ProfitIntelligenceWidget.js
+        modified:   web/components/SmartReceiptUpload.js
+        modified:   web/components/VoiceAssistant.js
+        modified:   web/static/css/construction-theme.css
+        modified:   web/static/css/cora-chat-consolidated.css
+        modified:   web/static/css/navbar.css
+        deleted:    web/static/css/navigation-consolidated.css
+        modified:   web/static/css/onboarding.css
+        deleted:    web/static/css/unified-design-system.css
+        deleted:    web/static/css/wellness.css
+        modified:   web/static/js/accessibility.js
+        modified:   web/static/js/alerts_panel.js
+        modified:   web/static/js/api-error-handler.js
+        modified:   web/static/js/api_cache.js
+        modified:   web/static/js/bundles/accessibility.js
+        modified:   web/static/js/bundles/error-manager.js
+        modified:   web/static/js/bundles/performance.js
+        modified:   web/static/js/bundles/timeout-handler.js
+        modified:   web/static/js/chat-debug.js
+        modified:   web/static/js/cora-chat-enhanced.js
+        modified:   web/static/js/cora-chat.js
+        modified:   web/static/js/cora-personality-demo.js
+        modified:   web/static/js/dark-mode.js
+        modified:   web/static/js/dashboard.js
+        deleted:    web/static/js/enhanced_chat_onboarding.js
+        modified:   web/static/js/error-manager.js
+        modified:   web/static/js/error-reporter.js
+        modified:   web/static/js/error_recovery.js
+        modified:   web/static/js/export_manager.js
+        modified:   web/static/js/feedback_widget.js
+        modified:   web/static/js/health_monitor.js
+        modified:   web/static/js/install_prompt.js
+        modified:   web/static/js/job_profitability.js
+        modified:   web/static/js/job_query_handler.js
+        modified:   web/static/js/landing-page-fix.js
+        modified:   web/static/js/landing-page.js
+        modified:   web/static/js/login-form.js
+        modified:   web/static/js/mobile-navigation.js
+        modified:   web/static/js/mobile_gestures.js
+        modified:   web/static/js/notification_settings.js
+        modified:   web/static/js/onboarding-ai-wizard.js
+        modified:   web/static/js/performance.js
+        modified:   web/static/js/plaid-connect.js
+        modified:   web/static/js/profit_intelligence.js
+        modified:   web/static/js/quick_tour.js
+        modified:   web/static/js/quick_win_dashboard.js
+        modified:   web/static/js/realtime_updates.js
+        modified:   web/static/js/signup-form.js
+        modified:   web/static/js/smart-notifications.js
+        modified:   web/static/js/timeout-handler.js
+        modified:   web/static/js/virtual_scroll.js
+        modified:   web/static/js/voice_button_fix.js
+        modified:   web/static/js/voice_expense_entry.js
+        deleted:    web/static/js/voice_onboarding.js
+        modified:   web/static/manifest.json
+        deleted:    web/static/simple-login.html
+        modified:   web/templates/base_app.html
+        modified:   web/templates/base_minimal.html
+        modified:   web/templates/base_public.html
+        modified:   web/templates/contact.html
+        modified:   web/templates/core_protected/dashboard.html
+        modified:   web/templates/features.html
+        modified:   web/templates/how-it-works.html
+        modified:   web/templates/index.html
+        modified:   web/templates/integrations/plaid.html
+        modified:   web/templates/login.html
+        modified:   web/templates/onboarding-ai-wizard.html
+        deleted:    web/templates/onboarding/connect_bank.html
+        deleted:    web/templates/onboarding/success.html
+        deleted:    web/templates/onboarding/welcome.html
+        modified:   web/templates/pricing.html
+        modified:   web/templates/reviews.html
+        modified:   web/templates/seo/voice-input-construction.html
+        modified:   web/templates/signup.html
+        modified:   web/templates/terms.html
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+        .ai/
+        .archive/
+        .claude/
+        .mind/
+        .private/
+        .vscode/
+        AI_WORK_LOG.md
+        AWARENESS_TEST.md
+        BOOTUP_BREADCRUMBS.md
+        CHRISTINA_ACCOUNT_STATUS.md
+        CLAUDE.md
+        CONTRACTOR_DASHBOARD_SPEC.md
+        CSS_SURVIVAL_GUIDE.md
+        DASHBOARD_BUILD_SPEC.md
+        DEPLOYMENT_100_PERCENT_READY.md
+        DEPLOYMENT_CHECKPOINT_20250810.md
+        DEPLOYMENT_READINESS_PLAN.md
+        DEPLOYMENT_STATUS_REPORT.md
+        EMAIL_CAPABILITY_WIRED.md
+        EMAIL_CAPTURE_RECOMMENDATION.md
+        EXPENSE_TRACKER_LAUNCH_STATUS.md
+        FINAL_DEPLOYMENT_VALIDATION.md
+        GPT5_TECHNICAL_CONTEXT.md
+        GPT_BOOTUP_CHAT_LOG.md
+        KILL_ALL_SERVERS.bat
+        KNOWN_DEPLOYMENT_ISSUES.md
+        LANDING_PAGE_IMPROVEMENTS_TODO.md
+        LAUNCH_WEEK_PLAN.md
+        LOGIN_ISSUES_SUMMARY.md
+        MANUAL_TESTING_CHECKLIST.md
+        MANUAL_TEST_CHECKLIST.md
+        MANUAL_TEST_CHECKLIST_DETAILED.md
+        RUN_CORA.bat
+        SAAS_GAP_CLOSURE_BLUEPRINT.md
+        SAAS_PROFESSIONALIZATION_BLUEPRINT.md
+        SENDGRID_STATUS.md
+        SESSION_SUMMARY_20250810.md
+        SIGNUP_FLOW_ANALYSIS.md
+        START_FRESH.bat
+        THEME_CONSISTENCY_TODO.md
+        THEME_DECISION.md
+        TYLER_PSYCHE_PROFILE.md
+        VOICE_TEST_SCRIPT.md
+        actual_login.html
+        awareness_test_results.json
+        check_christina.py
+        check_login_html.py
+        check_nav.py
+        check_user.py
+        check_users.py
+        content_bank/
+        cookies.txt
+        create_test_login_user.py
+        create_waitlist_table.py
+        data/business_profiles/profile_20250816_152400_test-walkthrough-v2_example_com.json
+        data/business_profiles/profile_20250816_170851_test_landing2_example_com.json
+        data/business_profiles/profile_20250816_174503_test311pm_example_com.json
+        debug_nav.html
+        debug_template.py
+        delete_accounts.py
+        deployment/EMAIL_SETUP_REQUIRED.md
+        diagnose_login_styles.html
+        docs/INFRASTRUCTURE.md
+        docs/STRATEGIC_ROADMAP.md
+        docs/TESTING_NOTES.md
+        docs/assets/Shopify brand assets/.DS_Store
+        docs/assets/Shopify brand assets/01 - Logo/.DS_Store
+        docs/assets/Shopify brand assets/02 - Glyph/.DS_Store
+        docs/assets/Shopify brand assets/02 - Glyph/eps/.DS_Store
+        docs/assets/Shopify brand assets/02 - Glyph/svg/.DS_Store
+        docs/assets/Shopify brand assets/03 - Monotone/.DS_Store
+        docs/development/CSS_DEBUG_CHECKLIST.md
+        docs/system/AI_SYSTEMS_GUIDE.md
+        docs/system/AWARENESS_HIERARCHY.md
+        docs/system/BUG_PREVENTION_REGISTRY.md
+        docs/system/CSS_DEBUGGING_PREVENTION_GUIDE.md
+        docs/system/DEPLOYMENT_AWARENESS.md
+        docs/system/FRONTEND_BACKEND_MAPPING.md
+        docs/system/NAVBAR_INCIDENT_POSTMORTEM.md
+        docs/system/SYSTEM_TRUTHS.md
+        features/backend_health/
+        features/brain_interconnection/
+        features/css_audit/
+        features/css_guardian/
+        features/dashboard_fix/
+        features/deployment_audit/
+        features/email_verification/
+        features/emergency_fix/
+        features/expense_tracker/
+        features/onboarding_cleanup/
+        features/onboarding_css_restore/
+        features/onboarding_logic_fix/
+        features/system_health/claude/STATUS
+        features/system_health/claude/system_status_20250811_082539.json
+        features/system_health/claude/system_status_20250811_084010.json
+        features/system_health/claude/system_status_20250811_103937.json
+        features/system_health/claude/system_status_20250811_131614.json
+        features/system_health/claude/system_status_20250812_091004.json
+        features/system_health/claude/system_status_20250812_101127.json
+        features/system_health/claude/system_status_20250812_125339.json
+        features/system_health/claude/system_status_20250812_172511.json
+        features/system_health/claude/system_status_20250812_174821.json
+        features/system_health/claude/system_status_20250813_095133.json
+        features/system_health/claude/system_status_20250813_114102.json
+        features/system_health/claude/system_status_20250813_114322.json
+        features/system_health/claude/system_status_20250813_114436.json
+        features/system_health/claude/system_status_20250813_115051.json
+        features/system_health/claude/system_status_20250813_120156.json
+        features/system_health/claude/system_status_20250813_120954.json
+        features/system_health/claude/system_status_20250813_122228.json
+        features/system_health/claude/system_status_20250813_125701.json
+        features/system_health/claude/system_status_20250813_192800.json
+        features/system_health/claude/system_status_20250813_193510.json
+        features/system_health/claude/system_status_20250814_105952.json
+        features/system_health/claude/system_status_20250814_110406.json
+        features/system_health/claude/system_status_20250814_124743.json
+        features/system_health/claude/system_status_20250814_124831.json
+        features/system_health/claude/system_status_20250814_135928.json
+        features/system_health/claude/system_status_20250814_174434.json
+        features/system_health/claude/system_status_20250815_084918.json
+        features/system_health/claude/system_status_20250815_155741.json
+        features/system_health/claude/system_status_20250816_111806.json
+        features/system_health/claude/system_status_20250816_112107.json
+        features/system_health/claude/system_status_20250816_130626.json
+        features/system_health/claude/system_status_20250816_132153.json
+        features/system_health/claude/system_status_20250816_133640.json
+        features/system_health/claude/system_status_20250816_133728.json
+        features/system_health/claude/system_status_20250816_162335.json
+        features/system_health/claude/system_status_20250816_194405.json
+        features/system_health/claude/system_status_20250816_215849.json
+        features/system_health/claude/system_status_20250817_082132.json
+        features/system_health/claude/system_status_20250817_082151.json
+        features/validation/
+        fix_christina_account.py
+        fix_test_users.py
+        list_all_users.py
+        logs/
+        models/intelligence_state.py
+        monitor_email_capture.py
+        monitor_login.py
+        package.json
+        reset-system/
+        routes/account_management.py
+        routes/expense_routes.py
+        routes/feature_flags_admin.py
+        routes/referral.py
+        serverlogs.txt
+        services/feature_flags.py
+        test_awareness.py
+        test_bootup_awareness.sh
+        test_christina_login.py
+        test_christina_signup.py
+        test_email_capture.py
+        test_expense_tracker.py
+        test_login_api.py
+        test_login_only.py
+        test_referral_system.py
+        test_sendgrid.py
+        test_server.py
+        test_signup_login.py
+        tools/add_performance_indexes.py
+        tools/check_nav.py
+        tools/create_feature_flags_table.py
+        tools/create_referral_tables.py
+        tools/deployment_readiness_checker.py
+        tools/force_delete_user.py
+        tools/remove_console_logs.py
+        tools/wipe_user.py
+        trace_signup.py
+        verify_christina.py
+        verify_manual_signup.py
+        verify_user_data.py
+        verify_user_data_fixed.py
+        web/static/css/DEPRECATED_DO_NOT_USE.md
+        web/static/css/navigation-consolidated.css.DEPRECATED
+        web/static/images/partners/
+        web/static/js/app-tours.js
+        web/static/js/cookie-consent.js
+        web/static/js/cora_widget.js
+        web/static/js/exit-intent.js
+        web/static/js/feature-flags.js
+        web/static/js/help-tooltips.js
+        web/static/js/social-proof.js
+        web/static/js/zoom_controls.js
+        web/static/sounds/
+        web/templates/add_expense.html
+        web/templates/admin/
+        web/templates/expenses.html
+        web/templates/help/
+        web/templates/partials/
+        web/templates/referral.html
+        web/templates/select-plan.html
+        web/templates/seo/ai-budget-alerts.html
+        web/templates/seo/location/california-contractors.html
+        web/templates/seo/location/florida-construction.html
+        web/templates/seo/location/new-york-construction.html
+        web/templates/seo/mobile-job-costing.html
+
+
+C:\CORA>

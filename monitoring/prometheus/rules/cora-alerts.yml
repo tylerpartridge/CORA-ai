@@ -1,0 +1,86 @@
+groups:
+  - name: cora_alerts
+    rules:
+      # High Error Rate Alert
+      - alert: HighErrorRate
+        expr: rate(http_requests_total{status=~"5.."}[5m]) > 0.1
+        for: 2m
+        labels:
+          severity: critical
+          service: cora
+        annotations:
+          summary: "High error rate detected"
+          description: "Error rate is {{ $value }} errors per second for the last 5 minutes"
+          dashboard: "http://localhost:3000/d/cora-overview"
+
+      # High Response Time Alert
+      - alert: HighResponseTime
+        expr: histogram_quantile(0.95, rate(http_request_duration_seconds_bucket[5m])) > 1
+        for: 2m
+        labels:
+          severity: warning
+          service: cora
+        annotations:
+          summary: "High response time detected"
+          description: "95th percentile response time is {{ $value }} seconds"
+          dashboard: "http://localhost:3000/d/cora-performance"
+
+      # Application Down Alert
+      - alert: ApplicationDown
+        expr: up{job="cora"} == 0
+        for: 1m
+        labels:
+          severity: critical
+          service: cora
+        annotations:
+          summary: "CORA application is down"
+          description: "Application has been down for more than 1 minute"
+          dashboard: "http://localhost:3000/d/cora-overview"
+
+      # High Memory Usage Alert
+      - alert: HighMemoryUsage
+        expr: memory_usage_bytes / 1024 / 1024 / 1024 > 2  # 2GB threshold
+        for: 5m
+        labels:
+          severity: warning
+          service: cora
+        annotations:
+          summary: "High memory usage detected"
+          description: "Memory usage is {{ $value }} GB"
+          dashboard: "http://localhost:3000/d/cora-system"
+
+      # High CPU Usage Alert
+      - alert: HighCPUUsage
+        expr: cpu_usage_percent > 80
+        for: 5m
+        labels:
+          severity: warning
+          service: cora
+        annotations:
+          summary: "High CPU usage detected"
+          description: "CPU usage is {{ $value }}%"
+          dashboard: "http://localhost:3000/d/cora-system"
+
+      # Low Request Rate Alert
+      - alert: LowRequestRate
+        expr: rate(http_requests_total[5m]) < 0.1
+        for: 10m
+        labels:
+          severity: info
+          service: cora
+        annotations:
+          summary: "Low request rate detected"
+          description: "Request rate is {{ $value }} requests per second"
+          dashboard: "http://localhost:3000/d/cora-overview"
+
+      # Database Connection Issues
+      - alert: DatabaseConnectionIssues
+        expr: up{job="cora"} == 1 and rate(http_requests_total{endpoint=~"/api/.*"}[5m]) > 0 and rate(http_requests_total{status=~"5..", endpoint=~"/api/.*"}[5m]) / rate(http_requests_total{endpoint=~"/api/.*"}[5m]) > 0.5
+        for: 2m
+        labels:
+          severity: critical
+          service: cora
+        annotations:
+          summary: "Database connection issues detected"
+          description: "More than 50% of API requests are failing"
+          dashboard: "http://localhost:3000/d/cora-database" 

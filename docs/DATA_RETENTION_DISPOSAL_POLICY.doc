@@ -1,0 +1,306 @@
+# DATA RETENTION AND DISPOSAL POLICY
+
+**CORA Financial Wellness Platform**  
+**Effective Date: January 1, 2025**  
+**Version: 1.0**
+
+## 1. PURPOSE AND SCOPE
+
+### 1.1 Purpose
+This Data Retention and Disposal Policy ("Policy") establishes CORA's standards for retaining and disposing of data collected through our financial wellness platform, with particular emphasis on financial data obtained through Plaid integration. This Policy ensures compliance with applicable laws and regulations while minimizing data storage risks and protecting user privacy.
+
+### 1.2 Scope
+This Policy applies to:
+- All personal and financial data collected through the CORA platform
+- Data obtained via Plaid API integration
+- All CORA employees, contractors, and third-party service providers with access to user data
+- All systems, databases, and storage media containing user data
+
+## 2. DATA CLASSIFICATION AND RETENTION PERIODS
+
+### 2.1 Data Categories
+CORA classifies data into the following categories:
+
+**Category A - Financial Transaction Data**
+- Bank account transactions
+- Credit card transactions
+- Investment account data
+- Account balances and holdings
+- Transaction descriptions and merchant information
+
+**Category B - Financial Account Information**
+- Account numbers (tokenized)
+- Routing numbers (encrypted)
+- Account nicknames
+- Financial institution information
+
+**Category C - User Profile Data**
+- Name and contact information
+- Authentication credentials (hashed)
+- User preferences and settings
+- Communication preferences
+
+**Category D - Analytical Data**
+- Spending patterns and insights
+- Financial wellness scores
+- Budget and goal tracking data
+- Aggregated financial metrics
+
+**Category E - Technical Data**
+- API logs and access tokens
+- System logs
+- Error logs
+- Security event logs
+
+### 2.2 Retention Period Classification
+- **Active Retention**: Data actively used for service delivery
+- **Archive Retention**: Data stored for compliance but not actively used
+- **Disposal Required**: Data that must be permanently deleted
+
+## 3. RETENTION SCHEDULE
+
+### 3.1 Financial Data (Plaid-Sourced)
+
+| Data Type | Active Retention | Archive Period | Total Retention | Justification |
+|-----------|-----------------|----------------|-----------------|---------------|
+| Transaction Data | 24 months | 5 years | 7 years | Tax compliance, dispute resolution |
+| Account Balances | 13 months | 2 years | 3 years | Trend analysis, service delivery |
+| Account Information | Duration of service | 90 days post-termination | Variable | Service delivery |
+| Plaid Access Tokens | Until revoked | None | Variable | API functionality |
+| Transaction Enrichment Data | 24 months | None | 24 months | Service enhancement |
+
+### 3.2 User Data
+
+| Data Type | Active Retention | Archive Period | Total Retention | Justification |
+|-----------|-----------------|----------------|-----------------|---------------|
+| Profile Information | Duration of service | 30 days post-deletion | Variable | Account management |
+| Authentication Data | Duration of service | 7 days post-deletion | Variable | Security |
+| Communication History | 13 months | 2 years | 3 years | Customer service |
+| Consent Records | Duration of service | 7 years post-termination | Variable | Legal compliance |
+
+### 3.3 Technical Data
+
+| Data Type | Active Retention | Archive Period | Total Retention | Justification |
+|-----------|-----------------|----------------|-----------------|---------------|
+| API Access Logs | 90 days | 1 year | 15 months | Security monitoring |
+| Error Logs | 30 days | 6 months | 7 months | Troubleshooting |
+| Security Event Logs | 1 year | 2 years | 3 years | Security compliance |
+
+## 4. DATA DISPOSAL METHODS
+
+### 4.1 Disposal Standards
+All data disposal must employ methods that render data permanently unrecoverable:
+
+**Electronic Data:**
+- Secure overwriting using DOD 5220.22-M standard (minimum 3-pass)
+- Cryptographic erasure for encrypted data
+- Secure deletion from all backups and replicas
+- Cloud storage deletion with provider confirmation
+
+**Physical Media:**
+- Physical destruction (shredding, incineration) for hard drives
+- Degaussing for magnetic media
+- Secure wiping for reusable media
+
+### 4.2 Disposal Procedures
+
+1. **Automated Disposal**
+   - Scheduled jobs run daily to identify data exceeding retention periods
+   - Automated deletion with audit logging
+   - Quarterly verification of disposal completeness
+
+2. **Manual Disposal**
+   - Required for user-requested deletions
+   - Two-person verification for bulk deletions
+   - Documented approval process
+
+3. **Plaid Data Disposal**
+   - Revoke Plaid access tokens immediately upon account closure
+   - Delete cached Plaid data within 24 hours
+   - Remove all transaction history per retention schedule
+   - Maintain deletion audit trail
+
+## 5. LEGAL AND REGULATORY COMPLIANCE
+
+### 5.1 Regulatory Requirements
+
+**GDPR Compliance:**
+- Right to erasure (Article 17) honored within 30 days
+- Data minimization principle enforced
+- Purpose limitation for data retention
+- Lawful basis documented for extended retention
+
+**CCPA Compliance:**
+- Consumer deletion requests processed within 45 days
+- Verification of consumer identity required
+- Service provider agreements include deletion obligations
+- Annual privacy rights notifications
+
+**Financial Regulations:**
+- IRS requirements: 7-year retention for tax-related records
+- BSA requirements: 5-year retention for suspicious activity
+- State-specific financial data retention laws observed
+
+### 5.2 Legal Holds
+- Data subject to litigation holds exempt from disposal
+- Legal department maintains hold registry
+- Quarterly review of active holds
+- Immediate disposal upon hold release
+
+## 6. USER RIGHTS AND DELETION REQUESTS
+
+### 6.1 User Rights
+Users have the right to:
+- Request deletion of their personal data
+- Obtain confirmation of data deletion
+- Port their data before deletion
+- Understand retention periods for their data
+
+### 6.2 Deletion Request Process
+
+1. **Request Submission**
+   - Via in-app deletion feature
+   - Email to privacy@cora.app
+   - Written request to physical address
+
+2. **Identity Verification**
+   - Multi-factor authentication required
+   - Additional verification for sensitive requests
+
+3. **Processing Timeline**
+   - Acknowledgment within 3 business days
+   - Completion within 30 days (GDPR) or 45 days (CCPA)
+   - Written confirmation of deletion
+
+4. **Exceptions to Deletion**
+   - Active legal holds
+   - Regulatory retention requirements
+   - Fraud prevention needs (limited data)
+   - Aggregated/anonymized data
+
+### 6.3 Plaid-Specific Deletion
+- User-initiated Plaid disconnection triggers immediate token revocation
+- Cached financial data deleted within 24 hours
+- Historical transaction data retained per schedule unless user requests immediate deletion
+- Deletion confirmation includes Plaid data specifically
+
+## 7. BACKUP AND ARCHIVE MANAGEMENT
+
+### 7.1 Backup Retention
+- Production backups: 30-day rotation
+- Disaster recovery backups: 90-day retention
+- Archive backups: Per data retention schedule
+
+### 7.2 Backup Disposal
+- Automated expiration based on retention schedule
+- Cryptographic deletion for encrypted backups
+- Quarterly audit of backup inventory
+- Cloud backup deletion with provider attestation
+
+### 7.3 Archive Management
+- Archived data encrypted at rest
+- Access logging for all archive retrievals
+- Annual review of archive necessity
+- Automated transition from active to archive storage
+
+## 8. POLICY REVIEW AND UPDATES
+
+### 8.1 Review Schedule
+- Annual comprehensive review
+- Quarterly regulatory update assessment
+- Ad-hoc reviews for significant changes:
+  - New regulations
+  - Service modifications
+  - Security incidents
+  - Plaid API changes
+
+### 8.2 Update Process
+1. Legal and compliance team review
+2. Security team assessment
+3. Executive approval
+4. Employee notification and training
+5. User notification (if material changes)
+
+### 8.3 Version Control
+- All versions maintained for 7 years
+- Change log documenting modifications
+- Distribution tracking for acknowledgments
+
+## 9. RESPONSIBILITIES
+
+### 9.1 Data Protection Officer
+- Policy maintenance and updates
+- Compliance monitoring
+- Deletion request oversight
+- Regulatory liaison
+
+### 9.2 Engineering Team
+- Implementation of retention schedules
+- Automated disposal system maintenance
+- Backup management
+- Plaid integration compliance
+
+### 9.3 Legal Team
+- Regulatory interpretation
+- Legal hold management
+- Policy approval
+- Compliance verification
+
+### 9.4 All Employees
+- Understand retention requirements
+- Follow disposal procedures
+- Report policy violations
+- Complete annual training
+
+## 10. ENFORCEMENT AND VIOLATIONS
+
+### 10.1 Monitoring
+- Quarterly retention compliance audits
+- Automated alerting for overdue disposals
+- Random sampling of deletion completeness
+- Annual third-party assessment
+
+### 10.2 Violation Consequences
+- Counseling for first offense
+- Written warning for second offense
+- Termination for willful violations
+- Legal action for malicious retention
+
+## 11. CERTIFICATION
+
+By implementing this Policy, CORA certifies its commitment to responsible data retention and disposal practices, particularly regarding sensitive financial data obtained through Plaid integration.
+
+**Approved by:**
+
+_[CEO Name]_  
+Chief Executive Officer  
+Date: ___________
+
+_[DPO Name]_  
+Data Protection Officer  
+Date: ___________
+
+_[Legal Counsel Name]_  
+General Counsel  
+Date: ___________
+
+---
+
+**Document Control:**
+- Version: 1.0
+- Effective Date: January 1, 2025
+- Next Review: January 1, 2026
+- Owner: Data Protection Officer
+- Classification: Public
+
+**Revision History:**
+| Version | Date | Author | Description |
+|---------|------|--------|-------------|
+| 1.0 | Jan 1, 2025 | DPO | Initial policy creation |
+
+**Related Documents:**
+- Privacy Policy
+- Information Security Policy
+- Incident Response Plan
+- Third-Party Data Processing Agreement (Plaid)
+- Employee Data Handling Guidelines

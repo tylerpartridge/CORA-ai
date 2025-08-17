@@ -1,0 +1,11 @@
+{
+  "userData": {
+    "name": "Test User",
+    "email": "test@example.com",
+    "businessType": [
+      "Construction"
+    ]
+  },
+  "completedAt": "2025-08-04T14:00:00Z",
+  "savedAt": "2025-08-04T19:59:57.291315"
+}

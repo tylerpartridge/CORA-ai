@@ -1,0 +1,167 @@
+{
+  "version": "1.0.0",
+  "last_updated": "2025-07-17T17:25:49.910171",
+  "files": {
+    "web\\static\\css\\mobile-navigation.css": {
+      "path": "web\\static\\css\\mobile-navigation.css",
+      "name": "mobile-navigation.css",
+      "error": "name 're' is not defined"
+    },
+    "web\\static\\css\\onboarding.css": {
+      "path": "web\\static\\css\\onboarding.css",
+      "name": "onboarding.css",
+      "error": "name 're' is not defined"
+    },
+    "web\\static\\css\\wellness.css": {
+      "path": "web\\static\\css\\wellness.css",
+      "name": "wellness.css",
+      "error": "name 're' is not defined"
+    },
+    "web\\static\\js\\accessibility.js": {
+      "path": "web\\static\\js\\accessibility.js",
+      "name": "accessibility.js",
+      "error": "name 're' is not defined"
+    },
+    "web\\static\\js\\dark-mode.js": {
+      "path": "web\\static\\js\\dark-mode.js",
+      "name": "dark-mode.js",
+      "error": "name 're' is not defined"
+    },
+    "web\\static\\js\\error-manager.js": {
+      "path": "web\\static\\js\\error-manager.js",
+      "name": "error-manager.js",
+      "error": "name 're' is not defined"
+    },
+    "web\\static\\js\\mobile-navigation.js": {
+      "path": "web\\static\\js\\mobile-navigation.js",
+      "name": "mobile-navigation.js",
+      "error": "name 're' is not defined"
+    },
+    "web\\static\\js\\performance.js": {
+      "path": "web\\static\\js\\performance.js",
+      "name": "performance.js",
+      "error": "name 're' is not defined"
+    },
+    "web\\static\\js\\security.js": {
+      "path": "web\\static\\js\\security.js",
+      "name": "security.js",
+      "error": "name 're' is not defined"
+    },
+    "web\\static\\js\\sw.js": {
+      "path": "web\\static\\js\\sw.js",
+      "name": "sw.js",
+      "error": "name 're' is not defined"
+    },
+    "web\\static\\js\\timeout-handler.js": {
+      "path": "web\\static\\js\\timeout-handler.js",
+      "name": "timeout-handler.js",
+      "error": "name 're' is not defined"
+    },
+    "web\\static\\js\\voice_onboarding.js": {
+      "path": "web\\static\\js\\voice_onboarding.js",
+      "name": "voice_onboarding.js",
+      "error": "name 're' is not defined"
+    },
+    "web\\templates\\admin.html": {
+      "path": "web\\templates\\admin.html",
+      "name": "admin.html",
+      "error": "name 're' is not defined"
+    },
+    "web\\templates\\dashboard.html": {
+      "path": "web\\templates\\dashboard.html",
+      "name": "dashboard.html",
+      "error": "name 're' is not defined"
+    },
+    "web\\templates\\expenses.html": {
+      "path": "web\\templates\\expenses.html",
+      "name": "expenses.html",
+      "error": "name 're' is not defined"
+    },
+    "web\\templates\\index.html": {
+      "path": "web\\templates\\index.html",
+      "name": "index.html",
+      "error": "name 're' is not defined"
+    },
+    "web\\templates\\login.html": {
+      "path": "web\\templates\\login.html",
+      "name": "login.html",
+      "error": "name 're' is not defined"
+    },
+    "web\\templates\\privacy.html": {
+      "path": "web\\templates\\privacy.html",
+      "name": "privacy.html",
+      "error": "name 're' is not defined"
+    },
+    "web\\templates\\receipt_upload.html": {
+      "path": "web\\templates\\receipt_upload.html",
+      "name": "receipt_upload.html",
+      "error": "name 're' is not defined"
+    },
+    "web\\templates\\signup.html": {
+      "path": "web\\templates\\signup.html",
+      "name": "signup.html",
+      "error": "name 're' is not defined"
+    },
+    "web\\templates\\signup_wellness.html": {
+      "path": "web\\templates\\signup_wellness.html",
+      "name": "signup_wellness.html",
+      "error": "name 're' is not defined"
+    },
+    "web\\templates\\terms.html": {
+      "path": "web\\templates\\terms.html",
+      "name": "terms.html",
+      "error": "name 're' is not defined"
+    },
+    "web\\templates\\onboarding\\connect_bank.html": {
+      "path": "web\\templates\\onboarding\\connect_bank.html",
+      "name": "connect_bank.html",
+      "error": "name 're' is not defined"
+    },
+    "web\\templates\\onboarding\\success.html": {
+      "path": "web\\templates\\onboarding\\success.html",
+      "name": "success.html",
+      "error": "name 're' is not defined"
+    },
+    "web\\templates\\onboarding\\welcome.html": {
+      "path": "web\\templates\\onboarding\\welcome.html",
+      "name": "welcome.html",
+      "error": "name 're' is not defined"
+    },
+    "web\\templates\\integrations\\plaid.html": {
+      "path": "web\\templates\\integrations\\plaid.html",
+      "name": "plaid.html",
+      "error": "name 're' is not defined"
+    },
+    "web\\templates\\integrations\\quickbooks.html": {
+      "path": "web\\templates\\integrations\\quickbooks.html",
+      "name": "quickbooks.html",
+      "error": "name 're' is not defined"
+    },
+    "web\\templates\\integrations\\stripe.html": {
+      "path": "web\\templates\\integrations\\stripe.html",
+      "name": "stripe.html",
+      "error": "name 're' is not defined"
+    },
+    "middleware\\file_upload_security.py": {
+      "path": "middleware\\file_upload_security.py",
+      "name": "file_upload_security.py",
+      "error": "name 're' is not defined"
+    },
+    "middleware\\security_headers_enhanced.py": {
+      "path": "middleware\\security_headers_enhanced.py",
+      "name": "security_headers_enhanced.py",
+      "error": "name 're' is not defined"
+    }
+  },
+  "enhancement_status": {
+    "total_files": 30,
+    "enhanced_files": 0,
+    "a_plus_files": 0,
+    "enhancement_percentage": 0.0,
+    "a_plus_percentage": 0.0
+  },
+  "dependencies": {},
+  "integration_status": {},
+  "performance_metrics": {},
+  "accessibility_scores": {}
+}

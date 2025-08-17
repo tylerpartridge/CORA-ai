@@ -2,7 +2,7 @@
 # Safe restoration - created by Cursor following Claude's plan
 
 from .rate_limit import setup_rate_limiting, limiter
-from .security_headers import setup_security_headers
+from .security_headers_enhanced import setup_security_headers
 from .logging_middleware import setup_request_logging
 from .error_handler import setup_error_handlers
 

@@ -1,25 +1,30 @@
 #!/usr/bin/env python3
 """
 🧭 LOCATION: /CORA/models/user.py
-🎯 PURPOSE: User database model matching existing schema
+🎯 PURPOSE: User database model - SQLite compatible for demo
 🔗 IMPORTS: SQLAlchemy, base model
 📤 EXPORTS: User model
 """
 
-from sqlalchemy import Column, String, DateTime, Boolean
+from sqlalchemy import Column, String, DateTime, Integer, Index
 from sqlalchemy.orm import relationship
 from sqlalchemy.sql import func
 from .base import Base
 
 class User(Base):
-    """User model matching existing database schema"""
+    """User model - SQLite compatible for demo reliability"""
     __tablename__ = "users"
     
-    # Match existing schema from audit
-    email = Column(String, primary_key=True, index=True)
-    hashed_password = Column(String, nullable=False)
-    created_at = Column(DateTime(timezone=True), server_default=func.now())
-    is_active = Column(String, default="true")  # Stored as string in existing DB
+    # SQLite compatible schema
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    email = Column(String(255), unique=True, nullable=False, index=True)
+    hashed_password = Column(String(255), nullable=False)
+    created_at = Column(DateTime, default=func.now())
+    is_active = Column(String(10), default="true")  # SQLite boolean as string
+    is_admin = Column(String(10), default="false")  # SQLite boolean as string
+    email_verified = Column(String(10), default="false")  # SQLite boolean as string
+    email_verified_at = Column(DateTime, nullable=True)
+    # stripe_customer_id = Column(String, nullable=True)  # TODO: Add this column to database
     
     # Relationships
     plaid_integrations = relationship("PlaidIntegration", back_populates="user", cascade="all, delete-orphan")
@@ -29,7 +34,20 @@ class User(Base):
     payments = relationship("Payment", back_populates="user", cascade="all, delete-orphan")
     subscriptions = relationship("Subscription", back_populates="user", cascade="all, delete-orphan")
     preferences = relationship("UserPreference", back_populates="user", cascade="all, delete-orphan", uselist=False)
+    alerts = relationship("JobAlert", back_populates="user", cascade="all, delete-orphan")
     customers = relationship("Customer", back_populates="user", cascade="all, delete-orphan")
+    jobs = relationship("Job", back_populates="user", cascade="all, delete-orphan")
+    # Intelligence relationships
+    intelligence_signals = relationship("IntelligenceSignal", back_populates="user", cascade="all, delete-orphan")
+    emotional_profile = relationship("EmotionalProfile", back_populates="user", uselist=False, cascade="all, delete-orphan")
     
     def __repr__(self):
         return f"<User(email='{self.email}')>"
+
+# Indexes for common user queries
+__table_args__ = (
+    # Email lookups (already has unique index)
+    Index('idx_users_active', 'is_active'),
+    # Created date for user analytics
+    Index('idx_users_created_at', 'created_at'),
+)

@@ -1,0 +1,11 @@
+how-it-works.html
+reviews.html
+about.html
+login.html
+signup.html
+contact.html
+terms.html
+privacy.html
+help.html
+blog.html
+security.html

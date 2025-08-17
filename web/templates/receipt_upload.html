@@ -1,0 +1,71 @@
+{% extends "base_app.html" %}
+
+{% block page_title %}Smart Receipts - CORA AI{% endblock %}
+
+{% block page_css %}
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --cora-orange: #FF9800;
+            --cora-dark: #0a0a0a;
+            --cora-grey: #1a1a1a;
+            --cora-text: #ffffff;
+            --cora-text-secondary: #999999;
+            --cora-border: rgba(255, 152, 0, 0.2);
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', -apple-system, sans-serif; background: var(--cora-dark); color: var(--cora-text); min-height: 100vh; }
+        .main-content { max-width: 1200px; margin: 0 auto; padding: 40px 20px; }
+        .page-title { font-size: 36px; font-weight: 700; margin-bottom: 10px; background: linear-gradient(135deg, #fff 0%, #FF9800 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .page-subtitle { font-size: 18px; color: var(--cora-text-secondary); margin-bottom: 40px; }
+        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin-bottom: 40px; }
+        .stat-card { background: var(--cora-grey); border: 1px solid var(--cora-border); border-radius: 16px; padding: 24px; text-align: center; }
+        .stat-value { font-size: 32px; font-weight: 700; color: var(--cora-orange); margin-bottom: 8px; }
+        .stat-label { font-size: 14px; color: var(--cora-text-secondary); }
+        .upload-section { background: var(--cora-grey); border-radius: 20px; padding: 40px; margin-bottom: 40px; }
+        @media (max-width: 768px) { .page-title { font-size: 28px; } .upload-section { padding: 20px; } }
+    </style>
+{% endblock %}
+
+{% block content %}
+    <main class="main-content">
+        <h1 class="page-title">Smart Receipt Scanner</h1>
+        <p class="page-subtitle">AI-powered receipt processing with instant insights and tax optimization</p>
+
+        <!-- Stats overview -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-value">47</div>
+                <div class="stat-label">Receipts Processed</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">$3,420</div>
+                <div class="stat-label">Total Saved</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">89%</div>
+                <div class="stat-label">Accuracy Rate</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">$2,840</div>
+                <div class="stat-label">Tax Deductions Found</div>
+            </div>
+        </div>
+
+        <!-- Upload section -->
+        <div class="upload-section">
+            <div id="receiptUploadContainer"></div>
+        </div>
+    </main>
+{% endblock %}
+
+{% block page_scripts %}
+    <!-- Auth Helper -->
+    <script src="/static/js/auth-helper.js"></script>
+    <!-- Smart Receipt Upload Component -->
+    <script src="/web/components/SmartReceiptUpload.js"></script>
+{% endblock %}

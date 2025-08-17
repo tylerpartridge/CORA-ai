@@ -1,0 +1,275 @@
+{% extends "base_public.html" %}
+
+{% block page_title %}Contact CORA - Get Help From Real Contractors | Job Costing Support{% endblock %}
+{% block page_description %}Need help with CORA? Talk to real contractors who understand your business. Quick support for job costing, expense tracking, and profit management.{% endblock %}
+
+{% block page_css %}
+<style>
+    /* Common construction theme styles moved to construction-theme.css */
+    .btn-cora-gradient {
+        text-decoration: none !important;
+        background: linear-gradient(135deg, #FF9800 0%, #F57C00 100%) !important;
+        color: white !important;
+        border: none !important;
+        transition: all 0.3s ease !important;
+    }
+    .btn-cora-gradient:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 20px rgba(155, 89, 198, 0.4) !important;
+        background: linear-gradient(135deg, #8B49B6 0%, #3F7EE7 100%) !important;
+    }
+    .btn-blue-first:hover {
+        transform: translateY(-2px) !important;
+        box-shadow: 0 4px 20px rgba(79, 142, 247, 0.4) !important;
+        background: linear-gradient(135deg, #3F7EE7 0%, #3F7EE7 70%, #8B49B6 100%) !important;
+    }
+    .btn-construction:hover {
+        transform: translateY(-2px) !important;
+        background: #F57C00 !important;
+        box-shadow: 0 6px 20px rgba(255,152,0,0.5) !important;
+    }
+    .btn-construction-secondary:hover {
+        transform: translateY(-2px) !important;
+        background: #1565C0 !important;
+        box-shadow: 0 4px 15px rgba(25,118,210,0.4) !important;
+    }
+    #emailInput::placeholder { color: #a0aec0; }
+    #emailInput:focus {
+        background: rgba(45, 55, 72, 1) !important;
+        border-color: #FF9800 !important;
+        box-shadow: 0 0 0 3px rgba(255,152,0,0.1) !important;
+        outline: none !important;
+    }
+    a { text-decoration: none; }
+    .btn-construction {
+        background: #FF9800; color: #1a1a1a; padding: 0.75rem 1.5rem; font-weight: 700; border-radius: 4px;
+        text-transform: uppercase; letter-spacing: 1px; transition: all 0.3s ease; text-decoration: none; display: inline-block;
+        box-shadow: 0 4px 15px rgba(255,152,0,0.4); border: none;
+    }
+    .btn-construction:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(255,152,0,0.5); color: #1a1a1a; background: #F57C00; }
+    .navbar-brand img { transition: all 0.3s ease; filter: brightness(0.9); }
+    .navbar-brand:hover img { filter: brightness(1.1); transform: scale(1.05); }
+    .logo-gradient-wrapper { position: relative; display: inline-block; }
+    .logo-gradient-wrapper::after {
+        content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+        background: linear-gradient(135deg, #FF9800 0%, #F57C00 100%);
+        mix-blend-mode: color; pointer-events: none; opacity: 0.9;
+    }
+    .logo-with-gradient { filter: brightness(0) saturate(100%); opacity: 0.9; }
+    #emailInput { background: rgba(255,255,255,0.95) !important; color: #333 !important; border: 2px solid rgba(93,78,140,0.2) !important; }
+    .nav-item .btn-wellness { display: inline-flex !important; align-items: center !important; justify-content: center !important; }
+    .theme-toggle { display: none !important; }
+    button[style*="position: fixed"][style*="bottom"][style*="right"],
+    button[style*="position:fixed"][style*="bottom"][style*="right"],
+    .theme-toggle[style*="position: fixed"], .theme-toggle[style*="position:fixed"] { display: none !important; }
+    .feature-card { transition: all 0.3s ease; border: 2px solid transparent !important; }
+    .feature-card:hover { transform: translateY(-5px); box-shadow: 0 10px 30px rgba(155, 110, 200, 0.15) !important; border-color: #E6F4FF !important; }
+    @media (max-width: 768px) {
+        h1, .display-4 { font-size: 2rem !important; }
+        h2, .display-5 { font-size: 1.75rem !important; }
+        .lead { font-size: 1.1rem !important; }
+        .navbar { padding: 0.75rem 1rem !important; }
+        .hero-section { padding-top: 3rem !important; padding-bottom: 3rem !important; }
+        .terminal-window { font-size: 0.9rem !important; padding: 1rem !important; }
+        .btn-construction, .btn-construction-secondary { padding: 0.75rem 1.5rem !important; font-size: 0.9rem !important; }
+    }
+</style>
+<style>
+    /* Force construction theme colors */
+    .cora-chat-bubble { background: linear-gradient(135deg, #FF9800 0%, #F57C00 100%) !important; animation: construction-glow 3s ease-in-out infinite !important; }
+    .cora-chat-bubble:hover { animation: none !important; box-shadow: 0 6px 30px rgba(255, 152, 0, 0.6) !important; }
+    /* zoom controls styling is centralized; no page overrides */
+    .contact-hero { background: linear-gradient(180deg, #1a1a1a 0%, #2d3748 100%); padding: 100px 20px 60px; position: relative; overflow: hidden; }
+    .contact-hero::before {
+        content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+        background-image: repeating-linear-gradient(0deg, transparent, transparent 50px, rgba(255,152,0,0.03) 50px, rgba(255,152,0,0.03) 51px),
+                          repeating-linear-gradient(90deg, transparent, transparent 50px, rgba(255,152,0,0.03) 50px, rgba(255,152,0,0.03) 51px);
+        pointer-events: none;
+    }
+    .contact-card { background: rgba(26, 26, 26, 0.95); border: 2px solid rgba(255, 152, 0, 0.2); border-radius: 8px; padding: 2rem; transition: all 0.3s ease; position: relative; overflow: hidden; }
+    .contact-card::before {
+        content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+        background: repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(255, 152, 0, 0.01) 10px, rgba(255, 152, 0, 0.01) 20px);
+        pointer-events: none;
+    }
+    .contact-card:hover { transform: translateY(-5px); border-color: #FF9800; box-shadow: 0 10px 30px rgba(255, 152, 0, 0.3); }
+    .icon-wrapper { width: 80px; height: 80px; margin: 0 auto 1.5rem; background: rgba(255, 152, 0, 0.1); border: 2px solid rgba(255, 152, 0, 0.3); border-radius: 8px; display: flex; align-items: center; justify-content: center; transition: all 0.3s ease; }
+    .contact-card:hover .icon-wrapper { background: rgba(255, 152, 0, 0.2); border-color: #FF9800; }
+    .contact-form { background: rgba(26, 26, 26, 0.95); border: 3px solid rgba(255, 152, 0, 0.2); border-radius: 8px; padding: 3rem; position: relative; overflow: hidden; }
+    .contact-form::before {
+        content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+        background: repeating-linear-gradient(45deg, transparent, transparent 20px, rgba(255, 152, 0, 0.01) 20px, rgba(255, 152, 0, 0.01) 40px);
+        pointer-events: none;
+    }
+    .form-label { color: #FF9800; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; font-size: 0.875rem; margin-bottom: 0.5rem; }
+    .form-control, .form-select { background: rgba(45, 55, 72, 0.95); border: 2px solid rgba(255, 152, 0, 0.3); color: #e2e8f0; padding: 0.75rem 1rem; border-radius: 4px; transition: all 0.3s ease; }
+    .form-control:focus, .form-select:focus { background: rgba(45, 55, 72, 1); border-color: #FF9800; box-shadow: 0 0 0 3px rgba(255, 152, 0, 0.1); outline: none; color: #e2e8f0; }
+    .form-control::placeholder { color: #a0aec0; }
+    .form-select option { background: #2d3748; color: #e2e8f0; }
+</style>
+{% endblock %}
+
+{% block content %}
+    <!-- Hero Section -->
+    <section class="contact-hero">
+        <div class="container text-center position-relative">
+            <span style="color: #FF9800; font-weight: 700; text-transform: uppercase; letter-spacing: 3px; font-size: 0.875rem;">GET IN TOUCH</span>
+            <h1 class="display-3 fw-bold mb-3" style="color: #ffffff; text-transform: uppercase; letter-spacing: 2px;">
+                Talk to <span style="color: #FF9800;">Real Contractors</span>
+            </h1>
+            <p class="lead mb-4" style="color: #e2e8f0; max-width: 600px; margin: 0 auto;">
+                No scripts. No outsourced support. Just contractors who understand your business and can actually help.
+            </p>
+        </div>
+    </section>
+
+    <!-- Contact Options Section -->
+    <section style="background: #1a1a1a; padding: 60px 20px; position: relative;">
+        <div class="container">
+            <div class="row g-4 mb-5">
+                <!-- Live Chat -->
+                <div class="col-md-4">
+                    <div class="contact-card text-center h-100">
+                        <div class="icon-wrapper">
+                            <i class="fas fa-comments fa-2x" style="color: #FF9800;"></i>
+                        </div>
+                        <h3 style="color: #FF9800; font-weight: 700; text-transform: uppercase;">Live Chat</h3>
+                        <p style="color: #e2e8f0; margin-bottom: 1.5rem;">
+                            Instant help from contractors who've been in your boots. Average response: 30 seconds.
+                        </p>
+                        <button class="btn-construction w-100" id="startChatBtn">
+                            Start Chat Now
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Email Support -->
+                <div class="col-md-4">
+                    <div class="contact-card text-center h-100">
+                        <div class="icon-wrapper">
+                            <i class="fas fa-envelope fa-2x" style="color: #FF9800;"></i>
+                        </div>
+                        <h3 style="color: #4db8ff; font-weight: 700; text-transform: uppercase;">Email</h3>
+                        <p style="color: #e2e8f0; margin-bottom: 1.5rem;">
+                            Detailed questions? Send us an email. We respond within 2 hours during business days.
+                        </p>
+                        <a href="mailto:support@coraai.com" class="btn-construction w-100" style="text-decoration: none; display: block;">
+                            support@coraai.com
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Phone Support -->
+                <div class="col-md-4">
+                    <div class="contact-card text-center h-100">
+                        <div class="icon-wrapper">
+                            <i class="fas fa-phone fa-2x" style="color: #FF9800;"></i>
+                        </div>
+                        <h3 style="color: #69F0AE; font-weight: 700; text-transform: uppercase;">Phone</h3>
+                        <p style="color: #e2e8f0; margin-bottom: 1.5rem;">
+                            Need to talk it through? Call us. Real contractors, real solutions.
+                        </p>
+                        <a href="tel:1-800-CORA-NOW" class="btn-construction w-100" style="text-decoration: none; display: block;">
+                            1-800-CORA-NOW
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Contact Form -->
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="contact-form">
+                        <h2 class="text-center mb-4" style="color: #FF9800; text-transform: uppercase; font-weight: 700;">
+                            Send Us a Message
+                        </h2>
+                        <form id="contactForm">
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">Your Name</label>
+                                    <input type="text" class="form-control" required>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">Company Name</label>
+                                    <input type="text" class="form-control" required>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">Email</label>
+                                    <input type="email" class="form-control" required>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">Phone</label>
+                                    <input type="tel" class="form-control">
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label">What Can We Help With?</label>
+                                <select class="form-select" required>
+                                    <option value="">Choose a topic...</option>
+                                    <option value="getting-started">Getting Started with CORA</option>
+                                    <option value="technical">Technical Support</option>
+                                    <option value="billing">Billing Question</option>
+                                    <option value="feature">Feature Request</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
+
+                            <div class="mb-4">
+                                <label class="form-label">Your Message</label>
+                                <textarea class="form-control" rows="5" required></textarea>
+                            </div>
+
+                            <div class="text-center">
+                                <button type="submit" class="btn-construction px-5">Send Message</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Office Info -->
+            <div class="row mt-5">
+                <div class="col-lg-6 mx-auto text-center">
+                    <div style="background: rgba(26, 26, 26, 0.95); border: 2px solid rgba(255, 152, 0, 0.2); border-radius: 8px; padding: 2rem;">
+                        <h3 style="color: #FF9800; font-weight: 700; text-transform: uppercase; margin-bottom: 1rem;">Visit Our Office</h3>
+                        <p style="color: #e2e8f0; margin-bottom: 0.5rem;"><strong>CORA AI Headquarters</strong></p>
+                        <p style="color: #a0aec0; margin-bottom: 1rem;">123 Construction Way<br>Builder's Square, CA 90210<br>United States</p>
+                        <p style="color: #69F0AE; font-weight: 600;">Open Monday-Friday, 7AM-6PM PST</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+
+{% block page_scripts %}
+    <!-- Contact Form Handler -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var contactForm = document.getElementById('contactForm');
+            if (contactForm) {
+                contactForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    alert('Thank you for your message! We\'ll get back to you within 2 hours.');
+                    this.reset();
+                });
+            }
+            var chatBtn = document.getElementById('startChatBtn');
+            if (chatBtn) {
+                chatBtn.addEventListener('click', function() {
+                    if (typeof openCoraChat === 'function') {
+                        openCoraChat();
+                    }
+                });
+            }
+        });
+    </script>
+    <!-- Core bundle is loaded in base_public.html; keep any page-specific scripts below if needed -->
+
+
+
+{% endblock %}

@@ -11,6 +11,7 @@ from pydantic import BaseModel
 from sqlalchemy.orm import Session
 from datetime import datetime
 from typing import List, Optional
+import json
 
 from models import get_db, User, Expense, Feedback
 from dependencies.auth import get_current_user
@@ -46,6 +47,10 @@ class FeedbackRequest(BaseModel):
     category: str
     message: str
     rating: Optional[int] = None
+
+class OnboardingCompleteRequest(BaseModel):
+    userData: dict
+    completedAt: str
 
 class FeedbackResponse(BaseModel):
     id: int
@@ -110,6 +115,29 @@ ONBOARDING_STEPS = [
         "order": 7
     }
 ]
+
+@onboarding_router.get("/prefill-data")
+async def get_prefill_data(
+    current_user = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    """Get pre-fill data from waitlist for onboarding"""
+    try:
+        from models.waitlist import ContractorWaitlist
+        
+        waitlist_entry = db.query(ContractorWaitlist).filter(
+            ContractorWaitlist.email == current_user.email
+        ).first()
+        
+        if waitlist_entry:
+            return {
+                "businessName": waitlist_entry.company_name,
+                "businessType": waitlist_entry.business_type,
+                "teamSize": waitlist_entry.team_size
+            }
+        return {}
+    except Exception:
+        return {}
 
 @onboarding_router.get("/checklist", response_model=OnboardingProgress)
 async def get_onboarding_checklist(
@@ -223,3 +251,252 @@ async def get_onboarding_stats(
         }
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Failed to get onboarding stats: {str(e)}")
+
+@onboarding_router.post("/complete")
+async def complete_onboarding(
+    request: OnboardingCompleteRequest,
+    db: Session = Depends(get_db)
+):
+    """
+    Complete onboarding and send welcome profit report.
+    Can work with or without authentication.
+    """
+    try:
+        # Extract user data
+        user_data = request.userData
+        
+        # Extract email from user data
+        user_email = user_data.get('email')
+        if not user_email:
+            return {
+                "success": False,
+                "message": "Email address required to send profit report",
+                "error": "No email provided in user data"
+            }
+        
+        print(f"[ONBOARDING COMPLETE] Received data: {json.dumps(user_data, indent=2)}")
+        
+        # Save to lead file (consulting mode)
+        import os
+        from pathlib import Path
+        
+        # Create data directory if it doesn't exist
+        data_dir = Path(__file__).parent.parent / "data" / "onboarding_leads"
+        data_dir.mkdir(exist_ok=True)
+        
+        # Save to timestamped file
+        timestamp = datetime.utcnow().strftime("%Y%m%d_%H%M%S")
+        filename = data_dir / f"lead_{timestamp}_{user_data.get('name', 'unknown').lower().replace(' ', '_')}.json"
+        
+        lead_data = {
+            "userData": user_data,
+            "completedAt": request.completedAt,
+            "savedAt": datetime.utcnow().isoformat()
+        }
+        
+        with open(filename, 'w') as f:
+            json.dump(lead_data, f, indent=2)
+        
+        # Generate and send welcome profit report
+        from services.onboarding_report_service import onboarding_report_service
+        
+        report_result = onboarding_report_service.process_onboarding_completion(user_data, user_email)
+        
+        if report_result["success"]:
+            print(f"[ONBOARDING SUCCESS] Welcome report sent to {user_email}")
+            return {
+                "success": True,
+                "message": "Onboarding complete! Check your email for your personalized profit report.",
+                "leadId": filename.stem,
+                "report_sent": True,
+                "email": user_email
+            }
+        else:
+            print(f"[ONBOARDING WARNING] Report generation failed: {report_result.get('error', 'Unknown error')}")
+            return {
+                "success": True,
+                "message": "Onboarding data saved successfully, but report delivery failed",
+                "leadId": filename.stem,
+                "report_sent": False,
+                "report_error": report_result.get('error', 'Unknown error')
+            }
+        
+    except Exception as e:
+        print(f"[ONBOARDING ERROR] Failed to complete: {str(e)}")
+        return {
+            "success": False,
+            "message": "Onboarding completion failed",
+            "error": str(e)
+        }
+
+class BusinessProfileRequest(BaseModel):
+    businessName: str
+    businessType: str
+    industry: str
+    monthlyRevenueRange: str
+    onboardingData: dict
+
+@onboarding_router.post("/create-business-profile")
+async def create_business_profile(
+    request: BusinessProfileRequest,
+    current_user = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    """Create business profile from onboarding data"""
+    try:
+        # Import here to avoid circular imports
+        from models.business_profile import BusinessProfile
+        from models.waitlist import ContractorWaitlist
+        
+        # Pre-fill from waitlist if available and not provided
+        waitlist_entry = db.query(ContractorWaitlist).filter(
+            ContractorWaitlist.email == current_user.email
+        ).first()
+        if waitlist_entry:
+            # Use waitlist data as defaults if not provided
+            if not request.businessName and waitlist_entry.company_name:
+                request.businessName = waitlist_entry.company_name
+            if not request.businessType and waitlist_entry.business_type:
+                request.businessType = waitlist_entry.business_type
+        
+        # Check if business profile already exists
+        existing_profile = db.query(BusinessProfile).filter(
+            BusinessProfile.user_email == current_user.email
+        ).first()
+        
+        if existing_profile:
+            # Update existing profile
+            existing_profile.business_name = request.businessName
+            existing_profile.business_type = request.businessType
+            existing_profile.industry = request.industry
+            existing_profile.monthly_revenue_range = request.monthlyRevenueRange
+            existing_profile.updated_at = datetime.utcnow()
+        else:
+            # Create new profile
+            business_profile = BusinessProfile(
+                user_email=current_user.email,
+                business_name=request.businessName,
+                business_type=request.businessType,
+                industry=request.industry,
+                monthly_revenue_range=request.monthlyRevenueRange
+            )
+            db.add(business_profile)
+        
+        db.commit()
+        
+        # Also save the detailed onboarding data to a file for analysis
+        try:
+            from pathlib import Path
+            data_dir = Path(__file__).parent.parent / "data" / "business_profiles"
+            data_dir.mkdir(exist_ok=True)
+            
+            timestamp = datetime.utcnow().strftime("%Y%m%d_%H%M%S")
+            filename = data_dir / f"profile_{timestamp}_{current_user.email.replace('@', '_').replace('.', '_')}.json"
+            
+            profile_data = {
+                "userEmail": current_user.email,
+                "businessProfile": {
+                    "businessName": request.businessName,
+                    "businessType": request.businessType,
+                    "industry": request.industry,
+                    "monthlyRevenueRange": request.monthlyRevenueRange
+                },
+                "detailedOnboardingData": request.onboardingData,
+                "createdAt": datetime.utcnow().isoformat()
+            }
+            
+            with open(filename, 'w') as f:
+                json.dump(profile_data, f, indent=2)
+                
+        except Exception as e:
+            print(f"Failed to save detailed profile data: {str(e)}")
+            # Don't fail the request if file save fails
+        
+        return {
+            "success": True,
+            "message": "Business profile created successfully"
+        }
+        
+    except Exception as e:
+        print(f"[BUSINESS PROFILE ERROR] Failed to create: {str(e)}")
+        raise HTTPException(status_code=500, detail=f"Failed to create business profile: {str(e)}")
+
+class OnboardingBusinessProfileRequest(BaseModel):
+    businessName: str
+    businessType: str
+    industry: str
+    monthlyRevenueRange: str
+    onboardingData: dict
+    userEmail: str  # Email from onboarding data
+
+@onboarding_router.post("/create-business-profile-onboarding")
+async def create_business_profile_onboarding(
+    request: OnboardingBusinessProfileRequest,
+    db: Session = Depends(get_db)
+):
+    """Create business profile during onboarding (no auth required)"""
+    try:
+        # Import here to avoid circular imports
+        from models.business_profile import BusinessProfile
+        
+        # Check if business profile already exists
+        existing_profile = db.query(BusinessProfile).filter(
+            BusinessProfile.user_email == request.userEmail
+        ).first()
+        
+        if existing_profile:
+            # Update existing profile
+            existing_profile.business_name = request.businessName
+            existing_profile.business_type = request.businessType
+            existing_profile.industry = request.industry
+            existing_profile.monthly_revenue_range = request.monthlyRevenueRange
+            existing_profile.updated_at = datetime.utcnow()
+        else:
+            # Create new profile
+            business_profile = BusinessProfile(
+                user_email=request.userEmail,
+                business_name=request.businessName,
+                business_type=request.businessType,
+                industry=request.industry,
+                monthly_revenue_range=request.monthlyRevenueRange
+            )
+            db.add(business_profile)
+        
+        db.commit()
+        
+        # Also save the detailed onboarding data to a file for analysis
+        try:
+            from pathlib import Path
+            data_dir = Path(__file__).parent.parent / "data" / "business_profiles"
+            data_dir.mkdir(exist_ok=True)
+            
+            timestamp = datetime.utcnow().strftime("%Y%m%d_%H%M%S")
+            filename = data_dir / f"profile_{timestamp}_{request.userEmail.replace('@', '_').replace('.', '_')}.json"
+            
+            profile_data = {
+                "userEmail": request.userEmail,
+                "businessProfile": {
+                    "businessName": request.businessName,
+                    "businessType": request.businessType,
+                    "industry": request.industry,
+                    "monthlyRevenueRange": request.monthlyRevenueRange
+                },
+                "detailedOnboardingData": request.onboardingData,
+                "createdAt": datetime.utcnow().isoformat()
+            }
+            
+            with open(filename, 'w') as f:
+                json.dump(profile_data, f, indent=2)
+                
+        except Exception as e:
+            print(f"Failed to save detailed profile data: {str(e)}")
+            # Don't fail the request if file save fails
+        
+        return {
+            "success": True,
+            "message": "Business profile created successfully during onboarding"
+        }
+        
+    except Exception as e:
+        print(f"[ONBOARDING BUSINESS PROFILE ERROR] Failed to create: {str(e)}")
+        raise HTTPException(status_code=500, detail=f"Failed to create business profile: {str(e)}")

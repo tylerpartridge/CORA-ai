@@ -1,0 +1,20 @@
+{
+  "application": "CORA",
+  "environment": "production",
+  "metrics": {
+    "response_time_threshold": 3.0,
+    "error_rate_threshold": 0.05,
+    "cpu_threshold": 0.8,
+    "memory_threshold": 0.8
+  },
+  "alerts": {
+    "email": "admin@coraai.tech",
+    "slack_webhook": null,
+    "sms": null
+  },
+  "dashboards": {
+    "overview": "http://localhost:3000/d/cora-overview",
+    "performance": "http://localhost:3000/d/cora-performance",
+    "business": "http://localhost:3000/d/cora-business"
+  }
+}

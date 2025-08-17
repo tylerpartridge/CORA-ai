@@ -1,0 +1,33 @@
+{
+  "timestamp": "2025-08-10T09:54:08.246564",
+  "health_percentage": 75,
+  "status": true,
+  "checks": {
+    "core_files": false,
+    "database": true,
+    "routes": false,
+    "templates": true,
+    "static_files": true,
+    "environment": true,
+    "security": true,
+    "activity": true
+  },
+  "issues": [
+    "Missing core file: models.py",
+    "Route check failed: module 'ssl' has no attribute 'wrap_socket'"
+  ],
+  "warnings": [
+    "Missing templates: ['dashboard.html']"
+  ],
+  "successes": [
+    "Core file exists: app.py",
+    "Core file exists: config.py",
+    "Core file exists: requirements.txt",
+    "Core file exists: cora.db",
+    "Database OK - Users: 14, Expenses: 150, Jobs: 3",
+    "Templates found: 22",
+    "Static files - CSS: 11, JS: 59",
+    "Security middleware files: 3/3",
+    "Recent activity: 150 expenses in last 30 days"
+  ]
+}

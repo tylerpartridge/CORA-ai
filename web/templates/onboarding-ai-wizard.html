@@ -1,0 +1,78 @@
+{% extends "base_app.html" %}
+
+{% block page_title %}Meet CORA - Your Construction AI{% endblock %}
+
+{% block page_css %}
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <!-- Legacy CSS removed - using construction theme from base_app.html -->
+    <link rel="stylesheet" href="/static/css/onboarding.css?v=20250810">
+{% endblock %}
+
+{% block content %}
+    <!-- Ambient background -->
+    <div class="ambient-bg"></div>
+    
+    <!-- Main wizard container (contains everything) -->
+    <div class="wizard-container">
+        <!-- Progress at top of container -->
+        <div class="progress-container">
+            <div class="progress-line">
+                <div class="progress-fill"></div>
+            </div>
+            <div class="progress-label">
+                <span id="progress-text">Getting to know you...</span>
+            </div>
+        </div>
+        <!-- Message area - no box, just messages -->
+        <div class="message-area" id="messageArea">
+            <!-- CORA's messages will appear here -->
+        </div>
+        
+        <!-- Input area - dynamic based on what CORA needs -->
+        <div class="input-area" id="inputArea">
+            <!-- Text input (hidden by default) -->
+            <div class="text-input-container" id="textInputContainer" style="display: none;">
+                <input type="text" 
+                       id="userInput" 
+                       class="user-input" 
+                       placeholder="Type your answer..."
+                       autocomplete="off">
+                <button class="send-btn" id="sendBtn">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M2 21l21-9L2 3v7l15 2-15 2v7z"/>
+                    </svg>
+                </button>
+            </div>
+            
+            <!-- Choice cards container (hidden by default) -->
+            <div class="choices-container" id="choicesContainer" style="display: none;">
+                <!-- Dynamic choice cards will appear here -->
+            </div>
+            
+            <!-- Multi-select info -->
+            <div class="multi-select-info" id="multiSelectInfo" style="display: none;">
+                <span>Select all that apply</span>
+                <button class="continue-choices" id="continueChoices">Continue</button>
+            </div>
+        </div>
+        
+        <!-- Skip option -->
+        <div class="skip-option">
+                            <a href="/dashboard" id="skip-link">I'll do this later</a>
+        </div>
+    </div>
+
+    <!-- Hidden metadata for CORA -->
+    <div id="onboardingMetadata" style="display: none;"
+         data-goals="collect name, understand business type, identify pain points, demonstrate value"
+         data-phase="greeting"
+         data-context="onboarding">
+    </div>
+
+{% endblock %}
+
+{% block page_scripts %}
+    <script src="/static/js/onboarding-ai-wizard.js?v=20250814_linear"></script>
+{% endblock %}

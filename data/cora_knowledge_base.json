@@ -1,0 +1,422 @@
+{
+  "company": {
+    "name": "CORA AI",
+    "tagline": "Financial Intelligence for Construction Businesses",
+    "mission": "Help contractors track job profitability in real-time and never miss payroll",
+    "website": "https://coraai.tech",
+    "target_audience": "Construction business owners, general contractors, and specialty trades",
+    "value_proposition": "The only AI-powered job costing solution built by contractors, for contractors"
+  },
+  
+  "pricing": {
+    "tiers": [
+      {
+        "name": "BASIC",
+        "price": 47,
+        "interval": "month",
+        "description": "Essential Profit Tracking",
+        "features": [
+          "10 Active Jobs",
+          "Voice Expense Tracking",
+          "Basic Job Costing",
+          "Real-Time Profit Tracking",
+          "Export Reports (PDF & CSV)",
+          "Mobile App (iOS & Android)",
+          "Email Support (48-hour response)"
+        ],
+        "limitations": {
+          "active_jobs": 10,
+          "support": "Email only"
+        },
+        "best_for": "Small contractors getting started with job tracking"
+      },
+      {
+        "name": "PROFESSIONAL",
+        "price": 97,
+        "interval": "month",
+        "description": "With Profit Intelligence - MOST POPULAR",
+        "features": [
+          "Everything in BASIC",
+          "AI Cost Forecasting",
+          "Advanced Job Analytics", 
+          "Profit Optimization",
+          "Real-Time Alerts",
+          "Unlimited Jobs",
+          "Team Collaboration"
+        ],
+        "savings": "Save $2,400+/year",
+        "limitations": {
+          "active_jobs": "unlimited"
+        },
+        "best_for": "Established contractors wanting AI-powered insights",
+        "most_popular": true
+      },
+      {
+        "name": "ENTERPRISE", 
+        "price": 197,
+        "interval": "month",
+        "description": "Industry Leaders",
+        "features": [
+          "Everything in PROFESSIONAL",
+          "Multi-company management",
+          "Custom integrations",
+          "Advanced reporting",
+          "Priority support",
+          "Dedicated account manager"
+        ],
+        "limitations": {
+          "active_jobs": "unlimited",
+          "companies": "unlimited"
+        },
+        "best_for": "Large contractors and general contractors"
+      }
+    ],
+    "trial": {
+      "duration": 30,
+      "unit": "days",
+      "credit_card_required": false,
+      "included_features": "Full Pro plan features"
+    },
+    "discounts": {
+      "annual": {
+        "percentage": 20,
+        "description": "Save 20% with annual billing"
+      }
+    }
+  },
+  
+  "features": {
+    "core": {
+      "intelligence_orchestrator": {
+        "name": "Intelligence Orchestrator",
+        "description": "Coordinates all AI systems to work together seamlessly - not just chat, but real business intelligence",
+        "benefits": [
+          "All AI systems work as one unified consciousness",
+          "Learns from your job patterns and business data",
+          "Provides contextual insights based on your actual work"
+        ]
+      },
+      "emotional_intelligence": {
+        "name": "Emotional Intelligence System", 
+        "description": "Revolutionary AI that detects contractor stress, burnout patterns, and provides wellness support",
+        "benefits": [
+          "Detects when you're working too many late nights",
+          "Suggests breaks when stress patterns emerge", 
+          "Adapts communication style based on your emotional state"
+        ]
+      },
+      "predictive_intelligence": {
+        "name": "Predictive Intelligence",
+        "description": "ML-powered system that anticipates cash flow issues, material needs, and business problems before they happen",
+        "benefits": [
+          "Warns about upcoming cash crunches",
+          "Predicts when you'll need material restocking",
+          "Forecasts weather impacts on job schedules"
+        ]
+      },
+      "profit_intelligence": {
+        "name": "Profit Intelligence Engine",
+        "description": "Real-time job profitability analysis with cost optimization recommendations",
+        "benefits": [
+          "See which jobs actually make money in real-time",
+          "Identify cost overruns before they kill profits",
+          "Optimize pricing for future bids based on actual data"
+        ]
+      },
+      "ai_learning": {
+        "name": "Adaptive AI Learning",
+        "description": "The more jobs you track, the smarter CORA becomes about your margins",
+        "benefits": [
+          "Automatic cost code assignment",
+          "Change order impact predictions",
+          "Material cost overrun alerts"
+        ]
+      },
+      "voice_integration": {
+        "name": "Voice-First Design",
+        "description": "Log job costs from the field without paperwork",
+        "benefits": [
+          "Track materials at supply house",
+          "Log labor hours on site",
+          "Capture change orders instantly"
+        ]
+      },
+      "integrations": {
+        "name": "Seamless Integrations",
+        "description": "Connect all your financial tools in one place",
+        "supported": [
+          "QuickBooks",
+          "ProCore",
+          "Buildertrend",
+          "Home Depot Pro",
+          "Supply house accounts",
+          "Most major banks",
+          "Construction credit cards"
+        ]
+      }
+    },
+    
+    "wellness": {
+      "anxiety_reduction": {
+        "name": "Job Profitability Clarity",
+        "description": "Know which jobs make money before it's too late",
+        "features": [
+          "Real-time margin tracking",
+          "Cash flow forecasting",
+          "Payroll coverage alerts",
+          "Profit by job type analysis"
+        ]
+      },
+      "time_savings": {
+        "name": "Less Time on Paperwork, More Time Building",
+        "description": "Voice-first design means you can track expenses while working instead of hours of paperwork later",
+        "benefits": [
+          "Voice expense entry from the field",
+          "Automatic cost categorization", 
+          "Real-time job profitability updates",
+          "Spend more time on profitable work, less on admin"
+        ]
+      }
+    }
+  },
+  
+  "technical_details": {
+    "security": {
+      "encryption": "Bank-level 256-bit encryption",
+      "compliance": ["SOC 2", "GDPR", "CCPA"],
+      "data_storage": "Your data is never sold or shared",
+      "authentication": "Two-factor authentication available"
+    },
+    "platform": {
+      "web": "Full-featured web application",
+      "mobile": "iOS and Android apps",
+      "offline": "Works offline with sync",
+      "api": "RESTful API for Premium plans"
+    },
+    "ai_technology": {
+      "models": "Construction-trained AI models",
+      "privacy": "Your job data stays private",
+      "accuracy": "95% cost code accuracy"
+    }
+  },
+  
+  "onboarding": {
+    "steps": [
+      {
+        "step": 1,
+        "title": "Sign up for free trial",
+        "description": "No credit card required, 30-day full access",
+        "time": "30 seconds"
+      },
+      {
+        "step": 2,
+        "title": "Connect your accounts",
+        "description": "Secure bank connection through Plaid",
+        "time": "2 minutes"
+      },
+      {
+        "step": 3,
+        "title": "Talk to CORA",
+        "description": "Tell her about your business and goals",
+        "time": "5 minutes"
+      },
+      {
+        "step": 4,
+        "title": "Start saving time",
+        "description": "CORA begins organizing your finances immediately",
+        "time": "Immediate"
+      }
+    ],
+    "support": {
+      "channels": ["In-app CORA chat", "Email support", "Video tutorials"],
+      "response_time": {
+        "starter": "24 hours",
+        "pro": "4 hours",
+        "premium": "1 hour"
+      }
+    }
+  },
+  
+  "integrations_guide": {
+    "quickbooks": {
+      "name": "QuickBooks Integration",
+      "setup_time": "5 minutes",
+      "steps": [
+        "Click 'Connect QuickBooks' in settings",
+        "Authorize CORA to access your QuickBooks",
+        "Select which data to sync",
+        "CORA automatically maps your accounts"
+      ],
+      "benefits": [
+        "Two-way sync",
+        "Automatic categorization",
+        "No duplicate entries"
+      ]
+    },
+    "bank_sync": {
+      "name": "Bank Account Sync",
+      "setup_time": "2 minutes per account",
+      "supported_banks": "10,000+ banks worldwide",
+      "security": "Bank-level encryption via Plaid",
+      "features": [
+        "Real-time transaction import",
+        "Automatic reconciliation",
+        "Multi-account support"
+      ]
+    }
+  },
+  
+  "comparisons": {
+    "vs_quickbooks": {
+      "advantages": [
+        "10x faster expense entry",
+        "AI-powered insights QuickBooks doesn't offer",
+        "Designed for entrepreneurs, not accountants",
+        "Voice-first interface",
+        "Half the price"
+      ]
+    },
+    "vs_expensify": {
+      "advantages": [
+        "Persistent AI memory",
+        "Financial wellness focus",
+        "No employee approval workflows needed",
+        "Better for entrepreneurs",
+        "More affordable"
+      ]
+    },
+    "vs_manual": {
+      "advantages": [
+        "Save 20+ hours monthly",
+        "Never miss tax deductions",
+        "Real-time financial health",
+        "Reduce anxiety and stress",
+        "Scale without hiring"
+      ]
+    }
+  },
+  
+  "faq": {
+    "common_questions": [
+      {
+        "question": "How is CORA different from other expense trackers?",
+        "answer": "CORA is the first financial wellness companion designed specifically for stressed entrepreneurs. Unlike traditional tools, CORA focuses on reducing anxiety while saving you 20+ hours per month through voice-first design and persistent AI memory."
+      },
+      {
+        "question": "Is my financial data secure?",
+        "answer": "Absolutely. We use bank-level 256-bit encryption, are SOC 2 compliant, and never sell or share your data. Your connection to banks is handled by Plaid, trusted by millions."
+      },
+      {
+        "question": "Can I try CORA before paying?",
+        "answer": "Yes! Every plan includes a 30-day free trial with full Pro features. No credit card required to start."
+      },
+      {
+        "question": "What if I need help setting up?",
+        "answer": "CORA guides you through setup in under 10 minutes. Plus, our support team is available to help via chat or email."
+      },
+      {
+        "question": "Can I export my data?",
+        "answer": "Yes, you can export all your data anytime in CSV, PDF, or QuickBooks format. Your data always belongs to you."
+      }
+    ]
+  },
+  
+  "testimonials": {
+    "success_stories": [
+      {
+        "name": "Sarah Chen",
+        "business": "Marketing Consultant",
+        "saved_monthly": "$1,847",
+        "time_saved": "23 hours",
+        "quote": "CORA found tax deductions I didn't even know existed. It's like having a CFO in my pocket."
+      },
+      {
+        "name": "Mike Rodriguez",
+        "business": "Freelance Developer",
+        "saved_monthly": "$2,134",
+        "time_saved": "18 hours",
+        "quote": "I used to dread tax season. Now CORA handles everything, and I actually got a refund!"
+      },
+      {
+        "name": "Lisa Park",
+        "business": "E-commerce Owner",
+        "saved_monthly": "$3,291",
+        "time_saved": "32 hours",
+        "quote": "The voice feature changed everything. I log expenses while packing orders. Game changer!"
+      }
+    ]
+  },
+  
+  "contact": {
+    "support_email": "support@coraai.tech",
+    "sales_email": "hello@coraai.tech",
+    "response_time": "Within 4 hours during business hours",
+    "office_hours": "Monday-Friday 9am-6pm EST"
+  },
+  
+  "objection_responses": {
+    "too_busy": {
+      "response": "That's exactly why I exist! Setup takes 10 minutes, then I save you 20+ hours monthly.",
+      "testimonial": "Mike was skeptical but now saves a full day each week",
+      "cta": "Free 30-day trial - what do you have to lose?"
+    },
+    "too_expensive": {
+      "response": "I cost less than 30 minutes of your time but save you 20+ hours monthly.",
+      "testimonial": "Sarah found $1,847 in tax deductions her first month - 10x my cost",
+      "cta": "Try free for 30 days and see the ROI yourself!"
+    },
+    "already_have_quickbooks": {
+      "response": "I import your QuickBooks data and work 10x faster with voice entry.",
+      "testimonial": "Lisa switched from QuickBooks and cut her finance time by 80%",
+      "cta": "Most users switch within a week of trying me free!"
+    },
+    "security_concerns": {
+      "response": "Bank-level encryption, SOC 2 compliant, and your data is never sold.",
+      "testimonial": "800+ contractors trust me with their job data",
+      "cta": "Start with manual entry during your free trial if you prefer!"
+    }
+  },
+  
+  "use_cases": {
+    "consultants": {
+      "pain_points": ["Client expense tracking", "Mileage between meetings", "Quarterly taxes"],
+      "solutions": ["Voice capture between clients", "Automatic mileage tracking", "Real-time tax estimates"],
+      "testimonial": "Marketing consultant saves 25 hours/month and found $2,400 in deductions",
+      "common_expenses": ["Client meals", "Travel", "Software subscriptions", "Home office"]
+    },
+    "ecommerce": {
+      "pain_points": ["Inventory costs", "Multi-channel sales", "Sales tax complexity"],
+      "solutions": ["Shopify/WooCommerce sync", "Automated COGS tracking", "Multi-state tax handling"],
+      "testimonial": "E-commerce owner found $3,291 in missed deductions first quarter",
+      "common_expenses": ["Inventory", "Shipping", "Platform fees", "Marketing ads"]
+    },
+    "freelancers": {
+      "pain_points": ["Irregular income", "Project expense tracking", "Estimated taxes"],
+      "solutions": ["Project-based tracking", "Income forecasting", "Quarterly tax savings"],
+      "testimonial": "Freelance designer went from financial stress to peace of mind",
+      "common_expenses": ["Software tools", "Equipment", "Coworking space", "Training"]
+    },
+    "creatives": {
+      "pain_points": ["Equipment depreciation", "Gig tracking", "Inconsistent income"],
+      "solutions": ["Asset tracking", "Per-project P&L", "Income smoothing insights"],
+      "testimonial": "Photographer saves 30 hours/month on bookkeeping",
+      "common_expenses": ["Equipment", "Studio rental", "Props", "Travel to shoots"]
+    }
+  },
+  
+  "quick_wins": {
+    "time_saved": "20+ hours per month on job costing",
+    "money_found": "15% average margin improvement",
+    "setup_time": "30 minutes to import current jobs",
+    "learning_curve": "Built for contractors, not accountants",
+    "roi": "Know exactly which jobs make money"
+  },
+  
+  "response_formulas": {
+    "pricing": "{greeting} {prices} {trial} {question}",
+    "objection": "{empathy} {solution+benefit} {trial} {cta}",
+    "feature": "{confirmation} {how_it_works} {benefit} {trial}",
+    "competitor": "{understanding} {differentiation} {testimonial} {trial}",
+    "getting_started": "{easy} {steps} {time_saved} {trial}"
+  }
+}

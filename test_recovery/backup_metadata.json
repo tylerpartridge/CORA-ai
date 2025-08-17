@@ -1,0 +1,19 @@
+{
+  "backup_timestamp": "20250715_213316",
+  "backup_version": "1.0",
+  "includes_logs": true,
+  "created_by": "CORA Secure Backup System",
+  "encryption_method": "Fernet (AES-128-CBC)",
+  "files": [
+    "config\\env.production.template",
+    "config\\Procfile",
+    "config\\requirements.txt",
+    "config\\runtime.txt",
+    "database\\cora.db",
+    "database\\cora_dump.sql",
+    "logs\\audit.log",
+    "logs\\beta_onboarding.log",
+    "logs\\beta_recruitment.log",
+    "logs\\cora_requests.log"
+  ]
+}

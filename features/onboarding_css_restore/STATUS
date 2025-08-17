@@ -1,0 +1,30 @@
+## GPT-5 Progress (2025-08-14)
+
+✅ Read `WORK_ORDER.md` and `TECHNICAL_SPEC.md`
+✅ Implemented `web/static/css/onboarding.css` per spec
+   - Dark theme variables and base layout
+   - Progress indicator with animated fill
+   - Chat bubbles (`.cora-message`, `.user-message`, `.system-message`)
+   - Typing indicator (`.typing-indicator`, `.typing-dot` + keyframes)
+   - Input area (`.text-input-container`, `.user-input`, `.send-btn`)
+   - Choice cards grid (`.choices-container`, `.choice-option`, `.selected`)
+   - Multi-select controls (`.multi-select-info`, `.continue-choices`)
+   - Completion CTA (`.continue-to-dashboard`)
+   - Responsive breakpoints
+
+🔎 Verified template/JS references:
+ - HTML uses `onboarding.css` and elements (`.wizard-container`, `.message-area`, `.input-area`, `.progress-container`)
+ - JS expects classes implemented above and will animate on load
+
+⏳ Next test steps:
+ - Open http://localhost:8001/onboarding and verify:
+   - Messages fade-in and typing dots animate
+   - Text input shows for greeting; choice cards appear for phases
+   - Progress bar fills as phases advance
+   - Mobile: stacked grid and sticky input area
+
+If issues:
+ - Hard refresh (Ctrl+F5) to bypass cached CSS
+ - Check console for API 404s; redirects for `/api/cora-chat-v2/` should be active
+
+

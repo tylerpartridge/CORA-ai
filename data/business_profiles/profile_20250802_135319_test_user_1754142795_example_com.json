@@ -1,0 +1,18 @@
+{
+  "userEmail": "test_user_1754142795@example.com",
+  "businessProfile": {
+    "businessName": "Test Construction Co",
+    "businessType": "General Contracting",
+    "industry": "Construction",
+    "monthlyRevenueRange": "$10,000 - $50,000"
+  },
+  "detailedOnboardingData": {
+    "contractorType": "general_contractor",
+    "businessSize": "growing",
+    "primaryChallenges": [
+      "profit_tracking",
+      "time_management"
+    ]
+  },
+  "createdAt": "2025-08-02T13:53:19.175293"
+}

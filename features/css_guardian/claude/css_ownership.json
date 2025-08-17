@@ -1,0 +1,53 @@
+{
+  "ownership_rules": {
+    "navbar": {
+      "authoritative_file": "/web/static/css/navbar.css",
+      "selectors": [".navbar", ".nav-link", ".navbar-brand", ".navbar-nav"],
+      "prohibited_files": ["*"],
+      "allowed_units": ["px"],
+      "prohibited_units": ["rem", "em"],
+      "load_order": "last",
+      "critical": true
+    },
+    "footer": {
+      "authoritative_file": "/web/static/css/footer.css",
+      "selectors": [".footer", ".footer-link"],
+      "prohibited_files": ["*"],
+      "allowed_units": ["px", "rem"],
+      "load_order": "after-theme"
+    },
+    "forms": {
+      "authoritative_file": "/web/static/css/forms.css",
+      "selectors": [".form-control", ".form-group", ".btn-submit"],
+      "prohibited_files": [],
+      "allowed_units": ["px", "rem", "em"]
+    },
+    "chat": {
+      "authoritative_file": "/web/static/css/cora-chat-consolidated.css",
+      "selectors": [".enhanced-chat-window", ".chat-message", ".chat-input"],
+      "prohibited_files": [],
+      "allowed_units": ["px", "rem"]
+    },
+    "dashboard": {
+      "authoritative_file": "/web/static/css/dashboard-enhanced.css",
+      "selectors": [".dashboard", ".metric-card", ".dashboard-chart"],
+      "prohibited_files": [],
+      "allowed_units": ["px", "rem"]
+    }
+  },
+  "global_rules": {
+    "critical_ui_components": ["navbar", "footer", "buttons"],
+    "require_px_units": ["navbar", "footer"],
+    "prohibited_inline_styles": ["nav", "navbar", "footer"],
+    "deprecated_files": [
+      "/web/static/css/navigation-consolidated.css",
+      "/web/static/css/components/navigation.css"
+    ]
+  },
+  "enforcement": {
+    "pre_commit": true,
+    "ci_pipeline": true,
+    "runtime_monitoring": false,
+    "auto_fix": false
+  }
+}

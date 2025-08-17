@@ -1,10 +1,17 @@
 #!/usr/bin/env python3
 """
-🧭 LOCATION: /CORA/test_comprehensive_api.py
-🎯 PURPOSE: Comprehensive API testing script for CORA restoration validation
-🔗 IMPORTS: requests, json, time
-📤 EXPORTS: Test results and validation reports
+[LOCATION] LOCATION: /CORA/test_comprehensive_api.py
+[TARGET] PURPOSE: Comprehensive API testing script for CORA restoration validation
+[LINK] IMPORTS: requests, json, time
+[EXPORT] EXPORTS: Test results and validation reports
 """
+
+import sys
+from pathlib import Path
+# Add parent directory to path for imports
+sys.path.insert(0, str(Path(__file__).parent.parent))
+# Fix import paths
+
 
 import requests
 import json
@@ -19,13 +26,13 @@ def test_health_endpoint():
         response = requests.get(f"{BASE_URL}/api/health/status")
         if response.status_code == 200:
             data = response.json()
-            print(f"✅ Health: {data['status']} (v{data['version']})")
+            print(f"[OK] Health: {data['status']} (v{data['version']})")
             return True
         else:
-            print(f"❌ Health: {response.status_code}")
+            print(f"[ERROR] Health: {response.status_code}")
             return False
     except Exception as e:
-        print(f"❌ Health: {e}")
+        print(f"[ERROR] Health: {e}")
         return False
 
 def test_ui_pages():
@@ -37,13 +44,13 @@ def test_ui_pages():
         try:
             response = requests.get(f"{BASE_URL}{page}")
             if response.status_code == 200:
-                print(f"✅ UI {page}: 200 OK")
+                print(f"[OK] UI {page}: 200 OK")
                 results.append(True)
             else:
-                print(f"❌ UI {page}: {response.status_code}")
+                print(f"[ERROR] UI {page}: {response.status_code}")
                 results.append(False)
         except Exception as e:
-            print(f"❌ UI {page}: {e}")
+            print(f"[ERROR] UI {page}: {e}")
             results.append(False)
     
     return all(results)
@@ -64,13 +71,13 @@ def test_api_endpoints():
                 response = requests.post(f"{BASE_URL}{endpoint}")
             
             if response.status_code in [200, 401, 404]:  # Acceptable responses
-                print(f"✅ API {endpoint}: {response.status_code}")
+                print(f"[OK] API {endpoint}: {response.status_code}")
                 results.append(True)
             else:
-                print(f"❌ API {endpoint}: {response.status_code}")
+                print(f"[ERROR] API {endpoint}: {response.status_code}")
                 results.append(False)
         except Exception as e:
-            print(f"❌ API {endpoint}: {e}")
+            print(f"[ERROR] API {endpoint}: {e}")
             results.append(False)
     
     return all(results)
@@ -82,13 +89,13 @@ def test_authentication():
         response = requests.post(f"{BASE_URL}/api/auth/login", 
                                data={"username": "fake@example.com", "password": "wrong"})
         if response.status_code == 401:
-            print("✅ Auth: Invalid login properly rejected")
+            print("[OK] Auth: Invalid login properly rejected")
             return True
         else:
-            print(f"❌ Auth: Unexpected response {response.status_code}")
+            print(f"[ERROR] Auth: Unexpected response {response.status_code}")
             return False
     except Exception as e:
-        print(f"❌ Auth: {e}")
+        print(f"[ERROR] Auth: {e}")
         return False
 
 def test_static_files():
@@ -96,18 +103,18 @@ def test_static_files():
     try:
         response = requests.head(f"{BASE_URL}/static/images/dashboard-preview.svg")
         if response.status_code == 200:
-            print("✅ Static: Files serving correctly")
+            print("[OK] Static: Files serving correctly")
             return True
         else:
-            print(f"❌ Static: {response.status_code}")
+            print(f"[ERROR] Static: {response.status_code}")
             return False
     except Exception as e:
-        print(f"❌ Static: {e}")
+        print(f"[ERROR] Static: {e}")
         return False
 
 def main():
     """Run comprehensive tests"""
-    print("🧪 CORA COMPREHENSIVE API TEST SUITE")
+    print("[TEST] CORA COMPREHENSIVE API TEST SUITE")
     print("=" * 50)
     print(f"Testing at: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
     print()
@@ -122,30 +129,30 @@ def main():
     
     results = []
     for test_name, test_func in tests:
-        print(f"\n🔍 Testing: {test_name}")
+        print(f"\n[SEARCH] Testing: {test_name}")
         print("-" * 30)
         result = test_func()
         results.append((test_name, result))
     
     print("\n" + "=" * 50)
-    print("📊 TEST SUMMARY")
+    print("[STATS] TEST SUMMARY")
     print("=" * 50)
     
     passed = sum(1 for _, result in results if result)
     total = len(results)
     
     for test_name, result in results:
-        status = "✅ PASS" if result else "❌ FAIL"
+        status = "[OK] PASS" if result else "[ERROR] FAIL"
         print(f"{status} {test_name}")
     
-    print(f"\n🎯 Overall: {passed}/{total} tests passed")
+    print(f"\n[TARGET] Overall: {passed}/{total} tests passed")
     
     if passed == total:
         print("🎉 All tests passed! System is fully functional.")
     elif passed >= total * 0.8:
-        print("✅ Most tests passed. System is mostly functional.")
+        print("[OK] Most tests passed. System is mostly functional.")
     else:
-        print("⚠️ Several tests failed. Review system status.")
+        print("[WARNING] Several tests failed. Review system status.")
     
     return passed == total
 

@@ -1,0 +1,47 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:15-alpine
+    container_name: cora_postgres_local
+    environment:
+      POSTGRES_DB: cora_db
+      POSTGRES_USER: cora_user
+      POSTGRES_PASSWORD: cora_secure_password_2025
+      POSTGRES_INITDB_ARGS: "-c shared_buffers=256MB -c max_connections=200"
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./schema/postgresql_schema.sql:/docker-entrypoint-initdb.d/01-schema.sql:ro
+      - ./postgres_data.sql:/docker-entrypoint-initdb.d/02-data.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U cora_user -d cora_db"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    networks:
+      - cora_network
+
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    container_name: cora_pgadmin
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@coraai.tech
+      PGADMIN_DEFAULT_PASSWORD: admin_password_2025
+      PGADMIN_CONFIG_SERVER_MODE: 'False'
+    ports:
+      - "5050:80"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - cora_network
+
+networks:
+  cora_network:
+    driver: bridge
+
+volumes:
+  postgres_data:
+    name: cora_postgres_data

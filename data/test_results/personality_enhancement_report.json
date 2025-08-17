@@ -1,0 +1,161 @@
+{
+  "personality_testing": {
+    "timestamp": "2025-08-02",
+    "total_tests": 28,
+    "passed": 14,
+    "failed": 13,
+    "warnings": 1,
+    "success_rate": 50.0,
+    "glen_day_demo_ready": false
+  },
+  "detailed_results": [
+    {
+      "test": "Type Detection: general_contractor",
+      "status": "PASS",
+      "details": "Correctly identified from: 'I'm a general contractor manag...'"
+    },
+    {
+      "test": "Type Detection: specialty_trade",
+      "status": "PASS",
+      "details": "Correctly identified from: 'I do plumbing work, mostly res...'"
+    },
+    {
+      "test": "Type Detection: concrete_specialist",
+      "status": "PASS",
+      "details": "Correctly identified from: 'We specialize in concrete driv...'"
+    },
+    {
+      "test": "Type Detection: remodeler",
+      "status": "PASS",
+      "details": "Correctly identified from: 'Kitchen and bathroom remodelin...'"
+    },
+    {
+      "test": "Type Detection: specialty_trade",
+      "status": "PASS",
+      "details": "Correctly identified from: 'I'm an electrician running a s...'"
+    },
+    {
+      "test": "Emotional State: financial_pressure_phrases",
+      "status": "PASS",
+      "details": "Detected stress in: 'Cash flow is really tight, pay...'"
+    },
+    {
+      "test": "Emotional State: overwhelm_indicators",
+      "status": "PASS",
+      "details": "Detected stress in: 'I'm drowning in paperwork, wor...'"
+    },
+    {
+      "test": "Emotional State: confidence_issues",
+      "status": "PASS",
+      "details": "Detected stress in: 'Not sure if I'm pricing jobs r...'"
+    },
+    {
+      "test": "Emotional State: Neutral",
+      "status": "PASS",
+      "details": "Correctly identified positive/neutral state"
+    },
+    {
+      "test": "Phase: greeting",
+      "status": "PASS",
+      "details": "Message: 'Hello'"
+    },
+    {
+      "test": "Phase: discovery",
+      "status": "PASS",
+      "details": "Message: 'I'm a general contractor'"
+    },
+    {
+      "test": "Phase: discovery",
+      "status": "PASS",
+      "details": "Message: 'My biggest problem is tracking job profitability'"
+    },
+    {
+      "test": "Phase: education",
+      "status": "PASS",
+      "details": "Message: 'How does this help with change orders?'"
+    },
+    {
+      "test": "Phase: pricing",
+      "status": "FAIL",
+      "details": "Expected pricing, got education"
+    },
+    {
+      "test": "Phase: commitment",
+      "status": "FAIL",
+      "details": "Expected commitment, got pricing"
+    },
+    {
+      "test": "Glen Day Personalization",
+      "status": "FAIL",
+      "details": "Only found 1/4 relevant elements"
+    },
+    {
+      "test": "Glen Day Personalization",
+      "status": "FAIL",
+      "details": "Only found 0/4 relevant elements"
+    },
+    {
+      "test": "Glen Day Personalization",
+      "status": "PASS",
+      "details": "Found 3/5 relevant elements"
+    },
+    {
+      "test": "Empathy Response",
+      "status": "FAIL",
+      "details": "No empathy detected in response to stress"
+    },
+    {
+      "test": "Empathy Response",
+      "status": "FAIL",
+      "details": "No empathy detected in response to stress"
+    },
+    {
+      "test": "Empathy Response",
+      "status": "FAIL",
+      "details": "No empathy detected in response to stress"
+    },
+    {
+      "test": "Empathy Response",
+      "status": "FAIL",
+      "details": "No empathy detected in response to stress"
+    },
+    {
+      "test": "Industry Terminology",
+      "status": "WARN",
+      "details": "Only used 1 industry terms"
+    },
+    {
+      "test": "Authenticity: 'What makes your syst...'",
+      "status": "FAIL",
+      "details": "Score: 0"
+    },
+    {
+      "test": "Authenticity: 'I'm worried about le...'",
+      "status": "FAIL",
+      "details": "Score: 0"
+    },
+    {
+      "test": "Authenticity: 'How do you handle ch...'",
+      "status": "FAIL",
+      "details": "Score: 0"
+    },
+    {
+      "test": "Authenticity: 'What about integrati...'",
+      "status": "FAIL",
+      "details": "Score: 0"
+    },
+    {
+      "test": "Overall Authenticity",
+      "status": "FAIL",
+      "details": "Only 0/4 responses sound authentic"
+    }
+  ],
+  "enhancement_validation": [
+    "Contractor type detection accuracy",
+    "Emotional intelligence and empathy",
+    "Industry terminology usage",
+    "Conversation phase management",
+    "Glen Day specific personalization",
+    "Authentic contractor voice"
+  ]
+}

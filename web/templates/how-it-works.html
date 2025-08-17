@@ -1,0 +1,1150 @@
+{% extends "base_public.html" %}
+
+{% block page_title %}How CORA Works - Job Costing Made Stupid Simple{% endblock %}
+{% block page_description %}See how CORA makes job costing so simple, your 10-year-old could do it. Talk, snap, know - that's it. No computer skills needed.{% endblock %}
+
+{% block page_css %}
+    <style>
+        /* CSS variables and resets now in construction-theme.css */
+        
+        /* Navigation styles now in navbar.css */
+        
+        /* Logo hover effect */
+        .navbar-brand img {
+            transition: all 0.3s ease;
+            filter: brightness(0.9);
+        }
+        
+        .navbar-brand:hover img {
+            filter: brightness(1.1);
+            transform: scale(1.05);
+        }
+        
+        /* Hero Section */
+        .hero-section {
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+            position: relative;
+            overflow: hidden;
+            padding: 100px 0;
+        }
+        
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: repeating-linear-gradient(
+                45deg,
+                transparent,
+                transparent 20px,
+                rgba(255, 152, 0, 0.02) 20px,
+                rgba(255, 152, 0, 0.02) 40px
+            );
+            pointer-events: none;
+        }
+        
+        /* Construction tape accent */
+        .construction-tape {
+            background: repeating-linear-gradient(
+                45deg,
+                #FF9800,
+                #FF9800 20px,
+                #000000 20px,
+                #000000 40px
+            );
+            height: 8px;
+            margin: 40px 0;
+            position: relative;
+            box-shadow: 0 4px 20px rgba(255, 152, 0, 0.4);
+        }
+        
+        /* Step cards */
+        .step-card {
+            background: rgba(26, 26, 26, 0.95);
+            border: 2px solid var(--construction-orange);
+            border-radius: 12px;
+            padding: 2rem;
+            text-align: center;
+            position: relative;
+            transition: all 0.3s ease;
+            height: 100%;
+        }
+        
+        .step-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(255, 152, 0, 0.3);
+            background: rgba(255, 152, 0, 0.1);
+        }
+        
+        .step-number {
+            position: absolute;
+            top: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--construction-orange);
+            color: #1a1a1a;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 900;
+            font-size: 1.5rem;
+            box-shadow: 0 4px 20px rgba(255, 152, 0, 0.5);
+        }
+        
+        .step-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            color: var(--construction-orange);
+        }
+        
+        /* Arrow between steps */
+        .step-arrow {
+            position: absolute;
+            top: 50%;
+            right: -40px;
+            transform: translateY(-50%);
+            font-size: 2rem;
+            color: var(--construction-orange);
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 0.6; transform: translateY(-50%) translateX(0); }
+            50% { opacity: 1; transform: translateY(-50%) translateX(5px); }
+        }
+        
+        /* Comparison table */
+        .comparison-box {
+            background: rgba(26, 26, 26, 0.95);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .old-way {
+            border: 2px solid #dc2626;
+            background: rgba(220, 38, 38, 0.05);
+        }
+        
+        .cora-way {
+            border: 2px solid var(--success-green);
+            background: rgba(105, 240, 174, 0.05);
+        }
+        
+        .comparison-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+        
+        .comparison-item .icon {
+            margin-right: 1rem;
+            font-size: 1.5rem;
+        }
+        
+        /* Timeline */
+        .timeline {
+            position: relative;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 0;
+        }
+        
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 4px;
+            height: 100%;
+            background: var(--construction-orange);
+            opacity: 0.3;
+        }
+        
+        .timeline-item {
+            padding: 2rem 0;
+            position: relative;
+            width: 50%;
+        }
+        
+        .timeline-item:nth-child(odd) {
+            left: 0;
+            padding-right: 3rem;
+            text-align: right;
+        }
+        
+        .timeline-item:nth-child(even) {
+            left: 50%;
+            padding-left: 3rem;
+        }
+        
+        .timeline-dot {
+            position: absolute;
+            top: 2rem;
+            width: 24px;
+            height: 24px;
+            background: var(--construction-orange);
+            border-radius: 50%;
+            box-shadow: 0 0 0 4px #1a1a1a, 0 0 0 8px rgba(255, 152, 0, 0.3);
+        }
+        
+        .timeline-item:nth-child(odd) .timeline-dot {
+            right: -12px;
+        }
+        
+        .timeline-item:nth-child(even) .timeline-dot {
+            left: -12px;
+        }
+        
+        .timeline-card {
+            background: rgba(26, 26, 26, 0.95);
+            border: 2px solid rgba(255, 152, 0, 0.3);
+            border-radius: 12px;
+            padding: 1.5rem;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        
+        .timeline-card:hover {
+            border-color: var(--construction-orange);
+            box-shadow: 0 10px 30px rgba(255, 152, 0, 0.2);
+        }
+        
+        .timeline-time {
+            color: var(--construction-orange);
+            font-weight: 700;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 0.5rem;
+        }
+        
+        /* What CORA Replaces section */
+        .replaces-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+        
+        .replaces-item {
+            background: rgba(26, 26, 26, 0.95);
+            border: 2px solid rgba(255, 152, 0, 0.3);
+            border-radius: 12px;
+            padding: 1.5rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .replaces-item:hover {
+            border-color: var(--construction-orange);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(255, 152, 0, 0.3);
+        }
+        
+        .replaces-item::before {
+            content: '✓';
+            position: absolute;
+            top: -20px;
+            right: -20px;
+            font-size: 100px;
+            color: rgba(105, 240, 174, 0.1);
+            font-weight: 900;
+        }
+        
+        .replaces-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: var(--construction-orange);
+        }
+        
+        .replaces-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+        }
+        
+        .replaces-cost {
+            color: #dc2626;
+            text-decoration: line-through;
+            opacity: 0.7;
+            font-size: 0.9rem;
+        }
+        
+        /* FAQ Accordion */
+        .faq-accordion {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .accordion-item {
+            background: rgba(26, 26, 26, 0.95);
+            border: 2px solid rgba(255, 152, 0, 0.2);
+            margin-bottom: 1rem;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        .accordion-button {
+            background: transparent;
+            color: var(--text-primary);
+            font-weight: 600;
+            font-size: 1.1rem;
+            padding: 1.5rem;
+            border: none;
+            box-shadow: none;
+        }
+        
+        .accordion-button:not(.collapsed) {
+            background: rgba(255, 152, 0, 0.1);
+            color: var(--construction-orange);
+        }
+        
+        .accordion-button:focus {
+            box-shadow: none;
+            border: none;
+        }
+        
+        .accordion-button::after {
+            filter: invert(1);
+        }
+        
+        .accordion-body {
+            padding: 1.5rem;
+            color: var(--text-secondary);
+            font-size: 1.05rem;
+            line-height: 1.8;
+        }
+        
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(135deg, rgba(255, 152, 0, 0.1) 0%, rgba(255, 152, 0, 0.05) 100%);
+            border: 3px solid var(--construction-orange);
+            border-radius: 20px;
+            padding: 4rem 2rem;
+            text-align: center;
+            margin: 4rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .cta-section::before {
+            content: '🚧';
+            position: absolute;
+            top: -50px;
+            left: -50px;
+            font-size: 200px;
+            opacity: 0.05;
+            transform: rotate(-15deg);
+        }
+        
+        .cta-section::after {
+            content: '🏗️';
+            position: absolute;
+            bottom: -50px;
+            right: -50px;
+            font-size: 200px;
+            opacity: 0.05;
+            transform: rotate(15deg);
+        }
+        
+        .btn-construction {
+            background: #FF9800;
+            color: #1a1a1a;
+            padding: 0.75rem 1.5rem;
+            font-weight: 700;
+            border-radius: 4px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            box-shadow: 0 4px 15px rgba(255,152,0,0.4);
+            border: none;
+        }
+        
+        .btn-construction:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255,152,0,0.5);
+            background: #F57C00;
+            color: #1a1a1a;
+        }
+        
+        /* Large button for CTA sections */
+        .btn-construction.btn-lg {
+            padding: 1rem 2.5rem;
+            font-size: 1.1rem;
+        }
+        
+        /* What you don't need section */
+        .dont-need-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+        
+        .dont-need-item {
+            display: flex;
+            align-items: center;
+            padding: 1rem;
+            background: rgba(220, 38, 38, 0.05);
+            border: 1px solid rgba(220, 38, 38, 0.2);
+            border-radius: 8px;
+            color: var(--text-secondary);
+        }
+        
+        .dont-need-item .icon {
+            color: #dc2626;
+            margin-right: 0.75rem;
+            font-size: 1.2rem;
+        }
+        
+        .do-need-item {
+            display: flex;
+            align-items: center;
+            padding: 1.5rem;
+            background: rgba(105, 240, 174, 0.05);
+            border: 2px solid rgba(105, 240, 174, 0.3);
+            border-radius: 12px;
+            color: var(--text-primary);
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-top: 2rem;
+            justify-content: center;
+        }
+        
+        .do-need-item .icon {
+            color: var(--success-green);
+            margin-right: 1rem;
+            font-size: 1.5rem;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .timeline::before {
+                left: 30px;
+            }
+            
+            .timeline-item {
+                width: 100%;
+                left: 0 !important;
+                padding-left: 80px !important;
+                padding-right: 20px !important;
+                text-align: left !important;
+            }
+            
+            .timeline-dot {
+                left: 18px !important;
+                right: auto !important;
+            }
+            
+            .step-arrow {
+                display: none;
+            }
+            
+            .hero-section {
+                padding: 60px 0;
+            }
+            
+            h1 {
+                font-size: 2.5rem !important;
+            }
+            
+            /* Navigation mobile */
+            .navbar {
+                padding: 0.75rem 1rem !important;
+            }
+            
+            /* Button mobile sizing */
+            .btn-construction, .btn-construction-secondary {
+                padding: 0.75rem 1.5rem !important;
+                font-size: 0.9rem !important;
+            }
+        }
+        
+        /* Video placeholder */
+        .video-placeholder {
+            background: rgba(26, 26, 26, 0.95);
+            border: 2px solid var(--construction-orange);
+            border-radius: 12px;
+            padding: 4rem 2rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .video-placeholder:hover {
+            transform: scale(1.02);
+            box-shadow: 0 20px 40px rgba(255, 152, 0, 0.3);
+        }
+        
+        .play-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 80px;
+            height: 80px;
+            background: var(--construction-orange);
+            border-radius: 50%;
+            margin-bottom: 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .play-button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 10px 30px rgba(255, 152, 0, 0.5);
+        }
+        
+        .play-button i {
+            font-size: 2rem;
+            color: #1a1a1a;
+            margin-left: 5px;
+        }
+
+        /* Highlight box */
+        .highlight-box {
+            background: linear-gradient(135deg, rgba(255, 152, 0, 0.1) 0%, rgba(255, 152, 0, 0.05) 100%);
+            border-left: 4px solid var(--construction-orange);
+            padding: 1.5rem;
+            margin: 2rem 0;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+        
+        .highlight-box .icon {
+            color: var(--construction-orange);
+            margin-right: 1rem;
+            font-size: 1.5rem;
+        }
+        
+        /* Hide dark mode toggle - specific rules */
+        .theme-toggle,
+        #darkModeToggle,
+        #dark-mode-toggle,
+        .dark-mode-toggle,
+        button[aria-label*="dark mode" i],
+        button[aria-label*="theme" i],
+        [id*="theme-toggle"],
+        .accessibility-toggle {
+            display: none !important;
+            visibility: hidden !important;
+            opacity: 0 !important;
+            pointer-events: none !important;
+            position: absolute !important;
+            left: -9999px !important;
+        }
+        
+        /* More specific targeting */
+        button[style*="position: fixed"][style*="bottom: 20px"][style*="right: 20px"] {
+            display: none !important;
+        }
+        
+        /* Hide high contrast toggle */
+        #high-contrast-toggle {
+            display: none !important;
+        }
+        
+        /* Hide any fixed positioned button at bottom right */
+        button[style*="position: fixed"][style*="bottom"][style*="right"] {
+            display: none !important;
+        }
+        
+        /* zoom controls styling is centralized; no page overrides */
+    </style>
+{% endblock %}
+
+{% block content %}
+    <!-- Accessibility controls will be added by accessibility.js -->
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="container text-center">
+            <h1 class="display-2 fw-bold mb-4" style="color: #FF9800;">
+                So Simple, Your 10-Year-Old Could Do It
+            </h1>
+            <p class="lead fs-3 mb-4" style="color: #e2e8f0;">
+                <span style="font-size: 3rem; font-weight: 800; color: #FF9800;">3 Steps.</span>
+                <span style="font-size: 3rem; font-weight: 800; color: #4db8ff; margin: 0 2rem;">15 Minutes.</span>
+                <span style="font-size: 3rem; font-weight: 800; color: #69F0AE;">Done.</span>
+            </p>
+            <p class="fs-4 text-secondary mb-5">
+                No computer skills. No accounting degree. Just your voice and your phone.
+            </p>
+        </div>
+    </section>
+
+    <!-- The Big 3 Steps -->
+    <section class="py-5">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="display-4 fw-bold mb-4">The Stupidly Simple Way to Track Jobs</h2>
+                <p class="fs-5 text-secondary">Forget everything you know about bookkeeping. This is different.</p>
+            </div>
+            
+            <div class="row g-4 position-relative">
+                <div class="col-md-4">
+                    <div class="step-card">
+                        <div class="step-number">1</div>
+                        <div class="step-icon">💬</div>
+                        <h3 class="mb-3" style="color: #FF9800;">TALK</h3>
+                        <p class="fs-5">Tell CORA about your job like you're talking to your buddy</p>
+                        <div class="mt-4 p-3" style="background: rgba(255, 152, 0, 0.1); border-radius: 8px;">
+                            <em>"Hey CORA, starting the Johnson bathroom remodel today"</em>
+                        </div>
+                        <div class="step-arrow d-none d-md-block">→</div>
+                    </div>
+                </div>
+                
+                <div class="col-md-4">
+                    <div class="step-card">
+                        <div class="step-number">2</div>
+                        <div class="step-icon">📸</div>
+                        <h3 class="mb-3" style="color: #4db8ff;">SNAP</h3>
+                        <p class="fs-5">Take photos of receipts, invoices, whatever</p>
+                        <div class="mt-4 p-3" style="background: rgba(77, 184, 255, 0.1); border-radius: 8px;">
+                            <em>*Click* "Got it! Home Depot, $847.32 for Johnson job"</em>
+                        </div>
+                        <div class="step-arrow d-none d-md-block">→</div>
+                    </div>
+                </div>
+                
+                <div class="col-md-4">
+                    <div class="step-card">
+                        <div class="step-number">3</div>
+                        <div class="step-icon">💰</div>
+                        <h3 class="mb-3" style="color: #69F0AE;">KNOW</h3>
+                        <p class="fs-5">See exactly where your money went</p>
+                        <div class="mt-4 p-3" style="background: rgba(105, 240, 174, 0.1); border-radius: 8px;">
+                            <em>"Johnson job: $12,847 costs, $18,500 revenue. Profit: $5,653"</em>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="container">
+        <div class="construction-tape"></div>
+    </div>
+
+    <!-- What CORA Replaces -->
+    <section class="py-5">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="display-4 fw-bold mb-4">What CORA Replaces</h2>
+                <p class="fs-5 text-secondary">Stop paying for 10 different things. CORA does it all.</p>
+            </div>
+            
+            <div class="replaces-grid">
+                <div class="replaces-item">
+                    <div class="replaces-icon">👨‍💼</div>
+                    <div class="replaces-title">Bookkeeper</div>
+                    <p class="text-secondary mb-2">Tracks every penny automatically</p>
+                    <div class="replaces-cost">$2,000/month</div>
+                </div>
+                
+                <div class="replaces-item">
+                    <div class="replaces-icon">📊</div>
+                    <div class="replaces-title">Job Cost Tracker</div>
+                    <p class="text-secondary mb-2">Know profit on EVERY job</p>
+                    <div class="replaces-cost">$70/month + hours of work</div>
+                </div>
+                
+                <div class="replaces-item">
+                    <div class="replaces-icon">🧾</div>
+                    <div class="replaces-title">Expense Manager</div>
+                    <p class="text-secondary mb-2">Categorizes everything automatically</p>
+                    <div class="replaces-cost">$50/month</div>
+                </div>
+                
+                <div class="replaces-item">
+                    <div class="replaces-icon">📱</div>
+                    <div class="replaces-title">QuickBooks</div>
+                    <p class="text-secondary mb-2">Without the headache</p>
+                    <div class="replaces-cost">$70/month</div>
+                </div>
+                
+                <div class="replaces-item">
+                    <div class="replaces-icon">🗂️</div>
+                    <div class="replaces-title">Excel Sheets</div>
+                    <p class="text-secondary mb-2">No more spreadsheet hell</p>
+                    <div class="replaces-cost">2 hours/day</div>
+                </div>
+                
+                <div class="replaces-item">
+                    <div class="replaces-icon">💸</div>
+                    <div class="replaces-title">Tax Prep Assistant</div>
+                    <p class="text-secondary mb-2">Finds every deduction</p>
+                    <div class="replaces-cost">Missing 30% of deductions</div>
+                </div>
+            </div>
+            
+            <div class="highlight-box mt-5">
+                <i class="fas fa-hard-hat icon"></i>
+                CORA is like having a CFO who rides in your truck, works 24/7, and costs less than your monthly coffee budget.
+            </div>
+        </div>
+    </section>
+
+    <!-- OLD WAY vs CORA WAY -->
+    <section class="py-5" style="background: rgba(255, 152, 0, 0.02);">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="display-4 fw-bold mb-4">Stop Living in the Stone Age</h2>
+            </div>
+            
+            <div class="row g-4">
+                <div class="col-lg-6">
+                    <div class="comparison-box old-way">
+                        <h3 class="mb-4" style="color: #dc2626;">
+                            <i class="fas fa-times-circle me-2"></i>OLD WAY
+                        </h3>
+                        <div class="comparison-item">
+                            <span class="icon">😫</span>
+                            <span>QuickBooks confusion ($70/mo)</span>
+                        </div>
+                        <div class="comparison-item">
+                            <span class="icon">📊</span>
+                            <span>Excel sheets until 10 PM (2 hrs/day)</span>
+                        </div>
+                        <div class="comparison-item">
+                            <span class="icon">💸</span>
+                            <span>Bookkeeper bills ($2,000/mo)</span>
+                        </div>
+                        <div class="comparison-item">
+                            <span class="icon">📦</span>
+                            <span>Shoebox full of receipts</span>
+                        </div>
+                        <div class="comparison-item">
+                            <span class="icon">❓</span>
+                            <span>No idea which jobs make money</span>
+                        </div>
+                        <div class="comparison-item">
+                            <span class="icon">🚫</span>
+                            <span>Missing 30% of tax deductions</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-lg-6">
+                    <div class="comparison-box cora-way">
+                        <h3 class="mb-4" style="color: #69F0AE;">
+                            <i class="fas fa-check-circle me-2"></i>WITH CORA
+                        </h3>
+                        <div class="comparison-item">
+                            <span class="icon">🗣️</span>
+                            <span>Just talk to CORA</span>
+                        </div>
+                        <div class="comparison-item">
+                            <span class="icon">⏱️</span>
+                            <span>15 minutes per week</span>
+                        </div>
+                        <div class="comparison-item">
+                            <span class="icon">💰</span>
+                            <span>$97/month (that's it)</span>
+                        </div>
+                        <div class="comparison-item">
+                            <span class="icon">📸</span>
+                            <span>Snap and forget</span>
+                        </div>
+                        <div class="comparison-item">
+                            <span class="icon">📈</span>
+                            <span>Real-time profit on every job</span>
+                        </div>
+                        <div class="comparison-item">
+                            <span class="icon">🎯</span>
+                            <span>Every deduction found automatically</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- A Day in Your Life with CORA -->
+    <section class="py-5">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="display-4 fw-bold mb-4">A Day in Your Life with CORA</h2>
+                <p class="fs-5 text-secondary">This is how easy it really is. No BS.</p>
+            </div>
+            
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-card">
+                        <div class="timeline-time">6:00 AM - Coffee Time</div>
+                        <h4 class="mb-2">Morning Check-In</h4>
+                        <p class="mb-3">Grab your coffee and ask CORA a simple question:</p>
+                        <div class="p-3" style="background: rgba(255, 152, 0, 0.1); border-radius: 8px;">
+                            <strong>You:</strong> "Hey CORA, how'd we do yesterday?"<br>
+                            <strong>CORA:</strong> "Made $2,847 yesterday. Johnson job is at 32% profit. Miller kitchen needs attention - running over budget."
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-card">
+                        <div class="timeline-time">7:30 AM - Job Site</div>
+                        <h4 class="mb-2">Starting New Job</h4>
+                        <p class="mb-3">Pull up to the job site, tell CORA what's happening:</p>
+                        <div class="p-3" style="background: rgba(77, 184, 255, 0.1); border-radius: 8px;">
+                            <strong>You:</strong> "Starting the Wilson deck project today"<br>
+                            <strong>CORA:</strong> "Got it! Wilson deck project created. Budget is $15,000. I'll track everything from here."
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-card">
+                        <div class="timeline-time">10:15 AM - Supply Run</div>
+                        <h4 class="mb-2">Home Depot Stop</h4>
+                        <p class="mb-3">Buy materials, snap a photo of the receipt:</p>
+                        <div class="p-3" style="background: rgba(255, 152, 0, 0.1); border-radius: 8px;">
+                            <strong>You:</strong> *takes photo of receipt*<br>
+                            <strong>CORA:</strong> "Home Depot receipt for $1,247.83 added to Wilson deck. You're at $1,247 of $15,000 budget (8%)."
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-card">
+                        <div class="timeline-time">12:30 PM - Lunch Break</div>
+                        <h4 class="mb-2">Quick Status Check</h4>
+                        <p class="mb-3">Wondering about another job while eating your sandwich:</p>
+                        <div class="p-3" style="background: rgba(77, 184, 255, 0.1); border-radius: 8px;">
+                            <strong>You:</strong> "What did I spend on the Johnson bathroom?"<br>
+                            <strong>CORA:</strong> "Johnson bathroom: $8,432 in costs, $12,500 in revenue. Profit: $4,068 (32.5%). Great job!"
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-card">
+                        <div class="timeline-time">3:45 PM - Subcontractor</div>
+                        <h4 class="mb-2">Pay Your Electrician</h4>
+                        <p class="mb-3">Write a check to your sub, tell CORA:</p>
+                        <div class="p-3" style="background: rgba(255, 152, 0, 0.1); border-radius: 8px;">
+                            <strong>You:</strong> "Paid Jake's Electric $800 for Wilson deck"<br>
+                            <strong>CORA:</strong> "Got it. Jake's Electric $800 recorded. Wilson deck now at $2,047 of $15,000 (14%)."
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-card">
+                        <div class="timeline-time">5:30 PM - End of Day</div>
+                        <h4 class="mb-2">Daily Wrap-Up</h4>
+                        <p class="mb-3">Heading home, get your daily summary:</p>
+                        <div class="p-3" style="background: rgba(105, 240, 174, 0.1); border-radius: 8px;">
+                            <strong>You:</strong> "CORA, how'd we do today?"<br>
+                            <strong>CORA:</strong> "Great day! Revenue: $3,500. Expenses: $2,047. Net profit: $1,453. You're on track for your best month yet!"
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- What You Don't Need -->
+    <section class="py-5" style="background: rgba(255, 152, 0, 0.02);">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="display-4 fw-bold mb-4">What You DON'T Need</h2>
+                <p class="fs-5 text-secondary">Seriously. You don't need any of this crap.</p>
+            </div>
+            
+            <div class="dont-need-grid">
+                <div class="dont-need-item">
+                    <span class="icon">❌</span>
+                    <span>Computer skills</span>
+                </div>
+                <div class="dont-need-item">
+                    <span class="icon">❌</span>
+                    <span>Accounting knowledge</span>
+                </div>
+                <div class="dont-need-item">
+                    <span class="icon">❌</span>
+                    <span>Time to sit at a desk</span>
+                </div>
+                <div class="dont-need-item">
+                    <span class="icon">❌</span>
+                    <span>Perfect organization</span>
+                </div>
+                <div class="dont-need-item">
+                    <span class="icon">❌</span>
+                    <span>Training or tutorials</span>
+                </div>
+                <div class="dont-need-item">
+                    <span class="icon">❌</span>
+                    <span>To "sync" anything</span>
+                </div>
+                <div class="dont-need-item">
+                    <span class="icon">❌</span>
+                    <span>Special equipment</span>
+                </div>
+                <div class="dont-need-item">
+                    <span class="icon">❌</span>
+                    <span>To change how you work</span>
+                </div>
+            </div>
+            
+            <div class="do-need-item">
+                <span class="icon">✓</span>
+                <span>Just your phone and your voice</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Video Demo Section -->
+    <section class="py-5">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="display-4 fw-bold mb-4">See It In Action</h2>
+                <p class="fs-5 text-secondary">2 minutes. Real contractor. Real job site. No BS.</p>
+            </div>
+            
+            <div class="video-placeholder">
+                <div class="play-button">
+                    <i class="fas fa-play"></i>
+                </div>
+                <h3 class="mb-3">Watch Mike Track a Job in Real-Time</h3>
+                <p class="text-secondary">See how a real contractor uses CORA on an actual job site</p>
+                <p class="text-muted">Watch real contractors use CORA: see voice expense entry, instant profit checks, and AI insights in our product tour.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Construction-Friendly FAQ -->
+    <section class="py-5" style="background: rgba(255, 152, 0, 0.02);">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="display-4 fw-bold mb-4">Real Questions from Real Contractors</h2>
+                <p class="fs-5 text-secondary">No tech jargon. Just straight answers.</p>
+            </div>
+            
+            <div class="faq-accordion">
+                <div class="accordion" id="faqAccordion">
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#faq1">
+                                What if I'm wearing gloves?
+                            </button>
+                        </h2>
+                        <div id="faq1" class="accordion-collapse collapse show" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body">
+                                No problem! CORA works with voice commands, so you can talk to her with gloves on. 
+                                If it's too noisy to talk, you can also type a quick message. She gets it either way.
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq2">
+                                What if I'm on a noisy job site?
+                            </button>
+                        </h2>
+                        <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body">
+                                We get it - job sites are loud. You can type instead of talk, or just snap photos of receipts 
+                                and add details later when it's quieter. CORA's smart enough to figure it out.
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq3">
+                                What if I forget to track something?
+                            </button>
+                        </h2>
+                        <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body">
+                                CORA's got your back. She automatically checks your bank accounts and credit cards. 
+                                If you forgot to tell her about that lumber yard run, she'll find it and ask you about it. 
+                                No more lost deductions!
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq4">
+                                Does this work with my existing bank?
+                            </button>
+                        </h2>
+                        <div id="faq4" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body">
+                                Yep! CORA works with over 12,000 banks and credit unions. Chase, Bank of America, 
+                                Wells Fargo, your local credit union - we've got them all. Takes 2 minutes to connect.
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq5">
+                                What about my accountant?
+                            </button>
+                        </h2>
+                        <div id="faq5" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body">
+                                Your accountant will love you. CORA gives them everything organized perfectly - 
+                                every receipt, every job cost, every deduction. What used to take them hours now takes minutes. 
+                                Many contractors save more on accounting fees than CORA costs!
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq6">
+                                I'm not good with technology. Can I really use this?
+                            </button>
+                        </h2>
+                        <div id="faq6" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body">
+                                If you can talk and take a photo, you can use CORA. Seriously. No apps to learn, 
+                                no buttons to remember, no menus to navigate. Just talk to her like she's your assistant. 
+                                We've had 65-year-old contractors up and running in 5 minutes.
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq7">
+                                What if I have multiple crews?
+                            </button>
+                        </h2>
+                        <div id="faq7" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body">
+                                Perfect! Give each crew leader access. They can track their own jobs, snap receipts, 
+                                and log hours. You see everything in real-time. No more calling around asking 
+                                "how much did you spend today?" - you already know.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- What Problems CORA Solves -->
+    <section class="py-5">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="display-4 fw-bold mb-4">Finally Get Answers To...</h2>
+                <p class="fs-5 text-secondary">The questions that keep you up at night</p>
+            </div>
+            
+            <div class="row g-4">
+                <div class="col-md-6 col-lg-3">
+                    <div class="text-center">
+                        <div class="mb-3" style="font-size: 4rem;">🤔</div>
+                        <h4 class="mb-3" style="color: #FF9800;">"Where did my profit go?"</h4>
+                        <p class="text-secondary">See exactly where every dollar went, on every job, in real-time.</p>
+                    </div>
+                </div>
+                
+                <div class="col-md-6 col-lg-3">
+                    <div class="text-center">
+                        <div class="mb-3" style="font-size: 4rem;">💸</div>
+                        <h4 class="mb-3" style="color: #4db8ff;">"What did I spend on the Miller job?"</h4>
+                        <p class="text-secondary">Get instant answers about any job, any time, anywhere.</p>
+                    </div>
+                </div>
+                
+                <div class="col-md-6 col-lg-3">
+                    <div class="text-center">
+                        <div class="mb-3" style="font-size: 4rem;">📝</div>
+                        <h4 class="mb-3" style="color: #69F0AE;">"What can I write off?"</h4>
+                        <p class="text-secondary">Never miss a deduction again. CORA finds them all automatically.</p>
+                    </div>
+                </div>
+                
+                <div class="col-md-6 col-lg-3">
+                    <div class="text-center">
+                        <div class="mb-3" style="font-size: 4rem;">📈</div>
+                        <h4 class="mb-3" style="color: #FF9800;">"Am I making money on this job?"</h4>
+                        <p class="text-secondary">Know your profit margin before the job is done, not after.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-5">
+        <div class="container">
+            <div class="cta-section">
+                <h2 class="display-3 fw-bold mb-4">Stop Losing Money to Bad Bookkeeping</h2>
+                <p class="fs-4 mb-4">Join 2,847+ contractors who ditched the spreadsheets</p>
+                <p class="fs-2 fw-bold mb-5" style="color: #FF9800;">
+                    Try It Free - No Credit Card, No BS
+                </p>
+                <a href="/signup" class="btn-construction btn-lg">
+                    Start Talking to CORA Now
+                </a>
+                <p class="mt-4 text-muted">
+                    30-day free trial • Cancel anytime • 5-minute setup
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Final Message -->
+    <section class="py-5">
+        <div class="container text-center">
+            <div class="construction-tape mb-5"></div>
+            <h3 class="display-5 fw-bold mb-4">One More Thing...</h3>
+            <p class="fs-4 text-secondary mb-5">
+                CORA isn't just another app. She's the financial brain for your business that speaks YOUR language.
+            </p>
+            <p class="fs-5 mb-5" style="color: #FF9800; font-weight: 600;">
+                No more Sunday nights doing paperwork.<br>
+                No more guessing which jobs make money.<br>
+                No more missing tax deductions.<br>
+            </p>
+            <p class="fs-4 fw-bold">
+                Just build stuff. Make money. Go home.
+            </p>
+        </div>
+    </section>
+
+    <!-- Footer removed - now inherited from base_public.html -->
+
+{% endblock %}
+
+{% block page_scripts %}
+    <!-- Page-specific scripts only (nav hovers handled by CSS) -->
+
+    
+    <!-- Cora chat - page specific -->
+
+
+    <!-- Font Awesome -->
+    
+{% endblock %}

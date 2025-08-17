@@ -1,0 +1,32 @@
+{
+  "web/templates/features.html": {
+    "checksum": "d8de19a0803e20fd274e69d1168960c857fc2c17bdebe72daee2dcd1ef3fcc4c",
+    "size": 11019,
+    "timestamp": "2025-08-06T11:56:48.046453"
+  },
+  "web/templates/pricing.html": {
+    "checksum": "89ae45053b0a221fa50e3c8f203f91b8092fc4ec19611047513724670da1c361",
+    "size": 13624,
+    "timestamp": "2025-08-06T11:56:48.046541"
+  },
+  "web/templates/how-it-works.html": {
+    "checksum": "acf05a6940912b58e1d8dfdbc4401652b4b72ba2f7640ccadab02d860a2b4d00",
+    "size": 18261,
+    "timestamp": "2025-08-06T11:56:48.046604"
+  },
+  "web/templates/index.html": {
+    "checksum": "132d7332594998be94b28c32ba56b5bccf308253764b07364f9732465be96683",
+    "size": 4091,
+    "timestamp": "2025-08-06T11:56:48.046657"
+  },
+  "web/templates/contact.html": {
+    "checksum": "ab3a887bbd3fd0b4d13202cd9a44bdc0bf2490da677dd1609eb6e1236caa5714",
+    "size": 58134,
+    "timestamp": "2025-08-06T11:56:48.046734"
+  },
+  "web/templates/reviews.html": {
+    "checksum": "34010eea0aaa42419f05b0cbe4afb7fa269adf2fce755e9fbe3e9dec8badbccd",
+    "size": 89972,
+    "timestamp": "2025-08-06T11:56:48.046827"
+  }
+}

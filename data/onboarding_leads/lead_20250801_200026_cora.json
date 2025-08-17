@@ -1,0 +1,45 @@
+{
+  "userData": {
+    "name": "CORA",
+    "fullConversation": [
+      {
+        "role": "assistant",
+        "content": "Hey! I'm CORA, and I'm going to help you see exactly how much profit you're leaving on the table. Takes about 3 minutes. First - what should I call you?"
+      },
+      {
+        "role": "user",
+        "content": "adam"
+      },
+      {
+        "role": "assistant",
+        "content": "Great to meet you, Adam! What type of construction work do you do? \n[business_types]"
+      },
+      {
+        "role": "user",
+        "content": "Plumbing, Remodeling, Concrete and Painting"
+      },
+      {
+        "role": "assistant",
+        "content": "Got it! And how would you describe your business size? \n[business_sizes]"
+      },
+      {
+        "role": "user",
+        "content": "Growing Company"
+      },
+      {
+        "role": "assistant",
+        "content": "What's your biggest challenge with managing the business side of things? \n[pain_points]"
+      },
+      {
+        "role": "user",
+        "content": "Can't track profits"
+      },
+      {
+        "role": "assistant",
+        "content": "Excellent! I've got everything I need to get you started. Your dashboard is all set up and ready to go. The real magic happens when you start adding your actual business data - expenses, jobs, receipts. The more you add, the more insights I can provide. Ready to see your dashboard?\n[complete_onboarding]"
+      }
+    ]
+  },
+  "completedAt": "2025-08-01T20:00:26.619Z",
+  "savedAt": "2025-08-01T20:00:26.617578"
+}

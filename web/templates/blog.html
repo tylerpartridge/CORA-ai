@@ -1,0 +1,381 @@
+{% extends "base_public.html" %}
+
+{% block page_title %}Blog - CORA | Construction Business Insights & Tips{% endblock %}
+
+{% block page_description %}Expert insights on construction business management, job costing, profit optimization, and financial strategies for contractors.{% endblock %}
+
+{% block page_css %}
+    <style>
+        /* Main Content */
+        .content-section {
+            min-height: 100vh;
+            padding: 120px 20px 80px;
+            background: linear-gradient(180deg, #1a1a1a 0%, #2d3748 50%, #1a1a1a 100%);
+        }
+        
+        /* Page Header */
+        .page-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+        
+        .page-header h1 {
+            color: #ffffff;
+            font-size: 3rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 1rem;
+        }
+        
+        .page-header p {
+            color: #a0aec0;
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        /* Blog Grid */
+        .blog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin: 4rem 0;
+        }
+        
+        .blog-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 152, 0, 0.2);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .blog-card:hover {
+            transform: translateY(-5px);
+            border-color: #FF9800;
+            box-shadow: 0 10px 30px rgba(255, 152, 0, 0.2);
+        }
+        
+        .blog-image {
+            height: 200px;
+            background: linear-gradient(135deg, #FF9800, #F57C00);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: #1a1a1a;
+        }
+        
+        .blog-content {
+            padding: 1.5rem;
+        }
+        
+        .blog-category {
+            color: #FF9800;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 0.5rem;
+        }
+        
+        .blog-title {
+            color: #ffffff;
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            line-height: 1.4;
+        }
+        
+        .blog-excerpt {
+            color: #a0aec0;
+            font-size: 0.9rem;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+        
+        .blog-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: #718096;
+            font-size: 0.8rem;
+        }
+        
+        .blog-author {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .author-avatar {
+            width: 24px;
+            height: 24px;
+            background: #FF9800;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+            color: #1a1a1a;
+            font-weight: 600;
+        }
+        
+        /* Featured Post */
+        .featured-post {
+            background: rgba(255, 152, 0, 0.05);
+            border: 2px solid #FF9800;
+            border-radius: 16px;
+            padding: 2rem;
+            margin: 4rem 0;
+        }
+        
+        .featured-badge {
+            background: #FF9800;
+            color: #1a1a1a;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            display: inline-block;
+            margin-bottom: 1rem;
+        }
+        
+        .featured-title {
+            color: #ffffff;
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+        
+        .featured-excerpt {
+            color: #a0aec0;
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+        
+        /* Newsletter Section */
+        .newsletter-section {
+            background: rgba(255, 152, 0, 0.05);
+            border: 1px solid rgba(255, 152, 0, 0.2);
+            border-radius: 16px;
+            padding: 3rem;
+            margin: 4rem 0;
+            text-align: center;
+        }
+        
+        .newsletter-form {
+            display: flex;
+            gap: 1rem;
+            max-width: 500px;
+            margin: 2rem auto 0;
+        }
+        
+        .newsletter-input {
+            flex: 1;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 152, 0, 0.3);
+            border-radius: 8px;
+            padding: 1rem;
+            color: #ffffff;
+            font-size: 1rem;
+        }
+        
+        .newsletter-input::placeholder {
+            color: #a0aec0;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .page-header h1 {
+                font-size: 2rem;
+            }
+            
+            .blog-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .newsletter-form {
+                flex-direction: column;
+            }
+            
+            .featured-title {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+    <!-- Main Content -->
+    <div class="content-section">
+        <div class="container">
+            <!-- Page Header -->
+            <div class="page-header">
+                <h1>Construction Insights</h1>
+                <p>Expert tips, strategies, and insights to help contractors build more profitable businesses.</p>
+            </div>
+
+            <!-- Featured Post -->
+            <div class="featured-post">
+                <div class="featured-badge">Featured</div>
+                <h2 class="featured-title">5 Profit Leaks Every Contractor Should Fix in 2025</h2>
+                <p class="featured-excerpt">
+                    Discover the most common profit leaks in construction businesses and learn how to identify and fix them. From material waste to inefficient scheduling, we'll show you how to squeeze every dollar from your projects.
+                </p>
+                <div class="blog-meta">
+                    <div class="blog-author">
+                        <div class="author-avatar">JD</div>
+                        <span>John Davis, Construction Expert</span>
+                    </div>
+                    <span>January 15, 2025 • 8 min read</span>
+                </div>
+                <a href="#" class="btn-construction" style="margin-top: 1rem;">Read Full Article</a>
+            </div>
+
+            <!-- Blog Grid -->
+            <div class="blog-grid">
+                <div class="blog-card">
+                    <div class="blog-image">
+                        <i class="fas fa-calculator"></i>
+                    </div>
+                    <div class="blog-content">
+                        <div class="blog-category">Job Costing</div>
+                        <h3 class="blog-title">The Complete Guide to Job Costing for Small Contractors</h3>
+                        <p class="blog-excerpt">
+                            Learn the fundamentals of job costing and how to implement a system that helps you track profitability on every project.
+                        </p>
+                        <div class="blog-meta">
+                            <div class="blog-author">
+                                <div class="author-avatar">SM</div>
+                                <span>Sarah Martinez</span>
+                            </div>
+                            <span>Jan 12, 2025</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="blog-card">
+                    <div class="blog-image">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <div class="blog-content">
+                        <div class="blog-category">Profitability</div>
+                        <h3 class="blog-title">How to Increase Your Construction Profit Margins by 25%</h3>
+                        <p class="blog-excerpt">
+                            Proven strategies used by successful contractors to boost profit margins through better pricing, efficiency, and cost control.
+                        </p>
+                        <div class="blog-meta">
+                            <div class="blog-author">
+                                <div class="author-avatar">MW</div>
+                                <span>Mike Wilson</span>
+                            </div>
+                            <span>Jan 10, 2025</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="blog-card">
+                    <div class="blog-image">
+                        <i class="fas fa-tools"></i>
+                    </div>
+                    <div class="blog-content">
+                        <div class="blog-category">Efficiency</div>
+                        <h3 class="blog-title">10 Time-Saving Tools Every Contractor Needs</h3>
+                        <p class="blog-excerpt">
+                            From project management to invoicing, discover the essential tools that will save you hours every week and improve your bottom line.
+                        </p>
+                        <div class="blog-meta">
+                            <div class="blog-author">
+                                <div class="author-avatar">LC</div>
+                                <span>Lisa Chen</span>
+                            </div>
+                            <span>Jan 8, 2025</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="blog-card">
+                    <div class="blog-image">
+                        <i class="fas fa-dollar-sign"></i>
+                    </div>
+                    <div class="blog-content">
+                        <div class="blog-category">Cash Flow</div>
+                        <h3 class="blog-title">Managing Cash Flow in Seasonal Construction Businesses</h3>
+                        <p class="blog-excerpt">
+                            Learn how to maintain healthy cash flow throughout the year, even during slow seasons and between projects.
+                        </p>
+                        <div class="blog-meta">
+                            <div class="blog-author">
+                                <div class="author-avatar">RJ</div>
+                                <span>Robert Johnson</span>
+                            </div>
+                            <span>Jan 5, 2025</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="blog-card">
+                    <div class="blog-image">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="blog-content">
+                        <div class="blog-category">Team Management</div>
+                        <h3 class="blog-title">Building a Profitable Construction Team: Hiring and Retention</h3>
+                        <p class="blog-excerpt">
+                            Strategies for attracting and keeping skilled workers while maintaining profitability and project quality.
+                        </p>
+                        <div class="blog-meta">
+                            <div class="blog-author">
+                                <div class="author-avatar">AB</div>
+                                <span>Amanda Brown</span>
+                            </div>
+                            <span>Jan 3, 2025</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="blog-card">
+                    <div class="blog-image">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <div class="blog-content">
+                        <div class="blog-category">Risk Management</div>
+                        <h3 class="blog-title">Protecting Your Construction Business from Financial Risks</h3>
+                        <p class="blog-excerpt">
+                            Essential insurance, contracts, and risk management strategies to protect your business from costly legal and financial issues.
+                        </p>
+                        <div class="blog-meta">
+                            <div class="blog-author">
+                                <div class="author-avatar">DT</div>
+                                <span>David Thompson</span>
+                            </div>
+                            <span>Jan 1, 2025</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Newsletter Section -->
+            <div class="newsletter-section">
+                <h2 style="color: #ffffff; margin-bottom: 1rem;">Stay Updated</h2>
+                <p style="color: #a0aec0; margin-bottom: 2rem;">
+                    Get the latest construction business insights, tips, and strategies delivered to your inbox every week.
+                </p>
+                <form class="newsletter-form">
+                    <input type="email" class="newsletter-input" placeholder="Enter your email address" required>
+                    <button type="submit" class="btn-construction">Subscribe</button>
+                </form>
+                <p style="color: #718096; font-size: 0.8rem; margin-top: 1rem;">
+                    No spam, unsubscribe at any time. We respect your privacy.
+                </p>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block page_scripts %}{% endblock %}

@@ -1,0 +1,81 @@
+# Smart Error Handler Feature
+
+## Status: ACTIVE ✅
+**Created**: 2025-08-10 by Claude
+**Phase**: 18 of Safe Refactoring Initiative
+**Location**: `/utils/smart_error_handler.py`
+
+## Purpose
+Intelligent error handling system that makes debugging easier for all AI collaborators and provides better user experience.
+
+## Capabilities
+- ✅ Smart error context capture (request, user, timestamp, traceback)
+- ✅ Recovery suggestions for 20+ error types
+- ✅ Structured logging with JSON format
+- ✅ Error statistics tracking
+- ✅ Automatic retry with exponential backoff
+- ✅ Circuit breaker pattern
+- ✅ Development vs Production modes
+
+## Usage
+
+### Basic Route Protection
+```python
+from utils.smart_error_handler import error_handler
+
+@router.get("/example")
+@error_handler.safe_route  # Automatic error handling
+async def example_route(request: Request):
+    # Any error is automatically handled with context
+    pass
+```
+
+### With Retry Logic
+```python
+from utils.smart_error_handler import ErrorRecovery
+
+@router.get("/external-api")
+@ErrorRecovery.retry_with_backoff
+async def call_external_api():
+    # Automatically retries on connection errors
+    pass
+```
+
+### Structured Logging
+```python
+from utils.smart_error_handler import log_info, log_error, log_warning
+
+log_info("User action", user_id=123, action="login")
+log_warning("Rate limit approaching", user_id=123, requests=95)
+log_error("Payment failed", user_id=123, amount=100, error="card_declined")
+```
+
+## Error Types Handled
+- Database: IntegrityError, OperationalError, DataError
+- Validation: ValidationError, ValueError, TypeError
+- Authentication: InvalidCredentialsError, TokenExpiredError, PermissionError
+- External Services: ConnectionError, TimeoutError, APIError
+- Files: FileNotFoundError, PermissionError, OSError
+- Business Logic: InsufficientFundsError, DuplicateEntryError, RateLimitError
+
+## Files
+- `/utils/smart_error_handler.py` - Main implementation
+- `/features/safe_refactoring/claude/error_handler_example.py` - Usage examples
+- `/features/safe_refactoring/claude/dashboard_routes_upgraded_example.py` - Real route example
+
+## Integration Status
+- [ ] Routes to upgrade: 183 generic exception handlers found
+- [ ] Priority routes: admin_routes, dashboard_routes, payment_coordinator
+- [ ] Logging migration: 56 basic logs to convert to structured
+
+## Benefits
+- **For Sonnet**: Clear error context for debugging
+- **For Grok**: Consistent API error responses
+- **For GPT-5**: Predictable error formats for frontend
+- **For Tyler**: Better monitoring and tracking
+
+## Next Steps
+1. Gradually upgrade routes to use @error_handler.safe_route
+2. Convert print() and basic logging to structured logging
+3. Add custom error types for business logic
+4. Create error monitoring dashboard

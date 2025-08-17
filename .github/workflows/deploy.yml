@@ -1,0 +1,67 @@
+name: Deploy CORA to Production
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch: # Allow manual deployment
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Deploy to DigitalOcean Droplet
+      uses: appleboy/ssh-action@v1.0.3
+      with:
+        host: ${{ secrets.DROPLET_IP }}
+        username: ${{ secrets.DROPLET_USER }}
+        key: ${{ secrets.SSH_PRIVATE_KEY }}
+        port: ${{ secrets.SSH_PORT }}
+        script: |
+          echo "🚀 Starting CORA deployment..."
+          
+          # Navigate to CORA directory
+          cd /opt/cora
+          
+          # Pull latest changes
+          echo "📥 Pulling latest changes from GitHub..."
+          git pull origin main
+          
+          # Generate production environment if needed
+          if [ ! -f .env.production ]; then
+            echo "🔐 Generating production environment..."
+            python3 tools/generate_production_env.py
+          fi
+          
+          # Deploy with Docker Compose
+          echo "🐳 Deploying with Docker Compose..."
+          docker-compose -f deployment/docker-compose.production.yml down
+          docker-compose -f deployment/docker-compose.production.yml up -d --build
+          
+          # Run database migrations
+          echo "🗄️ Running database migrations..."
+          docker-compose -f deployment/docker-compose.production.yml exec -T cora_app python -m alembic upgrade head || echo "No migrations needed"
+          
+          # Wait for services to start
+          echo "⏳ Waiting for services to start..."
+          sleep 30
+          
+          # Check service health
+          echo "🏥 Checking service health..."
+          docker-compose -f deployment/docker-compose.production.yml ps
+          
+          # Test website
+          echo "🌐 Testing website..."
+          curl -f https://coraai.tech/health || echo "Health check failed"
+          
+          echo "✅ CORA deployment completed!"
+          
+    - name: Deployment Status
+      run: |
+        echo "🎉 CORA has been deployed to production!"
+        echo "🌐 Website: https://coraai.tech"
+        echo "📊 Monitoring: https://coraai.tech:3000"
+        echo "📚 API Docs: https://coraai.tech/docs" 

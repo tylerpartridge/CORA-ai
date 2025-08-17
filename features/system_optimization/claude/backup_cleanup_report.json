@@ -1,0 +1,22 @@
+{
+  "timestamp": "2025-08-10 00:01:49",
+  "dry_run": true,
+  "statistics": {
+    "total_files": 56,
+    "total_size": 24356085,
+    "kept_files": 55,
+    "kept_size": 24334737,
+    "removed_files": 1,
+    "removed_size": 21348
+  },
+  "policy": {
+    "keep_recent": "7 days",
+    "keep_daily": "30 days",
+    "keep_weekly": "90 days",
+    "keep_monthly": "1 year",
+    "keep_yearly": "forever"
+  },
+  "files_kept": 55,
+  "files_removed": 1,
+  "space_saved_mb": 0.020359039306640625
+}

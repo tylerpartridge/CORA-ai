@@ -1,0 +1,97 @@
+{
+  "analysis_period": {
+    "start": "2025-07-15T21:24:07.189361",
+    "end": "2025-07-15T21:26:07.189361",
+    "duration_minutes": 2
+  },
+  "slow_queries": [],
+  "query_statistics": {
+    "1222976632242508955": {
+      "sql": "SELECT sqlite_version()",
+      "count": 1,
+      "total_time": 0.002010822296142578,
+      "avg_time": 0.002010822296142578,
+      "min_time": 0.002010822296142578,
+      "max_time": 0.002010822296142578
+    },
+    "6095760784046479403": {
+      "sql": "\n                        SELECT name, sql FROM sqlite_master \n                        WHERE type='index' AND sql IS NOT NULL\n                    ",
+      "count": 1,
+      "total_time": 0.0,
+      "avg_time": 0.0,
+      "min_time": 0.0,
+      "max_time": 0
+    }
+  },
+  "index_recommendations": [
+    {
+      "table": "expenses",
+      "index_name": "idx_expenses_user_id_expense_date",
+      "columns": [
+        "user_id",
+        "expense_date"
+      ],
+      "type": "composite",
+      "priority": "high",
+      "description": "User expenses by date range",
+      "reason": "Most common query pattern for user dashboards",
+      "sql": "CREATE INDEX idx_expenses_user_id_expense_date ON expenses (user_id, expense_date);"
+    },
+    {
+      "table": "expenses",
+      "index_name": "idx_expenses_user_id_category_id",
+      "columns": [
+        "user_id",
+        "category_id"
+      ],
+      "type": "composite",
+      "priority": "medium",
+      "description": "Category filtering",
+      "reason": "Frequently used for expense categorization",
+      "sql": "CREATE INDEX idx_expenses_user_id_category_id ON expenses (user_id, category_id);"
+    },
+    {
+      "table": "expenses",
+      "index_name": "idx_expenses_vendor",
+      "columns": [
+        "vendor"
+      ],
+      "type": "single",
+      "priority": "medium",
+      "description": "Vendor searches",
+      "reason": "Used for vendor-based expense filtering",
+      "sql": "CREATE INDEX idx_expenses_vendor ON expenses (vendor);"
+    },
+    {
+      "table": "users",
+      "index_name": "idx_users_is_active",
+      "columns": [
+        "is_active"
+      ],
+      "type": "single",
+      "priority": "medium",
+      "description": "Active user queries",
+      "reason": "Used for user management and analytics",
+      "sql": "CREATE INDEX idx_users_is_active ON users (is_active);"
+    },
+    {
+      "table": "users",
+      "index_name": "idx_users_created_at",
+      "columns": [
+        "created_at"
+      ],
+      "type": "single",
+      "priority": "low",
+      "description": "User creation date analytics",
+      "reason": "Used for user growth analytics",
+      "sql": "CREATE INDEX idx_users_created_at ON users (created_at);"
+    }
+  ],
+  "summary": {
+    "total_queries": 2,
+    "slow_queries": 0,
+    "average_query_time": 0.001005411148071289,
+    "slowest_query_time": 0.002010822296142578,
+    "fastest_query_time": 0.0
+  }
+}

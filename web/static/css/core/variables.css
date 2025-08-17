@@ -1,0 +1,47 @@
+/* CORA Design System - Core Variables */
+/* Single source of truth for all colors, fonts, and spacing */
+
+:root {
+    /* Construction Theme Colors */
+    --construction-orange: #FF9800;
+    --construction-blue: #1976D2;
+    --construction-green: #69F0AE;
+    --construction-dark: #1a1a1a;
+    --construction-grey: #2d3748;
+    --construction-light-grey: #e2e8f0;
+    
+    /* Semantic Colors */
+    --primary-color: var(--construction-orange);
+    --secondary-color: var(--construction-blue);
+    --success-color: var(--construction-green);
+    --background-color: var(--construction-dark);
+    --text-color: var(--construction-light-grey);
+    --border-color: var(--construction-orange);
+    
+    /* Typography */
+    --font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    --font-size-base: 16px;
+    --line-height-base: 1.6;
+    
+    /* Spacing */
+    --spacing-xs: 0.25rem;
+    --spacing-sm: 0.5rem;
+    --spacing-md: 1rem;
+    --spacing-lg: 1.5rem;
+    --spacing-xl: 2rem;
+    --spacing-xxl: 3rem;
+    
+    /* Layout */
+    --nav-height: 80px;
+    --container-max-width: 1200px;
+    
+    /* Borders & Shadows */
+    --border-radius: 4px;
+    --box-shadow: 0 4px 15px rgba(255, 152, 0, 0.4);
+    --box-shadow-dark: 0 2px 4px rgba(0, 0, 0, 0.2);
+    
+    /* Z-index Scale */
+    --z-nav: 1000;
+    --z-modal: 2000;
+    --z-tooltip: 3000;
+}

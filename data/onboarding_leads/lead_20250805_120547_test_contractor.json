@@ -1,0 +1,29 @@
+{
+  "userData": {
+    "name": "Test Contractor",
+    "businessType": [
+      "Construction"
+    ],
+    "yearsInBusiness": "3-5 years",
+    "businessSize": "5-10 employees",
+    "serviceArea": "Local (within 50 miles)",
+    "customerType": "Residential homeowners",
+    "trackingMethod": "Spreadsheets and receipts",
+    "mainChallenge": "Time management",
+    "busySeason": "Spring and Summer",
+    "businessGoal": "Increase efficiency and profitability",
+    "email": "test_user_1754395544@example.com",
+    "fullConversation": [
+      {
+        "role": "user",
+        "content": "Hi CORA"
+      },
+      {
+        "role": "assistant",
+        "content": "Hello! I'm here to help with your business."
+      }
+    ]
+  },
+  "completedAt": "2025-08-05T09:35:47Z",
+  "savedAt": "2025-08-05T12:05:47.050857"
+}

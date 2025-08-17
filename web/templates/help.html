@@ -1,0 +1,471 @@
+{% extends "base_public.html" %}
+
+{% block page_title %}Help Center - CORA | Support & Documentation{% endblock %}
+
+{% block page_description %}Get help with CORA. Find answers to common questions, tutorials, and support resources for construction business management.{% endblock %}
+
+{% block page_css %}
+    <style>
+        /* Main Content */
+        .content-section {
+            min-height: 100vh;
+            padding: 120px 20px 80px;
+            background: linear-gradient(180deg, #1a1a1a 0%, #2d3748 50%, #1a1a1a 100%);
+        }
+        
+        /* Page Header */
+        .page-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+        
+        .page-header h1 {
+            color: #ffffff;
+            font-size: 3rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 1rem;
+        }
+        
+        .page-header p {
+            color: #a0aec0;
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        /* Search Section */
+        .search-section {
+            background: rgba(255, 152, 0, 0.05);
+            border: 1px solid rgba(255, 152, 0, 0.2);
+            border-radius: 16px;
+            padding: 3rem;
+            margin: 4rem 0;
+            text-align: center;
+        }
+        
+        .search-form {
+            display: flex;
+            gap: 1rem;
+            max-width: 600px;
+            margin: 2rem auto 0;
+        }
+        
+        .search-input {
+            flex: 1;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 152, 0, 0.3);
+            border-radius: 8px;
+            padding: 1rem;
+            color: #ffffff;
+            font-size: 1rem;
+        }
+        
+        .search-input::placeholder {
+            color: #a0aec0;
+        }
+        
+        /* Help Categories */
+        .help-categories {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 4rem 0;
+        }
+        
+        .help-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 152, 0, 0.2);
+            border-radius: 12px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+        }
+        
+        .help-card:hover {
+            transform: translateY(-5px);
+            border-color: #FF9800;
+            box-shadow: 0 10px 30px rgba(255, 152, 0, 0.2);
+        }
+        
+        .help-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #FF9800, #F57C00);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+            color: #1a1a1a;
+        }
+        
+        .help-card h3 {
+            color: #ffffff;
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+        
+        .help-card p {
+            color: #a0aec0;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+        
+        .help-links {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .help-links li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .help-links a {
+            color: #FF9800;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .help-links a:hover {
+            color: #F57C00;
+        }
+        
+        /* FAQ Section */
+        .faq-section {
+            margin: 4rem 0;
+        }
+        
+        .faq-item {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 152, 0, 0.2);
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            overflow: hidden;
+        }
+        
+        .faq-question {
+            background: rgba(255, 152, 0, 0.1);
+            padding: 1.5rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background 0.3s ease;
+        }
+        
+        .faq-question:hover {
+            background: rgba(255, 152, 0, 0.2);
+        }
+        
+        .faq-question h4 {
+            color: #ffffff;
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin: 0;
+        }
+        
+        .faq-toggle {
+            color: #FF9800;
+            font-size: 1.2rem;
+            transition: transform 0.3s ease;
+        }
+        
+        .faq-answer {
+            padding: 0 1.5rem;
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .faq-answer.active {
+            padding: 1.5rem;
+            max-height: 500px;
+        }
+        
+        .faq-answer p {
+            color: #a0aec0;
+            line-height: 1.6;
+        }
+        
+        /* Contact Support */
+        .contact-support {
+            background: rgba(255, 152, 0, 0.05);
+            border: 1px solid rgba(255, 152, 0, 0.2);
+            border-radius: 16px;
+            padding: 3rem;
+            margin: 4rem 0;
+            text-align: center;
+        }
+        
+        .support-methods {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+        
+        .support-method {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 152, 0, 0.2);
+            border-radius: 8px;
+            padding: 1.5rem;
+        }
+        
+        .support-method h4 {
+            color: #FF9800;
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+        }
+        
+        .support-method p {
+            color: #a0aec0;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .page-header h1 {
+                font-size: 2rem;
+            }
+            
+            .help-categories {
+                grid-template-columns: 1fr;
+            }
+            
+            .search-form {
+                flex-direction: column;
+            }
+            
+            .support-methods {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+    <!-- Main Content -->
+    <div class="content-section">
+        <div class="container">
+            <!-- Page Header -->
+            <div class="page-header">
+                <h1>Help Center</h1>
+                <p>Find answers to your questions, learn how to use CORA effectively, and get the support you need.</p>
+            </div>
+
+            <!-- Search Section -->
+            <div class="search-section">
+                <h2 style="color: #ffffff; margin-bottom: 1rem;">What can we help you with?</h2>
+                <form class="search-form">
+                    <input type="text" class="search-input" placeholder="Search for help articles, tutorials, or FAQs..." required>
+                    <button type="submit" class="btn-construction">Search</button>
+                </form>
+            </div>
+
+            <!-- Help Categories -->
+            <div class="help-categories">
+                <div class="help-card">
+                    <div class="help-icon">
+                        <i class="fas fa-rocket"></i>
+                    </div>
+                    <h3>Getting Started</h3>
+                    <p>New to CORA? Learn the basics and set up your account for success.</p>
+                    <ul class="help-links">
+                        <li><a href="#">Quick Start Guide</a></li>
+                        <li><a href="#">Account Setup</a></li>
+                        <li><a href="#">First Project Setup</a></li>
+                        <li><a href="#">Importing Data</a></li>
+                    </ul>
+                </div>
+
+                <div class="help-card">
+                    <div class="help-icon">
+                        <i class="fas fa-calculator"></i>
+                    </div>
+                    <h3>Job Costing</h3>
+                    <p>Master job costing and profit tracking with our comprehensive guides.</p>
+                    <ul class="help-links">
+                        <li><a href="#">Creating Job Estimates</a></li>
+                        <li><a href="#">Tracking Actual Costs</a></li>
+                        <li><a href="#">Profit Analysis</a></li>
+                        <li><a href="#">Change Orders</a></li>
+                    </ul>
+                </div>
+
+                <div class="help-card">
+                    <div class="help-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3>Reports & Analytics</h3>
+                    <p>Understand your business performance with detailed reports and insights.</p>
+                    <ul class="help-links">
+                        <li><a href="#">Profit & Loss Reports</a></li>
+                        <li><a href="#">Cash Flow Analysis</a></li>
+                        <li><a href="#">Job Performance Metrics</a></li>
+                        <li><a href="#">Custom Reports</a></li>
+                    </ul>
+                </div>
+
+                <div class="help-card">
+                    <div class="help-icon">
+                        <i class="fas fa-plug"></i>
+                    </div>
+                    <h3>Integrations</h3>
+                    <p>Connect CORA with your existing tools and streamline your workflow.</p>
+                    <ul class="help-links">
+                        <li><a href="#">QuickBooks Integration</a></li>
+                        <li><a href="#">Stripe Payment Processing</a></li>
+                        <li><a href="#">Plaid Banking</a></li>
+                        <li><a href="#">API Documentation</a></li>
+                    </ul>
+                </div>
+
+                <div class="help-card">
+                    <div class="help-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3>Team Management</h3>
+                    <p>Manage your team, permissions, and collaboration effectively.</p>
+                    <ul class="help-links">
+                        <li><a href="#">Adding Team Members</a></li>
+                        <li><a href="#">Role Permissions</a></li>
+                        <li><a href="#">Team Collaboration</a></li>
+                        <li><a href="#">Client Access</a></li>
+                    </ul>
+                </div>
+
+                <div class="help-card">
+                    <div class="help-icon">
+                        <i class="fas fa-cog"></i>
+                    </div>
+                    <h3>Account Settings</h3>
+                    <p>Customize your account, billing, and preferences to match your needs.</p>
+                    <ul class="help-links">
+                        <li><a href="#">Profile Settings</a></li>
+                        <li><a href="#">Billing & Subscriptions</a></li>
+                        <li><a href="#">Security Settings</a></li>
+                        <li><a href="#">Data Export</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- FAQ Section -->
+            <div class="faq-section">
+                <h2 style="color: #ffffff; text-align: center; margin-bottom: 3rem;">Frequently Asked Questions</h2>
+                
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        <h4>How does CORA calculate job profitability?</h4>
+                        <span class="faq-toggle">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>CORA calculates job profitability by comparing your estimated costs and revenue with actual costs and revenue. We track all expenses, labor costs, materials, and overhead, then provide real-time profit margins and alerts when projects are underperforming.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        <h4>Can I import data from my existing accounting software?</h4>
+                        <span class="faq-toggle">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Yes! CORA integrates with QuickBooks, Xero, and other popular accounting software. You can also import CSV files or connect your bank accounts directly through Plaid for automatic transaction syncing.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        <h4>How secure is my financial data?</h4>
+                        <span class="faq-toggle">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Your data is protected with bank-level encryption (AES-256), SOC 2 Type II compliance, and real-time security monitoring. We never share your data with third parties and provide complete audit trails for all account activity.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        <h4>What if I need to cancel my subscription?</h4>
+                        <span class="faq-toggle">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>You can cancel your subscription at any time from your account settings. We'll export all your data for you, and you can continue accessing your account until the end of your billing period.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        <h4>Do you offer phone support?</h4>
+                        <span class="faq-toggle">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Yes! Premium and Enterprise customers get priority phone support. All customers can reach us via email, live chat, or schedule a video call with our construction business experts.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        <h4>Can I use CORA on my mobile device?</h4>
+                        <span class="faq-toggle">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Absolutely! CORA is fully responsive and works great on smartphones and tablets. You can track job progress, view reports, and manage your business from anywhere.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Contact Support -->
+            <div class="contact-support">
+                <h2 style="color: #ffffff; margin-bottom: 2rem;">Still Need Help?</h2>
+                <p style="color: #a0aec0; font-size: 1.1rem; margin-bottom: 2rem;">
+                    Our construction business experts are here to help you succeed.
+                </p>
+                
+                <div class="support-methods">
+                    <div class="support-method">
+                        <h4>Email Support</h4>
+                        <p>Get detailed responses within 24 hours</p>
+                        <a href="mailto:support@cora.com" class="btn-construction" style="font-size: 0.9rem; padding: 0.5rem 1rem;">Email Us</a>
+                    </div>
+                    
+                    <div class="support-method">
+                        <h4>Live Chat</h4>
+                        <p>Chat with our experts in real-time</p>
+                        <button class="btn-construction" style="font-size: 0.9rem; padding: 0.5rem 1rem;">Start Chat</button>
+                    </div>
+                    
+                    <div class="support-method">
+                        <h4>Video Call</h4>
+                        <p>Schedule a personalized demo or training</p>
+                        <a href="/contact" class="btn-construction" style="font-size: 0.9rem; padding: 0.5rem 1rem;">Schedule Call</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block page_scripts %}
+    <!-- Font Awesome -->
+    
+    
+    <!-- FAQ Toggle Script -->
+    <script>
+        function toggleFAQ(element) {
+            const answer = element.nextElementSibling;
+            const toggle = element.querySelector('.faq-toggle');
+            
+            if (answer.classList.contains('active')) {
+                answer.classList.remove('active');
+                toggle.textContent = '+';
+            } else {
+                answer.classList.add('active');
+                toggle.textContent = '−';
+            }
+        }
+    </script>
+{% endblock %}

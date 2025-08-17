@@ -1,0 +1,55 @@
+{
+  "userData": {
+    "name": "CORA",
+    "lastJobAmount": 1,
+    "biggestExpense": {
+      "category": "fuel_vehicle",
+      "title": "Fuel & Vehicle",
+      "amount": 400
+    },
+    "calculatedSavings": {
+      "monthly": 600,
+      "annual": 7200
+    },
+    "fullConversation": [
+      {
+        "role": "assistant",
+        "content": "Hey! I'm CORA, and I'm going to help you see exactly how much profit you're leaving on the table. Takes about 3 minutes. First - what should I call you?"
+      },
+      {
+        "role": "user",
+        "content": "Tyler"
+      },
+      {
+        "role": "assistant",
+        "content": "Great, Tyler! Now, what type of construction work do you do? (select all that apply) [business_types]"
+      },
+      {
+        "role": "user",
+        "content": "Plumbing, Remodeling, Concrete, Painting and Framing"
+      },
+      {
+        "role": "assistant",
+        "content": "Great selection, Tyler! Now, let me understand your business a bit. About how many jobs do you complete in a typical month?"
+      },
+      {
+        "role": "user",
+        "content": "1"
+      },
+      {
+        "role": "assistant",
+        "content": "Now, here's where it gets interesting. What's your biggest regular business expense? [expense_categories]"
+      },
+      {
+        "role": "user",
+        "content": "Fuel & Vehicle"
+      },
+      {
+        "role": "assistant",
+        "content": "I see you spend about $[amount] on fuel monthly. That's a $[amount * 0.25] tax deduction every month! That's $[monthly * 12] back in your pocket every year!\n\nAnd that's just ONE expense category. Here's what else you're probably missing:\n1. Tools & Equipment\n2. Materials\n3. Insurance\n4. Subcontractor Payments\n\nReady to stop leaving money on the table? I'll help you track ALL of these automatically.\nLet's get your dashboard set up and start finding YOUR money! [complete_onboarding]"
+      }
+    ]
+  },
+  "completedAt": "2025-08-01T19:46:23.996Z",
+  "savedAt": "2025-08-01T19:46:23.996822"
+}

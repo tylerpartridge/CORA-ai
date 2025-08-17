@@ -1,0 +1,238 @@
+{% extends "base_public.html" %}
+
+{% block page_title %}Construction Business Blog | CORA - Expert Tips for Contractors{% endblock %}
+{% block page_description %}Expert insights on construction profit tracking, cash flow management, and technology tips for contractors. Learn how to run a more profitable construction business.{% endblock %}
+
+{% block page_css %}
+<style>
+    .blog-hero {
+        background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+        padding: 4rem 0;
+        margin-bottom: 3rem;
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .blog-hero::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-image: 
+            repeating-linear-gradient(45deg, transparent, transparent 35px, rgba(255,152,0,0.03) 35px, rgba(255,152,0,0.03) 70px);
+        pointer-events: none;
+    }
+    
+    .blog-card {
+        background: rgba(45, 55, 72, 0.95);
+        border: 2px solid rgba(255,152,0,0.2);
+        border-radius: 8px;
+        padding: 2rem;
+        margin-bottom: 2rem;
+        transition: all 0.3s ease;
+    }
+    
+    .blog-card:hover {
+        border-color: #FF9800;
+        transform: translateY(-4px);
+        box-shadow: 0 10px 30px rgba(255,152,0,0.3);
+    }
+    
+    .blog-date {
+        color: #FF9800;
+        font-size: 0.875rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+    
+    .blog-title {
+        color: #ffffff;
+        font-size: 1.75rem;
+        font-weight: 700;
+        margin: 1rem 0;
+        line-height: 1.3;
+    }
+    
+    .blog-excerpt {
+        color: #a0aec0;
+        line-height: 1.6;
+        margin-bottom: 1.5rem;
+    }
+    
+    .read-more {
+        color: #FF9800;
+        font-weight: 600;
+        text-decoration: none;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        display: inline-flex;
+        align-items: center;
+        transition: all 0.3s ease;
+    }
+    
+    .read-more:hover {
+        color: #F57C00;
+        transform: translateX(4px);
+    }
+    
+    .read-more::after {
+        content: '→';
+        margin-left: 0.5rem;
+        transition: transform 0.3s ease;
+    }
+    
+    .read-more:hover::after {
+        transform: translateX(4px);
+    }
+    
+    .blog-tag {
+        display: inline-block;
+        background: rgba(255,152,0,0.1);
+        color: #FF9800;
+        padding: 0.25rem 0.75rem;
+        border-radius: 4px;
+        font-size: 0.75rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        margin-right: 0.5rem;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<!-- Blog Hero Section -->
+<section class="blog-hero">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto text-center">
+                <h1 style="color: #ffffff; font-size: 3rem; font-weight: 800; margin-bottom: 1rem;">
+                    Construction Business 
+                    <span style="color: #FF9800;">Blog</span>
+                </h1>
+                <p style="color: #a0aec0; font-size: 1.25rem;">
+                    Expert tips to help contractors track profits, manage cash flow, and grow their business
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Blog Posts -->
+<section class="py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto">
+                {% if posts %}
+                    {% for post in posts %}
+                    <article class="blog-card">
+                        <div class="blog-date">{{ post.date }}</div>
+                        <h2 class="blog-title">
+                            <a href="/blog/{{ post.slug }}" style="color: inherit; text-decoration: none;">
+                                {{ post.title }}
+                            </a>
+                        </h2>
+                        <div class="mb-3">
+                            {% for tag in post.tags %}
+                            <span class="blog-tag">{{ tag }}</span>
+                            {% endfor %}
+                        </div>
+                        <p class="blog-excerpt">{{ post.excerpt }}</p>
+                        <a href="/blog/{{ post.slug }}" class="read-more">Read Full Article</a>
+                    </article>
+                    {% endfor %}
+                {% else %}
+                    <!-- Fallback content if no posts are passed -->
+                    <article class="blog-card">
+                        <div class="blog-date">December 15, 2024</div>
+                        <h2 class="blog-title">
+                            <a href="/blog/5-budget-killers-every-contractor-misses" style="color: inherit; text-decoration: none;">
+                                5 Hidden Budget Killers Every Contractor Misses
+                            </a>
+                        </h2>
+                        <div class="mb-3">
+                            <span class="blog-tag">Profit Tracking</span>
+                            <span class="blog-tag">Cost Management</span>
+                        </div>
+                        <p class="blog-excerpt">
+                            Most contractors lose 15-20% of their profits to these hidden costs. Learn how to identify and eliminate 
+                            the budget killers that are silently eating away at your bottom line.
+                        </p>
+                        <a href="/blog/5-budget-killers-every-contractor-misses" class="read-more">Read Full Article</a>
+                    </article>
+                    
+                    <article class="blog-card">
+                        <div class="blog-date">December 10, 2024</div>
+                        <h2 class="blog-title">
+                            <a href="/blog/voice-input-construction-game-changer" style="color: inherit; text-decoration: none;">
+                                Why Voice Input is a Game-Changer for Construction
+                            </a>
+                        </h2>
+                        <div class="mb-3">
+                            <span class="blog-tag">Technology</span>
+                            <span class="blog-tag">Efficiency</span>
+                        </div>
+                        <p class="blog-excerpt">
+                            Typing with gloves? Forget it. See how voice-activated expense tracking is revolutionizing 
+                            how contractors manage their finances on the job site.
+                        </p>
+                        <a href="/blog/voice-input-construction-game-changer" class="read-more">Read Full Article</a>
+                    </article>
+                    
+                    <article class="blog-card">
+                        <div class="blog-date">December 5, 2024</div>
+                        <h2 class="blog-title">
+                            <a href="/blog/real-time-tracking-saved-my-construction-business" style="color: inherit; text-decoration: none;">
+                                How Real-Time Profit Tracking Saved My Construction Business
+                            </a>
+                        </h2>
+                        <div class="mb-3">
+                            <span class="blog-tag">Case Study</span>
+                            <span class="blog-tag">Success Story</span>
+                        </div>
+                        <p class="blog-excerpt">
+                            A Texas contractor shares how switching from spreadsheets to real-time tracking helped him 
+                            identify $50,000 in hidden losses and turn his business around.
+                        </p>
+                        <a href="/blog/real-time-tracking-saved-my-construction-business" class="read-more">Read Full Article</a>
+                    </article>
+                {% endif %}
+                
+                <!-- Newsletter CTA -->
+                <div class="blog-card" style="background: linear-gradient(135deg, rgba(255,152,0,0.1) 0%, rgba(245,124,0,0.05) 100%); border-color: #FF9800;">
+                    <h3 style="color: #FF9800; font-size: 1.5rem; font-weight: 700; margin-bottom: 1rem;">
+                        Get Weekly Construction Business Tips
+                    </h3>
+                    <p style="color: #e2e8f0; margin-bottom: 1.5rem;">
+                        Join 5,000+ contractors getting actionable insights to boost their profits.
+                    </p>
+                    <form class="d-flex gap-2">
+                        <input type="email" 
+                               placeholder="your@email.com" 
+                               style="flex: 1; background: rgba(45, 55, 72, 0.95); border: 1px solid rgba(255,152,0,0.3); padding: 0.75rem 1rem; border-radius: 4px; color: #ffffff;">
+                        <button type="submit" class="btn-construction">Subscribe</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block page_scripts %}
+<script>
+// Add smooth scroll for anchor links
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+            target.scrollIntoView({ behavior: 'smooth' });
+        }
+    });
+});
+</script>
+{% endblock %}

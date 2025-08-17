@@ -1,0 +1,93 @@
+{% extends "base_public.html" %}
+
+{% block page_title %}Security - CORA | Enterprise-Grade Protection for Construction Data{% endblock %}
+{% block page_description %}CORA's security features protect your construction business data with bank-level encryption, SOC 2 compliance, and real-time threat monitoring.{% endblock %}
+
+{% block page_css %}
+<style>
+    :root {
+        --construction-orange: #FF9800;
+        --construction-blue: #1976D2;
+        --construction-green: #69F0AE;
+        --construction-dark: #1a1a1a;
+        --construction-grey: #2d3748;
+    }
+    body { background: #1a1a1a; color: #e2e8f0; }
+    .content-section { min-height: 100vh; padding: 40px 20px; background: linear-gradient(180deg, #1a1a1a 0%, #2d3748 50%, #1a1a1a 100%); }
+    .page-header { text-align: center; margin-bottom: 4rem; }
+    .page-header h1 { color: #ffffff; font-size: 3rem; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 1rem; }
+    .page-header p { color: #a0aec0; font-size: 1.2rem; max-width: 600px; margin: 0 auto; }
+    .security-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; margin: 4rem 0; }
+    .security-card { background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 152, 0, 0.2); border-radius: 12px; padding: 2rem; transition: all 0.3s ease; }
+    .security-card:hover { transform: translateY(-5px); border-color: var(--construction-orange); box-shadow: 0 10px 30px rgba(255, 152, 0, 0.2); }
+    .security-icon { width: 60px; height: 60px; background: linear-gradient(135deg, #FF9800, #F57C00); border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 1.5rem; font-size: 1.5rem; color: #1a1a1a; }
+    .security-card h3 { color: #ffffff; font-size: 1.5rem; font-weight: 600; margin-bottom: 1rem; }
+    .security-card p { color: #a0aec0; line-height: 1.6; }
+    .compliance-section { background: rgba(255, 152, 0, 0.05); border: 1px solid rgba(255, 152, 0, 0.2); border-radius: 16px; padding: 3rem; margin: 4rem 0; text-align: center; }
+    .compliance-badges { display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap; margin: 2rem 0; }
+    .compliance-badge { background: rgba(255, 255, 255, 0.1); border: 2px solid #FF9800; border-radius: 8px; padding: 1rem 2rem; color: #FF9800; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; }
+    .cta-section { text-align: center; margin: 4rem 0; }
+    .btn-construction { background: #FF9800; color: #1a1a1a; padding: 1rem 2rem; border: none; border-radius: 8px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; text-decoration: none; display: inline-block; transition: all 0.3s ease; }
+    .btn-construction:hover { background: #F57C00; transform: translateY(-2px); color: #1a1a1a; text-decoration: none; }
+    @media (max-width: 768px) { .page-header h1 { font-size: 2rem; } .security-grid { grid-template-columns: 1fr; } .compliance-badges { flex-direction: column; align-items: center; } }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="content-section">
+    <div class="container">
+        <div class="page-header">
+            <h1>Security First</h1>
+            <p>Your construction business data is protected with enterprise-grade security, bank-level encryption, and real-time threat monitoring.</p>
+        </div>
+        <div class="security-grid">
+            <div class="security-card">
+                <div class="security-icon"><i class="fas fa-shield-alt"></i></div>
+                <h3>Bank-Level Encryption</h3>
+                <p>All data is encrypted with AES-256 encryption both in transit and at rest. Your financial information is protected with the same security standards used by major banks.</p>
+            </div>
+            <div class="security-card">
+                <div class="security-icon"><i class="fas fa-user-shield"></i></div>
+                <h3>Multi-Factor Authentication</h3>
+                <p>Secure your account with SMS, email, or authenticator app verification. Multiple layers of protection ensure only you can access your data.</p>
+            </div>
+            <div class="security-card">
+                <div class="security-icon"><i class="fas fa-eye"></i></div>
+                <h3>Real-Time Monitoring</h3>
+                <p>24/7 security monitoring detects and prevents unauthorized access attempts. Instant alerts notify you of any suspicious activity.</p>
+            </div>
+            <div class="security-card">
+                <div class="security-icon"><i class="fas fa-database"></i></div>
+                <h3>Secure Data Centers</h3>
+                <p>Your data is stored in SOC 2 Type II certified data centers with redundant backups, physical security, and environmental controls.</p>
+            </div>
+            <div class="security-card">
+                <div class="security-icon"><i class="fas fa-lock"></i></div>
+                <h3>Access Controls</h3>
+                <p>Granular permission system allows you to control who can view and edit your financial data. Role-based access ensures team members only see what they need.</p>
+            </div>
+            <div class="security-card">
+                <div class="security-icon"><i class="fas fa-history"></i></div>
+                <h3>Audit Trails</h3>
+                <p>Complete audit logs track every action taken in your account. Know exactly who accessed what data and when for complete transparency.</p>
+            </div>
+        </div>
+        <div class="compliance-section">
+            <h2 style="color: #ffffff; margin-bottom: 2rem;">Compliance &amp; Certifications</h2>
+            <p style="color: #a0aec0; font-size: 1.1rem; margin-bottom: 2rem;">CORA meets the highest security standards required by construction industry regulations and financial institutions.</p>
+            <div class="compliance-badges">
+                <div class="compliance-badge">SOC 2 Type II</div>
+                <div class="compliance-badge">GDPR Compliant</div>
+                <div class="compliance-badge">CCPA Compliant</div>
+                <div class="compliance-badge">PCI DSS</div>
+                <div class="compliance-badge">HIPAA Ready</div>
+            </div>
+        </div>
+        <div class="cta-section">
+            <h2 style="color: #ffffff; margin-bottom: 1rem;">Ready to Secure Your Business?</h2>
+            <p style="color: #a0aec0; margin-bottom: 2rem;">Join thousands of contractors who trust CORA with their financial data.</p>
+            <a href="/signup" class="btn-construction">Start Free Trial</a>
+        </div>
+    </div>
+</div>
+{% endblock %} 

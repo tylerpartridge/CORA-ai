@@ -1,0 +1,33 @@
+{
+  "timestamp": "2025-08-14T10:59:52.565716",
+  "health_percentage": 87,
+  "status": true,
+  "checks": {
+    "core_files": true,
+    "database": true,
+    "routes": false,
+    "templates": true,
+    "static_files": true,
+    "environment": true,
+    "security": true,
+    "activity": true
+  },
+  "issues": [
+    "Route check failed: No module named 'onboarding_chat_routes'"
+  ],
+  "warnings": [
+    "Missing templates: ['dashboard.html']"
+  ],
+  "successes": [
+    "Core file exists: app.py",
+    "Core file exists: models.py",
+    "Core file exists: config.py",
+    "Core file exists: requirements.txt",
+    "Core file exists: cora.db",
+    "Database OK - Users: 23, Expenses: 150, Jobs: 3",
+    "Templates found: 23",
+    "Static files - CSS: 9, JS: 64",
+    "Security middleware files: 3/3",
+    "Recent activity: 150 expenses in last 30 days"
+  ]
+}

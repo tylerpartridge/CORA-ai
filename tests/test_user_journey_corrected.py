@@ -3,6 +3,13 @@ Integration Tests for Complete User Journey (CORRECTED)
 Tests the full flow: signup → login → add expense → categorize → export
 """
 
+import sys
+from pathlib import Path
+# Add parent directory to path for imports
+sys.path.insert(0, str(Path(__file__).parent.parent))
+# Fix import paths
+
+
 import pytest
 import json
 from fastapi.testclient import TestClient

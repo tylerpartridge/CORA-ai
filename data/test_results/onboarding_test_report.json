@@ -1,0 +1,114 @@
+{
+  "test_session": {
+    "timestamp": 1754396544.964427,
+    "total_tests": 17,
+    "passed": 15,
+    "failed": 2,
+    "warnings": 0,
+    "success_rate": 88.23529411764706
+  },
+  "detailed_results": [
+    {
+      "test": "Landing Page",
+      "status": "PASS",
+      "details": "Page loads with CORA branding",
+      "timestamp": 1754396506.772429
+    },
+    {
+      "test": "Onboarding Page",
+      "status": "PASS",
+      "details": "AI wizard loads correctly",
+      "timestamp": 1754396506.7878034
+    },
+    {
+      "test": "Endpoint /api/auth/register",
+      "status": "PASS",
+      "details": "Endpoint exists",
+      "timestamp": 1754396506.7997115
+    },
+    {
+      "test": "Endpoint /api/onboarding/complete",
+      "status": "PASS",
+      "details": "Endpoint exists",
+      "timestamp": 1754396506.8103971
+    },
+    {
+      "test": "Endpoint /api/onboarding/create-business-profile",
+      "status": "PASS",
+      "details": "Endpoint exists",
+      "timestamp": 1754396506.820624
+    },
+    {
+      "test": "CORA Chat API",
+      "status": "PASS",
+      "details": "API responds: Hey! I'm CORA, I'm going to help you squeeze every...",
+      "timestamp": 1754396507.7417276
+    },
+    {
+      "test": "Dashboard Auth Protection",
+      "status": "FAIL",
+      "details": "Error: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))",
+      "timestamp": 1754396507.7434664
+    },
+    {
+      "test": "Asset /static/js/onboarding-ai-wizard.js",
+      "status": "PASS",
+      "details": "Asset loads correctly",
+      "timestamp": 1754396537.1309211
+    },
+    {
+      "test": "Asset /static/css/onboarding-ai-wizard.css",
+      "status": "FAIL",
+      "details": "Status: 404",
+      "timestamp": 1754396537.140684
+    },
+    {
+      "test": "Asset /static/js/security.js",
+      "status": "PASS",
+      "details": "Asset loads correctly",
+      "timestamp": 1754396537.1491168
+    },
+    {
+      "test": "Test Data Load",
+      "status": "PASS",
+      "details": "Loaded Glen Day profile: Glen Day",
+      "timestamp": 1754396537.1491168
+    },
+    {
+      "test": "Onboarding Phase: greeting",
+      "status": "PASS",
+      "details": "User: Glen Day...",
+      "timestamp": 1754396538.2617118
+    },
+    {
+      "test": "Onboarding Phase: business_discovery",
+      "status": "PASS",
+      "details": "User: General Contractor, Remodeling...",
+      "timestamp": 1754396539.464513
+    },
+    {
+      "test": "Onboarding Phase: years_experience",
+      "status": "PASS",
+      "details": "User: Industry Veteran...",
+      "timestamp": 1754396541.2626915
+    },
+    {
+      "test": "Onboarding Phase: business_size",
+      "status": "PASS",
+      "details": "User: Growing Company...",
+      "timestamp": 1754396542.6644218
+    },
+    {
+      "test": "Onboarding Phase: main_challenge",
+      "status": "PASS",
+      "details": "User: Can't track profits, Paperwork...",
+      "timestamp": 1754396544.4638567
+    },
+    {
+      "test": "Full Onboarding Simulation",
+      "status": "PASS",
+      "details": "Completed Glen Day conversation flow",
+      "timestamp": 1754396544.964427
+    }
+  ]
+}

@@ -4,6 +4,13 @@ Test script for QuickBooks OAuth flow
 Run this to verify your QuickBooks app configuration
 """
 
+import sys
+from pathlib import Path
+# Add parent directory to path for imports
+sys.path.insert(0, str(Path(__file__).parent.parent))
+# Fix import paths
+
+
 import os
 import sys
 import base64

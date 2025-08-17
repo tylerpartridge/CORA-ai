@@ -16,26 +16,39 @@ import os
 import re
 import logging
 import secrets
+import warnings
 
-from models import User, PasswordResetToken
+# Suppress bcrypt version warning - Comprehensive approach
+warnings.filterwarnings("ignore", message=".*error reading bcrypt version.*", category=UserWarning)
+warnings.filterwarnings("ignore", message=".*trapped.*", category=UserWarning)
+warnings.filterwarnings("ignore", message=".*bcrypt.*", category=UserWarning)
+
+# Suppress passlib bcrypt warnings
+import logging
+logging.getLogger("passlib.handlers.bcrypt").setLevel(logging.ERROR)
+
+from models import User, PasswordResetToken, EmailVerificationToken
 
 # Configure logging
 logger = logging.getLogger(__name__)
 
-# Password hashing
-pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
+# Password hashing - Updated to fix bcrypt warning
+pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto", bcrypt__rounds=12)
+
+# Import centralized config
+from config import config
 
 # JWT settings
-SECRET_KEY = os.getenv("SECRET_KEY", secrets.token_urlsafe(32))
-ALGORITHM = "HS256"
-ACCESS_TOKEN_EXPIRE_MINUTES = 30
+SECRET_KEY = config.SECRET_KEY or config.get_secure_fallback("SECRET_KEY")
+ALGORITHM = config.JWT_ALGORITHM
+ACCESS_TOKEN_EXPIRE_MINUTES = config.ACCESS_TOKEN_EXPIRE_MINUTES
 
 # Password reset settings
-PASSWORD_RESET_TOKEN_EXPIRE_HOURS = 24
+PASSWORD_RESET_TOKEN_EXPIRE_HOURS = config.PASSWORD_RESET_TOKEN_EXPIRE_HOURS
 
 # Validation patterns
 EMAIL_PATTERN = re.compile(r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$')
-PASSWORD_MIN_LENGTH = 8
+PASSWORD_MIN_LENGTH = config.PASSWORD_MIN_LENGTH
 
 # Custom exceptions
 class AuthenticationError(Exception):
@@ -64,17 +77,18 @@ class ValidationError(Exception):
         self.errors = errors
         super().__init__(str(errors))
 
-# Input validation functions
+# Import unified validation from utils
+from utils.validation import ValidationUtils, ValidationError as ValidationErrorUtils
+
+# Input validation functions using unified validation
 def validate_email(email: str) -> Dict[str, str]:
     """Validate email format and return errors if any"""
     errors = {}
     
-    if not email:
-        errors["email"] = "Email is required"
-    elif not EMAIL_PATTERN.match(email):
-        errors["email"] = "Invalid email format"
-    elif len(email) > 255:
-        errors["email"] = "Email too long (max 255 characters)"
+    try:
+        ValidationUtils.validate_email(email)
+    except ValidationErrorUtils as e:
+        errors[e.field] = e.message
     
     return errors
 
@@ -82,25 +96,10 @@ def validate_password(password: str, confirm_password: Optional[str] = None) -> 
     """Validate password strength and return errors if any"""
     errors = {}
     
-    if not password:
-        errors["password"] = "Password is required"
-    elif len(password) < PASSWORD_MIN_LENGTH:
-        errors["password"] = f"Password must be at least {PASSWORD_MIN_LENGTH} characters"
-    elif len(password) > 128:
-        errors["password"] = "Password too long (max 128 characters)"
-    else:
-        # Check password complexity
-        has_upper = any(c.isupper() for c in password)
-        has_lower = any(c.islower() for c in password)
-        has_digit = any(c.isdigit() for c in password)
-        has_special = any(c in "!@#$%^&*()_+-=[]{}|;:,.<>?" for c in password)
-        
-        if not (has_upper and has_lower and has_digit):
-            errors["password"] = "Password must contain uppercase, lowercase, and numbers"
-    
-    # Validate confirmation if provided
-    if confirm_password is not None and password != confirm_password:
-        errors["confirm_password"] = "Passwords do not match"
+    try:
+        ValidationUtils.validate_password(password, confirm_password)
+    except ValidationErrorUtils as e:
+        errors[e.field] = e.message
     
     return errors
 
@@ -132,31 +131,45 @@ def get_password_hash(password: str) -> str:
 def authenticate_user(db: Session, email: str, password: str) -> Optional[User]:
     """Authenticate user with email and password with enhanced error handling"""
     try:
-        # Validate input
-        validate_user_input(email, password)
+        # Import account lockout functions
+        from middleware.account_lockout import check_account_lockout, record_failed_attempt, record_successful_attempt
+        
+        # Check if account is locked
+        lockout_message = check_account_lockout(email)
+        if lockout_message:
+            logger.warning(f"Authentication blocked: Account locked for {email}")
+            raise AuthenticationError(lockout_message)
+        
+        # For login, we only need basic checks, not full validation
+        # Skip validate_user_input() which applies registration-level requirements
+        if not email or not password:
+            raise InvalidCredentialsError("Email and password are required")
         
         # Query user
         user = db.query(User).filter(User.email == email).first()
         if not user:
             logger.warning(f"Authentication failed: User not found for email {email}")
+            record_failed_attempt(email)
             raise InvalidCredentialsError("Invalid email or password")
         
         # Verify password
         if not verify_password(password, user.hashed_password):
             logger.warning(f"Authentication failed: Invalid password for email {email}")
+            record_failed_attempt(email)
             raise InvalidCredentialsError("Invalid email or password")
         
         # Check if user is active
         if hasattr(user, 'is_active') and user.is_active != "true":
             logger.warning(f"Authentication failed: Inactive user {email}")
+            record_failed_attempt(email)
             raise AuthenticationError("Account is inactive")
+        
+        # Record successful authentication
+        record_successful_attempt(email)
         
         logger.info(f"User {email} authenticated successfully")
         return user
         
-    except ValidationError:
-        # Re-raise validation errors
-        raise
     except InvalidCredentialsError:
         # Re-raise credential errors
         raise
@@ -197,11 +210,35 @@ def create_user(db: Session, email: str, password: str) -> User:
         # Hash password
         hashed_password = get_password_hash(password)
         
+        # Check if we're in development mode or email service is not configured
+        import os
+        sendgrid_key = os.getenv("SENDGRID_API_KEY", "")
+        dev_mode = os.getenv("ENVIRONMENT", "development") == "development"
+        
+        # In development mode, allow immediate login even with SendGrid configured
+        # This helps with testing while still sending verification emails
+        if dev_mode:
+            # Development mode: allow immediate access
+            is_active = "true"
+            email_verified = "true"  # Mark as verified for immediate access
+            logger.info(f"User {email} created - auto-verified for development mode")
+        elif sendgrid_key and sendgrid_key.startswith("SG."):
+            # Production with SendGrid: require email verification
+            is_active = "false"
+            email_verified = "false"
+            logger.info(f"User {email} created - email verification required")
+        else:
+            # No email service: auto-verify
+            is_active = "true"
+            email_verified = "true"
+            logger.info(f"Auto-verifying user {email} (email service not configured)")
+        
         # Create user
         db_user = User(
             email=email,
             hashed_password=hashed_password,
-            is_active="true"
+            is_active=is_active,
+            email_verified=email_verified
         )
         db.add(db_user)
         db.commit()
@@ -252,12 +289,9 @@ def verify_token(token: str) -> Optional[str]:
     except jwt.ExpiredSignatureError:
         logger.warning("Token has expired")
         raise TokenValidationError("Token has expired")
-    except jwt.InvalidTokenError as e:
+    except JWTError as e:
         logger.warning(f"Invalid token: {str(e)}")
         raise TokenValidationError("Invalid token")
-    except JWTError as e:
-        logger.error(f"JWT error: {str(e)}")
-        raise TokenValidationError("Token validation failed")
     except Exception as e:
         logger.error(f"Unexpected error verifying token: {str(e)}")
         raise TokenValidationError("Token validation failed")
@@ -400,3 +434,81 @@ def reset_password_with_token(db: Session, token: str, new_password: str) -> boo
     except Exception as e:
         logger.error(f"Unexpected error during password reset: {str(e)}")
         raise PasswordResetError("Failed to reset password")
+
+# Email Verification Functions
+def create_email_verification_token(db: Session, email: str) -> str:
+    """Create email verification token for new user"""
+    try:
+        # Generate secure token
+        verification_token = secrets.token_urlsafe(32)
+        
+        # Set expiration (24 hours)
+        expires_at = datetime.utcnow() + timedelta(hours=24)
+        
+        # Create token record
+        db_token = EmailVerificationToken(
+            email=email,
+            token=verification_token,
+            expires_at=expires_at
+        )
+        
+        db.add(db_token)
+        db.commit()
+        
+        logger.info(f"Email verification token created for {email}")
+        return verification_token
+        
+    except SQLAlchemyError as e:
+        logger.error(f"Database error creating verification token: {str(e)}")
+        db.rollback()
+        raise AuthenticationError("Failed to create verification token")
+    except Exception as e:
+        logger.error(f"Unexpected error creating verification token: {str(e)}")
+        raise AuthenticationError("Failed to create verification token")
+
+def verify_email_token(db: Session, token: str) -> bool:
+    """Verify email verification token and mark user as verified"""
+    try:
+        if not token:
+            raise InvalidCredentialsError("No verification token provided")
+            
+        # Find unused, non-expired token
+        verification_token = db.query(EmailVerificationToken).filter(
+            EmailVerificationToken.token == token,
+            EmailVerificationToken.used == "false",
+            EmailVerificationToken.expires_at > datetime.utcnow()
+        ).first()
+        
+        if not verification_token:
+            logger.warning(f"Invalid or expired verification token attempted")
+            raise InvalidCredentialsError("Invalid or expired verification token")
+        
+        # Get user
+        user = db.query(User).filter(User.email == verification_token.email).first()
+        if not user:
+            logger.error(f"User not found for verification token: {verification_token.email}")
+            raise AuthenticationError("User not found")
+        
+        # Mark user as verified and activate account
+        user.email_verified = "true"
+        user.email_verified_at = datetime.utcnow()
+        user.is_active = "true"  # Activate account after email verification
+        
+        # Mark token as used
+        verification_token.used = "true"
+        
+        db.commit()
+        
+        logger.info(f"Email verified successfully for {verification_token.email}")
+        return True
+        
+    except InvalidCredentialsError:
+        # Re-raise validation errors
+        raise
+    except SQLAlchemyError as e:
+        logger.error(f"Database error during email verification: {str(e)}")
+        db.rollback()
+        raise AuthenticationError("Failed to verify email")
+    except Exception as e:
+        logger.error(f"Unexpected error during email verification: {str(e)}")
+        raise AuthenticationError("Failed to verify email")

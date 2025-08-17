@@ -1,0 +1,1173 @@
+{% extends "base_public.html" %}
+
+{% block page_title %}CORA Pricing - Construction Job Costing That Works{% endblock %}
+{% block page_description %}Simple, transparent pricing for contractors. Track jobs, control costs, boost profits. No BS pricing - see exactly what you get.{% endblock %}
+
+{% block page_css %}
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="/static/images/logos/cora-logo.png">
+
+    <!-- Construction Typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Custom CSS matching landing page -->
+    <style>
+        /* zoom controls styling is centralized; no page overrides */
+        
+        /* Logo styles */
+        .navbar-brand img {
+            transition: all 0.3s ease;
+            filter: brightness(0.9);
+        }
+        
+        .navbar-brand:hover img {
+            filter: brightness(1.1);
+            transform: scale(1.05);
+        }
+        
+        /* Remove nav-link overrides to let inline styles work */
+        
+        /* Button styles - remove !important to let inline styles work */
+        .btn-construction {
+            background: #FF9800;
+            color: #1a1a1a;
+            padding: 0.75rem 1.5rem;
+            font-weight: 700;
+            border-radius: 4px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            box-shadow: 0 4px 15px rgba(255,152,0,0.4);
+            border: none;
+        }
+        
+        .btn-construction:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255,152,0,0.5);
+            color: #1a1a1a;
+            background: #F57C00;
+        }
+        
+        .btn-construction-secondary {
+            padding: 0.75rem 2rem !important;
+            background: var(--industrial-blue) !important;
+            color: white !important;
+            border: none !important;
+            font-weight: 600 !important;
+            border-radius: 4px !important;
+            text-transform: uppercase !important;
+            letter-spacing: 0.5px !important;
+            box-shadow: 0 2px 10px rgba(25,118,210,0.3) !important;
+            transition: all 0.3s ease !important;
+        }
+        
+        .btn-construction-secondary:hover {
+            transform: translateY(-2px) !important;
+            background: var(--industrial-blue-hover) !important;
+            box-shadow: 0 4px 15px rgba(25,118,210,0.4) !important;
+        }
+        
+        /* Construction grid overlay */
+        .construction-grid {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: 
+                repeating-linear-gradient(0deg, transparent, transparent 50px, rgba(255,152,0,0.03) 50px, rgba(255,152,0,0.03) 51px),
+                repeating-linear-gradient(90deg, transparent, transparent 50px, rgba(255,152,0,0.03) 50px, rgba(255,152,0,0.03) 51px);
+            pointer-events: none;
+        }
+        
+        /* Pricing cards */
+        .pricing-card {
+            background: var(--dark-surface);
+            border-radius: 8px;
+            padding: 2rem;
+            position: relative;
+            transition: all 0.3s ease;
+            border: 2px solid rgba(255, 152, 0, 0.2);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .pricing-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(255, 152, 0, 0.3);
+        }
+        
+        .pricing-card-popular {
+            border: 3px solid var(--construction-orange);
+            transform: scale(1.05);
+            box-shadow: 0 8px 30px rgba(255, 152, 0, 0.4);
+        }
+        
+        .pricing-card-popular:hover {
+            transform: scale(1.05) translateY(-5px);
+            box-shadow: 0 12px 40px rgba(255, 152, 0, 0.6);
+        }
+        
+        /* Construction tape ribbon */
+        .construction-tape {
+            position: absolute;
+            top: 15px;
+            right: -30px;
+            background: #FFEB3B;
+            color: #000;
+            padding: 0.5rem 3rem;
+            transform: rotate(35deg);
+            font-weight: 700;
+            font-size: 0.8rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+            border: 2px dashed #000;
+        }
+        
+        /* Comparison table */
+        .comparison-table {
+            background: var(--dark-surface);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+        }
+        
+        .comparison-table th {
+            background: rgba(255, 152, 0, 0.1);
+            border-bottom: 2px solid var(--construction-orange);
+            padding: 1.5rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 700;
+        }
+        
+        .comparison-table td {
+            padding: 1rem 1.5rem;
+            border-bottom: 1px solid rgba(255, 152, 0, 0.1);
+        }
+        
+        /* ROI Calculator */
+        .calculator-input {
+            background: var(--dark-input);
+            padding: 1rem 1.5rem;
+            border: 2px solid rgba(255,152,0,0.3);
+            color: var(--text-primary);
+            border-radius: 4px;
+            font-size: 1.1rem;
+            width: 100%;
+            transition: all 0.3s ease;
+        }
+        
+        .calculator-input:focus {
+            background: rgba(45, 55, 72, 1);
+            border-color: var(--construction-orange);
+            box-shadow: 0 0 0 3px rgba(255,152,0,0.1);
+            outline: none;
+        }
+        
+        /* FAQ Accordion */
+        .accordion-button {
+            background: var(--dark-surface);
+            color: var(--text-primary);
+            font-weight: 600;
+            border: 2px solid rgba(255, 152, 0, 0.2);
+            padding: 1.25rem;
+        }
+        
+        .accordion-button:not(.collapsed) {
+            background: rgba(255, 152, 0, 0.1);
+            border-color: var(--construction-orange);
+            color: var(--construction-orange);
+        }
+        
+        .accordion-button:focus {
+            box-shadow: 0 0 0 3px rgba(255,152,0,0.1);
+        }
+        
+        .accordion-body {
+            background: var(--dark-surface);
+            border: 2px solid rgba(255, 152, 0, 0.2);
+            border-top: none;
+        }
+        
+        /* Success badge */
+        .success-badge {
+            display: inline-block;
+            background: var(--success-green);
+            color: var(--dark-bg);
+            padding: 0.25rem 1rem;
+            border-radius: 4px;
+            font-weight: 700;
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        /* Mobile responsive */
+        @media (max-width: 768px) {
+            .pricing-card-popular {
+                transform: none;
+            }
+            
+            .construction-tape {
+                font-size: 0.7rem;
+                padding: 0.5rem 2rem;
+            }
+            
+            .display-4 {
+                font-size: 2rem;
+            }
+            
+            h2 {
+                font-size: 1.75rem;
+            }
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+
+    <!-- Hero Section -->
+    <section style="background: linear-gradient(180deg, #1a1a1a 0%, #2d3748 100%); position: relative; overflow: hidden; padding-top: 2rem; padding-bottom: 4rem;">
+        <div class="construction-grid"></div>
+        
+        <div class="container position-relative">
+            <div class="text-center">
+                <h1 class="display-4 fw-bold mb-4" style="text-transform: uppercase; letter-spacing: 2px; text-shadow: 2px 2px 4px rgba(0,0,0,0.5);">
+                    Pricing Built for <span style="color: #FF9800;">Contractors</span>
+                </h1>
+                <p class="lead mb-4" style="font-size: 1.5rem; color: #e2e8f0;">
+                    No hidden fees. No per-user charges. No BS.
+                </p>
+                <div class="d-flex justify-content-center gap-4 flex-wrap mb-5">
+                    <div class="d-flex align-items-center">
+                        <span style="color: #69F0AE; font-size: 1.5rem; margin-right: 0.5rem;">✓</span>
+                        <span style="font-weight: 600;">30-Day Free Trial</span>
+                    </div>
+                    <div class="d-flex align-items-center">
+                        <span style="color: #69F0AE; font-size: 1.5rem; margin-right: 0.5rem;">✓</span>
+                        <span style="font-weight: 600;">No Credit Card Required</span>
+                    </div>
+                    <div class="d-flex align-items-center">
+                        <span style="color: #69F0AE; font-size: 1.5rem; margin-right: 0.5rem;">✓</span>
+                        <span style="font-weight: 600;">Cancel Anytime</span>
+                    </div>
+                </div>
+                
+                <!-- Trust badges -->
+                <div class="row justify-content-center g-4">
+                    <div class="col-auto">
+                        <div style="background: rgba(255, 152, 0, 0.1); border: 2px solid rgba(255, 152, 0, 0.3); padding: 1rem 2rem; border-radius: 4px;">
+                            <div style="font-size: 2rem; font-weight: 700; color: #FF9800;">6,847+</div>
+                            <div style="text-transform: uppercase; font-size: 0.875rem; letter-spacing: 1px;">Contractors Trust CORA</div>
+                        </div>
+                    </div>
+                    <div class="col-auto">
+                        <div style="background: rgba(25, 118, 210, 0.1); border: 2px solid rgba(25, 118, 210, 0.3); padding: 1rem 2rem; border-radius: 4px;">
+                            <div style="font-size: 2rem; font-weight: 700; color: #4db8ff;">$12.4M</div>
+                            <div style="text-transform: uppercase; font-size: 0.875rem; letter-spacing: 1px;">In Tracked Profit</div>
+                        </div>
+                    </div>
+                    <div class="col-auto">
+                        <div style="background: rgba(105, 240, 174, 0.1); border: 2px solid rgba(105, 240, 174, 0.3); padding: 1rem 2rem; border-radius: 4px;">
+                            <div style="font-size: 2rem; font-weight: 700; color: #69F0AE;">4.9★</div>
+                            <div style="text-transform: uppercase; font-size: 0.875rem; letter-spacing: 1px;">Average Rating</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Pricing Cards -->
+    <section style="background: linear-gradient(180deg, #2d3748 0%, #1a1a1a 100%); position: relative; padding: 5rem 0;">
+        <div class="construction-grid"></div>
+        
+        <div class="container position-relative">
+            <div class="row g-4 align-items-stretch">
+                <!-- SOLO Plan -->
+                <div class="col-md-4">
+                    <div class="pricing-card">
+                        <div class="text-center mb-4">
+                            <div style="width: 80px; height: 80px; margin: 0 auto 1.5rem; background: rgba(25, 118, 210, 0.1); border: 3px solid #1976D2; border-radius: 4px; display: flex; align-items: center; justify-content: center;">
+                                <span style="font-size: 2.5rem;">🔨</span>
+                            </div>
+                            <h3 style="color: #4db8ff; font-size: 2rem; margin-bottom: 0.5rem; text-transform: uppercase; font-weight: 700;">SOLO</h3>
+                            <p style="color: #e2e8f0; margin-bottom: 1.5rem; text-transform: uppercase; font-size: 0.9rem; letter-spacing: 1px;">
+                                One-Man Operations
+                            </p>
+                            <div class="price-display mb-3">
+                                <span style="font-size: 3.5rem; font-weight: 700; color: #ffffff;">$49</span>
+                                <span style="color: #e2e8f0; font-size: 1.2rem;">/month</span>
+                            </div>
+                            <div class="success-badge">30 DAYS FREE</div>
+                        </div>
+                        
+                        <div style="border-top: 3px solid rgba(25, 118, 210, 0.3); padding-top: 2rem; margin-bottom: 2rem;">
+                            <ul style="list-style: none; padding: 0; margin: 0;">
+                                <li style="display: flex; align-items: start; margin-bottom: 1.25rem;">
+                                    <span style="color: #69F0AE; margin-right: 0.75rem; font-size: 1.5rem; font-weight: 700;">✓</span>
+                                    <div>
+                                        <strong style="color: #ffffff; font-size: 1.1rem;">10 Active Jobs</strong>
+                                        <div style="color: #a0aec0; font-size: 0.875rem; margin-top: 0.25rem;">Track up to 10 jobs at once</div>
+                                    </div>
+                                </li>
+                                <li style="display: flex; align-items: start; margin-bottom: 1.25rem;">
+                                    <span style="color: #69F0AE; margin-right: 0.75rem; font-size: 1.5rem; font-weight: 700;">✓</span>
+                                    <div>
+                                        <strong style="color: #ffffff;">Voice Expense Tracking</strong>
+                                        <div style="color: #a0aec0; font-size: 0.875rem; margin-top: 0.25rem;">Talk to CORA from anywhere</div>
+                                    </div>
+                                </li>
+                                <li style="display: flex; align-items: start; margin-bottom: 1.25rem;">
+                                    <span style="color: #69F0AE; margin-right: 0.75rem; font-size: 1.5rem; font-weight: 700;">✓</span>
+                                    <div>
+                                        <strong style="color: #ffffff;">Basic Job Costing</strong>
+                                        <div style="color: #a0aec0; font-size: 0.875rem; margin-top: 0.25rem;">Materials, labor, overhead</div>
+                                    </div>
+                                </li>
+                                <li style="display: flex; align-items: start; margin-bottom: 1.25rem;">
+                                    <span style="color: #69F0AE; margin-right: 0.75rem; font-size: 1.5rem; font-weight: 700;">✓</span>
+                                    <div>
+                                        <strong style="color: #ffffff;">Real-Time Profit Tracking</strong>
+                                        <div style="color: #a0aec0; font-size: 0.875rem; margin-top: 0.25rem;">Know your margins instantly</div>
+                                    </div>
+                                </li>
+                                <li style="display: flex; align-items: start; margin-bottom: 1.25rem;">
+                                    <span style="color: #69F0AE; margin-right: 0.75rem; font-size: 1.5rem; font-weight: 700;">✓</span>
+                                    <div>
+                                        <strong style="color: #ffffff;">Export Reports</strong>
+                                        <div style="color: #a0aec0; font-size: 0.875rem; margin-top: 0.25rem;">PDF & CSV exports</div>
+                                    </div>
+                                </li>
+                                <li style="display: flex; align-items: start; margin-bottom: 1.25rem;">
+                                    <span style="color: #69F0AE; margin-right: 0.75rem; font-size: 1.5rem; font-weight: 700;">✓</span>
+                                    <div>
+                                        <strong style="color: #ffffff;">Mobile App</strong>
+                                        <div style="color: #a0aec0; font-size: 0.875rem; margin-top: 0.25rem;">iOS & Android</div>
+                                    </div>
+                                </li>
+                                <li style="display: flex; align-items: start; margin-bottom: 1.25rem;">
+                                    <span style="color: #69F0AE; margin-right: 0.75rem; font-size: 1.5rem; font-weight: 700;">✓</span>
+                                    <div>
+                                        <strong style="color: #ffffff;">Email Support</strong>
+                                        <div style="color: #a0aec0; font-size: 0.875rem; margin-top: 0.25rem;">48-hour response time</div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        
+                        <div style="margin-top: auto;">
+                            <button class="btn-construction-secondary w-100 mb-3" onclick="window.location.href='/#get-started'">
+                                Start Free Trial
+                            </button>
+                            <p style="text-align: center; font-size: 0.875rem; color: #a0aec0; margin: 0;">
+                                No credit card required
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CREW Plan -->
+                <div class="col-md-4">
+                    <div class="pricing-card pricing-card-popular">
+                        
+                        <div class="text-center mb-4">
+                            <div style="width: 90px; height: 90px; margin: 0 auto 1.5rem; background: rgba(255, 152, 0, 0.2); border: 4px solid #FF9800; border-radius: 4px; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 15px rgba(255,152,0,0.3);">
+                                <span style="font-size: 3rem;">👷</span>
+                            </div>
+                            <h3 style="color: #FF9800; font-size: 2.25rem; margin-bottom: 0.5rem; text-transform: uppercase; font-weight: 700;">CREW</h3>
+                            <p style="color: #e2e8f0; margin-bottom: 1.5rem; text-transform: uppercase; font-size: 0.9rem; letter-spacing: 1px;">
+                                Small Crews (2-6 People)
+                            </p>
+                            <div class="price-display mb-3">
+                                <span style="font-size: 4rem; font-weight: 700; color: #ffffff;">$99</span>
+                                <span style="color: #e2e8f0; font-size: 1.2rem;">/month</span>
+                            </div>
+                            <div class="success-badge">30 DAYS FREE</div>
+                            <div style="color: #FF9800; font-weight: 700; margin-top: 1rem; font-size: 1.1rem;">
+                                💰 Save $2,400+/year
+                            </div>
+                        </div>
+                        
+                        <div style="border-top: 3px solid #FF9800; padding-top: 2rem; margin-bottom: 2rem;">
+                            <div style="background: rgba(255, 152, 0, 0.1); padding: 1rem; border-radius: 4px; margin-bottom: 1.5rem; text-align: center;">
+                                <strong style="color: #FF9800; text-transform: uppercase;">Everything in SOLO, Plus:</strong>
+                            </div>
+                            
+                            <ul style="list-style: none; padding: 0; margin: 0;">
+                                <li style="display: flex; align-items: start; margin-bottom: 1.25rem;">
+                                    <span style="color: #FF9800; margin-right: 0.75rem; font-size: 1.5rem; font-weight: 700;">✓</span>
+                                    <div>
+                                        <strong style="color: #ffffff; font-size: 1.1rem;">Unlimited Jobs</strong>
+                                        <div style="color: #a0aec0; font-size: 0.875rem; margin-top: 0.25rem;">No limits on active jobs</div>
+                                    </div>
+                                </li>
+                                <li style="display: flex; align-items: start; margin-bottom: 1.25rem;">
+                                    <span style="color: #FF9800; margin-right: 0.75rem; font-size: 1.5rem; font-weight: 700;">✓</span>
+                                    <div>
+                                        <strong style="color: #ffffff; font-size: 1.1rem;">5 User Accounts</strong>
+                                        <div style="color: #a0aec0; font-size: 0.875rem; margin-top: 0.25rem;">Whole crew can track time & expenses</div>
+                                    </div>
+                                </li>
+                                <li style="display: flex; align-items: start; margin-bottom: 1.25rem;">
+                                    <span style="color: #FF9800; margin-right: 0.75rem; font-size: 1.5rem; font-weight: 700;">✓</span>
+                                    <div>
+                                        <strong style="color: #ffffff;">QuickBooks Integration</strong>
+                                        <div style="color: #a0aec0; font-size: 0.875rem; margin-top: 0.25rem;">Two-way sync with QB Online</div>
+                                    </div>
+                                </li>
+                                <li style="display: flex; align-items: start; margin-bottom: 1.25rem;">
+                                    <span style="color: #FF9800; margin-right: 0.75rem; font-size: 1.5rem; font-weight: 700;">✓</span>
+                                    <div>
+                                        <strong style="color: #ffffff;">Profit Margin Alerts</strong>
+                                        <div style="color: #a0aec0; font-size: 0.875rem; margin-top: 0.25rem;">Get notified when margins drop</div>
+                                    </div>
+                                </li>
+                                <li style="display: flex; align-items: start; margin-bottom: 1.25rem;">
+                                    <span style="color: #FF9800; margin-right: 0.75rem; font-size: 1.5rem; font-weight: 700;">✓</span>
+                                    <div>
+                                        <strong style="color: #ffffff;">Change Order Tracking</strong>
+                                        <div style="color: #a0aec0; font-size: 0.875rem; margin-top: 0.25rem;">Track extras & scope changes</div>
+                                    </div>
+                                </li>
+                                <li style="display: flex; align-items: start; margin-bottom: 1.25rem;">
+                                    <span style="color: #FF9800; margin-right: 0.75rem; font-size: 1.5rem; font-weight: 700;">✓</span>
+                                    <div>
+                                        <strong style="color: #ffffff;">Invoice Automation</strong>
+                                        <div style="color: #a0aec0; font-size: 0.875rem; margin-top: 0.25rem;">Create & send invoices automatically</div>
+                                    </div>
+                                </li>
+                                <li style="display: flex; align-items: start; margin-bottom: 1.25rem;">
+                                    <span style="color: #FF9800; margin-right: 0.75rem; font-size: 1.5rem; font-weight: 700;">✓</span>
+                                    <div>
+                                        <strong style="color: #ffffff;">Photo Attachments</strong>
+                                        <div style="color: #a0aec0; font-size: 0.875rem; margin-top: 0.25rem;">Attach photos to expenses & jobs</div>
+                                    </div>
+                                </li>
+                                <li style="display: flex; align-items: start; margin-bottom: 1.25rem;">
+                                    <span style="color: #FF9800; margin-right: 0.75rem; font-size: 1.5rem; font-weight: 700;">✓</span>
+                                    <div>
+                                        <strong style="color: #ffffff;">Priority Support</strong>
+                                        <div style="color: #a0aec0; font-size: 0.875rem; margin-top: 0.25rem;">Phone & chat support, 4-hour response</div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        
+                        <div style="margin-top: auto;">
+                            <button class="btn-construction w-100 mb-3" style="font-size: 1.2rem; padding: 1.25rem !important;" onclick="window.location.href='/#get-started'">
+                                Start Tracking Jobs Now
+                            </button>
+                            <p style="text-align: center; font-size: 0.875rem; color: #FF9800; margin: 0; font-weight: 700;">
+                                Most contractors choose this plan
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- BUSINESS Plan -->
+                <div class="col-md-4">
+                    <div class="pricing-card">
+                        <div class="text-center mb-4">
+                            <div style="width: 80px; height: 80px; margin: 0 auto 1.5rem; background: rgba(25, 118, 210, 0.1); border: 3px solid #1976D2; border-radius: 4px; display: flex; align-items: center; justify-content: center;">
+                                <span style="font-size: 2.5rem;">🏗️</span>
+                            </div>
+                            <h3 style="color: #4db8ff; font-size: 2rem; margin-bottom: 0.5rem; text-transform: uppercase; font-weight: 700;">BUSINESS</h3>
+                            <p style="color: #e2e8f0; margin-bottom: 1.5rem; text-transform: uppercase; font-size: 0.9rem; letter-spacing: 1px;">
+                                Growing Companies (7-30+)
+                            </p>
+                            <div class="price-display mb-3">
+                                <span style="font-size: 3.5rem; font-weight: 700; color: #ffffff;">$199</span>
+                                <span style="color: #e2e8f0; font-size: 1.2rem;">/month</span>
+                            </div>
+                            <div class="success-badge">30 DAYS FREE</div>
+                        </div>
+                        
+                        <div style="border-top: 3px solid rgba(25, 118, 210, 0.3); padding-top: 2rem; margin-bottom: 2rem;">
+                            <div style="background: rgba(25, 118, 210, 0.1); padding: 1rem; border-radius: 4px; margin-bottom: 1.5rem; text-align: center;">
+                                <strong style="color: #4db8ff; text-transform: uppercase;">Everything in CREW, Plus:</strong>
+                            </div>
+                            
+                            <ul style="list-style: none; padding: 0; margin: 0;">
+                                <li style="display: flex; align-items: start; margin-bottom: 1.25rem;">
+                                    <span style="color: #69F0AE; margin-right: 0.75rem; font-size: 1.5rem; font-weight: 700;">✓</span>
+                                    <div>
+                                        <strong style="color: #ffffff; font-size: 1.1rem;">20 User Accounts</strong>
+                                        <div style="color: #a0aec0; font-size: 0.875rem; margin-top: 0.25rem;">Scale your entire operation</div>
+                                    </div>
+                                </li>
+                                <li style="display: flex; align-items: start; margin-bottom: 1.25rem;">
+                                    <span style="color: #69F0AE; margin-right: 0.75rem; font-size: 1.5rem; font-weight: 700;">✓</span>
+                                    <div>
+                                        <strong style="color: #ffffff;">Multiple Companies</strong>
+                                        <div style="color: #a0aec0; font-size: 0.875rem; margin-top: 0.25rem;">Manage multiple entities</div>
+                                    </div>
+                                </li>
+                                <li style="display: flex; align-items: start; margin-bottom: 1.25rem;">
+                                    <span style="color: #69F0AE; margin-right: 0.75rem; font-size: 1.5rem; font-weight: 700;">✓</span>
+                                    <div>
+                                        <strong style="color: #ffffff;">Prevailing Wage Tracking</strong>
+                                        <div style="color: #a0aec0; font-size: 0.875rem; margin-top: 0.25rem;">Track certified payroll rates</div>
+                                    </div>
+                                </li>
+                                <li style="display: flex; align-items: start; margin-bottom: 1.25rem;">
+                                    <span style="color: #69F0AE; margin-right: 0.75rem; font-size: 1.5rem; font-weight: 700;">✓</span>
+                                    <div>
+                                        <strong style="color: #ffffff;">Subcontractor Management</strong>
+                                        <div style="color: #a0aec0; font-size: 0.875rem; margin-top: 0.25rem;">Track subs, lien waivers, insurance</div>
+                                    </div>
+                                </li>
+                                <li style="display: flex; align-items: start; margin-bottom: 1.25rem;">
+                                    <span style="color: #69F0AE; margin-right: 0.75rem; font-size: 1.5rem; font-weight: 700;">✓</span>
+                                    <div>
+                                        <strong style="color: #ffffff;">Advanced Reporting</strong>
+                                        <div style="color: #a0aec0; font-size: 0.875rem; margin-top: 0.25rem;">Custom reports & dashboards</div>
+                                    </div>
+                                </li>
+                                <li style="display: flex; align-items: start; margin-bottom: 1.25rem;">
+                                    <span style="color: #69F0AE; margin-right: 0.75rem; font-size: 1.5rem; font-weight: 700;">✓</span>
+                                    <div>
+                                        <strong style="color: #ffffff;">API Access</strong>
+                                        <div style="color: #a0aec0; font-size: 0.875rem; margin-top: 0.25rem;">Integrate with your tools</div>
+                                    </div>
+                                </li>
+                                <li style="display: flex; align-items: start; margin-bottom: 1.25rem;">
+                                    <span style="color: #69F0AE; margin-right: 0.75rem; font-size: 1.5rem; font-weight: 700;">✓</span>
+                                    <div>
+                                        <strong style="color: #ffffff;">Dedicated Account Manager</strong>
+                                        <div style="color: #a0aec0; font-size: 0.875rem; margin-top: 0.25rem;">Personal onboarding & support</div>
+                                    </div>
+                                </li>
+                                <li style="display: flex; align-items: start; margin-bottom: 1.25rem;">
+                                    <span style="color: #69F0AE; margin-right: 0.75rem; font-size: 1.5rem; font-weight: 700;">✓</span>
+                                    <div>
+                                        <strong style="color: #ffffff;">24/7 Phone Support</strong>
+                                        <div style="color: #a0aec0; font-size: 0.875rem; margin-top: 0.25rem;">Always there when you need us</div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        
+                        <div style="margin-top: auto;">
+                            <button class="btn-construction-secondary w-100 mb-3" onclick="window.location.href='/#get-started'">
+                                Start Free Trial
+                            </button>
+                            <p style="text-align: center; font-size: 0.875rem; color: #a0aec0; margin: 0;">
+                                No credit card required
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Enterprise callout -->
+            <div class="text-center mt-5">
+                <div style="background: var(--dark-surface); padding: 2rem; border-radius: 8px; border: 2px solid rgba(255, 152, 0, 0.2); display: inline-block;">
+                    <h4 style="color: #FF9800; margin-bottom: 1rem;">Need More Than 20 Users?</h4>
+                    <p style="color: #e2e8f0; margin-bottom: 1.5rem;">
+                        We work with contractors of all sizes. Let's talk about a custom plan for your company.
+                    </p>
+                    <a href="/contact" class="btn btn-construction">
+                        Contact Sales
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Feature Comparison Table -->
+    <section style="background: #1a1a1a; position: relative; padding: 5rem 0;">
+        <div class="construction-grid"></div>
+        
+        <div class="container position-relative">
+            <div class="text-center mb-5">
+                <h2 class="display-5 fw-bold mb-3" style="color: #ffffff; text-transform: uppercase; letter-spacing: 2px;">
+                    Compare <span style="color: #FF9800;">Plans</span>
+                </h2>
+                <p class="lead" style="color: #e2e8f0;">
+                    Every plan includes the core features you need. Scale up as you grow.
+                </p>
+            </div>
+            
+            <div class="comparison-table">
+                <table class="table table-dark mb-0" style="color: #e2e8f0;">
+                    <thead>
+                        <tr>
+                            <th style="width: 40%; padding-left: 2rem;">Features</th>
+                            <th class="text-center" style="color: #4db8ff;">SOLO</th>
+                            <th class="text-center" style="color: #FF9800;">CREW</th>
+                            <th class="text-center" style="color: #4db8ff;">BUSINESS</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Core Features -->
+                        <tr>
+                            <td colspan="4" style="background: rgba(255, 152, 0, 0.05); font-weight: 700; text-transform: uppercase; letter-spacing: 1px; padding-left: 2rem;">
+                                Core Features
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="padding-left: 2rem;">Voice Expense Tracking</td>
+                            <td class="text-center"><span style="color: #69F0AE; font-size: 1.5rem;">✓</span></td>
+                            <td class="text-center"><span style="color: #69F0AE; font-size: 1.5rem;">✓</span></td>
+                            <td class="text-center"><span style="color: #69F0AE; font-size: 1.5rem;">✓</span></td>
+                        </tr>
+                        <tr>
+                            <td style="padding-left: 2rem;">Real-Time Job Costing</td>
+                            <td class="text-center"><span style="color: #69F0AE; font-size: 1.5rem;">✓</span></td>
+                            <td class="text-center"><span style="color: #69F0AE; font-size: 1.5rem;">✓</span></td>
+                            <td class="text-center"><span style="color: #69F0AE; font-size: 1.5rem;">✓</span></td>
+                        </tr>
+                        <tr>
+                            <td style="padding-left: 2rem;">Profit Tracking</td>
+                            <td class="text-center"><span style="color: #69F0AE; font-size: 1.5rem;">✓</span></td>
+                            <td class="text-center"><span style="color: #69F0AE; font-size: 1.5rem;">✓</span></td>
+                            <td class="text-center"><span style="color: #69F0AE; font-size: 1.5rem;">✓</span></td>
+                        </tr>
+                        <tr>
+                            <td style="padding-left: 2rem;">Mobile App (iOS & Android)</td>
+                            <td class="text-center"><span style="color: #69F0AE; font-size: 1.5rem;">✓</span></td>
+                            <td class="text-center"><span style="color: #69F0AE; font-size: 1.5rem;">✓</span></td>
+                            <td class="text-center"><span style="color: #69F0AE; font-size: 1.5rem;">✓</span></td>
+                        </tr>
+                        <tr>
+                            <td style="padding-left: 2rem;">Basic Reports</td>
+                            <td class="text-center"><span style="color: #69F0AE; font-size: 1.5rem;">✓</span></td>
+                            <td class="text-center"><span style="color: #69F0AE; font-size: 1.5rem;">✓</span></td>
+                            <td class="text-center"><span style="color: #69F0AE; font-size: 1.5rem;">✓</span></td>
+                        </tr>
+                        
+                        <!-- Limits -->
+                        <tr>
+                            <td colspan="4" style="background: rgba(255, 152, 0, 0.05); font-weight: 700; text-transform: uppercase; letter-spacing: 1px; padding-left: 2rem;">
+                                Limits & Users
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="padding-left: 2rem;">Active Jobs</td>
+                            <td class="text-center">10</td>
+                            <td class="text-center" style="color: #FF9800; font-weight: 700;">Unlimited</td>
+                            <td class="text-center" style="color: #FF9800; font-weight: 700;">Unlimited</td>
+                        </tr>
+                        <tr>
+                            <td style="padding-left: 2rem;">User Accounts</td>
+                            <td class="text-center">1</td>
+                            <td class="text-center" style="color: #FF9800; font-weight: 700;">5</td>
+                            <td class="text-center" style="color: #4db8ff; font-weight: 700;">20</td>
+                        </tr>
+                        <tr>
+                            <td style="padding-left: 2rem;">Photo Storage</td>
+                            <td class="text-center">5GB</td>
+                            <td class="text-center">50GB</td>
+                            <td class="text-center" style="color: #4db8ff; font-weight: 700;">Unlimited</td>
+                        </tr>
+                        
+                        <!-- Advanced Features -->
+                        <tr>
+                            <td colspan="4" style="background: rgba(255, 152, 0, 0.05); font-weight: 700; text-transform: uppercase; letter-spacing: 1px; padding-left: 2rem;">
+                                Advanced Features
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="padding-left: 2rem;">QuickBooks Integration</td>
+                            <td class="text-center"><span style="color: #666; font-size: 1.5rem;">—</span></td>
+                            <td class="text-center"><span style="color: #69F0AE; font-size: 1.5rem;">✓</span></td>
+                            <td class="text-center"><span style="color: #69F0AE; font-size: 1.5rem;">✓</span></td>
+                        </tr>
+                        <tr>
+                            <td style="padding-left: 2rem;">Change Order Tracking</td>
+                            <td class="text-center"><span style="color: #666; font-size: 1.5rem;">—</span></td>
+                            <td class="text-center"><span style="color: #69F0AE; font-size: 1.5rem;">✓</span></td>
+                            <td class="text-center"><span style="color: #69F0AE; font-size: 1.5rem;">✓</span></td>
+                        </tr>
+                        <tr>
+                            <td style="padding-left: 2rem;">Invoice Automation</td>
+                            <td class="text-center"><span style="color: #666; font-size: 1.5rem;">—</span></td>
+                            <td class="text-center"><span style="color: #69F0AE; font-size: 1.5rem;">✓</span></td>
+                            <td class="text-center"><span style="color: #69F0AE; font-size: 1.5rem;">✓</span></td>
+                        </tr>
+                        <tr>
+                            <td style="padding-left: 2rem;">Profit Margin Alerts</td>
+                            <td class="text-center"><span style="color: #666; font-size: 1.5rem;">—</span></td>
+                            <td class="text-center"><span style="color: #69F0AE; font-size: 1.5rem;">✓</span></td>
+                            <td class="text-center"><span style="color: #69F0AE; font-size: 1.5rem;">✓</span></td>
+                        </tr>
+                        <tr>
+                            <td style="padding-left: 2rem;">Prevailing Wage Tracking</td>
+                            <td class="text-center"><span style="color: #666; font-size: 1.5rem;">—</span></td>
+                            <td class="text-center"><span style="color: #666; font-size: 1.5rem;">—</span></td>
+                            <td class="text-center"><span style="color: #69F0AE; font-size: 1.5rem;">✓</span></td>
+                        </tr>
+                        <tr>
+                            <td style="padding-left: 2rem;">Subcontractor Management</td>
+                            <td class="text-center"><span style="color: #666; font-size: 1.5rem;">—</span></td>
+                            <td class="text-center"><span style="color: #666; font-size: 1.5rem;">—</span></td>
+                            <td class="text-center"><span style="color: #69F0AE; font-size: 1.5rem;">✓</span></td>
+                        </tr>
+                        <tr>
+                            <td style="padding-left: 2rem;">Custom Reports</td>
+                            <td class="text-center"><span style="color: #666; font-size: 1.5rem;">—</span></td>
+                            <td class="text-center"><span style="color: #666; font-size: 1.5rem;">—</span></td>
+                            <td class="text-center"><span style="color: #69F0AE; font-size: 1.5rem;">✓</span></td>
+                        </tr>
+                        <tr>
+                            <td style="padding-left: 2rem;">API Access</td>
+                            <td class="text-center"><span style="color: #666; font-size: 1.5rem;">—</span></td>
+                            <td class="text-center"><span style="color: #666; font-size: 1.5rem;">—</span></td>
+                            <td class="text-center"><span style="color: #69F0AE; font-size: 1.5rem;">✓</span></td>
+                        </tr>
+                        
+                        <!-- Support -->
+                        <tr>
+                            <td colspan="4" style="background: rgba(255, 152, 0, 0.05); font-weight: 700; text-transform: uppercase; letter-spacing: 1px; padding-left: 2rem;">
+                                Support & Training
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="padding-left: 2rem;">Email Support</td>
+                            <td class="text-center">48 hours</td>
+                            <td class="text-center" style="color: #FF9800;">4 hours</td>
+                            <td class="text-center" style="color: #4db8ff;">1 hour</td>
+                        </tr>
+                        <tr>
+                            <td style="padding-left: 2rem;">Phone Support</td>
+                            <td class="text-center"><span style="color: #666; font-size: 1.5rem;">—</span></td>
+                            <td class="text-center"><span style="color: #69F0AE; font-size: 1.5rem;">✓</span></td>
+                            <td class="text-center"><span style="color: #69F0AE; font-size: 1.5rem;">✓</span></td>
+                        </tr>
+                        <tr>
+                            <td style="padding-left: 2rem;">Live Chat</td>
+                            <td class="text-center"><span style="color: #666; font-size: 1.5rem;">—</span></td>
+                            <td class="text-center"><span style="color: #69F0AE; font-size: 1.5rem;">✓</span></td>
+                            <td class="text-center"><span style="color: #69F0AE; font-size: 1.5rem;">✓</span></td>
+                        </tr>
+                        <tr>
+                            <td style="padding-left: 2rem;">Dedicated Account Manager</td>
+                            <td class="text-center"><span style="color: #666; font-size: 1.5rem;">—</span></td>
+                            <td class="text-center"><span style="color: #666; font-size: 1.5rem;">—</span></td>
+                            <td class="text-center"><span style="color: #69F0AE; font-size: 1.5rem;">✓</span></td>
+                        </tr>
+                        <tr>
+                            <td style="padding-left: 2rem;">Onboarding Training</td>
+                            <td class="text-center">Video tutorials</td>
+                            <td class="text-center">1-on-1 call</td>
+                            <td class="text-center" style="color: #4db8ff;">Full team training</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- ROI Calculator -->
+    <section style="background: linear-gradient(180deg, #1a1a1a 0%, #2d3748 100%); position: relative; padding: 5rem 0;">
+        <div class="construction-grid"></div>
+        
+        <div class="container position-relative">
+            <div class="text-center mb-5">
+                <h2 class="display-5 fw-bold mb-3" style="color: #ffffff; text-transform: uppercase; letter-spacing: 2px;">
+                    Calculate Your <span style="color: #FF9800;">ROI</span>
+                </h2>
+                <p class="lead" style="color: #e2e8f0;">
+                    See how much CORA can save you every month
+                </p>
+            </div>
+            
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div style="background: var(--dark-surface); padding: 3rem; border-radius: 8px; border: 2px solid rgba(255, 152, 0, 0.2);">
+                        <div class="row g-4">
+                            <div class="col-md-6">
+                                <label style="color: #e2e8f0; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 0.5rem;">
+                                    Monthly Revenue
+                                </label>
+                                <input type="number" class="calculator-input" id="monthlyRevenue" value="50000" min="0" step="1000">
+                            </div>
+                            <div class="col-md-6">
+                                <label style="color: #e2e8f0; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 0.5rem;">
+                                    Number of Active Jobs
+                                </label>
+                                <input type="number" class="calculator-input" id="activeJobs" value="5" min="1" max="100">
+                            </div>
+                            <div class="col-md-6">
+                                <label style="color: #e2e8f0; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 0.5rem;">
+                                    Average Job Duration (Days)
+                                </label>
+                                <input type="number" class="calculator-input" id="jobDuration" value="30" min="1" max="365">
+                            </div>
+                            <div class="col-md-6">
+                                <label style="color: #e2e8f0; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 0.5rem;">
+                                    Current Profit Margin (%)
+                                </label>
+                                <input type="number" class="calculator-input" id="profitMargin" value="15" min="0" max="100">
+                            </div>
+                        </div>
+                        
+                        <div style="margin-top: 3rem; padding: 2rem; background: rgba(255, 152, 0, 0.1); border: 2px solid rgba(255, 152, 0, 0.3); border-radius: 4px;">
+                            <h4 style="color: #FF9800; margin-bottom: 1.5rem; text-align: center;">Your Potential Savings</h4>
+                            
+                            <div class="row g-4 text-center">
+                                <div class="col-md-4">
+                                    <div style="font-size: 2.5rem; font-weight: 700; color: #69F0AE;">
+                                        $<span id="timeSavings">420</span>
+                                    </div>
+                                    <div style="color: #e2e8f0; text-transform: uppercase; font-size: 0.875rem; letter-spacing: 1px;">
+                                        Time Saved Monthly
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div style="font-size: 2.5rem; font-weight: 700; color: #FF9800;">
+                                        $<span id="marginImprovement">750</span>
+                                    </div>
+                                    <div style="color: #e2e8f0; text-transform: uppercase; font-size: 0.875rem; letter-spacing: 1px;">
+                                        Margin Improvement
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div style="font-size: 2.5rem; font-weight: 700; color: #4db8ff;">
+                                        $<span id="totalROI">1,170</span>
+                                    </div>
+                                    <div style="color: #e2e8f0; text-transform: uppercase; font-size: 0.875rem; letter-spacing: 1px;">
+                                        Total Monthly ROI
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div style="text-align: center; margin-top: 2rem;">
+                                <p style="color: #e2e8f0; margin-bottom: 0;">
+                                    That's a <strong style="color: #FF9800; font-size: 1.2rem;">1,182%</strong> return on your CORA investment
+                                </p>
+                            </div>
+                        </div>
+                        
+                        <div style="text-align: center; margin-top: 2rem;">
+                            <button class="btn-construction" onclick="window.location.href='/#get-started'">
+                                Start Saving Now
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Money Back Guarantee -->
+    <section style="background: #1a1a1a; position: relative; padding: 5rem 0;">
+        <div class="construction-grid"></div>
+        
+        <div class="container position-relative">
+            <div class="row align-items-center">
+                <div class="col-lg-6">
+                    <div style="position: relative;">
+                        <div style="width: 120px; height: 120px; background: rgba(105, 240, 174, 0.1); border: 4px solid #69F0AE; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 2rem;">
+                            <span style="font-size: 4rem;">💯</span>
+                        </div>
+                        <h2 class="display-5 fw-bold mb-4" style="color: #ffffff; text-transform: uppercase; letter-spacing: 2px;">
+                            30-Day <span style="color: #69F0AE;">Money-Back</span> Guarantee
+                        </h2>
+                        <p class="lead mb-4" style="color: #e2e8f0; font-size: 1.25rem;">
+                            We're so confident CORA will transform your business, we'll give you a full month to try it risk-free.
+                        </p>
+                        <ul style="list-style: none; padding: 0;">
+                            <li style="display: flex; align-items: start; margin-bottom: 1rem;">
+                                <span style="color: #69F0AE; margin-right: 0.75rem; font-size: 1.5rem; font-weight: 700;">✓</span>
+                                <span style="color: #e2e8f0; font-size: 1.1rem;">No questions asked - if you're not happy, we refund 100%</span>
+                            </li>
+                            <li style="display: flex; align-items: start; margin-bottom: 1rem;">
+                                <span style="color: #69F0AE; margin-right: 0.75rem; font-size: 1.5rem; font-weight: 700;">✓</span>
+                                <span style="color: #e2e8f0; font-size: 1.1rem;">Keep all your data - export everything before you go</span>
+                            </li>
+                            <li style="display: flex; align-items: start; margin-bottom: 1rem;">
+                                <span style="color: #69F0AE; margin-right: 0.75rem; font-size: 1.5rem; font-weight: 700;">✓</span>
+                                <span style="color: #e2e8f0; font-size: 1.1rem;">Cancel anytime - no contracts, no penalties</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div style="background: var(--dark-surface); padding: 3rem; border-radius: 8px; border: 3px solid #69F0AE; text-align: center;">
+                        <h3 style="color: #69F0AE; margin-bottom: 1.5rem; text-transform: uppercase;">Our Promise to You</h3>
+                        <p style="color: #e2e8f0; font-size: 1.1rem; line-height: 1.8; margin-bottom: 2rem;">
+                            "We built CORA because we know how hard it is to track job costs while you're actually doing the work. If CORA doesn't save you at least 5 hours a week and improve your margins, we don't deserve your money."
+                        </p>
+                        <p style="color: #FF9800; font-weight: 700; margin-bottom: 0.5rem;">
+                            — Mike Thompson, Founder
+                        </p>
+                        <p style="color: #a0aec0; font-size: 0.875rem;">
+                            Former contractor, 15 years in the field
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section style="background: linear-gradient(180deg, #1a1a1a 0%, #2d3748 100%); position: relative; padding: 5rem 0;">
+        <div class="construction-grid"></div>
+        
+        <div class="container position-relative">
+            <div class="text-center mb-5">
+                <h2 class="display-5 fw-bold mb-3" style="color: #ffffff; text-transform: uppercase; letter-spacing: 2px;">
+                    Common <span style="color: #FF9800;">Questions</span>
+                </h2>
+                <p class="lead" style="color: #e2e8f0;">
+                    Real answers to real contractor questions
+                </p>
+            </div>
+            
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="accordion" id="pricingFAQ">
+                        <!-- Question 1 -->
+                        <div class="accordion-item" style="background: transparent; border: none; margin-bottom: 1rem;">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq1">
+                                    Do I really not need a credit card for the trial?
+                                </button>
+                            </h2>
+                            <div id="faq1" class="accordion-collapse collapse" data-bs-parent="#pricingFAQ">
+                                <div class="accordion-body">
+                                    <p style="color: #e2e8f0; margin-bottom: 0;">
+                                        <strong style="color: #FF9800;">Absolutely no credit card required.</strong> We hate that BS as much as you do. Sign up with just your email, use CORA for 30 days, and only pay if you love it. No sneaky charges, no "forgetting to cancel" fees. Just honest business.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Question 2 -->
+                        <div class="accordion-item" style="background: transparent; border: none; margin-bottom: 1rem;">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq2">
+                                    Can I switch plans later?
+                                </button>
+                            </h2>
+                            <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#pricingFAQ">
+                                <div class="accordion-body">
+                                    <p style="color: #e2e8f0; margin-bottom: 0;">
+                                        <strong style="color: #FF9800;">Yes, upgrade or downgrade anytime.</strong> Growing from solo to crew? Upgrade instantly and only pay the difference. Need to scale back? Downgrade at the end of your billing cycle. No penalties, no hassle.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Question 3 -->
+                        <div class="accordion-item" style="background: transparent; border: none; margin-bottom: 1rem;">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq3">
+                                    What happens to my data if I cancel?
+                                </button>
+                            </h2>
+                            <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#pricingFAQ">
+                                <div class="accordion-body">
+                                    <p style="color: #e2e8f0; margin-bottom: 0;">
+                                        <strong style="color: #FF9800;">Your data is always yours.</strong> Export everything before you cancel - all jobs, expenses, reports, invoices. We'll keep your data secure for 90 days after cancellation in case you want to come back. After that, it's permanently deleted.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Question 4 -->
+                        <div class="accordion-item" style="background: transparent; border: none; margin-bottom: 1rem;">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq4">
+                                    Do prices include everything? No hidden fees?
+                                </button>
+                            </h2>
+                            <div id="faq4" class="accordion-collapse collapse" data-bs-parent="#pricingFAQ">
+                                <div class="accordion-body">
+                                    <p style="color: #e2e8f0; margin-bottom: 0;">
+                                        <strong style="color: #FF9800;">The price you see is the price you pay.</strong> No setup fees, no per-transaction charges, no "premium support" upsells. QuickBooks sync? Included. Mobile apps? Included. Updates? Always free. We make money when you stick around because CORA works, not from nickel-and-diming you.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Question 5 -->
+                        <div class="accordion-item" style="background: transparent; border: none; margin-bottom: 1rem;">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq5">
+                                    How fast can I get started?
+                                </button>
+                            </h2>
+                            <div id="faq5" class="accordion-collapse collapse" data-bs-parent="#pricingFAQ">
+                                <div class="accordion-body">
+                                    <p style="color: #e2e8f0; margin-bottom: 0;">
+                                        <strong style="color: #FF9800;">Track your first expense in under 5 minutes.</strong> Sign up, create your first job, and start talking to CORA. No complex setup, no 47-step onboarding. We'll help you import existing data and connect your accounts when you're ready, but you can start tracking jobs immediately.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Question 6 -->
+                        <div class="accordion-item" style="background: transparent; border: none; margin-bottom: 1rem;">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq6">
+                                    What if I need more than 20 users?
+                                </button>
+                            </h2>
+                            <div id="faq6" class="accordion-collapse collapse" data-bs-parent="#pricingFAQ">
+                                <div class="accordion-body">
+                                    <p style="color: #e2e8f0; margin-bottom: 0;">
+                                        <strong style="color: #FF9800;">We've got you covered.</strong> Growing past 20 users? Congratulations! Let's talk about a custom plan that fits your business. Volume discounts, dedicated infrastructure, custom integrations - whatever you need to keep growing. Contact our sales team and we'll work something out.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Question 7 -->
+                        <div class="accordion-item" style="background: transparent; border: none; margin-bottom: 1rem;">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq7">
+                                    Is my data secure?
+                                </button>
+                            </h2>
+                            <div id="faq7" class="accordion-collapse collapse" data-bs-parent="#pricingFAQ">
+                                <div class="accordion-body">
+                                    <p style="color: #e2e8f0; margin-bottom: 0;">
+                                        <strong style="color: #FF9800;">Bank-level security, contractor-level simplicity.</strong> 256-bit encryption, SOC 2 certified data centers, automatic backups every hour. Your financial data is safer with us than in that shoebox in your truck. We're also fully compliant with construction industry standards and prevailing wage requirements.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Question 8 -->
+                        <div class="accordion-item" style="background: transparent; border: none; margin-bottom: 1rem;">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq8">
+                                    What kind of support do I get?
+                                </button>
+                            </h2>
+                            <div id="faq8" class="accordion-collapse collapse" data-bs-parent="#pricingFAQ">
+                                <div class="accordion-body">
+                                    <p style="color: #e2e8f0; margin-bottom: 0;">
+                                        <strong style="color: #FF9800;">Real contractors who get it.</strong> Our support team isn't reading from scripts - they're people who've been in the field. Email support for everyone, phone and chat for Crew and up. Business plan gets a dedicated account manager who learns your business. We answer in plain English, not tech speak.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Final CTA -->
+    <section style="background: linear-gradient(180deg, #2d3748 0%, #1a1a1a 100%); position: relative; padding: 5rem 0;">
+        <div class="construction-grid"></div>
+        
+        <div class="container position-relative text-center">
+            <h2 class="display-4 fw-bold mb-4" style="color: #ffffff; text-transform: uppercase; letter-spacing: 2px;">
+                Stop Leaving <span style="color: #FF9800;">Money</span> on Every Job
+            </h2>
+            <p class="lead mb-5" style="color: #e2e8f0; font-size: 1.5rem; max-width: 800px; margin: 0 auto;">
+                Join 6,847+ contractors who track profits in real-time with CORA
+            </p>
+            
+            <div class="d-flex justify-content-center gap-4 flex-wrap mb-5">
+                <button class="btn-construction" style="font-size: 1.2rem; padding: 1.25rem 3rem !important;" onclick="window.location.href='/#get-started'">
+                    Start Free Trial
+                </button>
+                <button class="btn-construction-secondary" style="font-size: 1.2rem; padding: 1.25rem 3rem !important;" onclick="window.location.href='/contact'">
+                    Talk to Sales
+                </button>
+                <button class="btn-construction-secondary" style="font-size: 1.2rem; padding: 1.25rem 3rem !important;">
+                    Checkout
+                </button>
+            </div>
+            
+            <p style="color: #a0aec0; font-size: 1rem;">
+                30-day free trial • No credit card required • Cancel anytime
+            </p>
+        </div>
+    </section>
+
+{% endblock %}
+
+{% block page_scripts %}
+    <!-- Optional: guarded checkout initialization without changing existing content/actions -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const buttons = Array.from(document.querySelectorAll('button, a.btn'));
+            buttons.forEach(btn => {
+                const label = (btn.textContent || '').toLowerCase();
+                if (label.includes('buy') || label.includes('checkout')) {
+                    btn.addEventListener('click', async function(e) {
+                        try {
+                            e.preventDefault();
+                            const res = await fetch('/api/payments/checkout', {
+                                method: 'POST',
+                                headers: { 'Content-Type': 'application/json' },
+                                body: JSON.stringify({ plan: 'standard', payment_method: 'card', amount_cents: 4900, currency: 'USD' })
+                            });
+                            if (res.status === 401) {
+                                const next = encodeURIComponent(window.location.pathname + window.location.search);
+                                window.location.href = '/signup?next=' + next + '&start=checkout';
+                                return;
+                            }
+                            if (!res.ok) {
+                                console.warn('Checkout init failed with status:', res.status);
+                                alert('Unable to start checkout right now. Please try again or contact support.');
+                                return;
+                            }
+                            const data = await res.json();
+                            if (data.checkout_url) {
+                                window.location.href = data.checkout_url;
+                            } else if (data.checkout_session_id) {
+                                window.location.href = '/subscription?status=success&session_id=' + encodeURIComponent(data.checkout_session_id);
+                            } else {
+                                alert('Checkout initialized, but no redirect URL was provided. Please try again.');
+                            }
+                        } catch (err) {
+                            console.error('Checkout init failed', err);
+                            alert('Network error starting checkout. Please try again.');
+                        }
+                    }, { once: true });
+                }
+            });
+        });
+    </script>
+    
+    <!-- ROI Calculator Script -->
+    <script>
+        function calculateROI() {
+            const revenue = parseFloat(document.getElementById('monthlyRevenue').value) || 0;
+            const jobs = parseFloat(document.getElementById('activeJobs').value) || 1;
+            const duration = parseFloat(document.getElementById('jobDuration').value) || 30;
+            const margin = parseFloat(document.getElementById('profitMargin').value) || 15;
+            
+            // Time savings: 5 hours/week @ $50/hour
+            const timeSavings = Math.round(5 * 4 * 50);
+            
+            // Margin improvement: typically 2-3% increase
+            const marginImprovement = Math.round(revenue * 0.025);
+            
+            // Total ROI
+            const totalROI = timeSavings + marginImprovement;
+            
+            // Update display
+            document.getElementById('timeSavings').textContent = timeSavings.toLocaleString();
+            document.getElementById('marginImprovement').textContent = marginImprovement.toLocaleString();
+            document.getElementById('totalROI').textContent = totalROI.toLocaleString();
+        }
+        
+        // Add event listeners
+        document.querySelectorAll('.calculator-input').forEach(input => {
+            input.addEventListener('input', calculateROI);
+        });
+        
+        // Calculate on load
+        calculateROI();
+    </script>
+    
+    <!-- Core scripts provided by cora-bundle.js; keep page-specific: -->
+
+{% endblock %}

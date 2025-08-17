@@ -1,0 +1,64 @@
+/* CSS Reset - Normalize browser defaults */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-size: var(--font-size-base);
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: var(--font-family);
+    background: var(--background-color);
+    color: var(--text-color);
+    line-height: var(--line-height-base);
+    min-height: 100vh;
+    padding-top: var(--nav-height);
+}
+
+/* Remove default link styles */
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* Remove list styles */
+ul, ol {
+    list-style: none;
+}
+
+/* Make images responsive by default */
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* Remove button styles */
+button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-family: inherit;
+}
+
+/* Form elements inherit font */
+input, textarea, select {
+    font-family: inherit;
+    font-size: inherit;
+}
+
+/* Remove focus outline, we'll add our own */
+*:focus {
+    outline: none;
+}
+
+/* Add custom focus styles */
+*:focus-visible {
+    outline: 2px solid var(--primary-color);
+    outline-offset: 2px;
+}

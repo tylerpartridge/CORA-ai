@@ -1,0 +1,10 @@
+{
+  "builtAt": "2025-08-10T00:33:37.638Z",
+  "files": {
+    "accessibility": "/static/js/bundles/accessibility.js",
+    "error-manager": "/static/js/bundles/error-manager.js",
+    "performance": "/static/js/bundles/performance.js",
+    "timeout-handler": "/static/js/bundles/timeout-handler.js",
+    "web-vitals-monitoring": "/static/js/bundles/web-vitals-monitoring.js"
+  }
+}

@@ -1,0 +1,31 @@
+{% extends "base_app.html" %}
+{% block content %}
+<div class="container py-4">
+  <h1 class="mb-4">Feature Flags</h1>
+  <table class="table table-dark table-striped align-middle">
+    <thead><tr><th>Name</th><th>Enabled</th><th>Rollout %</th><th>Actions</th></tr></thead>
+    <tbody id="flags-body"></tbody>
+  </table>
+</div>
+<script>
+async function loadFlags(){
+  const res = await fetch('/api/feature-flags');
+  const flags = await res.json();
+  const tbody = document.getElementById('flags-body');
+  tbody.innerHTML='';
+  for(const [name, enabled] of Object.entries(flags)){
+    const tr=document.createElement('tr');
+    tr.innerHTML=`<td>${name}</td>
+      <td><input type="checkbox" ${enabled?'checked':''} onchange="toggleFlag('${name}', this.checked)"></td>
+      <td><input type="range" min="0" max="100" value="0" oninput="setRollout('${name}', this.value)"> <span id="pct-${name}">0%</span></td>
+      <td><button class="btn btn-sm btn-outline-warning" onclick="toggleFlag('${name}')">Toggle</button></td>`;
+    tbody.appendChild(tr);
+  }
+}
+async function toggleFlag(name){ await fetch(`/api/admin/feature-flags/${name}/toggle`, {method:'POST'}); }
+async function setRollout(name, v){ document.getElementById(`pct-${name}`).textContent=`${v}%`; await fetch(`/api/admin/feature-flags/${name}/rollout`, {method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({percentage: parseInt(v)})}); }
+document.addEventListener('DOMContentLoaded', loadFlags);
+</script>
+{% endblock %}
+
+

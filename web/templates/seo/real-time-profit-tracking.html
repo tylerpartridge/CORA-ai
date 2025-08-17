@@ -1,0 +1,242 @@
+{% extends "base.html" %}
+
+{% block title %}Real-Time Construction Profit Tracking | CORA AI{% endblock %}
+{% block description %}Track construction job profits in real-time with instant alerts. Never lose money on a job again with CORA's AI-powered profit tracking.{% endblock %}
+{% block keywords %}real time construction profit tracking, live job costing, instant profit alerts, construction budget tracking{% endblock %}
+
+{% block og_title %}Real-Time Profit Tracking for Construction{% endblock %}
+{% block og_description %}See exactly how much money you're making (or losing) on every job, in real-time. Get alerts before it's too late.{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero-section text-center py-5" style="background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6 text-lg-start">
+                <h1 class="display-4 fw-bold text-white mb-4">
+                    Real-Time Construction<br>
+                    <span style="color: #FF9800;">Profit Tracking</span>
+                </h1>
+                <p class="lead text-white mb-4">
+                    Stop finding out you lost money weeks after the job ends. 
+                    CORA tracks your profits in real-time and alerts you the moment a job starts going sideways.
+                </p>
+                <div class="d-flex flex-column flex-sm-row gap-3 justify-content-lg-start justify-content-center">
+                    <a href="/signup" class="btn btn-primary btn-lg px-5 py-3">
+                        Start Tracking Profits →
+                    </a>
+                    <button class="btn btn-outline-light btn-lg px-5 py-3" onclick="openCoraChat()">
+                        See Live Demo
+                    </button>
+                </div>
+                <p class="mt-3 text-white-50">
+                    <i class="fas fa-check-circle text-success"></i> No credit card required
+                    <i class="fas fa-check-circle text-success ms-3"></i> 14-day free trial
+                </p>
+            </div>
+            <div class="col-lg-6 mt-5 mt-lg-0">
+                <img src="/static/images/profit-tracking-dashboard.png" alt="Real-time profit tracking dashboard" class="img-fluid rounded shadow-lg">
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Problem Section -->
+<section class="py-5 bg-light">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto text-center">
+                <h2 class="display-5 fw-bold mb-4">
+                    The $35,000 Problem You Don't See Coming
+                </h2>
+                <p class="lead text-muted">
+                    The average construction contractor loses $35,000 per year on jobs that went over budget. 
+                    Why? Because by the time you calculate job costs, it's already too late.
+                </p>
+            </div>
+        </div>
+        <div class="row mt-5">
+            <div class="col-md-4 text-center mb-4">
+                <div class="icon-box p-4 h-100 bg-white rounded shadow-sm">
+                    <i class="fas fa-clock fa-3x mb-3" style="color: #FF9800;"></i>
+                    <h4>Delayed Tracking</h4>
+                    <p class="text-muted">Most contractors update job costs weekly or monthly - far too late to catch problems</p>
+                </div>
+            </div>
+            <div class="col-md-4 text-center mb-4">
+                <div class="icon-box p-4 h-100 bg-white rounded shadow-sm">
+                    <i class="fas fa-exclamation-triangle fa-3x mb-3" style="color: #FF9800;"></i>
+                    <h4>Hidden Overruns</h4>
+                    <p class="text-muted">Labor overtime, material waste, and change orders pile up invisibly</p>
+                </div>
+            </div>
+            <div class="col-md-4 text-center mb-4">
+                <div class="icon-box p-4 h-100 bg-white rounded shadow-sm">
+                    <i class="fas fa-chart-line fa-3x mb-3" style="color: #FF9800;"></i>
+                    <h4>No Early Warning</h4>
+                    <p class="text-muted">Without real-time data, you can't course-correct before it's too late</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Solution Section -->
+<section class="py-5">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6">
+                <h2 class="display-5 fw-bold mb-4">
+                    Know Your Profit Margin <span style="color: #FF9800;">Every Second</span>
+                </h2>
+                <p class="lead mb-4">
+                    CORA tracks every expense, every labor hour, and every material cost as it happens. 
+                    You'll see your profit margin update in real-time, not weeks later.
+                </p>
+                <ul class="list-unstyled">
+                    <li class="mb-3">
+                        <i class="fas fa-check-circle text-success me-2"></i>
+                        <strong>Instant Alerts:</strong> Get notified the moment a job exceeds 80% of budget
+                    </li>
+                    <li class="mb-3">
+                        <i class="fas fa-check-circle text-success me-2"></i>
+                        <strong>Live Dashboard:</strong> See all job profits on one screen, updated every minute
+                    </li>
+                    <li class="mb-3">
+                        <i class="fas fa-check-circle text-success me-2"></i>
+                        <strong>AI Predictions:</strong> CORA predicts final costs based on current burn rate
+                    </li>
+                    <li class="mb-3">
+                        <i class="fas fa-check-circle text-success me-2"></i>
+                        <strong>Mobile Updates:</strong> Track costs from the job site with voice input
+                    </li>
+                </ul>
+            </div>
+            <div class="col-lg-6">
+                <div class="bg-light p-4 rounded">
+                    <h4 class="mb-3">Real Customer Alert:</h4>
+                    <div class="alert alert-warning">
+                        <i class="fas fa-exclamation-triangle me-2"></i>
+                        <strong>Budget Alert - Johnson Renovation</strong><br>
+                        Job has reached 85% of budget with 2 weeks remaining. 
+                        Current trajectory shows $3,200 loss. Take action now.
+                    </div>
+                    <p class="text-muted small">
+                        This alert saved Mike $3,200 by letting him adjust the scope before it was too late.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Features Section -->
+<section class="py-5 bg-light">
+    <div class="container">
+        <h2 class="display-5 fw-bold text-center mb-5">
+            How Real-Time Tracking Saves Your Profits
+        </h2>
+        <div class="row">
+            <div class="col-md-6 mb-4">
+                <div class="feature-card h-100 p-4 bg-white rounded shadow-sm">
+                    <h4 class="mb-3">
+                        <i class="fas fa-tachometer-alt me-2" style="color: #FF9800;"></i>
+                        Live Profit Margins
+                    </h4>
+                    <p>See your actual profit margin for every job, updated in real-time as expenses come in. No more spreadsheet guesswork.</p>
+                </div>
+            </div>
+            <div class="col-md-6 mb-4">
+                <div class="feature-card h-100 p-4 bg-white rounded shadow-sm">
+                    <h4 class="mb-3">
+                        <i class="fas fa-bell me-2" style="color: #FF9800;"></i>
+                        Smart Alerts
+                    </h4>
+                    <p>Get notifications before jobs go over budget, not after. Set custom thresholds for different job types.</p>
+                </div>
+            </div>
+            <div class="col-md-6 mb-4">
+                <div class="feature-card h-100 p-4 bg-white rounded shadow-sm">
+                    <h4 class="mb-3">
+                        <i class="fas fa-microphone me-2" style="color: #FF9800;"></i>
+                        Voice Input
+                    </h4>
+                    <p>Update costs instantly from the job site using voice commands. Perfect for when your hands are dirty.</p>
+                </div>
+            </div>
+            <div class="col-md-6 mb-4">
+                <div class="feature-card h-100 p-4 bg-white rounded shadow-sm">
+                    <h4 class="mb-3">
+                        <i class="fas fa-brain me-2" style="color: #FF9800;"></i>
+                        AI Predictions
+                    </h4>
+                    <p>CORA learns your patterns and predicts final job costs based on current spending rates.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ROI Section -->
+<section class="py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto text-center">
+                <h2 class="display-5 fw-bold mb-4">
+                    Save $2,500+ Per Month in Prevented Losses
+                </h2>
+                <p class="lead mb-5">
+                    Our average customer prevents 3-5 budget overruns per month using real-time tracking. 
+                    At $500-1,000 per save, CORA pays for itself in the first week.
+                </p>
+                <div class="row text-center">
+                    <div class="col-md-4 mb-4">
+                        <div class="stat-box">
+                            <h3 class="display-4 fw-bold" style="color: #FF9800;">92%</h3>
+                            <p class="text-muted">Reduction in budget overruns</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-4">
+                        <div class="stat-box">
+                            <h3 class="display-4 fw-bold" style="color: #FF9800;">15min</h3>
+                            <p class="text-muted">Average time to catch issues</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-4">
+                        <div class="stat-box">
+                            <h3 class="display-4 fw-bold" style="color: #FF9800;">$35k</h3>
+                            <p class="text-muted">Average annual savings</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="py-5 text-white text-center" style="background: linear-gradient(135deg, #FF9800 0%, #F57C00 100%);">
+    <div class="container">
+        <h2 class="display-5 fw-bold mb-4">
+            Start Tracking Profits in Real-Time Today
+        </h2>
+        <p class="lead mb-4">
+            Join 500+ contractors who never lose money on jobs anymore
+        </p>
+        <div class="d-flex flex-column flex-sm-row gap-3 justify-content-center mb-4">
+            <a href="/signup" class="btn btn-light btn-lg px-5 py-3">
+                Start Free Trial →
+            </a>
+            <button class="btn btn-outline-light btn-lg px-5 py-3" onclick="openCoraChat()">
+                Talk to CORA
+            </button>
+        </div>
+        <p class="text-white-50">
+            <i class="fas fa-check-circle"></i> No credit card required
+            <i class="fas fa-check-circle ms-3"></i> 14-day free trial
+            <i class="fas fa-check-circle ms-3"></i> Cancel anytime
+        </p>
+    </div>
+</section>
+
+{% endblock %}

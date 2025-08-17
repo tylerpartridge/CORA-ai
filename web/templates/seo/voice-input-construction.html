@@ -1,0 +1,298 @@
+{% extends "base.html" %}
+
+{% block title %}Voice Input Construction Software | Track Expenses Hands-Free | CORA{% endblock %}
+{% block description %}Update job costs with voice commands when your hands are dirty. CORA's voice AI understands construction terminology. Track expenses in seconds, not minutes.{% endblock %}
+{% block keywords %}voice input construction software, hands free job tracking, voice expense tracking, construction voice commands{% endblock %}
+
+{% block og_title %}Voice Input for Construction - Track Costs Hands-Free{% endblock %}
+{% block og_description %}Finally, construction software that works when your hands are covered in concrete. Just speak your expenses.{% endblock %}
+
+{% block content %}
+<!-- Hero Section with Voice Demo -->
+<section class="hero-section py-5" style="background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6 text-lg-start text-center">
+                <h1 class="display-4 fw-bold text-white mb-4">
+                    Voice Input for<br>
+                    <span style="color: #FF9800;">Dirty Hands</span>
+                </h1>
+                <p class="lead text-white mb-4">
+                    Gloves on? Hands covered in mud? No problem. 
+                    Just tell CORA what you spent, and she'll handle the rest.
+                </p>
+                
+                <!-- Voice Demo Button -->
+                <div class="voice-demo-box bg-white p-4 rounded shadow mb-4">
+                    <p class="text-muted mb-3">Try it now - click and speak:</p>
+                    <button class="btn btn-lg w-100 py-3" style="background: #FF9800; color: white;" onclick="demoVoiceInput()">
+                        <i class="fas fa-microphone fa-2x"></i>
+                        <div class="mt-2">Tap to Try Voice Input</div>
+                    </button>
+                    <p class="text-muted small mt-2 mb-0">
+                        Example: "Spent 47 dollars on lumber at Home Depot"
+                    </p>
+                </div>
+                
+                <div class="d-flex flex-column flex-sm-row gap-3 justify-content-lg-start justify-content-center">
+                    <a href="/signup" class="btn btn-primary btn-lg px-5 py-3">
+                        Get Voice Tracking →
+                    </a>
+                </div>
+            </div>
+            <div class="col-lg-6 mt-5 mt-lg-0">
+                <div class="position-relative">
+                    <img src="/static/images/contractor-voice-input.jpg" alt="Contractor using voice input on job site" class="img-fluid rounded shadow-lg">
+                    <div class="position-absolute top-50 start-50 translate-middle">
+                        <button class="btn btn-light btn-lg rounded-circle shadow" style="width: 80px; height: 80px;">
+                            <i class="fas fa-play fa-2x" style="color: #FF9800;"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Problem Section -->
+<section class="py-5 bg-light">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="display-5 fw-bold mb-4">
+                Why Contractors Lose $186 Per Day in Untracked Expenses
+            </h2>
+            <p class="lead text-muted">
+                You can't wash your hands and pull out your phone every time you buy materials. 
+                So expenses pile up, receipts get lost, and profits disappear.
+            </p>
+        </div>
+        
+        <div class="row">
+            <div class="col-md-4 mb-4">
+                <div class="problem-card text-center p-4 h-100 bg-white rounded shadow-sm">
+                    <img src="/static/images/dirty-hands-icon.svg" alt="Dirty hands" class="mb-3" style="height: 80px;">
+                    <h4>Dirty Hands Dilemma</h4>
+                    <p class="text-muted">Can't use touchscreens with gloves or muddy hands</p>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="problem-card text-center p-4 h-100 bg-white rounded shadow-sm">
+                    <img src="/static/images/receipt-pile-icon.svg" alt="Receipt pile" class="mb-3" style="height: 80px;">
+                    <h4>Receipt Chaos</h4>
+                    <p class="text-muted">Receipts stuffed in trucks, pockets, toolboxes - never entered</p>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="problem-card text-center p-4 h-100 bg-white rounded shadow-sm">
+                    <img src="/static/images/time-waste-icon.svg" alt="Time waste" class="mb-3" style="height: 80px;">
+                    <h4>Time Black Hole</h4>
+                    <p class="text-muted">Spend Sunday nights entering receipts instead of relaxing</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- How It Works Section -->
+<section class="py-5">
+    <div class="container">
+        <h2 class="display-5 fw-bold text-center mb-5">
+            Track Expenses in <span style="color: #FF9800;">10 Seconds</span> With Your Voice
+        </h2>
+        
+        <div class="row">
+            <div class="col-lg-8 mx-auto">
+                <div class="step-by-step">
+                    <!-- Step 1 -->
+                    <div class="step-item d-flex align-items-start mb-4">
+                        <div class="step-number flex-shrink-0 me-4">
+                            <div class="rounded-circle d-flex align-items-center justify-content-center" 
+                                 style="width: 60px; height: 60px; background: #FF9800; color: white; font-size: 24px; font-weight: bold;">
+                                1
+                            </div>
+                        </div>
+                        <div class="step-content">
+                            <h4>Open CORA on Your Phone</h4>
+                            <p class="text-muted">Works on any smartphone - no special equipment needed</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Step 2 -->
+                    <div class="step-item d-flex align-items-start mb-4">
+                        <div class="step-number flex-shrink-0 me-4">
+                            <div class="rounded-circle d-flex align-items-center justify-content-center" 
+                                 style="width: 60px; height: 60px; background: #FF9800; color: white; font-size: 24px; font-weight: bold;">
+                                2
+                            </div>
+                        </div>
+                        <div class="step-content">
+                            <h4>Tap the Mic & Speak Naturally</h4>
+                            <p class="text-muted">"Bought 12 sheets of drywall at Lowe's for the Smith job - 240 bucks"</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Step 3 -->
+                    <div class="step-item d-flex align-items-start mb-4">
+                        <div class="step-number flex-shrink-0 me-4">
+                            <div class="rounded-circle d-flex align-items-center justify-content-center" 
+                                 style="width: 60px; height: 60px; background: #FF9800; color: white; font-size: 24px; font-weight: bold;">
+                                3
+                            </div>
+                        </div>
+                        <div class="step-content">
+                            <h4>CORA Does the Rest</h4>
+                            <p class="text-muted">Automatically categorizes, assigns to job, updates profit tracking</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Example Voice Commands -->
+                <div class="bg-light p-4 rounded mt-5">
+                    <h5 class="mb-3">CORA Understands Construction Talk:</h5>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <ul class="list-unstyled">
+                                <li class="mb-2">✓ "Filled up the F-150 - 80 bucks"</li>
+                                <li class="mb-2">✓ "Bought fasteners at Home Depot - 23 dollars"</li>
+                                <li class="mb-2">✓ "Rented compressor for Johnson job - 150"</li>
+                            </ul>
+                        </div>
+                        <div class="col-md-6">
+                            <ul class="list-unstyled">
+                                <li class="mb-2">✓ "Paid Miguel 400 cash for demo work"</li>
+                                <li class="mb-2">✓ "Lunch for the crew - 67 dollars"</li>
+                                <li class="mb-2">✓ "Dump fees at the transfer station - 120"</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Features Section -->
+<section class="py-5 bg-light">
+    <div class="container">
+        <h2 class="display-5 fw-bold text-center mb-5">
+            Built for Real Construction Sites
+        </h2>
+        
+        <div class="row">
+            <div class="col-md-6 col-lg-3 mb-4">
+                <div class="feature-box text-center h-100 p-4 bg-white rounded shadow-sm">
+                    <i class="fas fa-microphone-alt fa-3x mb-3" style="color: #FF9800;"></i>
+                    <h5>Works With Noise</h5>
+                    <p class="text-muted small">Advanced AI filters out job site noise - hammers, saws, engines</p>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-3 mb-4">
+                <div class="feature-box text-center h-100 p-4 bg-white rounded shadow-sm">
+                    <i class="fas fa-language fa-3x mb-3" style="color: #FF9800;"></i>
+                    <h5>Understands Slang</h5>
+                    <p class="text-muted small">Knows "studs", "mud", "rock" and other construction terms</p>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-3 mb-4">
+                <div class="feature-box text-center h-100 p-4 bg-white rounded shadow-sm">
+                    <i class="fas fa-globe fa-3x mb-3" style="color: #FF9800;"></i>
+                    <h5>Multi-Language</h5>
+                    <p class="text-muted small">English, Spanish, and mixed language support</p>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-3 mb-4">
+                <div class="feature-box text-center h-100 p-4 bg-white rounded shadow-sm">
+                    <i class="fas fa-wifi fa-3x mb-3" style="color: #FF9800;"></i>
+                    <h5>Offline Mode</h5>
+                    <p class="text-muted small">Records offline, syncs when you get signal</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Testimonial Section -->
+<section class="py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto">
+                <div class="testimonial-box bg-white p-5 rounded shadow text-center">
+                    <img src="/static/images/mike-testimonial.jpg" alt="Mike Johnson" class="rounded-circle mb-4" style="width: 100px;">
+                    <p class="lead mb-4" style="font-style: italic;">
+                        "I used to lose $500-800 per job in forgotten expenses. Now I just talk to CORA 
+                        while I'm loading my truck. Takes 10 seconds and I never miss anything."
+                    </p>
+                    <h5 class="mb-1">Mike Johnson</h5>
+                    <p class="text-muted">Johnson Construction, Dallas TX</p>
+                    <div class="mt-3">
+                        <span class="badge bg-success">Saves 2 hours/week</span>
+                        <span class="badge bg-success">Captures 100% of expenses</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="py-5 text-white text-center" style="background: linear-gradient(135deg, #FF9800 0%, #F57C00 100%);">
+    <div class="container">
+        <h2 class="display-5 fw-bold mb-4">
+            Stop Losing Money to Untracked Expenses
+        </h2>
+        <p class="lead mb-4">
+            Join 500+ contractors who track every expense with just their voice
+        </p>
+        <div class="d-flex flex-column flex-sm-row gap-3 justify-content-center mb-4">
+            <a href="/signup" class="btn btn-light btn-lg px-5 py-3">
+                Try Voice Tracking Free →
+            </a>
+            <button class="btn btn-outline-light btn-lg px-5 py-3" onclick="watchDemo()">
+                Watch 2-Min Demo
+            </button>
+        </div>
+        <p class="text-white-50">
+            <i class="fas fa-check-circle"></i> Works with any smartphone
+            <i class="fas fa-check-circle ms-3"></i> No app download required
+            <i class="fas fa-check-circle ms-3"></i> Free for 14 days
+        </p>
+    </div>
+</section>
+
+<script>
+function demoVoiceInput() {
+    // Simple demo simulation
+    const button = event.currentTarget;
+    const originalContent = button.innerHTML;
+    
+    button.innerHTML = '<i class="fas fa-circle text-danger"></i> <div class="mt-2">Listening...</div>';
+    button.disabled = true;
+    
+    setTimeout(() => {
+        button.innerHTML = '<i class="fas fa-check-circle text-success"></i> <div class="mt-2">Got it! "Spent $47 on lumber"</div>';
+        
+        setTimeout(() => {
+            button.innerHTML = originalContent;
+            button.disabled = false;
+            
+            // Show success message
+            const alert = document.createElement('div');
+            alert.className = 'alert alert-success mt-3';
+            alert.innerHTML = '<i class="fas fa-check-circle me-2"></i> Expense tracked! CORA categorized as "Materials" for current job.';
+            button.parentElement.appendChild(alert);
+            
+            setTimeout(() => alert.remove(), 5000);
+        }, 2000);
+    }, 2000);
+}
+
+function watchDemo() {
+    // Open the existing product tour as a stand-in for the demo
+    const win = window.open('/help/knowledge-base#voice-entry', '_blank');
+    if (!win) {
+        window.location.href = '/help/knowledge-base#voice-entry';
+    }
+}
+</script>
+
+{% endblock %}

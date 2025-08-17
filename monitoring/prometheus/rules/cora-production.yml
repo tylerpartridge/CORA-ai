@@ -1,0 +1,19 @@
+groups:
+- name: cora_production
+  rules:
+  - alert: HighResponseTime
+    description: CORA response time is above 3 seconds
+    duration: 2m
+    expr: avg_response_time > 3
+  - alert: HighErrorRate
+    description: CORA error rate is above 5%
+    duration: 5m
+    expr: error_rate > 0.05
+  - alert: DatabaseConnectionLoss
+    description: CORA has lost database connectivity
+    duration: 1m
+    expr: database_connections == 0
+  - alert: HighMemoryUsage
+    description: CORA memory usage above 80%
+    duration: 10m
+    expr: memory_usage > 0.8

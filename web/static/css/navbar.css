@@ -1,0 +1,138 @@
+/* ============================================
+   CORA NAVBAR - SINGLE SOURCE OF TRUTH
+   ============================================
+   This is THE ONLY file for navigation styling.
+   DO NOT add nav styles anywhere else.
+   DO NOT use navigation-consolidated.css or components/navigation.css
+   All nav typography must be 16px (1rem) consistently.
+   ============================================ */
+
+/* Body padding for fixed nav */
+body {
+    padding-top: 80px;
+    margin: 0;
+    font-family: 'Inter', sans-serif;
+    background: #1a1a1a;
+    color: #e2e8f0;
+}
+
+/* Navigation Bar Styles */
+nav {
+    background: linear-gradient(180deg, rgba(26, 26, 26, 0.98) 0%, rgba(26, 26, 26, 0.95) 100%) !important;
+    border-bottom: 3px solid #FF9800 !important;
+    border-top: none !important;
+    position: fixed !important;
+    width: 100% !important;
+    top: 0 !important;
+    z-index: 1000 !important;
+    backdrop-filter: blur(10px) !important;
+}
+
+/* Ensure no borders from Bootstrap or other CSS */
+nav.navbar {
+    border-top: none !important;
+    border-left: none !important;
+    border-right: none !important;
+}
+
+/* Force dark nav background */
+.navbar {
+    background: linear-gradient(180deg, rgba(26, 26, 26, 0.98) 0%, rgba(26, 26, 26, 0.95) 100%) !important;
+}
+
+/* Override any sticky-top styles */
+.navbar.sticky-top {
+    background: linear-gradient(180deg, rgba(26, 26, 26, 0.98) 0%, rgba(26, 26, 26, 0.95) 100%) !important;
+    border-bottom: 3px solid #FF9800 !important;
+}
+
+/* Navigation diagonal texture */
+nav::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: repeating-linear-gradient(
+        45deg,
+        transparent,
+        transparent 10px,
+        rgba(255, 152, 0, 0.02) 10px,
+        rgba(255, 152, 0, 0.02) 20px
+    );
+    pointer-events: none;
+}
+
+/* Construction grid overlay - from pricing.html */
+.construction-grid {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: 
+        repeating-linear-gradient(0deg, transparent, transparent 50px, rgba(255,152,0,0.03) 50px, rgba(255,152,0,0.03) 51px),
+        repeating-linear-gradient(90deg, transparent, transparent 50px, rgba(255,152,0,0.03) 50px, rgba(255,152,0,0.03) 51px);
+    pointer-events: none;
+}
+
+/* Ensure proper sizing and layout for brand/logo */
+.navbar .container {
+    display: flex;
+    align-items: center;
+}
+
+.navbar-brand {
+    display: flex !important;
+    align-items: center !important;
+    flex: 0 0 auto !important;
+    height: 45px !important;
+}
+
+.navbar-brand img {
+    max-height: 45px !important;
+    height: auto !important;
+    width: auto !important;
+    display: inline-block !important;
+}
+
+/* Prevent footer logo from stretching */
+footer .container img[alt="CORA"] {
+    max-height: 40px !important;
+    height: auto !important;
+    width: auto !important;
+    display: inline-block !important;
+}
+
+/* Typography: single source of truth for navbar text sizing */
+/* Using px instead of rem to prevent zoom controls from affecting nav */
+.navbar .nav-link,
+.nav-link {
+    font-size: 16px !important;
+    line-height: 1.25 !important;
+    padding: 8px 16px !important;
+    color: #e2e8f0 !important;
+    font-weight: 500 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.5px !important;
+    transition: all 0.3s ease !important;
+}
+
+.navbar .nav-link:hover,
+.nav-link:hover {
+    color: #FF9800 !important;
+    transform: translateY(-1px);
+}
+
+.navbar .nav-link.active,
+.nav-link.active {
+    color: #FF9800 !important;
+}
+
+.navbar .btn,
+.navbar .btn-construction {
+    font-size: 16px !important;
+    line-height: 1.25 !important;
+    padding: 8px 16px !important; /* Use px to avoid page zoom side-effects */
+}

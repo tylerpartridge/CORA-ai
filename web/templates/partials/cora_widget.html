@@ -1,0 +1,17 @@
+<!-- CORA Chat placeholder root -->
+<div id="cora-widget-root" style="display: contents;"></div>
+<script>
+  // Safety bootstrap in case deferred loaders race
+  (function(){
+    function init(){
+      if (window.coraChatEnhanced) return;
+      if (window.CoraChatEnhanced) {
+        try { window.coraChatEnhanced = new window.CoraChatEnhanced(); } catch(e){}
+      }
+    }
+    if (document.readyState==='loading') document.addEventListener('DOMContentLoaded', init); else init();
+    setTimeout(init, 1000);
+  })();
+  </script>
+
+

@@ -1,0 +1,11 @@
+{
+  "userEmail": "test@example.com",
+  "businessProfile": {
+    "businessName": "Test Business",
+    "businessType": "Construction",
+    "industry": "Construction",
+    "monthlyRevenueRange": "-"
+  },
+  "detailedOnboardingData": {},
+  "createdAt": "2025-08-05T12:12:58.502275"
+}

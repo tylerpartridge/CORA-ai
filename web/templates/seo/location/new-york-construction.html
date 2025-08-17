@@ -1,0 +1,177 @@
+{% extends "base.html" %}
+
+{% block title %}NYC Construction Profit Tracking | Real-Time Job Costing{% endblock %}
+{% block description %}New York construction profit tracking that keeps up with the city's pace. From Manhattan renovations to Brooklyn developments.{% endblock %}
+{% block keywords %}NYC construction software, New York contractor tools, Manhattan job tracking, Brooklyn construction costing{% endblock %}
+
+{% block og_title %}New York Construction Software | CORA{% endblock %}
+{% block og_description %}Built for the pace and complexity of New York construction. From Manhattan high-rises to outer borough developments.{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero-section text-center py-5" style="background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6 text-lg-start">
+                <h1 class="display-4 fw-bold text-white mb-4">
+                    NYC Construction<br>
+                    <span style="color: #FF9800;">Profit Tracking</span>
+                </h1>
+                <p class="lead text-white mb-4">
+                    Built for New York's pace and complexity. Track profits in real-time 
+                    from Manhattan renovations to Brooklyn developments.
+                </p>
+                <div class="d-flex flex-column flex-sm-row gap-3 justify-content-lg-start justify-content-center">
+                    <a href="/signup" class="btn btn-primary btn-lg px-5 py-3">
+                        Start in NYC →
+                    </a>
+                    <button class="btn btn-outline-light btn-lg px-5 py-3" onclick="openCoraChat()">
+                        See NYC Demo
+                    </button>
+                </div>
+                <p class="mt-3 text-white-50">
+                    <i class="fas fa-building text-success"></i> High-rise ready
+                    <i class="fas fa-subway text-success ms-3"></i> Transit-accessible
+                </p>
+            </div>
+            <div class="col-lg-6 mt-5 mt-lg-0">
+                <img src="/static/images/nyc-construction.png" alt="NYC construction projects" class="img-fluid rounded shadow-lg">
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- NYC-Specific Challenges -->
+<section class="py-5 bg-light">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto text-center">
+                <h2 class="display-5 fw-bold mb-4">
+                    New York Construction Never Sleeps
+                </h2>
+                <p class="lead text-muted">
+                    Union labor, tiny job sites, strict noise ordinances, and sky-high material costs. 
+                    NYC construction demands software that moves as fast as the city.
+                </p>
+            </div>
+        </div>
+        <div class="row mt-5">
+            <div class="col-md-4 text-center mb-4">
+                <div class="icon-box p-4 h-100 bg-white rounded shadow-sm">
+                    <i class="fas fa-hard-hat fa-3x mb-3" style="color: #FF9800;"></i>
+                    <h4>Union Complexity</h4>
+                    <p class="text-muted">Track multiple union rates, overtime rules, and jurisdictional requirements automatically</p>
+                </div>
+            </div>
+            <div class="col-md-4 text-center mb-4">
+                <div class="icon-box p-4 h-100 bg-white rounded shadow-sm">
+                    <i class="fas fa-truck fa-3x mb-3" style="color: #FF9800;"></i>
+                    <h4>Logistics Costs</h4>
+                    <p class="text-muted">Factor in crane time, material hoisting, and premium delivery charges for tight sites</p>
+                </div>
+            </div>
+            <div class="col-md-4 text-center mb-4">
+                <div class="icon-box p-4 h-100 bg-white rounded shadow-sm">
+                    <i class="fas fa-clock fa-3x mb-3" style="color: #FF9800;"></i>
+                    <h4>Time Restrictions</h4>
+                    <p class="text-muted">Handle noise ordinances, building access hours, and weekend restrictions</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- NYC Boroughs -->
+<section class="py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto text-center mb-5">
+                <h2 class="display-5 fw-bold mb-4">
+                    Trusted Across All Five Boroughs
+                </h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 mb-4">
+                <div class="p-4 bg-light rounded">
+                    <h4><i class="fas fa-city me-2" style="color: #FF9800;"></i> Manhattan</h4>
+                    <p>Luxury high-rises, commercial renovations, and historic preservation. Handle premium costs and complex logistics in the ultimate tight-space environment.</p>
+                </div>
+            </div>
+            <div class="col-md-6 mb-4">
+                <div class="p-4 bg-light rounded">
+                    <h4><i class="fas fa-home me-2" style="color: #FF9800;"></i> Brooklyn</h4>
+                    <p>Trendy developments, brownstone renovations, and industrial conversions. Track gentrification premium costs and historic district requirements.</p>
+                </div>
+            </div>
+            <div class="col-md-6 mb-4">
+                <div class="p-4 bg-light rounded">
+                    <h4><i class="fas fa-subway me-2" style="color: #FF9800;"></i> Queens</h4>
+                    <p>Diverse housing projects, airport-related construction, and multi-family developments. Handle varied zoning requirements and transit accessibility.</p>
+                </div>
+            </div>
+            <div class="col-md-6 mb-4">
+                <div class="p-4 bg-light rounded">
+                    <h4><i class="fas fa-bridge me-2" style="color: #FF9800;"></i> Bronx & Staten Island</h4>
+                    <p>Affordable housing projects, infrastructure improvements, and community developments. Track public project requirements and community benefits.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Success Story -->
+<section class="py-5 bg-light">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6">
+                <h2 class="display-5 fw-bold mb-4">
+                    "Managed 15 Manhattan Projects Simultaneously"
+                </h2>
+                <blockquote class="blockquote">
+                    <p class="lead">"In Manhattan, you're juggling union schedules, DOB inspections, and neighbors who complain about everything. 
+                    CORA helped us track the real cost of all those delays and change orders. 
+                    We went from losing money to 18% margins."</p>
+                </blockquote>
+                <figcaption class="blockquote-footer mt-3">
+                    <cite title="Source Title">Tony Russo, Empire State Construction - Manhattan, NY</cite>
+                </figcaption>
+            </div>
+            <div class="col-lg-6 mt-5 mt-lg-0">
+                <div class="bg-white p-4 rounded shadow">
+                    <h4>NYC-Ready Features:</h4>
+                    <ul class="list-unstyled mt-3">
+                        <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i> Multi-union rate tracking</li>
+                        <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i> Crane time optimization</li>
+                        <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i> DOB permit tracking</li>
+                        <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i> Noise ordinance scheduling</li>
+                        <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i> Material hoist costs</li>
+                        <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i> Historic district compliance</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="py-5" style="background: linear-gradient(135deg, #FF9800 0%, #F57C00 100%);">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto text-center">
+                <h2 class="display-6 fw-bold text-white mb-4">
+                    Built for the City That Never Sleeps
+                </h2>
+                <p class="lead text-white mb-4">
+                    Join NYC contractors who are thriving despite the complexity, costs, and pace of New York construction.
+                </p>
+                <a href="/signup" class="btn btn-light btn-lg px-5 py-3">
+                    Start in New York →
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% include "components/cora_widget.html" %}
+{% endblock %}

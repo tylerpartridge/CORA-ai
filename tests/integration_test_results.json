@@ -1,0 +1,70 @@
+{
+  "total_tests": 10,
+  "passed": 0,
+  "failed": 10,
+  "success_rate": 0.0,
+  "total_duration": 0.0,
+  "test_results": {
+    "Core Imports": {
+      "status": "FAIL",
+      "details": "Import error: No module named 'app'",
+      "duration": null,
+      "timestamp": "2025-08-05T11:24:53.417914"
+    },
+    "Database Connection": {
+      "status": "FAIL",
+      "details": "Database error: No module named 'models'",
+      "duration": null,
+      "timestamp": "2025-08-05T11:24:53.417914"
+    },
+    "Redis Connection": {
+      "status": "FAIL",
+      "details": "Redis error: No module named 'utils'",
+      "duration": null,
+      "timestamp": "2025-08-05T11:24:53.417914"
+    },
+    "Validation System": {
+      "status": "FAIL",
+      "details": "Validation error: No module named 'utils'",
+      "duration": null,
+      "timestamp": "2025-08-05T11:24:53.417914"
+    },
+    "Query Optimization": {
+      "status": "FAIL",
+      "details": "Query optimization error: No module named 'utils'",
+      "duration": null,
+      "timestamp": "2025-08-05T11:24:53.417914"
+    },
+    "Materialized Views": {
+      "status": "FAIL",
+      "details": "Materialized views error: No module named 'utils'",
+      "duration": null,
+      "timestamp": "2025-08-05T11:24:53.417914"
+    },
+    "API Response Optimization": {
+      "status": "FAIL",
+      "details": "API optimization error: No module named 'utils'",
+      "duration": null,
+      "timestamp": "2025-08-05T11:24:53.417914"
+    },
+    "Performance Monitoring": {
+      "status": "FAIL",
+      "details": "Performance monitoring error: No module named 'utils'",
+      "duration": null,
+      "timestamp": "2025-08-05T11:24:53.417914"
+    },
+    "Error Handling": {
+      "status": "FAIL",
+      "details": "Error handling error: No module named 'middleware'",
+      "duration": null,
+      "timestamp": "2025-08-05T11:24:53.417914"
+    },
+    "Application Startup": {
+      "status": "FAIL",
+      "details": "Application startup error: No module named 'app'",
+      "duration": null,
+      "timestamp": "2025-08-05T11:24:53.417914"
+    }
+  },
+  "timestamp": "2025-08-05T11:24:53.417914"
+}

@@ -1,0 +1,10 @@
+# Test Dependencies Missing
+# Install these to run tests:
+
+requests  # Most tests use this
+pytest    # Test framework
+pytest-asyncio  # For async tests
+httpx     # Modern HTTP client
+python-dotenv  # Environment variables
+sqlalchemy  # Database ORM
+fastapi   # Web framework

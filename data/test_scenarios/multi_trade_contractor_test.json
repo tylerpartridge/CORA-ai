@@ -1,0 +1,69 @@
+{
+  "scenario": "Multi-Trade Established Contractor - Complex Business Testing",
+  "created": "2025-08-02", 
+  "purpose": "Test complex business scenarios and advanced features",
+  
+  "contractor_profile": {
+    "name": "Sarah Chen",
+    "email": "sarah@chenbuilds.com", 
+    "business_type": ["general", "electrical", "painting", "framing"],
+    "years_in_business": "veteran",
+    "business_size": "established", 
+    "service_area": "statewide",
+    "customer_type": ["residential", "commercial", "government"],
+    "tracking_method": ["quickbooks", "spreadsheets"],
+    "main_challenge": ["profit_tracking", "tools"],
+    "busy_season": ["spring", "summer", "fall"],
+    "business_goal": "expand_team"
+  },
+  
+  "complex_scenarios": {
+    "multi_job_tracking": [
+      {
+        "job": "City Hall Renovation",
+        "trades": ["electrical", "painting", "general"],
+        "crew_assignments": {
+          "electrical": "John and Maria",
+          "painting": "David, Lisa, Carlos", 
+          "general": "Sarah supervising"
+        },
+        "budget": 125000,
+        "timeline": "8 weeks"
+      },
+      {
+        "job": "Residential Subdivision (4 homes)",
+        "trades": ["framing", "electrical"],
+        "crew_assignments": {
+          "framing": "Full crew rotation",
+          "electrical": "John and apprentice"
+        },
+        "budget": 85000,
+        "timeline": "12 weeks"
+      }
+    ],
+    
+    "integration_challenges": [
+      "QuickBooks sync - some expenses missing",
+      "Spreadsheet data inconsistent with QB",
+      "Crew time tracking vs. material costs",
+      "Government contract compliance requirements",
+      "Multiple customer billing cycles"
+    ],
+    
+    "scaling_pain_points": [
+      "Can't track individual crew profitability", 
+      "Material waste hard to identify per job",
+      "Overhead allocation unclear",
+      "Cash flow timing with large projects",
+      "Too many tools - nothing talks to each other"
+    ]
+  },
+  
+  "advanced_features_needed": [
+    "Multi-job expense allocation",
+    "Crew productivity tracking",
+    "Real-time project status updates",
+    "Integration with existing QuickBooks",
+    "Government contract reporting"
+  ]
+}

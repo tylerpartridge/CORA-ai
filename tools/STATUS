@@ -1,0 +1,31 @@
+# Tools/Scripts STATUS
+
+## Current State (2025-08-06)
+- 10 destructive navigation scripts quarantined in QUARANTINE_DO_NOT_USE/
+- Template protection script (protect_templates.py) active
+- Deployment scripts ready but untested with real server
+
+## Recent Work
+- Created template checksum verification system
+- Quarantined dangerous navigation "fix" scripts
+- Fixed bootup.md for Linux compatibility
+
+## Safe Scripts
+- protect_templates.py - Template checksum verification
+- backup_db.py - Database backup utility
+- health_check.py - System health monitoring
+
+## Quarantined Scripts (DO NOT RUN)
+- force_index_everywhere.py - Destroyed 3 templates
+- nuclear_nav_fix.py - Dangerous file overwriting
+- final_nav_fix.py - More corruption attempts
+- (7 more destructive scripts)
+
+## Next Tasks
+- [ ] Test deployment scripts on staging
+- [ ] Create database migration tool
+- [ ] Add dry-run mode to remaining scripts
+- [ ] Archive quarantined scripts permanently
+
+---
+Last Updated: 2025-08-06 by Claude

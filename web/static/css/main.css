@@ -1,0 +1,142 @@
+/* CORA Main CSS - Import Order Matters! */
+/* This is the ONLY CSS file pages should link to */
+
+/* 1. Core Variables - Must be first */
+@import url('core/variables.css');
+
+/* 2. Reset browser defaults */
+@import url('core/reset.css');
+
+/* 3. Component styles */
+@import url('components/navigation.css');
+
+/* Construction theme specific styles */
+.construction-grid {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: 
+        repeating-linear-gradient(0deg, transparent, transparent 50px, rgba(255,152,0,0.03) 50px, rgba(255,152,0,0.03) 51px),
+        repeating-linear-gradient(90deg, transparent, transparent 50px, rgba(255,152,0,0.03) 50px, rgba(255,152,0,0.03) 51px);
+    pointer-events: none;
+}
+
+/* Container styles */
+.container {
+    max-width: var(--container-max-width);
+    margin: 0 auto;
+    padding: 0 var(--spacing-md);
+}
+
+/* Section spacing */
+section {
+    padding: var(--spacing-xxl) 0;
+}
+
+/* Headings */
+h1, h2, h3, h4, h5, h6 {
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: var(--spacing-md);
+}
+
+.display-3 {
+    font-size: 3rem;
+    font-weight: 800;
+}
+
+/* Text utilities */
+.text-primary {
+    color: var(--primary-color) !important;
+}
+
+.text-white {
+    color: #ffffff !important;
+}
+
+.lead {
+    font-size: 1.25rem;
+    font-weight: 300;
+}
+
+/* Button styles */
+.btn {
+    padding: var(--spacing-sm) var(--spacing-lg);
+    border-radius: var(--border-radius);
+    font-weight: 600;
+    transition: all 0.3s ease;
+    display: inline-block;
+    text-align: center;
+    cursor: pointer;
+}
+
+.btn-primary {
+    background: var(--primary-color);
+    color: var(--background-color);
+    border: none;
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--box-shadow);
+}
+
+/* Card styles */
+.card {
+    background: rgba(45, 55, 72, 0.5);
+    border: 1px solid rgba(255, 152, 0, 0.2);
+    border-radius: var(--border-radius);
+    padding: var(--spacing-lg);
+    transition: all 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--box-shadow);
+    border-color: var(--primary-color);
+}
+
+/* Form styles */
+.form-control {
+    background: rgba(45, 55, 72, 0.5);
+    border: 1px solid rgba(255, 152, 0, 0.3);
+    color: var(--text-color);
+    padding: var(--spacing-sm) var(--spacing-md);
+    border-radius: var(--border-radius);
+    transition: all 0.3s ease;
+}
+
+.form-control:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 0.2rem rgba(255, 152, 0, 0.25);
+    background: rgba(45, 55, 72, 0.8);
+}
+
+/* Footer styles */
+footer {
+    background: var(--construction-grey);
+    color: var(--text-color);
+    padding: var(--spacing-xxl) 0 var(--spacing-lg);
+    margin-top: auto;
+}
+
+/* Utility classes */
+.mb-4 { margin-bottom: var(--spacing-lg); }
+.mt-4 { margin-top: var(--spacing-lg); }
+.py-5 { padding-top: var(--spacing-xxl); padding-bottom: var(--spacing-xxl); }
+.text-center { text-align: center; }
+.fw-bold { font-weight: 700; }
+.text-uppercase { text-transform: uppercase; }
+
+/* Responsive utilities */
+@media (max-width: 768px) {
+    .display-3 {
+        font-size: 2rem;
+    }
+    
+    section {
+        padding: var(--spacing-xl) 0;
+    }
+}

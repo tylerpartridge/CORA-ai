@@ -8,12 +8,15 @@
 
 import requests
 import json
+import logging
 from datetime import datetime, timedelta
 from typing import List, Dict, Optional
 from sqlalchemy.orm import Session
 
-from models.quickbooks_integration import QuickBooksIntegration, QuickBooksSyncHistory, QuickBooksVendor, QuickBooksAccount
+from models.quickbooks_integration import QuickBooksIntegration, QuickBooksSyncHistory
 from models.expense import Expense
+
+logger = logging.getLogger(__name__)
 
 class QuickBooksService:
     """Service for QuickBooks API interactions and expense synchronization"""
@@ -45,8 +48,11 @@ class QuickBooksService:
                 "refresh_token": self.integration.refresh_token
             }
             
+            # Import centralized config
+            from config import config
+            
             headers = {
-                "Authorization": f"Basic {os.getenv('QUICKBOOKS_BASIC_AUTH', 'YOUR_BASIC_AUTH')}",
+                "Authorization": f"Basic {config.QUICKBOOKS_CLIENT_SECRET}",
                 "Content-Type": "application/x-www-form-urlencoded"
             }
             
@@ -67,6 +73,44 @@ class QuickBooksService:
         except Exception as e:
             print(f"Token refresh failed: {e}")
             return False
+    
+    async def refresh_access_token(self) -> dict:
+        """Refresh access token and return new tokens"""
+        try:
+            token_url = "https://oauth.platform.intuit.com/oauth2/v1/tokens/bearer"
+            
+            data = {
+                "grant_type": "refresh_token",
+                "refresh_token": self.integration.refresh_token
+            }
+            
+            # Import centralized config
+            from config import config
+            import base64
+            
+            # Create Basic Auth header
+            credentials = f"{config.QUICKBOOKS_CLIENT_ID}:{config.QUICKBOOKS_CLIENT_SECRET}"
+            encoded_credentials = base64.b64encode(credentials.encode()).decode()
+            
+            headers = {
+                "Authorization": f"Basic {encoded_credentials}",
+                "Content-Type": "application/x-www-form-urlencoded",
+                "Accept": "application/json"
+            }
+            
+            response = requests.post(token_url, data=data, headers=headers)
+            response.raise_for_status()
+            
+            token_data = response.json()
+            return {
+                "access_token": token_data["access_token"],
+                "refresh_token": token_data["refresh_token"],
+                "expires_in": token_data.get("expires_in", 3600)
+            }
+                
+        except requests.exceptions.RequestException as e:
+            logger.error(f"QuickBooks token refresh failed: {str(e)}")
+            raise Exception(f"Failed to refresh QuickBooks token: {str(e)}")
     
     def _map_cora_to_quickbooks_category(self, cora_category: str) -> Optional[str]:
         """Map CORA category to QuickBooks account"""
@@ -346,5 +390,12 @@ class QuickBooksService:
             company_info = self.get_company_info()
             return "error" not in company_info
             
-        except Exception:
+        except requests.RequestException as e:
+            logger.error(f"QuickBooks connection test failed - Request error: {str(e)}")
+            return False
+        except json.JSONDecodeError as e:
+            logger.error(f"QuickBooks connection test failed - JSON decode error: {str(e)}")
+            return False
+        except Exception as e:
+            logger.error(f"QuickBooks connection test failed - Unexpected error: {str(e)}")
             return False 

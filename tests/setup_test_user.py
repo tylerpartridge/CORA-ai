@@ -6,14 +6,15 @@ Create a test user with known password for CORA
 from models import SessionLocal, User
 from services.auth_service import get_password_hash
 import sys
+import os
 
 def create_test_user():
     """Create a test user for authentication testing"""
     db = SessionLocal()
     
-    # Test user details
-    test_email = "test@cora.com"
-    test_password = "TestPassword123!"
+    # Test user details - use environment variables for production
+    test_email = os.getenv("TEST_USER_EMAIL", "test@cora.com")
+    test_password = os.getenv("TEST_USER_PASSWORD", "TestPassword123!")
     
     try:
         # Check if user already exists

@@ -1,0 +1,43 @@
+{% extends "base_public.html" %}
+
+{% block page_title %}Subscription Status - CORA{% endblock %}
+
+{% block content %}
+<section style="background: #1a1a1a; position: relative; padding: 4rem 0;">
+  <div class="construction-grid"></div>
+  <div class="container position-relative">
+    <div class="row justify-content-center">
+      <div class="col-lg-8">
+        <div class="p-4 p-md-5" style="background: var(--dark-surface); border: 2px solid rgba(255,152,0,0.2); border-radius: 8px;">
+          {% if status == 'success' %}
+            <h1 class="mb-3" style="color: #69F0AE;">Payment Successful</h1>
+            <p style="color: #e2e8f0;">Thank you. Your payment was processed successfully.</p>
+            {% if session_id %}
+            <p style="color: #a0aec0;">Session: <code>{{ session_id }}</code></p>
+            {% endif %}
+            <div class="mt-4 d-flex gap-3">
+              <a class="btn-construction" href="/dashboard">Go to Dashboard</a>
+              <a class="btn btn-secondary-css" href="/">Return Home</a>
+            </div>
+          {% elif status == 'cancelled' %}
+            <h1 class="mb-3" style="color: #FF9800;">Checkout Cancelled</h1>
+            <p style="color: #e2e8f0;">You cancelled the checkout. You can resume anytime.</p>
+            <div class="mt-4 d-flex gap-3">
+              <a class="btn-construction" href="/pricing">Back to Pricing</a>
+              <a class="btn btn-secondary-css" href="/contact">Talk to Sales</a>
+            </div>
+          {% else %}
+            <h1 class="mb-3" style="color: #e2e8f0;">Subscription</h1>
+            <p style="color: #a0aec0;">Manage your subscription and billing.</p>
+            <div class="mt-4 d-flex gap-3">
+              <a class="btn-construction" href="/pricing">View Plans</a>
+              <a class="btn btn-secondary-css" href="/dashboard">Go to Dashboard</a>
+            </div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+  </section>
+{% endblock %}
+

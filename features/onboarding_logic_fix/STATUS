@@ -1,0 +1,21 @@
+## GPT-5 Progress (2025-08-14)
+
+✅ Read `DIAGNOSIS.md` and `FIX_SPEC.md`
+✅ Implemented surgical JS edits in `web/static/js/onboarding-ai-wizard.js`:
+  - Forced linear phase advancement (`advanceToNextPhase`) after every user input
+  - Captured answers per phase with simplified storage (`captureAnswerForCurrentPhase`)
+  - Simplified `updatePhase()` to one clear prompt/UI per phase
+  - Fixed signup call to `/api/auth/register` with `password_confirm` and `signup_source`
+  - Trigger completion automatically when email + password available
+
+⏳ Test plan:
+1. Visit `/onboarding` fresh (clear localStorage)
+2. Answer each prompt once (nonsense allowed)
+3. Verify no duplicate questions
+4. Enter email and password at end; account is created
+5. Redirect/CTA to dashboard works
+
+If issues:
+- Hard refresh to bust JS cache
+- Check network tab for `/api/auth/register` response
+

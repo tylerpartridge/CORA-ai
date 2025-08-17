@@ -1,0 +1,146 @@
+/* Shared Construction Theme - consolidated common styles */
+
+:root {
+  --construction-orange: #FF9800;
+  --construction-orange-hover: #F57C00;
+  --industrial-blue: #1976D2;
+  --industrial-blue-hover: #1565C0;
+  --bright-blue: #4db8ff;
+  --success-green: #69F0AE;
+  --dark-bg: #1a1a1a;
+  --dark-surface: rgba(26, 26, 26, 0.9);
+  --dark-input: rgba(45, 55, 72, 0.95);
+  --text-primary: #ffffff;
+  --text-secondary: #e2e8f0;
+  --text-muted: #a0aec0;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background: var(--dark-bg);
+  color: var(--text-secondary);
+  line-height: 1.6;
+  min-height: 100vh;
+  padding-top: 80px; /* Account for fixed nav */
+}
+
+/* Construction grid overlay pattern */
+.construction-grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    repeating-linear-gradient(0deg, transparent, transparent 50px, rgba(255,152,0,0.03) 50px, rgba(255,152,0,0.03) 51px),
+    repeating-linear-gradient(90deg, transparent, transparent 50px, rgba(255,152,0,0.03) 50px, rgba(255,152,0,0.03) 51px);
+  pointer-events: none;
+}
+
+/* Navigation link styles - REMOVED to let navbar.css be single source of truth */
+/* All nav styling should be in navbar.css only */
+/* Only keeping hover color changes here for theme consistency */
+.nav-link:hover { color: var(--construction-orange) !important; transform: translateY(-1px); }
+.nav-link.active { color: var(--construction-orange) !important; }
+
+/* Buttons */
+.btn-construction {
+  background: var(--construction-orange);
+  color: #1a1a1a;
+  padding: 0.75rem 1.5rem;
+  font-weight: 700;
+  border-radius: 4px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  display: inline-block;
+  box-shadow: 0 4px 15px rgba(255,152,0,0.4);
+  border: none;
+}
+.btn-construction:hover {
+  background: var(--construction-orange-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(255,152,0,0.6);
+  color: #1a1a1a;
+}
+
+.btn-construction-secondary:hover {
+  transform: translateY(-2px);
+  background: var(--industrial-blue-hover);
+  box-shadow: 0 4px 15px rgba(25,118,210,0.4);
+}
+.btn-secondary-css {
+  background: var(--industrial-blue);
+  color: #ffffff;
+  padding: 0.75rem 2rem;
+  border-radius: 4px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  display: inline-block;
+}
+.btn-secondary-css:hover {
+  background: var(--industrial-blue-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(25,118,210,0.4);
+}
+
+/* Utilities */
+.theme-toggle { display: none !important; }
+
+.navbar-brand img { transition: all 0.3s ease; filter: brightness(0.9); max-height: 45px; height: auto; width: auto; }
+.navbar-brand:hover img { filter: brightness(1.1); transform: scale(1.05); }
+
+/* Inputs */
+input::placeholder { color: #a0aec0; }
+
+/* Form inputs focus standardization */
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+textarea {
+  border: 1px solid rgba(255,152,0,0.3);
+  background: rgba(45, 55, 72, 0.5);
+  color: #ffffff;
+  transition: all 0.3s ease;
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="tel"]:focus,
+textarea:focus {
+  border-color: var(--construction-orange);
+  box-shadow: 0 0 0 2px rgba(255,152,0,0.1);
+  outline: none;
+}
+
+/* Footer and social hover states (replace JS hovers) */
+.footer-link { transition: color 0.3s ease, transform 0.3s ease; }
+.footer-link:hover { color: var(--construction-orange) !important; transform: translateY(-1px); }
+
+.social-icon { transition: all 0.3s ease; }
+.social-icon:hover { background: var(--construction-orange) !important; border-color: var(--construction-orange) !important; transform: translateY(-2px); }
+
+/* Feature card/button hovers replacing inline JS */
+.feature-card { transition: transform 0.3s ease, box-shadow 0.3s ease; }
+.feature-card:hover { transform: translateY(-10px); box-shadow: 0 8px 16px rgba(0,0,0,0.25); }
+
+.btn-primary-css { background: var(--construction-orange); transition: background 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease; color: #1a1a1a; }
+.btn-primary-css:hover { background: var(--construction-orange-hover); }
+
+.brain-icon .brain-glow { transition: opacity 0.3s ease; opacity: 0.7; }
+.brain-icon:hover .brain-glow { opacity: 1; }
+
+/* Footer logo sizing safeguard */
+footer img[alt="CORA"] {
+  max-height: 40px !important;
+  height: auto !important;
+  width: auto !important;
+}
+

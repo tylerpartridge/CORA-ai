@@ -1,224 +1,185 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sign Up - Cora AI</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="icon" type="image/svg+xml" href="/static/favicon-transparent.svg">
+{% extends "base_public.html" %}
+{% set hide_widget = true %}
+{% set hide_navbar = true %}
+{% set hide_footer = true %}
+
+{% block page_title %}Start Building Your Financial Foundation - CORA{% endblock %}
+{% block page_description %}Join contractors using CORA to track jobs, manage expenses, and see real-time profit margins. Start your free trial.{% endblock %}
+
+{% block page_css %}
     <style>
-        .btn-primary {
-            background-color: #9B6EC8 !important;
-            border-color: #9B6EC8 !important;
+        /* Hide navbar and footer for clean signup experience */
+        nav, .navbar, header { display: none !important; }
+        footer, .footer { display: none !important; }
+        body { padding-top: 0 !important; }
+        
+        :root {
+            --construction-orange: #FF9800;
+            --construction-orange-hover: #F57C00;
+            --construction-blue: #1976D2;
+            --construction-blue-hover: #1565C0;
+            --construction-green: #69F0AE;
+            --construction-dark: #1a1a1a;
+            --construction-grey: #2d3748;
+            --text-primary: #ffffff;
+            --text-secondary: #e2e8f0;
+            --text-muted: #a0aec0;
         }
-        .btn-primary:hover {
-            background-color: #8856B8 !important;
-            border-color: #8856B8 !important;
-        }
-        .text-primary {
-            color: #9B6EC8 !important;
-        }
-        .form-control:focus {
-            border-color: #9B6EC8;
-            box-shadow: 0 0 0 0.2rem rgba(155, 110, 200, 0.25);
-        }
-        .signup-container {
-            min-height: 100vh;
-            background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
-            display: flex;
-            align-items: center;
-        }
-        .signup-card {
-            background: white;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-        }
-        .logo-section {
-            text-align: center;
-            margin-bottom: 2rem;
-        }
-        .logo-section img {
-            height: 50px;
-            margin-bottom: 1rem;
-        }
+    body { background: #1a1a1a; color: var(--text-secondary); }
+    .signup-wrapper { min-height: 100vh; display: flex; align-items: flex-start; justify-content: center; position: relative; background: linear-gradient(180deg, #1a1a1a 0%, #2d3748 50%, #1a1a1a 100%); padding: 1rem; padding-top: 0.5vh; }
+    .construction-grid { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background-image: repeating-linear-gradient(0deg, transparent, transparent 50px, rgba(255,152,0,0.03) 50px, rgba(255,152,0,0.03) 51px), repeating-linear-gradient(90deg, transparent, transparent 50px, rgba(255,152,0,0.03) 50px, rgba(255,152,0,0.03) 51px); pointer-events: none; z-index: -1; }
+    .info-panel { display: none !important; /* Removed - too distracting */ }
+    .info-panel::before { content: ''; position: absolute; inset: 0; background-image: repeating-linear-gradient(45deg, transparent, transparent 20px, rgba(255,152,0,0.05) 20px, rgba(255,152,0,0.05) 40px); }
+    .form-panel { flex: 1; display: flex; align-items: center; justify-content: center; padding: 2rem; position: relative; z-index: 2; }
+    .signup-container { width: 100%; max-width: 480px; background: rgba(26, 26, 26, 0.95); border-radius: 8px; padding: 2rem 3rem; border: 1px solid rgba(255,152,0,0.3); box-shadow: 0 20px 50px rgba(0,0,0,0.5); backdrop-filter: blur(10px); position: relative; }
+    .terminal-dots { position: absolute; top: 1rem; left: 1.5rem; display: flex; gap: 0.5rem; }
+    .terminal-dots div { width: 12px; height: 12px; border-radius: 50%; }
+    .dot-red { background: #FF5252; } .dot-yellow { background: #FFEB3B; } .dot-green { background: #69F0AE; }
+    .logo-section { text-align: center; margin-bottom: 1.5rem; padding-top: 0.5rem; }
+    .logo-section img { height: 45px; width: auto; max-width: 100%; margin-bottom: 1rem; filter: brightness(0.9); transition: all 0.3s ease; }
+    .logo-section img:hover { filter: brightness(1.1); transform: scale(1.05); }
+    h1 { font-size: 1.75rem; font-weight: 800; color: var(--text-primary); margin-bottom: 2rem; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); line-height: 1.2; }
+    .orange-accent { color: var(--construction-orange); font-weight: 700; text-transform: uppercase; letter-spacing: 2px; }
+    .form-label { color: var(--text-secondary); font-weight: 600; font-size: 0.875rem; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 0.5rem; }
+    .form-control { background: rgba(45, 55, 72, 0.95); border: 2px solid rgba(255,152,0,0.3); color: var(--text-primary); padding: 0.875rem 1rem; font-size: 1rem; border-radius: 4px; transition: all 0.3s ease; }
+    .form-control:focus { background: rgba(45, 55, 72, 1); border-color: var(--construction-orange); box-shadow: 0 0 0 3px rgba(255,152,0,0.1); outline: none; color: var(--text-primary); }
+    .form-control::placeholder { color: var(--text-muted); }
+    .password-strength { height: 4px; background: rgba(255,255,255,0.1); border-radius: 2px; margin-top: 0.5rem; overflow: hidden; }
+    .password-strength-bar { height: 100%; width: 0%; transition: all 0.3s ease; border-radius: 2px; }
+        .strength-weak { background: #FF5252; width: 33%; }
+        .strength-medium { background: var(--construction-orange); width: 66%; }
+        .strength-strong { background: var(--construction-green); width: 100%; }
+    .btn-signup { width: 100%; padding: 1rem 2rem; background: var(--construction-orange); color: #1a1a1a; border: none; font-weight: 700; font-size: 1.1rem; border-radius: 4px; text-transform: uppercase; letter-spacing: 1px; box-shadow: 0 4px 15px rgba(255,152,0,0.4); transition: all 0.3s ease; position: relative; overflow: hidden; }
+    .btn-signup:hover { background: var(--construction-orange-hover); transform: translateY(-2px); box-shadow: 0 6px 20px rgba(255,152,0,0.5); }
+    .btn-loading { display: none; }
+    .btn-signup.loading .btn-text { display: none; }
+    .btn-signup.loading .btn-loading { display: inline-flex; align-items: center; }
+    .divider { text-align: center; margin: 1.5rem 0; position: relative; }
+    .divider::before { content: ''; position: absolute; top: 50%; left: 0; right: 0; height: 1px; background: rgba(255,152,0,0.2); }
+    .divider span { background: rgba(26, 26, 26, 0.95); padding: 0 1rem; position: relative; color: var(--construction-blue); font-size: 0.875rem; text-transform: uppercase; letter-spacing: 1px; font-weight: 600; }
+    .terms { font-size: 0.75rem; color: var(--text-muted); text-align: center; margin-top: 1.5rem; }
+    .terms a { color: var(--construction-orange); text-decoration: none; transition: opacity 0.3s ease; }
+    .terms a:hover { opacity: 0.8; text-decoration: underline; }
+    /* Success state styling */
+    .success-checkmark { width: 80px; height: 80px; margin: 0 auto 1.5rem; }
+    .success-checkmark circle { fill: none; stroke: var(--construction-green); stroke-width: 2; }
+    .success-checkmark path { fill: none; stroke: var(--construction-green); stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
+    #successState h2 { color: var(--text-primary); }
+    #successState p { color: var(--text-secondary); font-size: 1.1rem; }
+    .info-content { position: relative; z-index: 2; max-width: 500px; margin-top: -96px; }
+    .info-content h2 { font-size: 3rem; font-weight: 900; color: var(--text-primary); margin-bottom: 2rem; line-height: 1.1; }
+    .feature-list { list-style: none; padding: 0; }
+    .feature-list li { display: flex; align-items: start; margin-bottom: 1.5rem; font-size: 1.1rem; }
+    .feature-list .icon { color: var(--construction-orange); font-size: 1.5rem; margin-right: 1rem; flex-shrink: 0; }
+    .testimonial { background: rgba(255,152,0,0.1); border-left: 4px solid var(--construction-orange); padding: 1.5rem; margin-top: 2rem; border-radius: 4px; }
+    .testimonial-text { font-size: 1.1rem; font-style: italic; margin-bottom: 1rem; color: var(--text-primary); }
+    .testimonial-author { font-weight: 700; color: var(--construction-orange); }
+    .testimonial-role { font-size: 0.875rem; color: var(--text-muted); }
+    @media (max-width: 768px) { .signup-container { padding: 1.5rem; } h1 { font-size: 1.5rem; } }
     </style>
-</head>
-<body>
-    <div class="signup-container">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-12 col-md-6 col-lg-4">
-                    <div class="signup-card p-4 p-md-5">
-                        <div class="logo-section">
-                            <img src="/static/images/logos/cora-logo.png" alt="Cora AI" class="mb-3">
-                            <h2 class="text-primary fw-bold">Create Your Account</h2>
-                            <p class="text-muted">Join thousands of founders who trust Cora with their finances</p>
-                        </div>
-                        
-                        <form id="signupForm" class="needs-validation" novalidate>
-                            <div class="mb-3">
-                                <label for="email" class="form-label fw-semibold">Email Address</label>
-                                <input type="email" 
-                                       class="form-control form-control-lg" 
-                                       id="email" 
-                                       name="email"
-                                       required
-                                       placeholder="your@email.com"
-                                       pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$">
-                                <div class="invalid-feedback">
-                                    Please enter a valid email address.
-                                </div>
-                            </div>
-                            
-                            <div class="mb-3">
-                                <label for="password" class="form-label fw-semibold">Password</label>
-                                <input type="password" 
-                                       class="form-control form-control-lg" 
-                                       id="password" 
-                                       name="password"
-                                       required
-                                       minlength="8"
-                                       placeholder="Minimum 8 characters">
-                                <div class="invalid-feedback">
-                                    Password must be at least 8 characters.
-                                </div>
-                                <div class="form-text">
-                                    <small class="text-muted">Use a strong password with letters, numbers, and symbols</small>
-                                </div>
-                            </div>
-                            
-                            <div class="mb-3">
-                                <label for="confirm_password" class="form-label fw-semibold">Confirm Password</label>
-                                <input type="password" 
-                                       class="form-control form-control-lg" 
-                                       id="confirm_password" 
-                                       name="confirm_password"
-                                       required
-                                       placeholder="Confirm your password">
-                                <div class="invalid-feedback">
-                                    Passwords must match.
-                                </div>
-                            </div>
-                            
-                            <div class="mb-4">
-                                <label for="business_name" class="form-label fw-semibold">Business Name <span class="text-muted">(Optional)</span></label>
-                                <input type="text" 
-                                       class="form-control form-control-lg" 
-                                       id="business_name" 
-                                       name="business_name"
-                                       placeholder="Your Business LLC">
-                                <div class="form-text">
-                                    <small class="text-muted">You can add this later in your settings</small>
-                                </div>
-                            </div>
-                            
-                            <div class="mb-4 form-check">
-                                <input type="checkbox" class="form-check-input" id="terms" required>
-                                <label class="form-check-label" for="terms">
-                                    I agree to the <a href="/terms" class="text-primary">Terms of Service</a> and <a href="/privacy" class="text-primary">Privacy Policy</a>
-                                </label>
-                                <div class="invalid-feedback">
-                                    You must agree to the terms before continuing.
-                                </div>
-                            </div>
-                            
-                            <button type="submit" class="btn btn-primary btn-lg w-100 mb-3" id="submitBtn">
-                                <span class="btn-text">Create Account</span>
-                                <span class="btn-loading d-none">
-                                    <span class="spinner-border spinner-border-sm me-2"></span>
-                                    Creating Account...
-                                </span>
-                            </button>
-                            
-                            <div class="text-center">
-                                <small class="text-muted">
-                                    Already have an account? <a href="/login" class="text-primary fw-semibold">Sign in</a>
-                                </small>
-                            </div>
-                        </form>
-                    </div>
+{% endblock %}
+
+{% block content %}
+    <div class="signup-wrapper">
+        <div class="construction-grid"></div>
+        <div class="info-panel">
+            <div class="info-content">
+                <h2>Stop Losing <span class="orange-accent">$23,000</span> Every Year</h2>
+                <ul class="feature-list">
+                <li><span class="icon">✓</span><div><strong>Track Every Dollar</strong><br><span style="color: var(--text-muted);">Know exactly where your money goes in real-time</span></div></li>
+                <li><span class="icon">✓</span><div><strong>Save 156 Hours/Year</strong><br><span style="color: var(--text-muted);">Automate your finances in 15 minutes a week</span></div></li>
+                <li><span class="icon">✓</span><div><strong>Find Hidden Money</strong><br><span style="color: var(--text-muted);">AI spots tax deductions you're missing</span></div></li>
+                </ul>
+                <div class="testimonial">
+                <div class="testimonial-text">"CORA found $18,000 in deductions I was missing. Setup took 30 minutes. Best investment I've made."</div>
+                    <div class="testimonial-author">Mike Rodriguez</div>
+                    <div class="testimonial-role">General Contractor, Houston TX</div>
                 </div>
             </div>
         </div>
+        <div class="form-panel">
+            <div class="signup-container">
+            <div class="terminal-dots"><div class="dot-red"></div><div class="dot-yellow"></div><div class="dot-green"></div></div>
+                <div class="logo-section">
+                    <a href="/" style="text-decoration: none;" title="Back to home">
+                        <img src="/static/images/logos/cora-logo.png" alt="CORA">
+                    </a>
+                    <h1>Build Your <span class="orange-accent">Financial Foundation</span></h1>
+                </div>
+                <form id="signupForm" novalidate>
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Work Email</label>
+                    <input type="email" class="form-control" id="email" name="email" required placeholder="john@constructionco.com" autocomplete="email" autofocus>
+                    </div>
+                    <div class="mb-4">
+                        <label for="password" class="form-label">Create Password</label>
+                        <input type="password" class="form-control" id="password" name="password" required minlength="10" placeholder="10+ characters" autocomplete="new-password">
+                        <div class="password-strength"><div class="password-strength-bar" id="passwordStrength"></div></div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="passwordConfirm" class="form-label">Confirm Password</label>
+                        <input type="password" class="form-control" id="passwordConfirm" name="passwordConfirm" required minlength="10" placeholder="Re-enter password" autocomplete="new-password">
+                    </div>
+                    <button type="submit" class="btn-signup" id="submitBtn">
+                        <span class="btn-text">START SAVING MONEY →</span>
+                    <span class="btn-loading"><span class="spinner-border spinner-border-sm me-2"></span>Building Your Account...</span>
+                    </button>
+                <div class="divider"><span>30-DAY FREE TRIAL</span></div>
+                <p class="terms">By signing up, you agree to our <a href="/terms">Terms of Service</a> and <a href="/privacy">Privacy Policy</a></p>
+                </form>
+                <div id="successState" style="display: none; text-align: center; padding: 2rem 0;">
+                    <svg class="success-checkmark" viewBox="0 0 52 52">
+                        <circle cx="26" cy="26" r="25"/>
+                        <path d="M14 27l7 7 16-16"/>
+                    </svg>
+                    <h2 class="mb-3">Welcome to CORA!</h2>
+                    <p class="text-muted" id="successMessage">Check your email to verify your account.</p>
+                    <div id="resendContainer" style="margin-top: 1rem; display: none;">
+                        <button id="resendBtn" type="button" class="btn-signup" style="width:auto;">Resend verification email</button>
+                    </div>
+                </div>
+                <div class="text-center mt-3">
+                <small style="color: var(--text-muted);">Already saving money? <a href="/login" style="color: var(--construction-green); font-weight: 600;">Sign In</a></small>
+            </div>
+        </div>
     </div>
+                    </div>
+{% endblock %}
 
-    <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    
-    <!-- Form Validation Script -->
-    <script>
-        // Form validation
-        const form = document.getElementById('signupForm');
-        const submitBtn = document.getElementById('submitBtn');
-        const btnText = submitBtn.querySelector('.btn-text');
-        const btnLoading = submitBtn.querySelector('.btn-loading');
+{% block page_scripts %}
+<script>
+// Defer non-essential behaviors to after first paint
+window.requestIdleCallback = window.requestIdleCallback || function(cb){ return setTimeout(cb, 200); };
+requestIdleCallback(function(){
+// Password strength UI
+const passwordInput = document.getElementById('password');
+const passwordStrength = document.getElementById('passwordStrength');
+if (passwordInput && passwordStrength) {
+  passwordInput.addEventListener('input', function() {
+    const password = this.value; let strength = 0;
+    if (password.length >= 10) strength++;
+    if (password.match(/[a-z]/) && password.match(/[A-Z]/)) strength++;
+    if (password.match(/[0-9]/)) strength++;
+    if (password.match(/[^a-zA-Z0-9]/)) strength++;
+    passwordStrength.className = 'password-strength-bar';
+    if (password.length === 0) { passwordStrength.style.width = '0%'; }
+    else if (strength <= 1) { passwordStrength.classList.add('strength-weak'); }
+    else if (strength === 2) { passwordStrength.classList.add('strength-medium'); }
+    else { passwordStrength.classList.add('strength-strong'); }
+  });
+}
 
-        // Password confirmation validation
-        const password = document.getElementById('password');
-        const confirmPassword = document.getElementById('confirm_password');
-
-        function validatePasswordMatch() {
-            if (password.value !== confirmPassword.value) {
-                confirmPassword.setCustomValidity("Passwords don't match");
-            } else {
-                confirmPassword.setCustomValidity('');
-            }
-        }
-
-        password.addEventListener('change', validatePasswordMatch);
-        confirmPassword.addEventListener('keyup', validatePasswordMatch);
-
-        // Form submission
-        form.addEventListener('submit', async function(event) {
-            event.preventDefault();
-            event.stopPropagation();
-            
-            if (!form.checkValidity()) {
-                form.classList.add('was-validated');
-                return;
-            }
-
-            // Show loading state
-            btnText.classList.add('d-none');
-            btnLoading.classList.remove('d-none');
-            submitBtn.disabled = true;
-
-            try {
-                const formData = new FormData(form);
-                const data = {
-                    email: formData.get('email'),
-                    password: formData.get('password'),
-                    confirm_password: formData.get('confirm_password'),
-                    business_name: formData.get('business_name') || ''
-                };
-
-                const response = await fetch('/api/auth/register', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(data)
-                });
-
-                if (response.ok) {
-                    const result = await response.json();
-                    // Store token and redirect to dashboard
-                    localStorage.setItem('access_token', result.access_token);
-                    window.location.href = '/dashboard';
-                } else {
-                    const error = await response.json();
-                    alert('Registration failed: ' + (error.detail || 'Unknown error'));
-                }
-            } catch (error) {
-                console.error('Registration error:', error);
-                alert('Registration failed. Please try again.');
-            } finally {
-                // Reset loading state
-                btnText.classList.remove('d-none');
-                btnLoading.classList.add('d-none');
-                submitBtn.disabled = false;
-            }
-        });
+// Pre-fill email if provided in URL
+const urlParams = new URLSearchParams(window.location.search);
+const emailFromUrl = urlParams.get('email');
+if (emailFromUrl) {
+    const emailField = document.getElementById('email');
+    if (emailField) {
+        emailField.value = decodeURIComponent(emailFromUrl);
+    }
+}
+// Focus handling will be done by signup-form.js
+});
     </script>
-</body>
-</html> 
+<script src="/static/js/signup-form.js"></script>
+{% endblock %}

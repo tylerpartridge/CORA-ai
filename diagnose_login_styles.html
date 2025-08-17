@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login Style Diagnostics</title>
+    <style>
+        body { 
+            font-family: monospace; 
+            padding: 20px; 
+            background: #1a1a1a; 
+            color: #fff;
+        }
+        .test-container {
+            margin: 20px 0;
+            padding: 20px;
+            border: 1px solid #666;
+        }
+        .highlight { color: #69F0AE; }
+        .error { color: #FF5252; }
+        .warning { color: #FF9800; }
+    </style>
+</head>
+<body>
+    <h1>Login Page Style Diagnostics</h1>
+    
+    <div id="results"></div>
+
+    <script>
+        async function diagnose() {
+            const results = document.getElementById('results');
+            let output = '';
+            
+            // Test 1: Check if page loads
+            try {
+                const response = await fetch('/login');
+                const html = await response.text();
+                
+                output += '<div class="test-container">';
+                output += '<h2 class="highlight">✓ Login page loads</h2>';
+                
+                // Check for Bootstrap
+                if (html.includes('bootstrap')) {
+                    output += '<p class="warning">⚠️ Bootstrap CSS is loaded</p>';
+                }
+                
+                // Check for Inter font
+                if (html.includes('Inter')) {
+                    output += '<p class="highlight">✓ Inter font is referenced</p>';
+                }
+                
+                // Check for our custom styles
+                if (html.includes('form-control { background: rgba(45, 55, 72')) {
+                    output += '<p class="highlight">✓ Custom form styles are present</p>';
+                }
+                
+                // Check for autofill styles
+                if (html.includes('-webkit-autofill')) {
+                    output += '<p class="highlight">✓ Autofill styles are present</p>';
+                }
+                
+                // Check style load order
+                const styleOrder = [];
+                const styleMatches = html.matchAll(/<link.*?href="([^"]*\.css[^"]*)"/g);
+                for (const match of styleMatches) {
+                    styleOrder.push(match[1]);
+                }
+                
+                output += '<h3>CSS Load Order:</h3><ol>';
+                styleOrder.forEach(css => {
+                    const isBootstrap = css.includes('bootstrap');
+                    const className = isBootstrap ? 'warning' : 'highlight';
+                    output += `<li class="${className}">${css}</li>`;
+                });
+                output += '</ol>';
+                
+                // Check for inline styles in page_css block
+                const pageCssMatch = html.match(/{% block page_css %}([\s\S]*?){% endblock %}/);
+                if (pageCssMatch) {
+                    output += '<p class="highlight">✓ Page-specific CSS block exists</p>';
+                    
+                    // Check if styles come AFTER or BEFORE content
+                    const contentBlockIndex = html.indexOf('{% block content %}');
+                    const cssBlockIndex = html.indexOf('{% block page_css %}');
+                    
+                    if (cssBlockIndex < contentBlockIndex) {
+                        output += '<p class="highlight">✓ CSS loads before content</p>';
+                    } else {
+                        output += '<p class="error">✗ CSS loads after content!</p>';
+                    }
+                }
+                
+                output += '</div>';
+                
+                // Test 2: Create iframe to test actual rendering
+                output += '<div class="test-container">';
+                output += '<h2>Live Test Frame:</h2>';
+                output += '<iframe src="/login" style="width:100%; height:400px; border:2px solid #FF9800;"></iframe>';
+                output += '</div>';
+                
+            } catch (error) {
+                output += `<p class="error">Error: ${error.message}</p>`;
+            }
+            
+            results.innerHTML = output;
+        }
+        
+        // Run diagnostics when page loads
+        window.addEventListener('DOMContentLoaded', diagnose);
+    </script>
+</body>
+</html>

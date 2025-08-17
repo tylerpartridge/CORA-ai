@@ -1,0 +1,177 @@
+{% extends "base.html" %}
+
+{% block title %}California Construction Profit Tracking | LA to SF Bay Area{% endblock %}
+{% block description %}Built for California contractors dealing with high costs and tight margins. Track profits in real-time from Los Angeles to San Francisco.{% endblock %}
+{% block keywords %}California construction software, Los Angeles contractor tools, Bay Area job costing, San Francisco construction tracking{% endblock %}
+
+{% block og_title %}California Construction Software | CORA{% endblock %}
+{% block og_description %}Navigate California's high costs and strict regulations. Built for contractors from LA to the Bay Area.{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero-section text-center py-5" style="background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6 text-lg-start">
+                <h1 class="display-4 fw-bold text-white mb-4">
+                    California Construction<br>
+                    <span style="color: #FF9800;">Profit Tracking</span>
+                </h1>
+                <p class="lead text-white mb-4">
+                    Built for California's high costs and tight margins. Track profits in real-time 
+                    from Los Angeles to San Francisco Bay Area.
+                </p>
+                <div class="d-flex flex-column flex-sm-row gap-3 justify-content-lg-start justify-content-center">
+                    <a href="/signup" class="btn btn-primary btn-lg px-5 py-3">
+                        Start in California →
+                    </a>
+                    <button class="btn btn-outline-light btn-lg px-5 py-3" onclick="openCoraChat()">
+                        See CA Demo
+                    </button>
+                </div>
+                <p class="mt-3 text-white-50">
+                    <i class="fas fa-balance-scale text-success"></i> Compliance-ready
+                    <i class="fas fa-dollar-sign text-success ms-3"></i> High-cost optimized
+                </p>
+            </div>
+            <div class="col-lg-6 mt-5 mt-lg-0">
+                <img src="/static/images/california-construction.png" alt="California construction projects" class="img-fluid rounded shadow-lg">
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- California-Specific Challenges -->
+<section class="py-5 bg-light">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto text-center">
+                <h2 class="display-5 fw-bold mb-4">
+                    California Construction Demands Precision
+                </h2>
+                <p class="lead text-muted">
+                    With the highest labor costs, strictest regulations, and tightest margins in the country, 
+                    California contractors can't afford to lose track of a single dollar.
+                </p>
+            </div>
+        </div>
+        <div class="row mt-5">
+            <div class="col-md-4 text-center mb-4">
+                <div class="icon-box p-4 h-100 bg-white rounded shadow-sm">
+                    <i class="fas fa-dollar-sign fa-3x mb-3" style="color: #FF9800;"></i>
+                    <h4>High Labor Costs</h4>
+                    <p class="text-muted">Track $45-65/hour wages, union requirements, and prevailing wage compliance automatically</p>
+                </div>
+            </div>
+            <div class="col-md-4 text-center mb-4">
+                <div class="icon-box p-4 h-100 bg-white rounded shadow-sm">
+                    <i class="fas fa-clipboard-list fa-3x mb-3" style="color: #FF9800;"></i>
+                    <h4>Strict Compliance</h4>
+                    <p class="text-muted">Handle OSHA requirements, Cal/OSHA standards, and environmental regulations</p>
+                </div>
+            </div>
+            <div class="col-md-4 text-center mb-4">
+                <div class="icon-box p-4 h-100 bg-white rounded shadow-sm">
+                    <i class="fas fa-home fa-3x mb-3" style="color: #FF9800;"></i>
+                    <h4>Housing Crisis Impact</h4>
+                    <p class="text-muted">Navigate permit delays, zoning changes, and affordable housing requirements</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- California Markets -->
+<section class="py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto text-center mb-5">
+                <h2 class="display-5 fw-bold mb-4">
+                    Trusted from LA to Silicon Valley
+                </h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 mb-4">
+                <div class="p-4 bg-light rounded">
+                    <h4><i class="fas fa-star me-2" style="color: #FF9800;"></i> Los Angeles</h4>
+                    <p>Entertainment industry construction, luxury homes, and commercial high-rises. Handle union labor rates and seismic requirements.</p>
+                </div>
+            </div>
+            <div class="col-md-6 mb-4">
+                <div class="p-4 bg-light rounded">
+                    <h4><i class="fas fa-laptop-code me-2" style="color: #FF9800;"></i> San Francisco Bay Area</h4>
+                    <p>Tech campuses, luxury condos, and green construction. Track specialized sustainable materials and LEED certification costs.</p>
+                </div>
+            </div>
+            <div class="col-md-6 mb-4">
+                <div class="p-4 bg-light rounded">
+                    <h4><i class="fas fa-sun me-2" style="color: #FF9800;"></i> San Diego</h4>
+                    <p>Military construction, biotech facilities, and coastal projects. Handle security clearance requirements and marine environments.</p>
+                </div>
+            </div>
+            <div class="col-md-6 mb-4">
+                <div class="p-4 bg-light rounded">
+                    <h4><i class="fas fa-tractor me-2" style="color: #FF9800;"></i> Central Valley</h4>
+                    <p>Agricultural construction, food processing facilities, and logistics centers. Track seasonal labor and equipment rentals.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Success Story -->
+<section class="py-5 bg-light">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6">
+                <h2 class="display-5 fw-bold mb-4">
+                    "Saved Our Bay Area Business"
+                </h2>
+                <blockquote class="blockquote">
+                    <p class="lead">"With $65/hour labor costs and $8/sq ft rent, there's no margin for error in the Bay Area. 
+                    CORA helped us identify that we were losing $15,000 per job on permit delays alone. 
+                    Now we factor those costs in upfront."</p>
+                </blockquote>
+                <figcaption class="blockquote-footer mt-3">
+                    <cite title="Source Title">Jennifer Chen, Pacific Coast Builders - Palo Alto, CA</cite>
+                </figcaption>
+            </div>
+            <div class="col-lg-6 mt-5 mt-lg-0">
+                <div class="bg-white p-4 rounded shadow">
+                    <h4>California-Ready Features:</h4>
+                    <ul class="list-unstyled mt-3">
+                        <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i> Prevailing wage tracking</li>
+                        <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i> Union rate compliance</li>
+                        <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i> Permit delay cost tracking</li>
+                        <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i> Environmental compliance costs</li>
+                        <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i> Seismic upgrade tracking</li>
+                        <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i> LEED certification expenses</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="py-5" style="background: linear-gradient(135deg, #FF9800 0%, #F57C00 100%);">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto text-center">
+                <h2 class="display-6 fw-bold text-white mb-4">
+                    Built for California's Demanding Market
+                </h2>
+                <p class="lead text-white mb-4">
+                    Join California contractors who are maintaining profitable margins despite the highest costs in the nation.
+                </p>
+                <a href="/signup" class="btn btn-light btn-lg px-5 py-3">
+                    Start in California →
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% include "components/cora_widget.html" %}
+{% endblock %}

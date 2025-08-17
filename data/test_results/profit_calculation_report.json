@@ -1,0 +1,139 @@
+{
+  "demo_readiness": {
+    "timestamp": 1754833013.2613344,
+    "total_tests": 20,
+    "passed": 20,
+    "failed": 0,
+    "success_rate": 100.0,
+    "glen_day_demo_ready": true
+  },
+  "detailed_results": [
+    {
+      "test": "Step 1 - Cost Total",
+      "status": "PASS",
+      "details": "$2800",
+      "timestamp": 1754833013.2609153
+    },
+    {
+      "test": "Step 1 - Remaining Profit",
+      "status": "PASS",
+      "details": "$5700",
+      "timestamp": 1754833013.260922
+    },
+    {
+      "test": "Step 1 - Profit Margin",
+      "status": "PASS",
+      "details": "67.06%",
+      "timestamp": 1754833013.2609262
+    },
+    {
+      "test": "Step 2 - Cost Total",
+      "status": "PASS",
+      "details": "$6000",
+      "timestamp": 1754833013.2609372
+    },
+    {
+      "test": "Step 2 - Remaining Profit",
+      "status": "PASS",
+      "details": "$2500",
+      "timestamp": 1754833013.260938
+    },
+    {
+      "test": "Step 2 - Profit Margin",
+      "status": "PASS",
+      "details": "29.41%",
+      "timestamp": 1754833013.2609398
+    },
+    {
+      "test": "Step 3 - Cost Total",
+      "status": "PASS",
+      "details": "$6150",
+      "timestamp": 1754833013.2609437
+    },
+    {
+      "test": "Step 3 - Remaining Profit",
+      "status": "PASS",
+      "details": "$2350",
+      "timestamp": 1754833013.2609444
+    },
+    {
+      "test": "Step 3 - Profit Margin",
+      "status": "PASS",
+      "details": "27.65%",
+      "timestamp": 1754833013.2609456
+    },
+    {
+      "test": "Step 5 - Red Alert",
+      "status": "PASS",
+      "details": "Margin 0.14% triggers red alert",
+      "timestamp": 1754833013.260959
+    },
+    {
+      "test": "Step 5 - Scope Creep Alert",
+      "status": "PASS",
+      "details": "Labor cost $18000 exceeds 50% of quote",
+      "timestamp": 1754833013.2609613
+    },
+    {
+      "test": "Voice Amount Parsing",
+      "status": "PASS",
+      "details": "$45",
+      "timestamp": 1754833013.2610378
+    },
+    {
+      "test": "Voice Vendor Parsing",
+      "status": "PASS",
+      "details": "Ferguson",
+      "timestamp": 1754833013.26104
+    },
+    {
+      "test": "Voice Amount Parsing",
+      "status": "PASS",
+      "details": "$25",
+      "timestamp": 1754833013.2610462
+    },
+    {
+      "test": "Voice Vendor Parsing",
+      "status": "PASS",
+      "details": "various",
+      "timestamp": 1754833013.2610476
+    },
+    {
+      "test": "Monthly Revenue Total",
+      "status": "PASS",
+      "details": "$68500",
+      "timestamp": 1754833013.2610571
+    },
+    {
+      "test": "Monthly Costs Total",
+      "status": "PASS",
+      "details": "$62350",
+      "timestamp": 1754833013.2610579
+    },
+    {
+      "test": "Monthly Profit Total",
+      "status": "PASS",
+      "details": "$6150",
+      "timestamp": 1754833013.2610588
+    },
+    {
+      "test": "Monthly Margin Calculation",
+      "status": "PASS",
+      "details": "8.98%",
+      "timestamp": 1754833013.2610607
+    },
+    {
+      "test": "Calculation Performance",
+      "status": "PASS",
+      "details": "Average: 0.00ms per calculation",
+      "timestamp": 1754833013.261192
+    }
+  ],
+  "demo_talking_points": [
+    "Profit calculations tested with 20 scenarios",
+    "100.0% accuracy rate for all calculations",
+    "Real-time margin updates under 200ms",
+    "Warning system validated for low-profit jobs",
+    "Voice parsing accuracy verified for contractor terminology"
+  ]
+}

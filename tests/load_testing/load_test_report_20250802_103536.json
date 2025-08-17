@@ -1,0 +1,41 @@
+{
+  "timestamp": "20250802_103536",
+  "base_url": "http://localhost:8000",
+  "results": [
+    {
+      "test": "smoke",
+      "metrics": {
+        "scenario": "smoke",
+        "total_requests": 50,
+        "successful_requests": 50,
+        "failed_requests": 0,
+        "total_test_time": 5.46271538734436,
+        "requests_per_second": 9.152957175077532,
+        "response_times": {
+          "min": 0.008899211883544922,
+          "max": 0.27587008476257324,
+          "mean": 0.028787989616394043,
+          "median": 0.013906240463256836,
+          "p95": 0.2755858898162842,
+          "p99": 0.27587008476257324
+        },
+        "status_codes": {
+          "200": 50
+        }
+      },
+      "analysis": {
+        "passed": true,
+        "issues": [
+          "Low throughput: 9.15 requests/sec"
+        ],
+        "recommendations": [
+          "Consider implementing caching for frequently accessed endpoints",
+          "Review database query optimization",
+          "Check for N+1 query problems",
+          "Consider implementing connection pooling",
+          "Review server resource allocation"
+        ]
+      }
+    }
+  ]
+}

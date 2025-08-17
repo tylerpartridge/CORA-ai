@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block page_title %}CORA Dashboard{% endblock %}</title>
+    <meta name="description" content="{% block page_description %}CORA Dashboard - Track your construction finances in real-time.{% endblock %}">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="/static/images/logos/cora-logo.png">
+    <link rel="icon" href="/static/favicon.ico">
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- CORA Navbar - MUST load LAST to be single source of truth -->
+    <link rel="stylesheet" href="/static/css/navbar.css">
+    
+    <!-- PWA Manifest and Meta Tags -->
+    <link rel="manifest" href="/static/manifest.json">
+    <meta name="theme-color" content="#FF9800">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="CORA">
+    
+    <!-- Construction Typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Security and core bundles -->
+    <script src="/static/js/security.js"></script>
+    <script src="/static/js/api-error-handler.js"></script>
+    
+    <!-- Production console.log guard -->
+    <script>
+        // Silence console.log in production unless DEBUG is set
+        if (window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1') {
+            const noop = function() {};
+            console.log = noop;
+            console.info = noop;
+            console.warn = noop;
+            // Keep console.error for critical issues
+        }
+    </script>
+    {% set bm = bundle_manifest.files if bundle_manifest and bundle_manifest.files is defined else {} %}
+    {% set disable_perf_bundles = request.url.hostname in ['localhost', '127.0.0.1'] %}
+    {% if not disable_perf_bundles %}
+      {% if bm.get('performance') %}
+      <script type="module" src="{{ bm['performance'] }}"></script>
+      {% else %}
+      <script type="module" src="/static/js/bundles/performance.js?v=20250810-2"></script>
+      {% endif %}
+      {% if bm.get('accessibility') %}
+      <script type="module" src="{{ bm['accessibility'] }}"></script>
+      {% else %}
+      <script type="module" src="/static/js/bundles/accessibility.js?v=20250810-3"></script>
+      {% endif %}
+      {% if bm.get('error-manager') %}
+      <script type="module" src="{{ bm['error-manager'] }}"></script>
+      {% else %}
+      <script type="module" src="/static/js/bundles/error-manager.js"></script>
+      {% endif %}
+      {% if bm.get('timeout-handler') %}
+      <script type="module" src="{{ bm['timeout-handler'] }}"></script>
+      {% else %}
+      <script type="module" src="/static/js/bundles/timeout-handler.js"></script>
+      {% endif %}
+    {% endif %}
+    {% if not disable_perf_bundles %}
+      {% if bm.get('web-vitals-monitoring') %}
+      <script type="module" src="{{ bm['web-vitals-monitoring'] }}"></script>
+      {% else %}
+      <script type="module" src="/static/js/bundles/web-vitals-monitoring.js"></script>
+      {% endif %}
+    {% endif %}
+    
+    <!-- Dashboard Theme -->
+    <style>
+        :root {
+            --construction-orange: #FF9800;
+            --construction-orange-hover: #F57C00;
+            --industrial-blue: #1976D2;
+            --industrial-blue-hover: #1565C0;
+            --bright-blue: #4db8ff;
+            --success-green: #69F0AE;
+            --dark-bg: #1a1a1a;
+            --dark-surface: rgba(26, 26, 26, 0.9);
+            --dark-input: rgba(45, 55, 72, 0.95);
+            --text-primary: #ffffff;
+            --text-secondary: #e2e8f0;
+            --text-muted: #a0aec0;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #1a1a1a;
+            color: #e2e8f0;
+            line-height: 1.6;
+            min-height: 100vh;
+            padding-top: 80px; /* Account for fixed nav */
+        }
+        
+        /* Hide theme and accessibility toggle buttons */
+        .theme-toggle, .accessibility-toggle, #high-contrast-toggle {
+            display: none !important;
+        }
+        /* zoom controls styling is centralized; no base overrides */
+        
+        /* Navigation styles removed - ALL nav styling is in navbar.css (single source of truth) */
+        /* DO NOT add nav styles here - edit /static/css/navbar.css instead */
+        
+        /* User dropdown styles */
+        .dropdown-menu {
+            background: var(--dark-surface);
+            border: 2px solid rgba(255, 152, 0, 0.2);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+        }
+        
+        .dropdown-item {
+            color: #e2e8f0;
+            transition: all 0.3s ease;
+        }
+        
+        .dropdown-item:hover {
+            background: rgba(255, 152, 0, 0.1);
+            color: #FF9800;
+        }
+        
+        .dropdown-divider {
+            border-color: rgba(255, 152, 0, 0.2);
+        }
+        
+        /* Dashboard card styles */
+        .dashboard-card {
+            background: var(--dark-surface);
+            border-radius: 8px;
+            padding: 1.5rem;
+            border: 2px solid rgba(255, 152, 0, 0.2);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            margin-bottom: 1.5rem;
+        }
+        
+        /* Logout button style */
+        .btn-logout {
+            background: transparent;
+            color: #FF9800;
+            border: 2px solid #FF9800;
+            padding: 0.5rem 1rem;
+            font-weight: 600;
+            border-radius: 4px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+        
+        .btn-logout:hover {
+            background: #FF9800;
+            color: #1a1a1a;
+            transform: translateY(-1px);
+        }
+    </style>
+    
+    <!-- Page specific CSS -->
+    {% block page_css %}{% endblock %}
+</head>
+<body>
+    <!-- Dashboard Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container" style="position: relative; z-index: 1;">
+            <a class="navbar-brand" href="/dashboard" style="display: flex; align-items: center;">
+                <img src="/static/images/logos/cora-logo.png" alt="CORA" style="height: 45px;">
+            </a>
+            
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" style="border: 2px solid #FF9800;">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                <ul class="navbar-nav align-items-center">
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.url.path == '/dashboard' %}active{% endif %}" href="/dashboard">Dashboard</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.url.path == '/expenses' %}active{% endif %}" href="/expenses">Expenses</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.url.path == '/projects' %}active{% endif %}" href="/projects">Projects</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.url.path == '/reports' %}active{% endif %}" href="/reports">Reports</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.url.path == '/insights' %}active{% endif %}" href="/insights">Insights</a>
+                    </li>
+                    <li class="nav-item dropdown ms-3">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fas fa-user-circle me-1"></i>
+                            <span id="username">{{ user.email if user else 'Account' }}</span>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="/settings"><i class="fas fa-cog me-2"></i>Settings</a></li>
+                            <li><a class="dropdown-item" href="/integrations"><i class="fas fa-plug me-2"></i>Integrations</a></li>
+                            <li><a class="dropdown-item" href="/subscription"><i class="fas fa-credit-card me-2"></i>Subscription</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="/help"><i class="fas fa-question-circle me-2"></i>Help</a></li>
+                            <li><a class="dropdown-item" href="/api/auth/logout" onclick="return confirm('Are you sure you want to logout?')"><i class="fas fa-sign-out-alt me-2"></i>Logout</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- Main Content -->
+    <main class="container-fluid" style="padding: 2rem;">
+        {% block content %}{% endblock %}
+    </main>
+    
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Font Awesome (CSS) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <!-- Page specific scripts -->
+    {% block page_scripts %}{% endblock %}
+ 
+    <!-- zoom controls styling is centralized; no base overrides -->
+ 
+    {% set hide_widget = hide_widget | default(false) %}
+    {% if not hide_widget %}
+    {% include "partials/cora_widget.html" %}
+    {% include "partials/zoom_controls.html" %}
+    <link rel="stylesheet" href="/static/css/cora-chat-consolidated.css">
+    <!-- Widget bootstrapper loads chat class; avoid double include to prevent redeclare errors -->
+    <script src="/static/js/cora_widget.js"></script>
+    <script src="/static/js/zoom_controls.js"></script>
+    <script src="/static/js/feature-flags.js"></script>
+    <script src="/static/js/app-tours.js"></script>
+    <script src="/static/js/help-tooltips.js"></script>
+    
+    <!-- Chat init handled by /static/js/cora_widget.js; inline fallback removed to avoid races -->
+    {% endif %}
+    
+    <!-- PWA Service Worker Registration (disabled on localhost) -->
+    <script>
+        (function(){
+          const isLocalhost = ['localhost', '127.0.0.1'].includes(location.hostname);
+          if ('serviceWorker' in navigator && !isLocalhost) {
+              window.addEventListener('load', () => {
+                  navigator.serviceWorker.register('/static/service-worker.js').catch(()=>{});
+              });
+          }
+        })();
+    </script>
+    <script>
+      // Performance: image lazy-loading and data-bg backgrounds
+      document.addEventListener('DOMContentLoaded', () => {
+        document.querySelectorAll('img:not([loading])').forEach(img => img.setAttribute('loading','lazy'));
+        const lazyBg = document.querySelectorAll('[data-bg]');
+        const io = new IntersectionObserver(entries => {
+          entries.forEach(entry => { if (entry.isIntersecting) { const el=entry.target; el.style.backgroundImage = `url(${el.dataset.bg})`; io.unobserve(el);} });
+        });
+        lazyBg.forEach(el => io.observe(el));
+      });
+    </script>
+</body>
+</html>

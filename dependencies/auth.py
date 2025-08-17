@@ -6,26 +6,53 @@
 📤 EXPORTS: get_current_user, get_current_active_user
 """
 
-from fastapi import Depends, HTTPException, status
-from fastapi.security import OAuth2PasswordBearer
+from fastapi import Depends, HTTPException, status, Request
 from sqlalchemy.orm import Session
+from jose import jwt, JWTError
 
 from models import User, get_db
 from services.auth_service import verify_token, get_user_by_email
+from config import config
 
-# OAuth2 scheme
-oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/api/auth/login")
+def get_token_from_cookie(request: Request) -> str:
+    """Extract JWT token from access_token cookie"""
+    token = request.cookies.get("access_token")
+    if not token:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="No authentication token found",
+            headers={"WWW-Authenticate": "Bearer"},
+        )
+    return token
+
+# JWT settings
+SECRET_KEY = config.SECRET_KEY or config.get_secure_fallback("SECRET_KEY")
+ALGORITHM = config.JWT_ALGORITHM
+
+def decode_token(token: str) -> dict:
+    """Decode and validate JWT token"""
+    try:
+        payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
+        email = payload.get("sub")
+        if email is None:
+            raise ValueError("Invalid token payload")
+        return {"email": email, "payload": payload}
+    except JWTError:
+        raise ValueError("Invalid token")
 
 async def get_current_user(
-    token: str = Depends(oauth2_scheme),
+    request: Request,
     db: Session = Depends(get_db)
 ) -> User:
-    """Get current authenticated user from JWT token"""
+    """Get current authenticated user from JWT token in cookie"""
     credentials_exception = HTTPException(
         status_code=status.HTTP_401_UNAUTHORIZED,
         detail="Could not validate credentials",
         headers={"WWW-Authenticate": "Bearer"},
     )
+    
+    # Get token from cookie
+    token = get_token_from_cookie(request)
     
     # Verify token and get email
     email = verify_token(token)
@@ -47,5 +74,16 @@ async def get_current_active_user(
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
             detail="Inactive user"
+        )
+    return current_user
+
+async def require_admin(
+    current_user: User = Depends(get_current_user)
+) -> User:
+    """Require admin privileges for protected routes"""
+    if not current_user.is_admin:
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Admin access required"
         )
     return current_user

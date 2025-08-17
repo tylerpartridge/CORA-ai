@@ -1,0 +1,101 @@
+{% extends "base_app.html" %}
+{% block title %}Add Expense - CORA{% endblock %}
+
+{% block content %}
+<div style="padding: 2rem; max-width: 600px; margin: 0 auto;">
+    <!-- Header -->
+    <div style="margin-bottom: 2rem;">
+        <h1 style="color: #FF9800; font-size: 2rem; margin: 0;">Add Expense</h1>
+        <p style="color: #a0aec0; margin-top: 0.5rem;">Track your business expenses</p>
+    </div>
+
+    <!-- Form -->
+    <div style="background: rgba(45, 55, 72, 0.95); border-radius: 8px; padding: 2rem; box-shadow: 0 4px 20px rgba(0,0,0,0.3);">
+        <form method="POST" action="/api/expenses/add">
+            <!-- Amount -->
+            <div style="margin-bottom: 1.5rem;">
+                <label style="color: #FF9800; font-weight: 600; display: block; margin-bottom: 0.5rem;">
+                    Amount *
+                </label>
+                <input type="number" 
+                       name="amount" 
+                       step="0.01" 
+                       required
+                       placeholder="0.00"
+                       style="width: 100%; padding: 0.75rem; background: rgba(26, 26, 26, 0.9); border: 1px solid rgba(255, 152, 0, 0.3); color: white; border-radius: 4px; font-size: 1.1rem;">
+            </div>
+
+            <!-- Category -->
+            <div style="margin-bottom: 1.5rem;">
+                <label style="color: #FF9800; font-weight: 600; display: block; margin-bottom: 0.5rem;">
+                    Category *
+                </label>
+                <select name="category" 
+                        required
+                        style="width: 100%; padding: 0.75rem; background: rgba(26, 26, 26, 0.9); border: 1px solid rgba(255, 152, 0, 0.3); color: white; border-radius: 4px; font-size: 1rem;">
+                    {% for cat_id, cat_name in categories %}
+                    <option value="{{ cat_id }}">{{ cat_name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <!-- Date -->
+            <div style="margin-bottom: 1.5rem;">
+                <label style="color: #FF9800; font-weight: 600; display: block; margin-bottom: 0.5rem;">
+                    Date *
+                </label>
+                <input type="date" 
+                       name="expense_date" 
+                       value="{{ today }}"
+                       required
+                       style="width: 100%; padding: 0.75rem; background: rgba(26, 26, 26, 0.9); border: 1px solid rgba(255, 152, 0, 0.3); color: white; border-radius: 4px; font-size: 1rem;">
+            </div>
+
+            <!-- Description -->
+            <div style="margin-bottom: 1.5rem;">
+                <label style="color: #FF9800; font-weight: 600; display: block; margin-bottom: 0.5rem;">
+                    Description
+                </label>
+                <textarea name="description" 
+                          rows="3"
+                          placeholder="What was this expense for?"
+                          style="width: 100%; padding: 0.75rem; background: rgba(26, 26, 26, 0.9); border: 1px solid rgba(255, 152, 0, 0.3); color: white; border-radius: 4px; font-size: 1rem; resize: vertical;"></textarea>
+            </div>
+
+            <!-- Vendor -->
+            <div style="margin-bottom: 1.5rem;">
+                <label style="color: #FF9800; font-weight: 600; display: block; margin-bottom: 0.5rem;">
+                    Vendor/Store
+                </label>
+                <input type="text" 
+                       name="vendor"
+                       placeholder="Home Depot, Lowes, etc."
+                       style="width: 100%; padding: 0.75rem; background: rgba(26, 26, 26, 0.9); border: 1px solid rgba(255, 152, 0, 0.3); color: white; border-radius: 4px; font-size: 1rem;">
+            </div>
+
+            <!-- Job Name -->
+            <div style="margin-bottom: 2rem;">
+                <label style="color: #FF9800; font-weight: 600; display: block; margin-bottom: 0.5rem;">
+                    Job/Project
+                </label>
+                <input type="text" 
+                       name="job_name"
+                       placeholder="Which job is this for?"
+                       style="width: 100%; padding: 0.75rem; background: rgba(26, 26, 26, 0.9); border: 1px solid rgba(255, 152, 0, 0.3); color: white; border-radius: 4px; font-size: 1rem;">
+            </div>
+
+            <!-- Buttons -->
+            <div style="display: flex; gap: 1rem;">
+                <button type="submit" 
+                        style="flex: 1; background: #FF9800; color: #1a1a1a; padding: 1rem; border: none; border-radius: 4px; font-weight: 700; font-size: 1.1rem; text-transform: uppercase; cursor: pointer;">
+                    Add Expense
+                </button>
+                <a href="/expenses" 
+                   style="flex: 1; background: rgba(255, 152, 0, 0.1); color: #FF9800; padding: 1rem; border: 2px solid #FF9800; border-radius: 4px; font-weight: 700; font-size: 1.1rem; text-transform: uppercase; text-align: center; text-decoration: none; display: flex; align-items: center; justify-content: center;">
+                    Cancel
+                </a>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,487 @@
+{% extends "base_public.html" %}
+
+{% block page_title %}About CORA | Built by Contractors, for Contractors{% endblock %}
+
+{% block page_description %}Learn about CORA's mission to help construction businesses thrive through better financial management and job costing.{% endblock %}
+
+{% block page_css %}
+    <style>
+        
+        /* Main Content */
+        .content-section {
+            min-height: 100vh;
+            padding: 120px 20px 80px;
+            background: linear-gradient(180deg, #1a1a1a 0%, #2d3748 50%, #1a1a1a 100%);
+        }
+        
+        /* Page Header */
+        .page-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+        
+        .page-header h1 {
+            color: #ffffff;
+            font-size: 3rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 1rem;
+        }
+        
+        .page-header p {
+            color: #a0aec0;
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        /* Story Section */
+        .story-section {
+            background: rgba(255, 152, 0, 0.05);
+            border: 1px solid rgba(255, 152, 0, 0.2);
+            border-radius: 16px;
+            padding: 3rem;
+            margin: 4rem 0;
+        }
+        
+        .story-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+        
+        .story-text h2 {
+            color: #ffffff;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+        }
+        
+        .story-text p {
+            color: #a0aec0;
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+        }
+        
+        .story-image {
+            background: linear-gradient(135deg, #FF9800, #F57C00);
+            border-radius: 12px;
+            height: 300px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            color: #1a1a1a;
+        }
+        
+        /* Mission Section */
+        .mission-section {
+            text-align: center;
+            margin: 4rem 0;
+        }
+        
+        .mission-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 152, 0, 0.2);
+            border-radius: 12px;
+            padding: 2rem;
+            margin: 2rem 0;
+        }
+        
+        .mission-card h3 {
+            color: #FF9800;
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+        
+        .mission-card p {
+            color: #a0aec0;
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+        
+        /* Values Section */
+        .values-section {
+            margin: 4rem 0;
+        }
+        
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+        
+        .value-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 152, 0, 0.2);
+            border-radius: 12px;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        
+        .value-card:hover {
+            transform: translateY(-5px);
+            border-color: #FF9800;
+            box-shadow: 0 10px 30px rgba(255, 152, 0, 0.2);
+        }
+        
+        .value-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #FF9800, #F57C00);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            font-size: 1.5rem;
+            color: #1a1a1a;
+        }
+        
+        .value-card h4 {
+            color: #ffffff;
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+        
+        .value-card p {
+            color: #a0aec0;
+            line-height: 1.6;
+        }
+        
+        /* Team Section */
+        .team-section {
+            margin: 4rem 0;
+        }
+        
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+        
+        .team-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 152, 0, 0.2);
+            border-radius: 12px;
+            padding: 2rem;
+            text-align: center;
+        }
+        
+        .team-avatar {
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, #FF9800, #F57C00);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            font-size: 2rem;
+            color: #1a1a1a;
+            font-weight: 600;
+        }
+        
+        .team-card h4 {
+            color: #ffffff;
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        
+        .team-card .title {
+            color: #FF9800;
+            font-size: 1rem;
+            font-weight: 500;
+            margin-bottom: 1rem;
+        }
+        
+        .team-card p {
+            color: #a0aec0;
+            line-height: 1.6;
+        }
+        
+        /* CTA Section */
+        .cta-section {
+            text-align: center;
+            margin: 4rem 0;
+        }
+        
+        .btn-construction {
+            background: #FF9800;
+            color: #1a1a1a;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 8px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-construction:hover {
+            background: #F57C00;
+            transform: translateY(-2px);
+            color: #1a1a1a;
+            text-decoration: none;
+        }
+        
+        /* Footer */
+        .footer {
+            background: #1a1a1a;
+            border-top: 1px solid rgba(255, 152, 0, 0.2);
+            padding: 3rem 0;
+            margin-top: 4rem;
+        }
+        
+        .footer h5 {
+            color: #FF9800;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 1rem;
+        }
+        
+        .footer a {
+            color: #a0aec0;
+            text-decoration: none;
+            transition: color 0.3s ease;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            letter-spacing: 0.5px;
+        }
+        
+        .footer a:hover {
+            color: #FF9800;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .page-header h1 {
+                font-size: 2rem;
+            }
+            
+            .story-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .values-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .team-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .story-text h2 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+    <!-- Navigation CSS consolidated in base template -->
+{% endblock %}
+
+{% block page_content %}
+        <!-- Navigation will be inherited from base template -->
+    <!-- Navigation inherited from base_public.html -->
+
+    <!-- Main Content -->
+    <div class="content-section">
+        <div class="container">
+            <!-- Page Header -->
+            <div class="page-header">
+                <h1>About CORA</h1>
+                <p>Built by contractors, for contractors. We're on a mission to help construction businesses thrive through better financial management.</p>
+            </div>
+
+            <!-- Story Section -->
+            <div class="story-section">
+                <div class="story-content">
+                    <div class="story-text">
+                        <h2>Our Story</h2>
+                        <p>CORA was born from frustration. As construction business owners ourselves, we were tired of losing money on projects because we couldn't track costs in real-time. Spreadsheets were a nightmare, and existing software was either too complex or too expensive.</p>
+                        <p>We knew there had to be a better way. So we built CORA - a simple, powerful tool that gives contractors the financial visibility they need to make profitable decisions. No more guessing. No more surprises.</p>
+                        <p>Today, thousands of contractors across the country use CORA to track job profitability, manage cash flow, and grow their businesses with confidence.</p>
+                    </div>
+                    <div class="story-image">
+                        <i class="fas fa-hard-hat"></i>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Mission Section -->
+            <div class="mission-section">
+                <h2 style="color: #ffffff; margin-bottom: 3rem;">Our Mission</h2>
+                <div class="mission-card">
+                    <h3>Empowering Construction Businesses</h3>
+                    <p>We believe every construction business deserves the tools to succeed. Our mission is to provide contractors with the financial clarity and insights they need to make better decisions, avoid costly mistakes, and build profitable, sustainable businesses.</p>
+                </div>
+            </div>
+
+            <!-- Values Section -->
+            <div class="values-section">
+                <h2 style="color: #ffffff; text-align: center; margin-bottom: 3rem;">Our Values</h2>
+                <div class="values-grid">
+                    <div class="value-card">
+                        <div class="value-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <h4>Built by Contractors</h4>
+                        <p>We're construction professionals who understand your challenges because we've lived them. Every feature is designed with real contractor needs in mind.</p>
+                    </div>
+
+                    <div class="value-card">
+                        <div class="value-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <h4>Trust & Security</h4>
+                        <p>Your financial data is sacred. We protect it with bank-level security and never share it with third parties. Your trust is our most valuable asset.</p>
+                    </div>
+
+                    <div class="value-card">
+                        <div class="value-icon">
+                            <i class="fas fa-lightbulb"></i>
+                        </div>
+                        <h4>Simplicity First</h4>
+                        <p>Complex software creates more problems than it solves. We believe in simple, intuitive tools that actually make your life easier.</p>
+                    </div>
+
+                    <div class="value-card">
+                        <div class="value-icon">
+                            <i class="fas fa-heart"></i>
+                        </div>
+                        <h4>Customer Success</h4>
+                        <p>Your success is our success. We're not just selling software - we're building long-term partnerships to help your business grow.</p>
+                    </div>
+
+                    <div class="value-card">
+                        <div class="value-icon">
+                            <i class="fas fa-rocket"></i>
+                        </div>
+                        <h4>Continuous Innovation</h4>
+                        <p>We're constantly improving CORA based on customer feedback and industry changes. Your business evolves, and so do we.</p>
+                    </div>
+
+                    <div class="value-card">
+                        <div class="value-icon">
+                            <i class="fas fa-handshake"></i>
+                        </div>
+                        <h4>Integrity</h4>
+                        <p>We do what we say we'll do. Honest pricing, transparent policies, and reliable support. No hidden fees, no surprises.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Team Section -->
+            <div class="team-section">
+                <h2 style="color: #ffffff; text-align: center; margin-bottom: 3rem;">Meet Our Team</h2>
+                <div class="team-grid">
+                    <div class="team-card">
+                        <div class="team-avatar">JD</div>
+                        <h4>John Davis</h4>
+                        <div class="title">CEO & Co-Founder</div>
+                        <p>Former general contractor with 15+ years in construction. Built CORA to solve the financial tracking problems he faced in his own business.</p>
+                    </div>
+
+                    <div class="team-card">
+                        <div class="team-avatar">SM</div>
+                        <h4>Sarah Martinez</h4>
+                        <div class="title">CTO & Co-Founder</div>
+                        <p>Software engineer with expertise in financial systems. Passionate about building technology that actually helps people work better.</p>
+                    </div>
+
+                    <div class="team-card">
+                        <div class="team-avatar">MW</div>
+                        <h4>Mike Wilson</h4>
+                        <div class="title">Head of Customer Success</div>
+                        <p>Construction industry veteran who helps contractors get the most out of CORA. Knows every feature inside and out.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CTA Section -->
+            <div class="cta-section">
+                <h2 style="color: #ffffff; margin-bottom: 1rem;">Ready to Join Us?</h2>
+                <p style="color: #a0aec0; margin-bottom: 2rem;">Join thousands of contractors who are already using CORA to build more profitable businesses.</p>
+                <a href="/signup" class="btn-construction">Start Free Trial</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer inherited from base_public.html -->
+    <!-- <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3">
+                    <h5>Product</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="/features">Features</a></li>
+                        <li class="mb-2"><a href="/pricing">Pricing</a></li>
+                        <li class="mb-2"><a href="/reviews">Reviews</a></li>
+                        <li class="mb-2"><a href="/#integrations">Integrations</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3">
+                    <h5>Support</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="/help">Help Center</a></li>
+                        <li class="mb-2"><a href="/blog">Blog</a></li>
+                        <li class="mb-2"><a href="/contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3">
+                    <h5>Legal</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="/privacy">Privacy Policy</a></li>
+                        <li class="mb-2"><a href="/terms">Terms of Service</a></li>
+                        <li class="mb-2"><a href="/security">Security</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3">
+                    <h5>Company</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="/about">About</a></li>
+                        <li class="mb-2"><a href="/careers">Careers</a></li>
+                        <li class="mb-2"><a href="/press">Press</a></li>
+                    </ul>
+                </div>
+            </div>
+            <hr style="border-color: rgba(255, 152, 0, 0.2); margin: 2rem 0;">
+            <div class="row align-items-center">
+                <div class="col-md-6">
+                    <p style="color: #a0aec0; margin: 0;">© 2025 CORA. All rights reserved.</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <div style="display: flex; gap: 1rem; justify-content: flex-end;">
+                        <a href="https://twitter.com/corafinancial" target="_blank" style="color: #a0aec0; font-size: 1.2rem;">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="https://linkedin.com/company/cora-financial" target="_blank" style="color: #a0aec0; font-size: 1.2rem;">
+                            <i class="fab fa-linkedin"></i>
+                        </a>
+                        <a href="https://youtube.com/@corafinancial" target="_blank" style="color: #a0aec0; font-size: 1.2rem;">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer> -->
+    
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    
+
+{% endblock %} 

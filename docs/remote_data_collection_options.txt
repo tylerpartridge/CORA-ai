@@ -1,0 +1,27 @@
+
+# Professional Data Collection Options
+
+## Option 1: Google Forms (Recommended for Remote)
+1. Create Google Form with these fields:
+   - Job Name/Address (Short answer)
+   - Customer Name (Short answer)
+   - Job Type (Dropdown: Bathroom, Kitchen, Addition, Other)
+   - Original Quote (Number)
+   - Material Costs (Number)
+   - Labor Costs (Number)
+   - Subcontractor Costs (Number)
+   - Other Costs (Number)
+   - Unbilled Extras (Number)
+   - Comments (Paragraph)
+
+2. Share link with Glen
+3. Responses automatically go to Google Sheets
+4. You analyze in Sheets and create report
+
+## Option 2: Professional PDF Form
+Use Adobe Acrobat or similar to create fillable PDF
+
+## Option 3: Simple Excel Template
+Create basic Excel with formulas that Glen fills out
+
+The key is making it EASY for Glen to provide data remotely.

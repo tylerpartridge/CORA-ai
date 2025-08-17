@@ -1,0 +1,137 @@
+{% extends "base.html" %}
+
+{% block title %}AI Construction Budget Alerts | Never Go Over Budget Again{% endblock %}
+{% block description %}CORA's AI predicts budget overruns before they happen. Get instant alerts when jobs are at risk of losing money.{% endblock %}
+{% block keywords %}AI construction budget alerts, construction financial alerts, budget overrun prevention, construction AI{% endblock %}
+
+{% block og_title %}AI Budget Alerts for Construction{% endblock %}
+{% block og_description %}Stop budget overruns before they happen. AI-powered alerts that predict and prevent construction job losses.{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero-section text-center py-5" style="background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6 text-lg-start">
+                <h1 class="display-4 fw-bold text-white mb-4">
+                    AI Budget Alerts That<br>
+                    <span style="color: #FF9800;">Save Your Profits</span>
+                </h1>
+                <p class="lead text-white mb-4">
+                    Don't wait until it's too late. CORA's AI analyzes spending patterns 
+                    and alerts you before jobs go over budget.
+                </p>
+                <div class="d-flex flex-column flex-sm-row gap-3 justify-content-lg-start justify-content-center">
+                    <a href="/signup" class="btn btn-primary btn-lg px-5 py-3">
+                        Enable AI Alerts →
+                    </a>
+                    <button class="btn btn-outline-light btn-lg px-5 py-3" onclick="openCoraChat()">
+                        See AI Demo
+                    </button>
+                </div>
+                <p class="mt-3 text-white-50">
+                    <i class="fas fa-brain text-success"></i> AI-powered predictions
+                    <i class="fas fa-bell text-success ms-3"></i> Instant notifications
+                </p>
+            </div>
+            <div class="col-lg-6 mt-5 mt-lg-0">
+                <img src="/static/images/ai-budget-alerts.png" alt="AI budget alerts dashboard" class="img-fluid rounded shadow-lg">
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- AI Intelligence Section -->
+<section class="py-5 bg-light">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto text-center">
+                <h2 class="display-5 fw-bold mb-4">
+                    AI That Learns Your Business
+                </h2>
+                <p class="lead text-muted">
+                    CORA's AI analyzes thousands of construction projects to spot patterns 
+                    humans miss. It learns how your specific business operates and warns you before problems happen.
+                </p>
+            </div>
+        </div>
+        <div class="row mt-5">
+            <div class="col-md-4 text-center mb-4">
+                <div class="icon-box p-4 h-100 bg-white rounded shadow-sm">
+                    <i class="fas fa-chart-line fa-3x mb-3" style="color: #FF9800;"></i>
+                    <h4>Pattern Recognition</h4>
+                    <p class="text-muted">Spots trends in labor costs, material usage, and change orders that indicate trouble</p>
+                </div>
+            </div>
+            <div class="col-md-4 text-center mb-4">
+                <div class="icon-box p-4 h-100 bg-white rounded shadow-sm">
+                    <i class="fas fa-clock fa-3x mb-3" style="color: #FF9800;"></i>
+                    <h4>Early Warning</h4>
+                    <p class="text-muted">Alerts you at 65% budget threshold, not when it's already too late</p>
+                </div>
+            </div>
+            <div class="col-md-4 text-center mb-4">
+                <div class="icon-box p-4 h-100 bg-white rounded shadow-sm">
+                    <i class="fas fa-lightbulb fa-3x mb-3" style="color: #FF9800;"></i>
+                    <h4>Smart Recommendations</h4>
+                    <p class="text-muted">Suggests specific actions to get jobs back on track and preserve margins</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Success Story Section -->
+<section class="py-5">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6">
+                <h2 class="display-5 fw-bold mb-4">
+                    "Saved $24,000 on One Job"
+                </h2>
+                <blockquote class="blockquote">
+                    <p class="lead">"CORA's AI alerted me that we were trending 18% over budget on a kitchen remodel. 
+                    I was able to adjust labor scheduling and negotiate with the material supplier. 
+                    What would have been a $24,000 loss became a $6,000 profit."</p>
+                </blockquote>
+                <figcaption class="blockquote-footer mt-3">
+                    <cite title="Source Title">Mike Rodriguez, Rodriguez Construction</cite>
+                </figcaption>
+            </div>
+            <div class="col-lg-6 mt-5 mt-lg-0">
+                <div class="bg-light p-4 rounded">
+                    <h4>Alert Types You'll Receive:</h4>
+                    <ul class="list-unstyled mt-3">
+                        <li class="mb-2"><i class="fas fa-exclamation-triangle text-warning me-2"></i> Labor costs trending 15% above estimate</li>
+                        <li class="mb-2"><i class="fas fa-exclamation-triangle text-warning me-2"></i> Material usage exceeding planned quantities</li>
+                        <li class="mb-2"><i class="fas fa-exclamation-triangle text-warning me-2"></i> Change orders impacting overall margin</li>
+                        <li class="mb-2"><i class="fas fa-exclamation-triangle text-warning me-2"></i> Project timeline delays affecting costs</li>
+                        <li class="mb-2"><i class="fas fa-exclamation-triangle text-warning me-2"></i> Vendor pricing changes impact job profitability</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="py-5" style="background: linear-gradient(135deg, #FF9800 0%, #F57C00 100%);">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto text-center">
+                <h2 class="display-6 fw-bold text-white mb-4">
+                    Never Lose Money on a Job Again
+                </h2>
+                <p class="lead text-white mb-4">
+                    Turn on AI budget alerts and get the early warnings that save profits.
+                </p>
+                <a href="/signup" class="btn btn-light btn-lg px-5 py-3">
+                    Start AI Monitoring →
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% include "components/cora_widget.html" %}
+{% endblock %}

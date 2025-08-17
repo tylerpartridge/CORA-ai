@@ -42,3 +42,8 @@ httpx==0.25.2  # For testing FastAPI endpoints
 
 # Async file operations
 aiofiles==24.1.0  # For async file I/O operations
+redis==5.0.1
+
+# Monitoring and Error Tracking
+sentry-sdk>=1.39.1  # Error tracking and monitoring
+schedule>=1.2.0  # Task scheduling for backups

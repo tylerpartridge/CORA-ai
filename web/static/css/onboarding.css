@@ -1,0 +1,326 @@
+/* Onboarding - Interactive Wizard Styles */
+
+:root {
+  --bg-primary: #0a0a0a;
+  --bg-secondary: #1a1a1a;
+  --accent-orange: #FF9800;
+  --accent-hover: #FFB74D;
+  --text-primary: #ffffff;
+  --text-secondary: #a0aec0;
+  --border-color: #2d3748;
+}
+
+/* Override base template's container padding for onboarding */
+body:has(.wizard-container) {
+  background: var(--bg-primary);
+}
+
+main.container-fluid:has(.wizard-container) {
+  padding: 0 !important;
+  max-width: 100% !important;
+  background: var(--bg-primary);
+}
+
+/* Ambient background layer */
+.ambient-bg {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(1200px 800px at 20% -10%, rgba(255,152,0,0.08), transparent 60%),
+              radial-gradient(1000px 600px at 120% 20%, rgba(255,152,0,0.06), transparent 60%);
+  z-index: 1; /* Behind everything */
+}
+
+/* Progress indicator */
+.progress-container {
+  flex: 0 0 auto; /* Don't grow or shrink */
+  padding: 10px 0;
+  background: var(--bg-primary);
+  border-bottom: 1px solid rgba(255,152,0,0.1);
+  margin-bottom: 10px;
+}
+.progress-line {
+  position: relative;
+  height: 4px;
+  background: rgba(255,152,0,0.2);
+  border-radius: 2px;
+  overflow: hidden;
+}
+.progress-fill {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, #FF9800, #F57C00);
+  transition: width 0.5s ease-in-out;
+}
+.progress-label {
+  margin-top: 8px;
+  color: var(--text-secondary);
+  font-size: 14px;
+}
+
+/* Main wizard layout - PROPER FLEXBOX CHAT PATTERN */
+.wizard-container {
+  position: fixed;
+  top: 60px; /* Below navbar */
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 800px;
+  display: flex;
+  flex-direction: column;
+  padding: 0 20px;
+  z-index: 50;
+  background: var(--bg-primary);
+}
+
+.message-area {
+  flex: 1 1 auto; /* Take remaining space */
+  overflow-y: auto; /* Only this scrolls */
+  overflow-x: hidden;
+  overscroll-behavior: contain;
+  padding: 20px 4px;
+  /* No large bottom padding needed - flexbox handles it */
+  min-height: 0; /* Critical for flexbox overflow */
+}
+.jump-to-latest {
+  position: absolute;
+  right: 20px;
+  bottom: 100px; /* Above input area */
+  z-index: 120;
+  display: none;
+  align-items: center;
+  gap: 8px;
+  background: var(--accent-orange);
+  color: #0a0a0a;
+  border: none;
+  padding: 10px 14px;
+  border-radius: 16px;
+  cursor: pointer;
+  font-weight: 600;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.35);
+}
+
+/* Custom scrollbar for dark theme */
+.message-area::-webkit-scrollbar { width: 8px; }
+.message-area::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.12); border-radius: 8px; }
+.message-area::-webkit-scrollbar-track { background: transparent; }
+
+/* Chat bubbles */
+.cora-message,
+.user-message {
+  max-width: 88%;
+  border-radius: 14px;
+  padding: 12px 14px;
+  margin: 8px 0;
+  line-height: 1.45;
+  word-wrap: break-word;
+  animation: message-enter 0.3s ease-out;
+}
+.cora-message {
+  align-self: flex-start;
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+  border-left: 3px solid var(--accent-orange);
+}
+.user-message {
+  align-self: flex-end;
+  background: var(--accent-orange);
+  color: #0a0a0a;
+}
+.cora-message.primary,
+.user-message.primary {
+  box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+}
+.system-message {
+  align-self: center;
+  color: var(--text-secondary);
+  font-size: 13px;
+  margin: 6px 0;
+}
+
+@keyframes message-enter {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+}
+
+/* Typing indicator */
+.typing-indicator {
+  display: inline-flex;
+  gap: 6px;
+  align-items: center;
+  margin: 6px 0 10px;
+}
+.typing-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--text-secondary);
+  opacity: 0.35;
+  animation: typing 1.4s infinite;
+}
+.typing-dot:nth-child(2) { animation-delay: 0.2s; }
+.typing-dot:nth-child(3) { animation-delay: 0.4s; }
+
+@keyframes typing {
+  0%, 60%, 100% { opacity: 0.35; transform: translateY(0); }
+  30% { opacity: 1; transform: translateY(-2px); }
+}
+
+/* Input area - PART OF FLEX CONTAINER */
+.input-area {
+  flex: 0 0 auto; /* Don't grow or shrink */
+  /* Solid background for clean separation */
+  background: var(--bg-primary);
+  border-top: 1px solid rgba(255,152,0,0.2);
+  padding: 16px 4px 20px;
+  /* Shadow for depth */
+  box-shadow: 0 -8px 24px rgba(0,0,0,0.6);
+}
+.text-input-container {
+  display: none;
+  gap: 8px;
+  align-items: center;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 8px 10px;
+  z-index: 70;
+}
+.user-input {
+  flex: 1;
+  background: transparent;
+  color: var(--text-primary);
+  border: none;
+  outline: none;
+  padding: 8px 10px;
+  font-size: 16px;
+}
+.send-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  background: var(--accent-orange);
+  border: none;
+  color: #0a0a0a;
+  cursor: pointer;
+  transition: transform 0.1s ease, background 0.2s ease;
+}
+.send-btn:hover { background: var(--accent-hover); }
+.send-btn:active { transform: translateY(1px); }
+.send-btn svg { width: 20px; height: 20px; fill: currentColor; }
+
+/* Choice cards */
+.choices-container {
+  display: none;
+  gap: 12px;
+  margin-top: 10px;
+  z-index: 61; /* below input controls */
+}
+.choices-container.grid-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); display: grid; }
+.choices-container.grid-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); display: grid; }
+
+.choice-option {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  padding: 12px;
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  background: rgba(26,26,26,0.9);
+  cursor: pointer;
+  transition: border-color 0.2s ease, transform 0.15s ease, background 0.2s ease;
+}
+.choice-option:hover {
+  border-color: rgba(255,152,0,0.5);
+  background: rgba(26,26,26,1);
+}
+.choice-option.selected {
+  border-color: var(--accent-orange);
+  background: rgba(255,152,0,0.08);
+  transform: translateY(-1px);
+}
+.choice-emoji { font-size: 22px; line-height: 1; }
+.choice-text { display: flex; flex-direction: column; gap: 4px; }
+.choice-title { color: var(--text-primary); font-weight: 600; }
+.choice-desc { color: var(--text-secondary); font-size: 13px; }
+
+.multi-select-info {
+  display: none;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: 10px;
+  padding: 10px 12px;
+  background: rgba(26,26,26,0.9);
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  color: var(--text-secondary);
+}
+.continue-choices {
+  background: var(--accent-orange);
+  color: #0a0a0a;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 600;
+}
+.continue-choices:disabled { opacity: 0.6; cursor: not-allowed; }
+
+/* Skip option */
+.skip-option { 
+  position: absolute;
+  bottom: 5px;
+  right: 20px;
+  z-index: 10;
+  text-align: right;
+}
+.skip-option a { 
+  color: var(--text-secondary); 
+  font-size: 13px; 
+  text-decoration: none;
+  opacity: 0.7;
+  transition: opacity 0.2s;
+}
+.skip-option a:hover { 
+  opacity: 1;
+  text-decoration: underline; 
+}
+
+/* Completion CTA button (class used in JS) */
+.continue-to-dashboard {
+  background: #1e88e5; /* var(--cora-blue) fallback */
+  color: #fff;
+  border: none;
+  padding: 14px 36px;
+  font-size: 16px;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: transform 0.1s ease, filter 0.2s ease;
+}
+.continue-to-dashboard:hover { filter: brightness(1.05); }
+.continue-to-dashboard:active { transform: translateY(1px); }
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .wizard-container { padding: 16px; }
+  .choices-container.grid-3 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 768px) {
+  .wizard-container { padding: 12px; }
+  .message-area { padding: 10px 2px 12px; }
+  .choices-container.grid-2,
+  .choices-container.grid-3 { grid-template-columns: 1fr; }
+}

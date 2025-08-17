@@ -1,0 +1,12 @@
+Python-dotenv could not parse statement starting at line 3
+Python-dotenv could not parse statement starting at line 3
+[CORA] Sentry import failed: module 'ssl' has no attribute 'wrap_socket'
+[CORA] Sentry DSN not configured or not available, skipping Sentry initialization
+Traceback (most recent call last):
+  File "C:\CORA\app.py", line 76, in <module>
+    from routes.plaid_integration import plaid_router
+  File "C:\CORA\routes\plaid_integration.py", line 21, in <module>
+    from services.plaid_service import PlaidService
+  File "C:\CORA\services\plaid_service.py", line 9, in <module>
+    import plaid
+ModuleNotFoundError: No module named 'plaid'

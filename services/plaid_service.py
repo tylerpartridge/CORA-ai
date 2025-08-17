@@ -9,7 +9,7 @@
 import plaid
 from plaid.api import plaid_api
 from plaid.model import *
-import json
+import logging
 from datetime import datetime, timedelta
 from typing import List, Dict, Optional, Any
 from sqlalchemy.orm import Session
@@ -17,18 +17,23 @@ from sqlalchemy.orm import Session
 from models.plaid_integration import PlaidIntegration, PlaidAccount, PlaidTransaction, PlaidSyncHistory
 from models.expense import Expense
 
+logger = logging.getLogger(__name__)
+
 class PlaidService:
     """Service for Plaid API interactions and bank transaction synchronization"""
     
     def __init__(self, integration: PlaidIntegration):
         self.integration = integration
         
+        # Import centralized config
+        from config import config as app_config
+        
         # Initialize Plaid client
         configuration = plaid.Configuration(
-            host=plaid.Environment.Sandbox,  # Change to Production for live
+            host=plaid.Environment.Sandbox if app_config.PLAID_ENV == "sandbox" else plaid.Environment.Production,
             api_key={
-                'clientId': 'YOUR_PLAID_CLIENT_ID',  # TODO: Get from env
-                'secret': 'YOUR_PLAID_SECRET',  # TODO: Get from env
+                'clientId': app_config.PLAID_CLIENT_ID,
+                'secret': app_config.PLAID_SECRET,
             }
         )
         
@@ -450,5 +455,9 @@ class PlaidService:
             accounts = self.get_accounts()
             return len(accounts) > 0
             
-        except Exception:
+        except plaid.ApiException as e:
+            logger.error(f"Plaid connection test failed - API error: {str(e)}")
+            return False
+        except Exception as e:
+            logger.error(f"Plaid connection test failed - Unexpected error: {str(e)}")
             return False 

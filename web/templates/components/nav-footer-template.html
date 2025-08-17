@@ -1,0 +1,249 @@
+<!-- CORA CONSTRUCTION THEME NAV & FOOTER TEMPLATE -->
+<!-- This is the EXACT working navigation from the landing page -->
+<!-- DO NOT MODIFY - This exact code ensures consistent rendering across all pages -->
+
+<!-- REQUIRED HEAD ELEMENTS - Add these to your <head> section IN THIS EXACT ORDER -->
+<!--
+<link rel="icon" type="image/svg+xml" href="/static/favicon-transparent.svg">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" as="style">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<script src="/static/js/security.js"></script>
+<script src="/static/js/api-error-handler.js"></script>
+-->
+
+<!-- REQUIRED STYLES - Add this entire style block to your <head> section -->
+<style>
+    /* Navigation Bar Styles */
+    nav {
+        background: linear-gradient(180deg, rgba(26, 26, 26, 0.98) 0%, rgba(26, 26, 26, 0.95) 100%) !important;
+        border-bottom: 3px solid #FF9800 !important;
+        position: fixed !important;
+        width: 100% !important;
+        top: 0 !important;
+        z-index: 1000 !important;
+        backdrop-filter: blur(10px) !important;
+    }
+    
+    /* Force dark nav background */
+    .navbar {
+        background: linear-gradient(180deg, rgba(26, 26, 26, 0.98) 0%, rgba(26, 26, 26, 0.95) 100%) !important;
+    }
+    
+    /* Override any sticky-top styles */
+    .navbar.sticky-top {
+        background: linear-gradient(180deg, rgba(26, 26, 26, 0.98) 0%, rgba(26, 26, 26, 0.95) 100%) !important;
+        border-bottom: 3px solid #FF9800 !important;
+    }
+    
+    /* Navigation diagonal texture */
+    nav::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-image: repeating-linear-gradient(
+            45deg,
+            transparent,
+            transparent 10px,
+            rgba(255, 152, 0, 0.02) 10px,
+            rgba(255, 152, 0, 0.02) 20px
+        );
+        pointer-events: none;
+    }
+    
+    /* Hide theme toggle button */
+    .theme-toggle {
+        display: none !important;
+    }
+    
+    /* Logo styles */
+    .navbar-brand img {
+        transition: all 0.3s ease;
+        filter: brightness(0.9);
+    }
+    
+    .navbar-brand:hover img {
+        filter: brightness(1.1);
+        transform: scale(1.05);
+    }
+    
+    /* Construction-themed button styles */
+    .btn-construction:hover {
+        transform: translateY(-2px) !important;
+        background: #F57C00 !important;
+        box-shadow: 0 6px 20px rgba(255,152,0,0.5) !important;
+    }
+</style>
+
+<!-- NAVIGATION HTML - Place right after <body> tag -->
+<nav class="navbar navbar-expand-lg navbar-dark">
+    <div class="container" style="position: relative; z-index: 1;">
+        <a class="navbar-brand" href="/" style="display: flex; align-items: center;">
+            <img src="/static/images/logos/cora-logo.png" alt="CORA" style="height: 45px;">
+        </a>
+        
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" style="border: 2px solid #FF9800;">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        
+        <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+            <ul class="navbar-nav align-items-center">
+                <li class="nav-item">
+                    <a class="nav-link" href="/" style="color: #e2e8f0 !important; font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px; transition: all 0.3s ease; padding: 0.5rem 1rem !important;">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/features" style="color: #e2e8f0 !important; font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px; transition: all 0.3s ease; padding: 0.5rem 1rem !important;">Features</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/#how-it-works" style="color: #e2e8f0 !important; font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px; transition: all 0.3s ease; padding: 0.5rem 1rem !important;">How It Works</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/pricing" style="color: #e2e8f0 !important; font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px; transition: all 0.3s ease; padding: 0.5rem 1rem !important;">Pricing</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/reviews" style="color: #e2e8f0 !important; font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px; transition: all 0.3s ease; padding: 0.5rem 1rem !important;">Reviews</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/contact" style="color: #e2e8f0 !important; font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px; transition: all 0.3s ease; padding: 0.5rem 1rem !important;">Contact</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/login" style="color: #4db8ff !important; font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px; transition: all 0.3s ease; padding: 0.5rem 1rem !important;">Login</a>
+                </li>
+                <li class="nav-item ms-3">
+                    <a class="btn-construction" href="/signup" style="background: #FF9800; color: #1a1a1a; padding: 0.75rem 1.5rem; font-weight: 700; border-radius: 4px; text-transform: uppercase; letter-spacing: 1px; transition: all 0.3s ease; text-decoration: none; display: inline-block; box-shadow: 0 4px 15px rgba(255,152,0,0.4); border: none;">Get Started</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- FOOTER HTML - Place before closing </body> tag -->
+<footer class="mt-0" style="background: linear-gradient(180deg, #1a1a1a 0%, #0d0d0d 100%); position: relative; overflow: hidden; border-top: 4px solid #FF9800;">
+    <!-- Construction grid pattern -->
+    <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background-image: repeating-linear-gradient(90deg, transparent, transparent 100px, rgba(255,152,0,0.02) 100px, rgba(255,152,0,0.02) 101px); pointer-events: none;"></div>
+    
+    <div class="container py-5">
+        <div class="row align-items-center">
+            <!-- Left side - Logo and tagline -->
+            <div class="col-lg-4 mb-4 mb-lg-0">
+                <div class="mb-3">
+                    <img src="/static/images/logos/cora-logo.png" alt="CORA" height="40" style="filter: brightness(0.9);">
+                </div>
+                <p style="color: #a0aec0; font-size: 0.9rem; margin-bottom: 2rem; text-transform: uppercase; letter-spacing: 1px;">
+                    Job costing that actually works. 
+                    <span style="color: #FF9800; font-weight: 700;">15 minutes/week.</span>
+                </p>
+                <!-- Social links -->
+                <div class="d-flex gap-3">
+                    <a href="#" style="width: 40px; height: 40px; background: rgba(255,152,0,0.1); border: 2px solid rgba(255,152,0,0.2); border-radius: 4px; display: flex; align-items: center; justify-content: center; transition: all 0.3s ease;" 
+                       onmouseover="this.style.background='#FF9800'; this.style.borderColor='#FF9800'; this.style.transform='translateY(-2px)'" 
+                       onmouseout="this.style.background='rgba(255,152,0,0.1)'; this.style.borderColor='rgba(255,152,0,0.2)'; this.style.transform='translateY(0)'">
+                        <i class="fab fa-twitter" style="color: #FF9800;"></i>
+                    </a>
+                    <a href="#" style="width: 40px; height: 40px; background: rgba(255,152,0,0.1); border: 2px solid rgba(255,152,0,0.2); border-radius: 4px; display: flex; align-items: center; justify-content: center; transition: all 0.3s ease;" 
+                       onmouseover="this.style.background='#FF9800'; this.style.borderColor='#FF9800'; this.style.transform='translateY(-2px)'" 
+                       onmouseout="this.style.background='rgba(255,152,0,0.1)'; this.style.borderColor='rgba(255,152,0,0.2)'; this.style.transform='translateY(0)'">
+                        <i class="fab fa-linkedin" style="color: #FF9800;"></i>
+                    </a>
+                    <a href="#" style="width: 40px; height: 40px; background: rgba(255,152,0,0.1); border: 2px solid rgba(255,152,0,0.2); border-radius: 4px; display: flex; align-items: center; justify-content: center; transition: all 0.3s ease;" 
+                       onmouseover="this.style.background='#FF9800'; this.style.borderColor='#FF9800'; this.style.transform='translateY(-2px)'" 
+                       onmouseout="this.style.background='rgba(255,152,0,0.1)'; this.style.borderColor='rgba(255,152,0,0.2)'; this.style.transform='translateY(0)'">
+                        <i class="fab fa-youtube" style="color: #FF9800;"></i>
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Middle - Quick links -->
+            <div class="col-lg-4 mb-4 mb-lg-0">
+                <div class="row">
+                    <div class="col-6">
+                        <h6 style="color: #FF9800; font-weight: 700; margin-bottom: 1rem; text-transform: uppercase; letter-spacing: 1px;">Features</h6>
+                        <ul style="list-style: none; padding: 0; margin: 0;">
+                            <li class="mb-2"><a href="/features" style="color: #a0aec0; text-decoration: none; transition: color 0.3s ease; text-transform: uppercase; font-size: 0.8rem; letter-spacing: 0.5px;" onmouseover="this.style.color='#FF9800'" onmouseout="this.style.color='#a0aec0'">Features</a></li>
+                            <li class="mb-2"><a href="/pricing" style="color: #a0aec0; text-decoration: none; transition: color 0.3s ease; text-transform: uppercase; font-size: 0.8rem; letter-spacing: 0.5px;" onmouseover="this.style.color='#FF9800'" onmouseout="this.style.color='#a0aec0'">Pricing</a></li>
+                            <li class="mb-2"><a href="/#testimonials" style="color: #a0aec0; text-decoration: none; transition: color 0.3s ease; text-transform: uppercase; font-size: 0.8rem; letter-spacing: 0.5px;" onmouseover="this.style.color='#FF9800'" onmouseout="this.style.color='#a0aec0'">Testimonials</a></li>
+                            <li class="mb-2"><a href="/#integrations" style="color: #a0aec0; text-decoration: none; transition: color 0.3s ease; text-transform: uppercase; font-size: 0.8rem; letter-spacing: 0.5px;" onmouseover="this.style.color='#FF9800'" onmouseout="this.style.color='#a0aec0'">Integrations</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-6">
+                        <h6 style="color: #4db8ff; font-weight: 700; margin-bottom: 1rem; text-transform: uppercase; letter-spacing: 1px;">Resources</h6>
+                        <ul style="list-style: none; padding: 0; margin: 0;">
+                            <li class="mb-2"><a href="/help" style="color: #a0aec0; text-decoration: none; transition: color 0.3s ease; text-transform: uppercase; font-size: 0.8rem; letter-spacing: 0.5px;" onmouseover="this.style.color='#4db8ff'" onmouseout="this.style.color='#a0aec0'">Help Center</a></li>
+                            <li class="mb-2"><a href="/blog" style="color: #a0aec0; text-decoration: none; transition: color 0.3s ease; text-transform: uppercase; font-size: 0.8rem; letter-spacing: 0.5px;" onmouseover="this.style.color='#4db8ff'" onmouseout="this.style.color='#a0aec0'">Blog</a></li>
+                            <li class="mb-2"><a href="/api" style="color: #a0aec0; text-decoration: none; transition: color 0.3s ease; text-transform: uppercase; font-size: 0.8rem; letter-spacing: 0.5px;" onmouseover="this.style.color='#4db8ff'" onmouseout="this.style.color='#a0aec0'">API Docs</a></li>
+                            <li class="mb-2"><a href="/contact" style="color: #a0aec0; text-decoration: none; transition: color 0.3s ease; text-transform: uppercase; font-size: 0.8rem; letter-spacing: 0.5px;" onmouseover="this.style.color='#4db8ff'" onmouseout="this.style.color='#a0aec0'">Contact</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Right side - Newsletter -->
+            <div class="col-lg-4">
+                <div style="background: rgba(26, 26, 26, 0.9); border: 2px solid rgba(255,152,0,0.2); border-radius: 4px; padding: 2rem; box-shadow: 0 5px 20px rgba(0,0,0,0.5);">
+                    <h6 style="color: #69F0AE; font-weight: 700; margin-bottom: 0.5rem; text-transform: uppercase; letter-spacing: 1px;">Weekly Job Tips</h6>
+                    <p style="color: #a0aec0; font-size: 0.875rem; margin-bottom: 1rem; text-transform: uppercase; letter-spacing: 0.5px;">
+                        Profit-boosting tricks. No BS.
+                    </p>
+                    <form class="d-flex gap-2">
+                        <input type="email" 
+                               placeholder="you@contracting.com" 
+                               style="flex: 1; padding: 0.5rem 1rem; border: 2px solid rgba(255,152,0,0.3); border-radius: 4px; font-size: 0.875rem; background-color: rgba(45, 55, 72, 0.95) !important; color: #ffffff !important;"
+                               onfocus="this.style.borderColor='#FF9800'"
+                               onblur="this.style.borderColor='rgba(255,152,0,0.3)'">
+                        <button type="submit" 
+                                class="btn-construction"
+                                style="background: #FF9800 !important; color: #1a1a1a !important; border: none !important; padding: 0.5rem 1.5rem !important; border-radius: 4px !important; font-size: 0.875rem !important; font-weight: 700 !important; transition: all 0.3s ease; position: relative; overflow: hidden; box-shadow: 0 2px 10px rgba(255,152,0,0.3) !important; text-transform: uppercase !important; letter-spacing: 1px !important;"
+                                onmouseover="this.style.transform='translateY(-1px)'; this.style.boxShadow='0 4px 15px rgba(255,152,0,0.4) !important';"
+                                onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 2px 10px rgba(255,152,0,0.3) !important';">
+                            <span style="position: relative; z-index: 1;">Subscribe</span>
+                            <div class="footer-sheen" style="position: absolute; top: 0; left: -100%; width: 100%; height: 100%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent); pointer-events: none;"></div>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Bottom section -->
+        <div class="row mt-5 pt-4" style="border-top: 2px solid rgba(255,152,0,0.2);">
+            <div class="col-md-6">
+                <p style="color: #a0aec0; font-size: 0.875rem; margin: 0; text-transform: uppercase; letter-spacing: 1px;">
+                    © 2025 CORA AI. Built for <span style="color: #FF9800; font-weight: 700;">CONTRACTORS</span>.
+                </p>
+            </div>
+            <div class="col-md-6 text-md-end">
+                <a href="/privacy" style="color: #a0aec0; text-decoration: none; font-size: 0.875rem; margin: 0 1rem; transition: color 0.3s ease; text-transform: uppercase; letter-spacing: 0.5px;" onmouseover="this.style.color='#FF9800'" onmouseout="this.style.color='#a0aec0'">Privacy</a>
+                <a href="/terms" style="color: #a0aec0; text-decoration: none; font-size: 0.875rem; margin: 0 1rem; transition: color 0.3s ease; text-transform: uppercase; letter-spacing: 0.5px;" onmouseover="this.style.color='#FF9800'" onmouseout="this.style.color='#a0aec0'">Terms</a>
+                <a href="/security" style="color: #a0aec0; text-decoration: none; font-size: 0.875rem; margin: 0 1rem; transition: color 0.3s ease; text-transform: uppercase; letter-spacing: 0.5px;" onmouseover="this.style.color='#FF9800'" onmouseout="this.style.color='#a0aec0'">Security</a>
+            </div>
+        </div>
+        
+        <!-- Construction footer accent -->
+        <div style="position: absolute; bottom: 0; left: 0; right: 0; height: 4px; background: linear-gradient(90deg, #FF9800 0%, #4db8ff 50%, #69F0AE 100%);"></div>
+    </div>
+</footer>
+
+<!-- REQUIRED SCRIPTS - Add these before closing </body> tag IN THIS EXACT ORDER -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- Font Awesome loaded via base template -->
+
+<!-- Hover effects handled by CSS -->
+
+<!-- Scripts/CSS are provided by base templates; keep this component markup-only -->
+
+<!-- USAGE NOTES:
+1. Copy ALL elements in the exact order shown
+2. For active page, add class="active" to the nav-link and change its color to #FF9800
+3. For pages other than landing page:
+   - Change href="#features" to href="/#features" 
+   - Change href="#how-it-works" to href="/#how-it-works"
+   - Change href="#reviews" to href="/reviews"
+4. The year in copyright can be updated as needed
+5. DO NOT remove any !important flags - they ensure consistency
+6. DO NOT change the script loading order - it affects rendering
+-->

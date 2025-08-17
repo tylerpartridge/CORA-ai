@@ -1,0 +1,720 @@
+{% extends "base_public.html" %}
+{% block title %}Choose Your Plan - CORA AI{% endblock %}
+{% block meta_description %}Select the perfect CORA plan for your construction business. Start your free trial today.{% endblock %}
+
+{% block page_styles %}
+<style>
+    :root {
+        --construction-orange: #FF9800;
+        --construction-orange-hover: #F57C00;
+        --industrial-blue: #1976D2;
+        --industrial-blue-hover: #1565C0;
+        --bright-blue: #4db8ff;
+        --success-green: #69F0AE;
+        --dark-bg: #1a1a1a;
+        --dark-surface: rgba(26, 26, 26, 0.9);
+        --dark-input: rgba(45, 55, 72, 0.95);
+        --text-primary: #ffffff;
+        --text-secondary: #e2e8f0;
+        --text-muted: #a0aec0;
+    }
+    /* Premium animations from landing page */
+    @keyframes shimmer {
+        0% { transform: translateX(-100%); }
+        100% { transform: translateX(100%); }
+    }
+    
+    @keyframes pulse {
+        0%, 100% { transform: scale(1); opacity: 1; }
+        50% { transform: scale(1.05); opacity: 0.8; }
+    }
+    
+    @keyframes float {
+        0%, 100% { transform: translateY(0px); }
+        50% { transform: translateY(-10px); }
+    }
+    
+    @keyframes fadeInScale {
+        0% { opacity: 0; transform: scale(0.9); }
+        100% { opacity: 1; transform: scale(1); }
+    }
+    
+    @keyframes glow {
+        0%, 100% { box-shadow: 0 0 20px rgba(255,152,0,0.2); }
+        50% { box-shadow: 0 0 30px rgba(255,152,0,0.4); }
+    }
+
+    /* Plan selection specific styles */
+    .plan-selection-hero {
+        background: linear-gradient(180deg, #1a1a1a 0%, #2d3748 100%);
+        padding: 4rem 0 6rem;
+        position: relative;
+        animation: fadeInScale 0.8s ease-out;
+    }
+    
+    .construction-grid {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-image: 
+            repeating-linear-gradient(0deg, transparent, transparent 50px, rgba(255,152,0,0.03) 50px, rgba(255,152,0,0.03) 51px),
+            repeating-linear-gradient(90deg, transparent, transparent 50px, rgba(255,152,0,0.03) 50px, rgba(255,152,0,0.03) 51px);
+        opacity: 0.3;
+        animation: float 6s ease-in-out infinite;
+    }
+
+    .pricing-card {
+        background: rgba(45, 55, 72, 0.95) !important;
+        border-radius: 8px !important;
+        padding: 2rem !important;
+        position: relative !important;
+        transition: all 0.3s ease !important;
+        border: 2px solid rgba(255, 152, 0, 0.4) !important;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.5) !important;
+        height: 100% !important;
+        display: flex !important;
+        flex-direction: column !important;
+    }
+
+    .pricing-card:hover {
+        transform: translateY(-8px) !important;
+        box-shadow: 0 15px 40px rgba(255, 152, 0, 0.4) !important;
+    }
+
+    .pricing-card-popular {
+        border: 3px solid var(--construction-orange) !important;
+        box-shadow: 0 8px 30px rgba(255, 152, 0, 0.4) !important;
+        background: rgba(45, 55, 72, 1.0) !important;
+        transform: scale(1.02) !important;
+    }
+    
+    .pricing-card-popular:hover {
+        transform: scale(1.02) translateY(-10px) !important;
+        box-shadow: 0 20px 50px rgba(255, 152, 0, 0.7) !important;
+    }
+    
+    /* Enhanced button hover effects */
+    .btn-construction:hover {
+        transform: translateY(-3px) !important;
+        box-shadow: 0 8px 25px rgba(255,152,0,0.6) !important;
+    }
+    
+    .btn-construction-secondary:hover {
+        transform: translateY(-3px) !important;
+        box-shadow: 0 8px 25px rgba(25,118,210,0.5) !important;
+    }
+    
+    /* Subtle glow effect for popular card */
+    .pricing-card-popular::before {
+        content: '' !important;
+        position: absolute !important;
+        top: -2px !important;
+        left: -2px !important;
+        right: -2px !important;
+        bottom: -2px !important;
+        background: linear-gradient(45deg, #FF9800, #FFA726, #FF9800) !important;
+        border-radius: 10px !important;
+        z-index: -1 !important;
+        opacity: 0.1 !important;
+        animation: pulse-glow 3s ease-in-out infinite !important;
+    }
+    
+    @keyframes pulse-glow {
+        0%, 100% { opacity: 0.1; }
+        50% { opacity: 0.3; }
+    }
+    
+    /* Floating animation for plan icons */
+    @keyframes float {
+        0%, 100% { transform: translateY(0px); }
+        50% { transform: translateY(-8px); }
+    }
+    
+    @keyframes float-delayed {
+        0%, 100% { transform: translateY(0px); }
+        50% { transform: translateY(-6px); }
+    }
+    
+    /* Apply floating to plan icons with staggered timing */
+    .plan-selection-hero .pricing-card:nth-child(1) .text-center > div:first-child {
+        animation: float 4s ease-in-out infinite !important;
+    }
+    
+    .plan-selection-hero .pricing-card:nth-child(2) .text-center > div:first-child {
+        animation: float-delayed 3.5s ease-in-out infinite 0.5s !important;
+    }
+    
+    .plan-selection-hero .pricing-card:nth-child(3) .text-center > div:first-child {
+        animation: float 4.2s ease-in-out infinite 1s !important;
+    }
+    
+    /* Subtle scale animation on card entry */
+    .pricing-card {
+        animation: fadeInScale 0.6s ease-out !important;
+    }
+    
+    .pricing-card:nth-child(2) {
+        animation-delay: 0.2s !important;
+    }
+    
+    .pricing-card:nth-child(3) {
+        animation-delay: 0.4s !important;
+    }
+    
+    @keyframes fadeInScale {
+        from { 
+            opacity: 0;
+            transform: scale(0.9) translateY(20px);
+        }
+        to { 
+            opacity: 1;
+            transform: scale(1) translateY(0px);
+        }
+    }
+
+    /* Construction tape ribbon */
+    .construction-tape {
+        position: absolute;
+        top: 15px;
+        right: -30px;
+        background: #FFEB3B;
+        color: #000;
+        padding: 0.5rem 3rem;
+        transform: rotate(35deg);
+        font-weight: 700;
+        font-size: 0.8rem;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        border: 2px dashed #000;
+        z-index: 3;
+    }
+
+    /* Success badge */
+    .success-badge {
+        display: inline-block;
+        background: var(--success-green);
+        color: var(--dark-bg);
+        padding: 0.25rem 1rem;
+        border-radius: 4px;
+        font-weight: 700;
+        font-size: 0.875rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    /* Button styles matching pricing.html exactly */
+    .btn-construction {
+        background: #FF9800;
+        color: #1a1a1a;
+        padding: 0.75rem 1.5rem;
+        font-weight: 700;
+        border-radius: 4px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        transition: all 0.3s ease;
+        text-decoration: none;
+        display: inline-block;
+        box-shadow: 0 4px 15px rgba(255,152,0,0.4);
+        border: none;
+    }
+    
+    .btn-construction:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(255,152,0,0.5);
+        color: #1a1a1a;
+        background: #F57C00;
+    }
+
+    .btn-construction-secondary {
+        padding: 0.75rem 2rem !important;
+        background: var(--industrial-blue) !important;
+        color: white !important;
+        border: none !important;
+        font-weight: 600 !important;
+        border-radius: 4px !important;
+        text-transform: uppercase !important;
+        letter-spacing: 0.5px !important;
+        box-shadow: 0 2px 10px rgba(25,118,210,0.3) !important;
+        transition: all 0.3s ease !important;
+    }
+    
+    .btn-construction-secondary:hover {
+        transform: translateY(-2px) !important;
+        background: var(--industrial-blue-hover) !important;
+        box-shadow: 0 4px 15px rgba(25,118,210,0.4) !important;
+    }
+
+    /* Remove old button styles - using proper btn-construction classes now */
+
+    .feature-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .feature-list li {
+        display: flex;
+        align-items: start;
+        margin-bottom: 1.25rem;
+    }
+
+    .feature-list li:last-child {
+        margin-bottom: 0;
+    }
+
+    .feature-icon {
+        color: #69F0AE;
+        margin-right: 0.75rem;
+        font-size: 1.5rem;
+        font-weight: 700;
+        flex-shrink: 0;
+    }
+
+    .feature-icon-orange {
+        color: #FF9800;
+    }
+
+    .feature-content {
+        flex: 1;
+    }
+
+    .feature-title {
+        color: #ffffff;
+        font-size: 1.1rem;
+        font-weight: 600;
+        margin-bottom: 0.25rem;
+    }
+
+    .feature-description {
+        color: #a0aec0;
+        font-size: 0.875rem;
+    }
+
+    /* Feature sections */
+    .feature-section-header {
+        background: rgba(255, 152, 0, 0.1);
+        padding: 1rem;
+        border-radius: 4px;
+        margin-bottom: 1.5rem;
+        text-align: center;
+    }
+
+    .feature-section-header-crew {
+        background: rgba(255, 152, 0, 0.1);
+        color: #FF9800;
+    }
+
+    .feature-section-header-business {
+        background: rgba(25, 118, 210, 0.1);
+        color: #4db8ff;
+    }
+
+    /* Mobile responsive */
+    @media (max-width: 768px) {
+        .construction-tape {
+            font-size: 0.7rem;
+            padding: 0.5rem 2rem;
+        }
+        
+        .plan-selection-hero {
+            padding: 2rem 0 4rem;
+        }
+        
+        .pricing-card {
+            margin-bottom: 1rem;
+        }
+    }
+    
+    /* Ensure proper column behavior at different breakpoints */
+    @media (min-width: 768px) {
+        .col-md-4 {
+            flex: 0 0 33.333333%;
+            max-width: 33.333333%;
+        }
+    }
+    
+    /* HIGH SPECIFICITY OVERRIDE - Force card visibility */
+    .plan-selection-hero .pricing-card {
+        background: rgba(45, 55, 72, 0.95) !important;
+        border: 2px solid rgba(255, 152, 0, 0.4) !important;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.5) !important;
+    }
+    
+    .plan-selection-hero .pricing-card-popular {
+        background: rgba(45, 55, 72, 1.0) !important;
+        border: 3px solid #FF9800 !important;
+        box-shadow: 0 8px 30px rgba(255, 152, 0, 0.4) !important;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="plan-selection-hero">
+    <div class="construction-grid"></div>
+    
+    <div class="container position-relative">
+        <div class="text-center mb-5">
+            <h1 style="color: #FF9800; font-size: 3rem; font-weight: 700; margin-bottom: 1rem; text-shadow: 0 2px 4px rgba(0,0,0,0.5); animation: fadeInScale 1s ease-out;">
+                Choose Your Plan
+            </h1>
+            <p style="color: #e2e8f0; font-size: 1.2rem; max-width: 600px; margin: 0 auto; text-shadow: 0 2px 4px rgba(0,0,0,0.5); animation: fadeInScale 1.2s ease-out;">
+                Start your <strong style="color: var(--construction-orange); text-shadow: 0 0 10px rgba(255,152,0,0.3);">30-day free trial</strong> - no credit card required. Cancel anytime.
+            </p>
+        </div>
+
+        <div class="row g-4 align-items-stretch">
+            <!-- SOLO Plan -->
+            <div class="col-12 col-md-4">
+                <div class="pricing-card" style="background: rgba(45, 55, 72, 0.95) !important; border: 2px solid rgba(255, 152, 0, 0.4) !important; border-radius: 8px !important; padding: 2rem !important; box-shadow: 0 4px 20px rgba(0,0,0,0.5) !important; height: 100% !important; display: flex !important; flex-direction: column !important;">
+                    <div class="text-center">
+                        <div style="width: 80px; height: 80px; margin: 0 auto 1.5rem; background: rgba(25, 118, 210, 0.1); border: 3px solid #1976D2; border-radius: 4px; display: flex; align-items: center; justify-content: center;">
+                            <span style="font-size: 2.5rem;">🔨</span>
+                        </div>
+                        <h3 style="color: #4db8ff; font-size: 2rem; margin-bottom: 0.5rem; text-transform: uppercase; font-weight: 700;">SOLO</h3>
+                        <p style="color: #e2e8f0; margin-bottom: 1.5rem; text-transform: uppercase; font-size: 0.9rem; letter-spacing: 1px;">One-Man Operations</p>
+                        
+                        <div class="price-display mb-3">
+                            <span style="font-size: 3.5rem; font-weight: 700; color: #ffffff;">$49</span>
+                            <span style="color: #e2e8f0; font-size: 1.2rem;">/month</span>
+                        </div>
+                        <div class="success-badge">30 DAYS FREE</div>
+                    </div>
+                    
+                    <div style="border-top: 3px solid rgba(25, 118, 210, 0.3); padding-top: 2rem; margin-bottom: 2rem;">
+                        <ul class="feature-list">
+                            <li>
+                                <span class="feature-icon">✓</span>
+                                <div class="feature-content">
+                                    <div class="feature-title">10 Active Jobs</div>
+                                    <div class="feature-description">Track up to 10 jobs at once</div>
+                                </div>
+                            </li>
+                            <li>
+                                <span class="feature-icon">✓</span>
+                                <div class="feature-content">
+                                    <div class="feature-title">Voice Expense Tracking</div>
+                                    <div class="feature-description">Talk to CORA from anywhere</div>
+                                </div>
+                            </li>
+                            <li>
+                                <span class="feature-icon">✓</span>
+                                <div class="feature-content">
+                                    <div class="feature-title">Basic Job Costing</div>
+                                    <div class="feature-description">Materials, labor, overhead</div>
+                                </div>
+                            </li>
+                            <li>
+                                <span class="feature-icon">✓</span>
+                                <div class="feature-content">
+                                    <div class="feature-title">Real-Time Profit Tracking</div>
+                                    <div class="feature-description">Know your margins instantly</div>
+                                </div>
+                            </li>
+                            <li>
+                                <span class="feature-icon">✓</span>
+                                <div class="feature-content">
+                                    <div class="feature-title">Export Reports</div>
+                                    <div class="feature-description">PDF & CSV exports</div>
+                                </div>
+                            </li>
+                            <li>
+                                <span class="feature-icon">✓</span>
+                                <div class="feature-content">
+                                    <div class="feature-title">Mobile App</div>
+                                    <div class="feature-description">iOS & Android</div>
+                                </div>
+                            </li>
+                            <li>
+                                <span class="feature-icon">✓</span>
+                                <div class="feature-content">
+                                    <div class="feature-title">Email Support</div>
+                                    <div class="feature-description">48-hour response time</div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <div style="margin-top: auto;">
+                        <button class="btn-construction-secondary w-100 mb-3" style="background: #1976D2 !important; color: white !important; border: none !important; font-size: 1.1rem !important; padding: 1.1rem 2rem !important; font-weight: 700 !important;" onclick="startTrial('solo')">
+                            Start Free Trial
+                        </button>
+                        <p style="text-align: center; font-size: 0.875rem; color: #a0aec0; margin: 0;">
+                            No credit card required
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CREW Plan (Most Popular) -->
+            <div class="col-12 col-md-4">
+                <div class="pricing-card pricing-card-popular" style="background: rgba(45, 55, 72, 1.0) !important; border: 3px solid #FF9800 !important; border-radius: 8px !important; padding: 2rem !important; box-shadow: 0 8px 30px rgba(255, 152, 0, 0.4) !important; height: 100% !important; display: flex !important; flex-direction: column !important;">
+                    <div class="construction-tape">MOST POPULAR</div>
+                    <div class="text-center">
+                        <div style="width: 90px; height: 90px; margin: 0 auto 1.5rem; background: rgba(255, 152, 0, 0.2); border: 4px solid #FF9800; border-radius: 4px; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 15px rgba(255,152,0,0.3);">
+                            <span style="font-size: 3rem;">👷</span>
+                        </div>
+                        <h3 style="color: #FF9800; font-size: 2.25rem; margin-bottom: 0.5rem; text-transform: uppercase; font-weight: 700;">CREW</h3>
+                        <p style="color: #e2e8f0; margin-bottom: 1.5rem; text-transform: uppercase; font-size: 0.9rem; letter-spacing: 1px;">Small Crews (2-6 People)</p>
+                        
+                        <div class="price-display mb-3">
+                            <span style="font-size: 4rem; font-weight: 700; color: #ffffff;">$99</span>
+                            <span style="color: #e2e8f0; font-size: 1.2rem;">/month</span>
+                        </div>
+                        <div class="success-badge">30 DAYS FREE</div>
+                        <div style="color: #FF9800; font-weight: 700; margin-top: 1rem; font-size: 1.1rem;">
+                            💰 Save $2,400+/year
+                        </div>
+                    </div>
+                    
+                    <div style="border-top: 3px solid #FF9800; padding-top: 2rem; margin-bottom: 2rem;">
+                        <div class="feature-section-header feature-section-header-crew">
+                            <strong style="text-transform: uppercase;">Everything in SOLO, Plus:</strong>
+                        </div>
+                        
+                        <ul class="feature-list">
+                            <li>
+                                <span class="feature-icon feature-icon-orange">✓</span>
+                                <div class="feature-content">
+                                    <div class="feature-title">Unlimited Jobs</div>
+                                    <div class="feature-description">No limits on active jobs</div>
+                                </div>
+                            </li>
+                            <li>
+                                <span class="feature-icon feature-icon-orange">✓</span>
+                                <div class="feature-content">
+                                    <div class="feature-title">5 User Accounts</div>
+                                    <div class="feature-description">Whole crew can track time & expenses</div>
+                                </div>
+                            </li>
+                            <li>
+                                <span class="feature-icon feature-icon-orange">✓</span>
+                                <div class="feature-content">
+                                    <div class="feature-title">QuickBooks Integration</div>
+                                    <div class="feature-description">Two-way sync with QB Online</div>
+                                </div>
+                            </li>
+                            <li>
+                                <span class="feature-icon feature-icon-orange">✓</span>
+                                <div class="feature-content">
+                                    <div class="feature-title">Profit Margin Alerts</div>
+                                    <div class="feature-description">Get notified when margins drop</div>
+                                </div>
+                            </li>
+                            <li>
+                                <span class="feature-icon feature-icon-orange">✓</span>
+                                <div class="feature-content">
+                                    <div class="feature-title">Change Order Tracking</div>
+                                    <div class="feature-description">Track extras & scope changes</div>
+                                </div>
+                            </li>
+                            <li>
+                                <span class="feature-icon feature-icon-orange">✓</span>
+                                <div class="feature-content">
+                                    <div class="feature-title">Priority Support</div>
+                                    <div class="feature-description">Phone & chat support, 4-hour response</div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <div style="margin-top: auto;">
+                        <button class="btn-construction w-100 mb-3" style="background: #FF9800 !important; color: #1a1a1a !important; border: none !important; font-size: 1.25rem !important; padding: 1.25rem 2rem !important; font-weight: 700 !important; text-transform: uppercase !important;" onclick="startTrial('crew')">
+                            Start Free Trial
+                        </button>
+                        <p style="text-align: center; font-size: 0.875rem; color: #FF9800; margin: 0; font-weight: 700;">
+                            Most contractors choose this plan
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- BUSINESS Plan -->
+            <div class="col-12 col-md-4">
+                <div class="pricing-card" style="background: rgba(45, 55, 72, 0.95) !important; border: 2px solid rgba(255, 152, 0, 0.4) !important; border-radius: 8px !important; padding: 2rem !important; box-shadow: 0 4px 20px rgba(0,0,0,0.5) !important; height: 100% !important; display: flex !important; flex-direction: column !important;">
+                    <div class="text-center">
+                        <div style="width: 80px; height: 80px; margin: 0 auto 1.5rem; background: rgba(25, 118, 210, 0.1); border: 3px solid #1976D2; border-radius: 4px; display: flex; align-items: center; justify-content: center; animation: float 3s ease-in-out infinite 1s; box-shadow: 0 4px 15px rgba(25, 118, 210, 0.3);">
+                            <span style="font-size: 2.5rem;">🏗️</span>
+                        </div>
+                        <h3 style="color: #4db8ff; font-size: 2rem; margin-bottom: 0.5rem; font-weight: 700; text-shadow: 0 2px 4px rgba(0,0,0,0.5); text-transform: uppercase; letter-spacing: 2px;">BUSINESS</h3>
+                        <p style="color: #e2e8f0; margin-bottom: 1.5rem; text-transform: uppercase; font-size: 0.9rem; letter-spacing: 1px;">Growing Companies (7-30+)</p>
+                        
+                        <div class="price-display mb-3">
+                            <span style="font-size: 3.5rem; font-weight: 700; color: #ffffff;">$199</span>
+                            <span style="color: #e2e8f0; font-size: 1.2rem;">/month</span>
+                        </div>
+                        <div class="success-badge">30 DAYS FREE</div>
+                    </div>
+                    
+                    <div style="border-top: 3px solid rgba(25, 118, 210, 0.3); padding-top: 2rem; margin-bottom: 2rem;">
+                        <div class="feature-section-header feature-section-header-business">
+                            <strong style="text-transform: uppercase;">Everything in CREW, Plus:</strong>
+                        </div>
+                        
+                        <ul class="feature-list">
+                            <li>
+                                <span class="feature-icon">✓</span>
+                                <div class="feature-content">
+                                    <div class="feature-title">20 User Accounts</div>
+                                    <div class="feature-description">Scale your entire operation</div>
+                                </div>
+                            </li>
+                            <li>
+                                <span class="feature-icon">✓</span>
+                                <div class="feature-content">
+                                    <div class="feature-title">Multiple Companies</div>
+                                    <div class="feature-description">Manage multiple entities</div>
+                                </div>
+                            </li>
+                            <li>
+                                <span class="feature-icon">✓</span>
+                                <div class="feature-content">
+                                    <div class="feature-title">Prevailing Wage Tracking</div>
+                                    <div class="feature-description">Track certified payroll rates</div>
+                                </div>
+                            </li>
+                            <li>
+                                <span class="feature-icon">✓</span>
+                                <div class="feature-content">
+                                    <div class="feature-title">Subcontractor Management</div>
+                                    <div class="feature-description">Track subs, lien waivers, insurance</div>
+                                </div>
+                            </li>
+                            <li>
+                                <span class="feature-icon">✓</span>
+                                <div class="feature-content">
+                                    <div class="feature-title">Advanced Reporting</div>
+                                    <div class="feature-description">Custom reports & dashboards</div>
+                                </div>
+                            </li>
+                            <li>
+                                <span class="feature-icon">✓</span>
+                                <div class="feature-content">
+                                    <div class="feature-title">Dedicated Account Manager</div>
+                                    <div class="feature-description">Personal onboarding & support</div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <div style="margin-top: auto;">
+                        <button class="btn-construction-secondary w-100 mb-3" style="background: #1976D2 !important; color: white !important; border: none !important; font-size: 1.1rem !important; padding: 1.1rem 2rem !important; font-weight: 700 !important;" onclick="startTrial('business')">
+                            Start Free Trial
+                        </button>
+                        <p style="text-align: center; font-size: 0.875rem; color: #a0aec0; margin: 0;">
+                            No credit card required
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Skip Option -->
+        <div class="text-center mt-5">
+            <div style="background: var(--dark-surface); padding: 2rem; border-radius: 8px; border: 2px solid rgba(255, 152, 0, 0.2); display: inline-block; max-width: 400px;">
+                <h4 style="color: #FF9800; margin-bottom: 1rem; font-weight: 600;">Want to explore first?</h4>
+                <p style="color: #e2e8f0; margin-bottom: 1.5rem; font-size: 0.95rem;">No problem! You can choose a plan anytime during your trial.</p>
+                <a href="/onboarding" onclick="trackSkip()" class="btn btn-construction-secondary" style="padding: 0.75rem 2rem; text-decoration: none;">Continue to Dashboard</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Trust Indicators -->
+<section style="background: linear-gradient(135deg, #1a1a1a, #2d3748); padding: 3rem 0; text-align: center; position: relative; overflow: hidden;">
+    <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background-image: repeating-linear-gradient(45deg, transparent, transparent 20px, rgba(255,152,0,0.02) 20px, rgba(255,152,0,0.02) 40px);"></div>
+    <div class="container position-relative">
+        <div class="row">
+            <div class="col-md-4" style="animation: fadeInScale 0.8s ease-out 0.2s both;">
+                <div style="color: var(--construction-orange); font-size: 2rem; margin-bottom: 1rem; animation: float 4s ease-in-out infinite; text-shadow: 0 0 20px rgba(255,152,0,0.4);">🔒</div>
+                <h4 style="color: #ffffff; margin-bottom: 0.5rem; text-shadow: 0 2px 4px rgba(0,0,0,0.5);">No Credit Card Required</h4>
+                <p style="color: #94a3b8; font-size: 0.9rem; text-shadow: 0 1px 2px rgba(0,0,0,0.3);">Start your free trial instantly</p>
+            </div>
+            <div class="col-md-4" style="animation: fadeInScale 0.8s ease-out 0.4s both;">
+                <div style="color: var(--construction-orange); font-size: 2rem; margin-bottom: 1rem; animation: float 4s ease-in-out infinite 1s; text-shadow: 0 0 20px rgba(255,152,0,0.4);">⏰</div>
+                <h4 style="color: #ffffff; margin-bottom: 0.5rem; text-shadow: 0 2px 4px rgba(0,0,0,0.5);">30-Day Free Trial</h4>
+                <p style="color: #94a3b8; font-size: 0.9rem; text-shadow: 0 1px 2px rgba(0,0,0,0.3);">Full access to all features</p>
+            </div>
+            <div class="col-md-4" style="animation: fadeInScale 0.8s ease-out 0.6s both;">
+                <div style="color: var(--construction-orange); font-size: 2rem; margin-bottom: 1rem; animation: float 4s ease-in-out infinite 2s; text-shadow: 0 0 20px rgba(255,152,0,0.4);">✋</div>
+                <h4 style="color: #ffffff; margin-bottom: 0.5rem; text-shadow: 0 2px 4px rgba(0,0,0,0.5);">Cancel Anytime</h4>
+                <p style="color: #94a3b8; font-size: 0.9rem; text-shadow: 0 1px 2px rgba(0,0,0,0.3);">No contracts, no commitments</p>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block page_scripts %}
+<script>
+// Track plan selection
+function startTrial(planName) {
+    // Show loading state
+    event.target.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Starting Trial...';
+    event.target.disabled = true;
+    
+    // Create trial subscription
+    fetch('/api/payments/subscriptions/create-trial', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            plan: planName.toUpperCase()
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            // Track successful plan selection
+            if (typeof gtag !== 'undefined') {
+                gtag('event', 'begin_checkout', {
+                    currency: 'USD',
+                    value: planName === 'solo' ? 49 : planName === 'crew' ? 99 : 199,
+                    items: [{
+                        item_id: planName,
+                        item_name: `CORA ${planName.toUpperCase()}`,
+                        category: 'subscription',
+                        quantity: 1
+                    }]
+                });
+            }
+            
+            // Redirect to onboarding
+            window.location.href = '/onboarding?plan=' + planName;
+        } else {
+            // Handle error
+            alert('Failed to start trial: ' + (data.message || 'Unknown error'));
+            event.target.innerHTML = 'Start Free Trial';
+            event.target.disabled = false;
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('Failed to start trial. Please try again.');
+        event.target.innerHTML = 'Start Free Trial';
+        event.target.disabled = false;
+    });
+}
+
+function trackSkip() {
+    // Track users who skip plan selection
+    if (typeof gtag !== 'undefined') {
+        gtag('event', 'skip_plan_selection', {
+            event_category: 'onboarding',
+            event_label: 'plan_skip'
+        });
+    }
+}
+
+// Auto-focus first plan for keyboard navigation
+document.addEventListener('DOMContentLoaded', function() {
+    const firstButton = document.querySelector('.start-trial-btn');
+    if (firstButton) {
+        firstButton.focus();
+    }
+});
+</script>
+{% endblock %}

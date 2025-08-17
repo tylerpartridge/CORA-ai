@@ -1,0 +1,1553 @@
+{% extends "base_public.html" %}
+<!-- 
+  Template: /web/templates/features.html
+  Purpose: Features page - detailed feature breakdown
+  Related: index.html, pricing.html
+-->
+
+{% block page_title %}Features - CORA AI | Voice-Powered Financial Management for Contractors{% endblock %}
+{% block page_description %}Discover CORA's powerful features: voice expense tracking, real-time job costing, automatic categorization, and seamless integration with your mixed personal and business accounts.{% endblock %}
+
+{% block page_css %}
+<style>
+        /* Common construction theme styles moved to construction-theme.css */
+        
+        /* Navigation Bar Styles */
+        nav {
+            background: linear-gradient(180deg, rgba(26, 26, 26, 0.98) 0%, rgba(26, 26, 26, 0.95) 100%) !important;
+            border-bottom: 3px solid #FF9800 !important;
+            position: fixed !important;
+            width: 100% !important;
+            top: 0 !important;
+            z-index: 1000 !important;
+            backdrop-filter: blur(10px) !important;
+        }
+        
+        /* Force dark nav background kept for this page */
+        .navbar { background: linear-gradient(180deg, rgba(26, 26, 26, 0.98) 0%, rgba(26, 26, 26, 0.95) 100%) !important; }
+        
+        /* Override any sticky-top styles */
+        .navbar.sticky-top {
+            background: linear-gradient(180deg, rgba(26, 26, 26, 0.98) 0%, rgba(26, 26, 26, 0.95) 100%) !important;
+            border-bottom: 3px solid #FF9800 !important;
+        }
+        
+        /* Navigation diagonal texture */
+        nav::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: repeating-linear-gradient(
+                45deg,
+                transparent,
+                transparent 10px,
+                rgba(255, 152, 0, 0.02) 10px,
+                rgba(255, 152, 0, 0.02) 20px
+            );
+            pointer-events: none;
+        }
+        
+        /* Hide theme toggle button */
+        .theme-toggle {
+            display: none !important;
+        }
+        
+        
+        /* CORA gradient style matching chat widget */
+        .btn-cora-gradient {
+            text-decoration: none !important;
+            background: linear-gradient(135deg, #FF9800 0%, #F57C00 100%) !important;
+            color: white !important;
+            border: none !important;
+            transition: all 0.3s ease !important;
+        }
+        
+        .btn-cora-gradient:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 20px rgba(155, 89, 198, 0.4) !important;
+            background: linear-gradient(135deg, #8B49B6 0%, #3F7EE7 100%) !important;
+        }
+        
+        /* Blue-first gradient for Meet CORA button */
+        .btn-blue-first:hover {
+            transform: translateY(-2px) !important;
+            box-shadow: 0 4px 20px rgba(79, 142, 247, 0.4) !important;
+            background: linear-gradient(135deg, #3F7EE7 0%, #3F7EE7 70%, #8B49B6 100%) !important;
+        }
+        
+        /* Construction-themed button styles */
+        .btn-construction:hover {
+            transform: translateY(-2px) !important;
+            background: #F57C00 !important;
+            box-shadow: 0 6px 20px rgba(255,152,0,0.5) !important;
+        }
+        
+        .btn-construction-secondary:hover {
+            transform: translateY(-2px) !important;
+            background: #1565C0 !important;
+            box-shadow: 0 4px 15px rgba(25,118,210,0.4) !important;
+        }
+        
+        /* Dark input styling */
+        #emailInput::placeholder {
+            color: #a0aec0;
+        }
+        
+        #emailInput:focus {
+            background: rgba(45, 55, 72, 1) !important;
+            border-color: #FF9800 !important;
+            box-shadow: 0 0 0 3px rgba(255,152,0,0.1) !important;
+            outline: none !important;
+        }
+        
+        /* Remove default link underlines */
+        a {
+            text-decoration: none;
+        }
+        
+        /* zoom controls styling is centralized; no page overrides */
+        
+        /* Button Styles */
+        .btn-construction {
+            background: #FF9800;
+            color: #1a1a1a;
+            padding: 0.75rem 1.5rem;
+            font-weight: 700;
+            border-radius: 4px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            box-shadow: 0 4px 15px rgba(255,152,0,0.4);
+            border: none;
+        }
+        
+        .btn-construction:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255,152,0,0.5);
+            color: #1a1a1a;
+            background: #F57C00;
+        }
+        
+        /* Logo hover effect */
+        .navbar-brand img {
+            transition: all 0.3s ease;
+            filter: brightness(0.9);
+        }
+        
+        .navbar-brand:hover img {
+            filter: brightness(1.1);
+            transform: scale(1.05);
+        }
+        
+        /* Logo gradient wrapper - EASY TO ROLLBACK: just remove the logo-gradient-wrapper div */
+        .logo-gradient-wrapper {
+            position: relative;
+            display: inline-block;
+        }
+        
+        .logo-gradient-wrapper::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, #FF9800 0%, #F57C00 100%);
+            mix-blend-mode: color;
+            pointer-events: none;
+            opacity: 0.9;
+        }
+        
+        /* Alternative approach: mask the logo with gradient */
+        .logo-with-gradient {
+            filter: brightness(0) saturate(100%);
+            opacity: 0.9;
+        }
+        
+        /* Fix email input styling */
+        #emailInput {
+            background: rgba(255,255,255,0.95) !important;
+            color: #333 !important;
+            border: 2px solid rgba(93,78,140,0.2) !important;
+        }
+        
+        /* Center nav Get Started button */
+        .nav-item .btn-wellness {
+            display: inline-flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+        }
+        
+        /* Hide theme toggle button and any dark mode toggle */
+        .theme-toggle {
+            display: none !important;
+        }
+        
+        /* Hide any button in bottom right corner */
+        button[style*="position: fixed"][style*="bottom"][style*="right"],
+        button[style*="position:fixed"][style*="bottom"][style*="right"],
+        .theme-toggle[style*="position: fixed"],
+        .theme-toggle[style*="position:fixed"] {
+            display: none !important;
+        }
+        
+        /* Feature card hover effects */
+        .feature-card:hover {
+            transform: translateY(-10px) !important;
+            box-shadow: 0 20px 50px rgba(93, 78, 140, 0.3) !important;
+            background: linear-gradient(145deg, #6a5fa8 0%, #4f8cdb 100%) !important;
+        }
+        
+        .feature-card:hover h4,
+        .feature-card:hover p {
+            color: #ffffff !important;
+        }
+        
+        /* Better spacing for mobile */
+        @media (max-width: 768px) {
+            .hero-section {
+                padding-top: 2rem !important;
+                padding-bottom: 2rem !important;
+            }
+            
+            .display-1 {
+                font-size: 2.5rem !important;
+            }
+            
+            .lead {
+                font-size: 1.1rem !important;
+            }
+        }
+        
+        /* Improve nav spacing on mobile */
+        @media (max-width: 991px) {
+            .navbar-collapse {
+                background: rgba(26, 26, 26, 0.98);
+                padding: 1rem;
+                margin-top: 1rem;
+                border-radius: 8px;
+                border: 2px solid rgba(255, 152, 0, 0.3);
+            }
+        }
+        
+        /* Small animation for feature icons */
+        @keyframes gentle-bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+        
+        .feature-card:hover .feature-icon {
+            animation: gentle-bounce 0.6s ease-in-out;
+        }
+        
+        /* Trust indicators styling */
+        .trust-badge {
+            background: rgba(69, 240, 131, 0.1);
+            border: 2px solid rgba(69, 240, 131, 0.3);
+            border-radius: 8px;
+            padding: 1.5rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        
+        .trust-badge:hover {
+            transform: scale(1.05);
+            border-color: #45F083;
+            box-shadow: 0 5px 20px rgba(69, 240, 131, 0.4);
+        }
+        
+        /* Testimonial cards */
+        .testimonial-card {
+            background: rgba(93, 78, 140, 0.1);
+            border: 2px solid rgba(93, 78, 140, 0.2);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            transition: all 0.3s ease;
+        }
+        
+        .testimonial-card:hover {
+            transform: translateY(-5px);
+            border-color: #5D4E8C;
+            box-shadow: 0 10px 30px rgba(93, 78, 140, 0.3);
+        }
+        
+        /* CTA section styling */
+        .cta-section {
+            background: linear-gradient(135deg, #5D4E8C 0%, #4F8CEF 100%);
+            border-radius: 20px;
+            padding: 4rem 3rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .cta-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            animation: rotate 20s linear infinite;
+        }
+        
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        
+        /* Wellness-inspired input styling */
+        .form-control:focus {
+            border-color: #5D4E8C;
+            box-shadow: 0 0 0 0.2rem rgba(93, 78, 140, 0.25);
+        }
+        
+        /* Better hover states for links */
+        a {
+            transition: all 0.3s ease;
+        }
+        
+        a:hover {
+            color: #4F8CEF;
+        }
+        
+        /* Smooth scroll behavior */
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        /* Loading states */
+        .btn:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+        }
+        
+        /* Success message styling */
+        .alert-success {
+            background: rgba(69, 240, 131, 0.1);
+            border: 2px solid #45F083;
+            color: #45F083;
+        }
+        
+        /* Error message styling */
+        .alert-danger {
+            background: rgba(239, 68, 68, 0.1);
+            border: 2px solid #EF4444;
+            color: #EF4444;
+        }
+        
+        /* Mobile touch targets */
+        @media (max-width: 768px) {
+            .btn {
+                min-height: 48px;
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+            }
+            
+            .nav-link {
+                padding: 1rem !important;
+            }
+        }
+        
+        /* Accessibility improvements */
+        :focus-visible {
+            outline: 3px solid #4F8CEF;
+            outline-offset: 2px;
+        }
+        
+        /* Print styles */
+        @media print {
+            nav, footer, .btn, .cta-section {
+                display: none !important;
+            }
+            
+            body {
+                background: white;
+                color: black;
+            }
+        }
+        
+        /* Construction theme-specific overrides */
+        .hero-section {
+            background: linear-gradient(180deg, #1a1a1a 0%, #2d3748 100%) !important;
+        }
+        
+        /* Override wellness gradient buttons with construction theme */
+        .btn-primary {
+            background: #FF9800 !important;
+            border-color: #FF9800 !important;
+        }
+        
+        .btn-primary:hover {
+            background: #F57C00 !important;
+            border-color: #F57C00 !important;
+        }
+        
+        /* Construction-themed cards */
+        .card {
+            background: rgba(45, 55, 72, 0.95) !important;
+            border: 2px solid rgba(255, 152, 0, 0.3) !important;
+        }
+        
+        .card:hover {
+            border-color: #FF9800 !important;
+            box-shadow: 0 10px 30px rgba(255, 152, 0, 0.3) !important;
+        }
+        
+        /* Fix nav link colors */
+        .navbar-nav .nav-link {
+            color: #e2e8f0 !important;
+        }
+        
+        .navbar-nav .nav-link:hover {
+            color: #FF9800 !important;
+        }
+        
+        .navbar-nav .nav-link.active {
+            color: #FF9800 !important;
+        }
+        
+        /* Footer newsletter form hover effects */
+        .footer-sheen {
+            animation: sheen 3s ease-in-out infinite;
+        }
+        
+        @keyframes sheen {
+            0% { left: -100%; }
+            100% { left: 200%; }
+        }
+        
+        /* Pricing toggle construction theme */
+        .form-check-input:checked {
+            background-color: #FF9800 !important;
+            border-color: #FF9800 !important;
+        }
+        
+        /* Table striping for construction theme */
+        .table-striped > tbody > tr:nth-of-type(odd) > * {
+            background-color: rgba(255, 152, 0, 0.05) !important;
+        }
+        
+        /* Active state for navigation items */
+        .nav-pills .nav-link.active {
+            background: #FF9800 !important;
+            color: white !important;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2) !important;
+        }
+        
+        /* Big Problem Section */
+        .problem-box {
+            background: rgba(239, 68, 68, 0.1);
+            border: 3px solid rgba(239, 68, 68, 0.3);
+            border-radius: 8px;
+            padding: 2rem;
+            margin: 1rem 0;
+            position: relative;
+        }
+        
+        .solution-box {
+            background: rgba(105, 240, 174, 0.1);
+            border: 3px solid rgba(105, 240, 174, 0.3);
+            border-radius: 8px;
+            padding: 2rem;
+            margin: 1rem 0;
+            position: relative;
+        }
+        
+        /* Visual mess representation */
+        .mess-visual {
+            background: rgba(26, 26, 26, 0.95);
+            border: 2px solid rgba(255, 152, 0, 0.2);
+            border-radius: 8px;
+            padding: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .money-item {
+            background: rgba(45, 55, 72, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+            padding: 1rem;
+            margin: 0.5rem;
+            display: inline-block;
+            transition: all 0.3s ease;
+        }
+        
+        .money-item:hover {
+            transform: scale(1.05);
+            border-color: #FF9800;
+        }
+        
+        /* Simple step cards */
+        .step-card {
+            background: rgba(26, 26, 26, 0.95);
+            border: 2px solid rgba(255, 152, 0, 0.3);
+            border-radius: 8px;
+            padding: 2rem;
+            height: 100%;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        
+        .step-card:hover {
+            transform: translateY(-5px);
+            border-color: #FF9800;
+            box-shadow: 0 10px 30px rgba(255, 152, 0, 0.3);
+        }
+        
+        .big-number {
+            font-size: 4rem;
+            font-weight: 900;
+            color: #FF9800;
+            line-height: 1;
+            margin-bottom: 1rem;
+        }
+        
+        /* Construction tape */
+        .construction-tape {
+            background: repeating-linear-gradient(
+                45deg,
+                #FFEB3B,
+                #FFEB3B 20px,
+                #333 20px,
+                #333 40px
+            );
+            padding: 0.5rem 2rem;
+            transform: rotate(-2deg);
+            display: inline-block;
+            font-weight: 900;
+            color: #ffffff;
+            text-transform: uppercase;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.3);
+            margin: 1rem 0;
+        }
+        
+        /* Float animation for chaos items */
+        @keyframes float {
+            0%, 100% { 
+                transform: translateY(0) rotate(var(--rotation)); 
+            }
+            50% { 
+                transform: translateY(-20px) rotate(var(--rotation)); 
+            }
+        }
+        
+        /* Pulse animation for stress indicator */
+        @keyframes pulse {
+            0%, 100% { 
+                transform: scale(1); 
+                opacity: 1;
+            }
+            50% { 
+                transform: scale(1.1); 
+                opacity: 0.8;
+            }
+        }
+
+        /* Hover effects for feature cards */
+        .feature-hover-orange:hover {
+            transform: translateY(-5px) !important;
+            box-shadow: 0 15px 40px rgba(255,152,0,0.3) !important;
+        }
+
+        .feature-hover-blue:hover {
+            transform: translateY(-5px) !important;
+            box-shadow: 0 15px 40px rgba(25,118,210,0.3) !important;
+        }
+
+        .feature-hover-green:hover {
+            transform: translateY(-5px) !important;
+            box-shadow: 0 15px 40px rgba(105,240,174,0.3) !important;
+        }
+
+        /* Email input focus states */
+        .email-input-focus:focus {
+            border-color: #FF9800 !important;
+            box-shadow: 0 0 0 2px rgba(255,152,0,0.1) !important;
+            outline: none !important;
+        }
+
+        /* Email form button hover */
+        .email-form-button:hover {
+            background: #F57C00 !important;
+            transform: translateY(-2px) !important;
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+
+    
+
+    <!-- Features Hero Section -->
+    <section style="background: linear-gradient(180deg, #1a1a1a 0%, #2d3748 100%); padding: 3rem 0 2rem 0; position: relative; overflow: hidden; margin-top: 80px;">
+        <!-- Construction grid overlay -->
+        <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background-image: repeating-linear-gradient(0deg, transparent, transparent 50px, rgba(255,152,0,0.03) 50px, rgba(255,152,0,0.03) 51px), repeating-linear-gradient(90deg, transparent, transparent 50px, rgba(255,152,0,0.03) 50px, rgba(255,152,0,0.03) 51px); pointer-events: none;"></div>
+        
+        <div class="container" style="position: relative; z-index: 1;">
+            <div class="row align-items-center">
+                <div class="col-lg-6">
+                    <h1 class="display-3 fw-bold mb-4" style="color: #ffffff; text-shadow: 2px 2px 4px rgba(0,0,0,0.5);">
+                        Every Feature <span style="color: #FF9800;">Built for Contractors</span>
+                    </h1>
+                    <p class="lead mb-4" style="font-size: 1.3rem; color: #e2e8f0;">
+                        We asked 500 contractors what sucked about bookkeeping. Then we fixed it all.
+                    </p>
+                    <div style="background: rgba(255,152,0,0.1); border-left: 4px solid #FF9800; padding: 1.5rem; margin-bottom: 2rem;">
+                        <p style="color: #FF9800; font-weight: 700; margin-bottom: 0.5rem; text-transform: uppercase; letter-spacing: 1px;">
+                            THE RESULT?
+                        </p>
+                        <p style="color: #ffffff; font-size: 1.2rem; margin: 0; font-weight: 600;">
+                            "It's like having a CFO who actually understands construction."
+                        </p>
+                        <p style="color: #a0aec0; font-size: 0.9rem; margin-top: 0.5rem;">
+                            - Mike Rodriguez, 18 years in business
+                        </p>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div style="position: relative;">
+                        <!-- Stats Grid -->
+                        <div class="row g-4">
+                            <div class="col-6">
+                                <div style="background: rgba(26, 26, 26, 0.9); border: 2px solid rgba(255,152,0,0.3); border-radius: 8px; padding: 2rem; text-align: center; transform: rotate(-2deg);">
+                                    <div style="font-size: 3rem; font-weight: 900; color: #FF9800; margin-bottom: 0.5rem;">15</div>
+                                    <div style="color: #e2e8f0; text-transform: uppercase; font-size: 0.875rem; letter-spacing: 1px;">Minutes/Week</div>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div style="background: rgba(26, 26, 26, 0.9); border: 2px solid rgba(25,118,210,0.3); border-radius: 8px; padding: 2rem; text-align: center; transform: rotate(2deg);">
+                                    <div style="font-size: 3rem; font-weight: 900; color: #4db8ff; margin-bottom: 0.5rem;">0</div>
+                                    <div style="color: #e2e8f0; text-transform: uppercase; font-size: 0.875rem; letter-spacing: 1px;">Apps to Learn</div>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div style="background: rgba(26, 26, 26, 0.9); border: 2px solid rgba(105,240,174,0.3); border-radius: 8px; padding: 2rem; text-align: center; transform: rotate(-1deg);">
+                                    <div style="font-size: 3rem; font-weight: 900; color: #69F0AE; margin-bottom: 0.5rem;">100%</div>
+                                    <div style="color: #e2e8f0; text-transform: uppercase; font-size: 0.875rem; letter-spacing: 1px;">Voice Powered</div>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div style="background: rgba(26, 26, 26, 0.9); border: 2px solid rgba(255,152,0,0.3); border-radius: 8px; padding: 2rem; text-align: center; transform: rotate(1deg);">
+                                    <div style="font-size: 3rem; font-weight: 900; color: #FF9800; margin-bottom: 0.5rem;">24/7</div>
+                                    <div style="color: #e2e8f0; text-transform: uppercase; font-size: 0.875rem; letter-spacing: 1px;">Always Ready</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How Simple It Really Is -->
+    <section style="background: linear-gradient(180deg, #2d3748 0%, #1a1a1a 50%, #0d0d0d 100%); padding: 5rem 0; position: relative; overflow: hidden;">
+        <!-- Construction grid overlay -->
+        <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background-image: repeating-linear-gradient(0deg, transparent, transparent 50px, rgba(255,152,0,0.03) 50px, rgba(255,152,0,0.03) 51px), repeating-linear-gradient(90deg, transparent, transparent 50px, rgba(255,152,0,0.03) 50px, rgba(255,152,0,0.03) 51px); pointer-events: none;"></div>
+        <div class="container" style="position: relative; z-index: 1;">
+            <div class="text-center mb-5">
+                <h2 class="display-4 fw-bold mb-3" style="color: #ffffff; text-transform: uppercase;">
+                    So Simple, It's <span style="color: #FF9800;">Stupid</span>
+                </h2>
+                <div style="position: relative; max-width: 700px; margin: 1.5rem auto;">
+                    <div style="background: linear-gradient(135deg, rgba(255, 152, 0, 0.1) 0%, rgba(255, 152, 0, 0.05) 100%); 
+                                border: 2px solid rgba(255, 152, 0, 0.3); 
+                                border-radius: 12px; 
+                                padding: 1.5rem 2rem; 
+                                position: relative; 
+                                overflow: hidden;
+                                box-shadow: 0 8px 32px rgba(255, 152, 0, 0.15);">
+                        
+                        <!-- Subtle construction accent -->
+                        <div style="position: absolute; top: -10px; right: -10px; width: 30px; height: 30px; background: #FF9800; transform: rotate(45deg); opacity: 0.7;"></div>
+                        <div style="position: absolute; bottom: -10px; left: -10px; width: 20px; height: 20px; background: #69F0AE; transform: rotate(45deg); opacity: 0.6;"></div>
+                        
+                        <p class="lead" style="color: #ffffff; 
+                                              font-size: 1.4rem; 
+                                              margin: 0; 
+                                              font-weight: 600; 
+                                              text-align: center; 
+                                              line-height: 1.4; 
+                                              text-shadow: 1px 1px 2px rgba(0,0,0,0.3);">
+                            <span style="color: #FF9800; font-weight: 700;">Voice-first</span> job costing built specifically for 
+                            <span style="color: #69F0AE; font-weight: 700;">contractors</span> who work with their hands
+                        </p>
+                        
+                        <!-- Subtle shine effect -->
+                        <div style="position: absolute; top: 0; left: -100%; width: 100%; height: 100%; 
+                                    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent); 
+                                    animation: shine 3s ease-in-out infinite;"></div>
+                    </div>
+                </div>
+                
+                <style>
+                    @keyframes shine {
+                        0% { left: -100%; }
+                        100% { left: 100%; }
+                    }
+                </style>
+            </div>
+
+            <div class="row g-4 mb-5 position-relative">
+                <div class="col-md-4 position-relative">
+                    <div class="step-card">
+                        <div class="big-number">1</div>
+                        <h3 style="color: #FF9800; font-size: 1.8rem; margin-bottom: 1rem;">TALK</h3>
+                        <p style="font-size: 1.2rem; color: #e2e8f0;">
+                            "Bought lumber at Home Depot for Johnson job. 400 bucks on my Visa."
+                        </p>
+                        <div style="font-size: 3rem; margin-top: 1rem;">🗣️</div>
+                    </div>
+                    <!-- Arrow 1 to 2 -->
+                    <div class="d-none d-md-block" style="position: absolute; top: 50%; right: -25px; transform: translateY(-50%); z-index: 10;">
+                        <div style="width: 50px; height: 50px; background: #FF9800; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 15px rgba(255,152,0,0.4);">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" style="margin-left: 2px;">
+                                <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="#1a1a1a" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 position-relative">
+                    <div class="step-card">
+                        <div class="big-number">2</div>
+                        <h3 style="color: #1976D2; font-size: 1.8rem; margin-bottom: 1rem;">DONE</h3>
+                        <p style="font-size: 1.2rem; color: #e2e8f0;">
+                            CORA logs it. Personal Visa? No problem. It knows.
+                        </p>
+                        <div style="font-size: 3rem; margin-top: 1rem;">✅</div>
+                    </div>
+                    <!-- Arrow 2 to 3 -->
+                    <div class="d-none d-md-block" style="position: absolute; top: 50%; right: -25px; transform: translateY(-50%); z-index: 10;">
+                        <div style="width: 50px; height: 50px; background: #1976D2; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 15px rgba(25,118,210,0.4);">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" style="margin-left: 2px;">
+                                <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="step-card">
+                        <div class="big-number">3</div>
+                        <h3 style="color: #69F0AE; font-size: 1.8rem; margin-bottom: 1rem;">KNOW</h3>
+                        <p style="font-size: 1.2rem; color: #e2e8f0;">
+                            Johnson job profit: $3,200 (and dropping). You see it instantly.
+                        </p>
+                        <div style="font-size: 3rem; margin-top: 1rem;">💰</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- What it handles -->
+            <div class="text-center mb-4">
+                <h3 style="color: #ffffff; font-size: 2rem; margin-bottom: 2rem;">
+                    CORA Handles <span style="color: #FF9800;">ALL</span> Your Money Mess:
+                </h3>
+            </div>
+            
+            <div class="row g-4">
+                <div class="col-md-6 col-lg-3">
+                    <div style="background: rgba(26, 26, 26, 0.95); border: 2px solid rgba(255, 152, 0, 0.2); border-radius: 8px; padding: 1.5rem; text-align: center; height: 100%;">
+                        <div style="font-size: 2.5rem; margin-bottom: 1rem;">💳</div>
+                        <h4 style="color: #FF9800; font-size: 1.2rem;">Mixed Cards</h4>
+                        <p style="color: #e2e8f0;">Personal, business, doesn't matter. CORA sorts it out.</p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3">
+                    <div style="background: rgba(26, 26, 26, 0.95); border: 2px solid rgba(255, 152, 0, 0.2); border-radius: 8px; padding: 1.5rem; text-align: center; height: 100%;">
+                        <div style="font-size: 2.5rem; margin-bottom: 1rem;">💵</div>
+                        <h4 style="color: #FF9800; font-size: 1.2rem;">Cash Jobs</h4>
+                        <p style="color: #e2e8f0;">"Got 500 cash from Smith" - tracked instantly.</p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3">
+                    <div style="background: rgba(26, 26, 26, 0.95); border: 2px solid rgba(255, 152, 0, 0.2); border-radius: 8px; padding: 1.5rem; text-align: center; height: 100%;">
+                        <div style="font-size: 2.5rem; margin-bottom: 1rem;">📋</div>
+                        <h4 style="color: #FF9800; font-size: 1.2rem;">Supplier Accounts</h4>
+                        <p style="color: #e2e8f0;">Monthly charges? Net 30? CORA tracks it all.</p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3">
+                    <div style="background: rgba(26, 26, 26, 0.95); border: 2px solid rgba(255, 152, 0, 0.2); border-radius: 8px; padding: 1.5rem; text-align: center; height: 100%;">
+                        <div style="font-size: 2.5rem; margin-bottom: 1rem;">👷</div>
+                        <h4 style="color: #FF9800; font-size: 1.2rem;">Sub Payments</h4>
+                        <p style="color: #e2e8f0;">Paid your subs? Tell CORA. It's tracked.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- The Money Chaos Section -->
+    <section style="background: linear-gradient(180deg, #0d0d0d 0%, #1a1a1a 15%, #2d3748 40%, #1a1a1a 100%); padding: 6rem 0; position: relative; overflow: hidden;">
+        <!-- Construction grid overlay -->
+        <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background-image: repeating-linear-gradient(0deg, transparent, transparent 50px, rgba(255,152,0,0.02) 50px, rgba(255,152,0,0.02) 51px), repeating-linear-gradient(90deg, transparent, transparent 50px, rgba(255,152,0,0.02) 50px, rgba(255,152,0,0.02) 51px); pointer-events: none;"></div>
+        
+        <div class="container" style="position: relative; z-index: 1;">
+            <!-- Title -->
+            <div class="text-center mb-5">
+                <h2 class="display-4 fw-bold" style="color: #ffffff; text-transform: uppercase; margin-bottom: 2rem;">
+                    Your Money <span style="color: #EF4444;">CHAOS</span> vs CORA <span style="color: #69F0AE;">CLARITY</span>
+                </h2>
+                <div style="width: 100px; height: 4px; background: linear-gradient(90deg, #EF4444 0%, #69F0AE 100%); margin: 0 auto;"></div>
+            </div>
+
+            <div class="row g-5 align-items-stretch">
+                <!-- LEFT SIDE - THE CHAOS -->
+                <div class="col-lg-6">
+                    <div style="background: linear-gradient(135deg, rgba(239, 68, 68, 0.1) 0%, rgba(26, 26, 26, 0.95) 100%); border: 3px solid #EF4444; border-radius: 12px; padding: 2rem; height: 100%; position: relative; overflow: hidden;">
+                        <!-- Multiple chaos pattern overlays -->
+                        <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background-image: repeating-linear-gradient(45deg, transparent, transparent 35px, rgba(239,68,68,0.05) 35px, rgba(239,68,68,0.05) 70px); pointer-events: none;"></div>
+                        <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background-image: repeating-linear-gradient(-45deg, transparent, transparent 45px, rgba(239,68,68,0.03) 45px, rgba(239,68,68,0.03) 90px); pointer-events: none;"></div>
+                        
+                        <div style="position: relative; z-index: 1;">
+                            <h3 style="color: #EF4444; font-size: 2.5rem; font-weight: 900; text-align: center; margin-bottom: 1rem; text-transform: uppercase; text-shadow: 0 2px 10px rgba(239,68,68,0.5);">
+                                WITHOUT CORA
+                            </h3>
+                            <p style="text-align: center; color: #EF4444; font-weight: 700; margin-bottom: 2rem; text-transform: uppercase; letter-spacing: 2px;">
+                                = FINANCIAL CHAOS
+                            </p>
+                            
+                            <!-- Central mess visualization -->
+                            <div style="position: relative; height: 400px; background: radial-gradient(circle at center, rgba(239,68,68,0.1) 0%, transparent 70%);">
+                                <!-- Scattered receipts background -->
+                                <div style="position: absolute; top: 15%; left: 10%; opacity: 0.3; transform: rotate(25deg);">
+                                    <div style="font-size: 4rem;">🧾</div>
+                                </div>
+                                <div style="position: absolute; bottom: 20%; right: 5%; opacity: 0.3; transform: rotate(-45deg);">
+                                    <div style="font-size: 3rem;">📄</div>
+                                </div>
+                                <div style="position: absolute; top: 40%; right: 20%; opacity: 0.3; transform: rotate(65deg);">
+                                    <div style="font-size: 3.5rem;">🧾</div>
+                                </div>
+                                
+                                <!-- Main chaos items -->
+                                <div style="position: absolute; top: 5%; left: 15%; transform: rotate(-25deg); animation: float 3s ease-in-out infinite;">
+                                    <div style="background: #1a1a1a; border: 2px solid #EF4444; padding: 0.75rem; border-radius: 8px; box-shadow: 0 8px 25px rgba(239,68,68,0.5);">
+                                        <span style="font-size: 1.5rem;">💳</span>
+                                        <p style="margin: 0; color: #EF4444; font-size: 0.9rem; font-weight: 700;">VISA ****4821</p>
+                                        <small style="color: #ffffff; opacity: 0.7;">Personal? Business?</small>
+                                    </div>
+                                </div>
+                                
+                                <div style="position: absolute; top: 20%; right: 10%; transform: rotate(15deg); animation: float 3s ease-in-out infinite; animation-delay: 0.5s;">
+                                    <div style="background: #1a1a1a; border: 2px solid #EF4444; padding: 0.75rem; border-radius: 8px; box-shadow: 0 8px 25px rgba(239,68,68,0.5);">
+                                        <span style="font-size: 1.5rem;">💵</span>
+                                        <p style="margin: 0; color: #EF4444; font-size: 0.9rem; font-weight: 700;">$1,500 CASH</p>
+                                        <small style="color: #ffffff; opacity: 0.7;">From... who?</small>
+                                    </div>
+                                </div>
+                                
+                                <div style="position: absolute; top: 45%; left: 5%; transform: rotate(-10deg); animation: float 3s ease-in-out infinite; animation-delay: 1s;">
+                                    <div style="background: #1a1a1a; border: 2px solid #EF4444; padding: 0.75rem; border-radius: 8px; box-shadow: 0 8px 25px rgba(239,68,68,0.5);">
+                                        <span style="font-size: 1.5rem;">🏪</span>
+                                        <p style="margin: 0; color: #EF4444; font-size: 0.9rem; font-weight: 700;">HOME DEPOT</p>
+                                        <small style="color: #ffffff; opacity: 0.7;">Which job??</small>
+                                    </div>
+                                </div>
+                                
+                                <div style="position: absolute; top: 35%; right: 25%; transform: rotate(30deg); animation: float 3s ease-in-out infinite; animation-delay: 1.5s;">
+                                    <div style="background: #1a1a1a; border: 2px solid #EF4444; padding: 0.75rem; border-radius: 8px; box-shadow: 0 8px 25px rgba(239,68,68,0.5);">
+                                        <span style="font-size: 1.5rem;">📱</span>
+                                        <p style="margin: 0; color: #EF4444; font-size: 0.9rem; font-weight: 700;">VENMO</p>
+                                        <small style="color: #ffffff; opacity: 0.7;">$400 "thanks"</small>
+                                    </div>
+                                </div>
+                                
+                                <div style="position: absolute; bottom: 15%; left: 25%; transform: rotate(-35deg); animation: float 3s ease-in-out infinite; animation-delay: 2s;">
+                                    <div style="background: #1a1a1a; border: 2px solid #EF4444; padding: 0.75rem; border-radius: 8px; box-shadow: 0 8px 25px rgba(239,68,68,0.5);">
+                                        <span style="font-size: 1.5rem;">🏦</span>
+                                        <p style="margin: 0; color: #EF4444; font-size: 0.9rem; font-weight: 700;">CHASE DEBIT</p>
+                                        <small style="color: #ffffff; opacity: 0.7;">Mixed accounts</small>
+                                    </div>
+                                </div>
+                                
+                                <div style="position: absolute; bottom: 35%; right: 5%; transform: rotate(20deg); animation: float 3s ease-in-out infinite; animation-delay: 2.5s;">
+                                    <div style="background: #1a1a1a; border: 2px solid #EF4444; padding: 0.75rem; border-radius: 8px; box-shadow: 0 8px 25px rgba(239,68,68,0.5);">
+                                        <span style="font-size: 1.5rem;">📋</span>
+                                        <p style="margin: 0; color: #EF4444; font-size: 0.9rem; font-weight: 700;">UNPAID INVOICE</p>
+                                        <small style="color: #ffffff; opacity: 0.7;">Due... when?</small>
+                                    </div>
+                                </div>
+                                
+                                <!-- Central stress indicator -->
+                                <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+                                    <div style="text-align: center;">
+                                        <div style="font-size: 4rem; animation: pulse 2s ease-in-out infinite;">😰</div>
+                                        <p style="color: #EF4444; font-weight: 900; text-transform: uppercase; margin-top: 0.5rem;">STRESSED</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Multiple warning boxes -->
+                            <div style="display: grid; gap: 0.5rem; margin-top: 1rem;">
+                                <div style="background: rgba(239, 68, 68, 0.2); border-left: 4px solid #EF4444; padding: 0.75rem;">
+                                    <p style="color: #ffffff; font-weight: 700; margin: 0; font-size: 0.9rem;">
+                                        ⚠️ Missing $23,000+ in deductions
+                                    </p>
+                                </div>
+                                <div style="background: rgba(239, 68, 68, 0.2); border-left: 4px solid #EF4444; padding: 0.75rem;">
+                                    <p style="color: #ffffff; font-weight: 700; margin: 0; font-size: 0.9rem;">
+                                        ⏱️ 20+ hours/month on bookkeeping
+                                    </p>
+                                </div>
+                                <div style="background: rgba(239, 68, 68, 0.2); border-left: 4px solid #EF4444; padding: 0.75rem;">
+                                    <p style="color: #ffffff; font-weight: 700; margin: 0; font-size: 0.9rem;">
+                                        😵 No idea which jobs are profitable
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- RIGHT SIDE - THE CLARITY -->
+                <div class="col-lg-6">
+                    <div style="background: rgba(105, 240, 174, 0.05); border: 3px solid #69F0AE; border-radius: 12px; padding: 3rem; height: 100%; position: relative; overflow: hidden;">
+                        <!-- Clean pattern overlay -->
+                        <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background-image: repeating-linear-gradient(90deg, transparent, transparent 50px, rgba(105,240,174,0.03) 50px, rgba(105,240,174,0.03) 51px); pointer-events: none;"></div>
+                        
+                        <div style="position: relative; z-index: 1;">
+                            <h3 style="color: #69F0AE; font-size: 2.5rem; font-weight: 900; text-align: center; margin-bottom: 2rem; text-transform: uppercase;">
+                                WITH CORA
+                            </h3>
+                            
+                            <!-- Organized dashboard preview -->
+                            <div style="background: rgba(26, 26, 26, 0.9); border: 2px solid #69F0AE; border-radius: 8px; padding: 2rem; box-shadow: 0 10px 40px rgba(105,240,174,0.2);">
+                                <!-- Dashboard header -->
+                                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 2rem;">
+                                    <h4 style="color: #69F0AE; margin: 0;">Job Profitability</h4>
+                                    <span style="color: #69F0AE; font-size: 1.5rem; font-weight: 700;">+18.2%</span>
+                                </div>
+                                
+                                <!-- Clean organized rows -->
+                                <div style="display: grid; gap: 1rem;">
+                                    <div style="background: rgba(105, 240, 174, 0.1); padding: 1rem; border-radius: 4px; display: flex; justify-content: space-between; align-items: center;">
+                                        <div>
+                                            <strong style="color: #ffffff;">Miller Deck Project</strong>
+                                            <small style="display: block; color: #69F0AE;">All expenses tracked</small>
+                                        </div>
+                                        <span style="color: #69F0AE; font-weight: 700;">$3,200</span>
+                                    </div>
+                                    
+                                    <div style="background: rgba(105, 240, 174, 0.1); padding: 1rem; border-radius: 4px; display: flex; justify-content: space-between; align-items: center;">
+                                        <div>
+                                            <strong style="color: #ffffff;">Johnson Kitchen</strong>
+                                            <small style="display: block; color: #69F0AE;">Materials sorted</small>
+                                        </div>
+                                        <span style="color: #69F0AE; font-weight: 700;">$5,400</span>
+                                    </div>
+                                    
+                                    <div style="background: rgba(105, 240, 174, 0.1); padding: 1rem; border-radius: 4px; display: flex; justify-content: space-between; align-items: center;">
+                                        <div>
+                                            <strong style="color: #ffffff;">Smith Bathroom</strong>
+                                            <small style="display: block; color: #69F0AE;">Subs paid & tracked</small>
+                                        </div>
+                                        <span style="color: #69F0AE; font-weight: 700;">$2,800</span>
+                                    </div>
+                                </div>
+                                
+                                <!-- Stats row -->
+                                <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem; margin-top: 2rem;">
+                                    <div style="text-align: center;">
+                                        <div style="font-size: 2rem; color: #69F0AE; font-weight: 900;">247</div>
+                                        <small style="color: #e2e8f0;">Receipts Saved</small>
+                                    </div>
+                                    <div style="text-align: center;">
+                                        <div style="font-size: 2rem; color: #69F0AE; font-weight: 900;">$23K</div>
+                                        <small style="color: #e2e8f0;">Deductions Found</small>
+                                    </div>
+                                    <div style="text-align: center;">
+                                        <div style="font-size: 2rem; color: #69F0AE; font-weight: 900;">15min</div>
+                                        <small style="color: #e2e8f0;">Weekly Time</small>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Bottom success -->
+                            <div style="background: #69F0AE; padding: 1.5rem; border-radius: 8px; margin-top: 2rem; text-align: center;">
+                                <p style="color: #1a1a1a; font-size: 1.5rem; font-weight: 900; margin: 0; text-transform: uppercase;">
+                                    Tax Time = ONE CLICK
+                                </p>
+                                <p style="color: #1a1a1a; font-weight: 700; margin: 0.5rem 0 0 0;">
+                                    Everything organized. Maximum deductions. Zero stress.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Comprehensive Features Showcase -->
+    <section style="background: linear-gradient(180deg, #1a1a1a 0%, #2d3748 100%); padding: 6rem 0; position: relative; overflow: hidden;">
+        <!-- Construction grid overlay -->
+        <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background-image: repeating-linear-gradient(0deg, transparent, transparent 50px, rgba(255,152,0,0.02) 50px, rgba(255,152,0,0.02) 51px), repeating-linear-gradient(90deg, transparent, transparent 50px, rgba(255,152,0,0.02) 50px, rgba(255,152,0,0.02) 51px); pointer-events: none;"></div>
+        
+        <div class="container" style="position: relative; z-index: 1;">
+            <!-- Section Header -->
+            <div class="text-center mb-5">
+                <h2 class="display-4 fw-bold" style="color: #ffffff; text-transform: uppercase;">
+                    CORA's <span style="color: #FF9800;">POWER FEATURES</span>
+                </h2>
+                <p class="lead" style="color: #e2e8f0; font-size: 1.5rem; max-width: 800px; margin: 1rem auto;">
+                    Everything you need to run your business. Nothing you don't.
+                </p>
+                <div style="width: 150px; height: 4px; background: #FF9800; margin: 2rem auto;"></div>
+            </div>
+
+            <!-- Features Grid -->
+            <div class="row g-4 mb-5">
+                <!-- Voice Intelligence -->
+                <div class="col-lg-4 col-md-6">
+                    <div class="feature-hover-orange" style="background: rgba(26, 26, 26, 0.95); border: 2px solid #FF9800; border-radius: 12px; padding: 2rem; height: 100%; position: relative; overflow: hidden; transition: all 0.3s ease;">
+                        <div style="position: absolute; top: -20px; right: -20px; font-size: 6rem; opacity: 0.1;">🎙️</div>
+                        <div style="position: relative; z-index: 1;">
+                            <div style="display: flex; align-items: center; margin-bottom: 1rem;">
+                                <div style="width: 60px; height: 60px; background: #FF9800; border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-right: 1rem;">
+                                    <span style="font-size: 2rem;">🗣️</span>
+                                </div>
+                                <h3 style="color: #FF9800; margin: 0; font-size: 1.5rem;">Voice Intelligence</h3>
+                            </div>
+                            <p style="color: #ffffff; font-weight: 600; margin-bottom: 1rem;">
+                                Just talk. CORA understands.
+                            </p>
+                            <ul style="list-style: none; padding: 0; margin: 0;">
+                                <li style="color: #e2e8f0; margin-bottom: 0.5rem; padding-left: 1.5rem; position: relative;">
+                                    <span style="position: absolute; left: 0; color: #FF9800;">▸</span>
+                                    Natural language processing
+                                </li>
+                                <li style="color: #e2e8f0; margin-bottom: 0.5rem; padding-left: 1.5rem; position: relative;">
+                                    <span style="position: absolute; left: 0; color: #FF9800;">▸</span>
+                                    Auto-categorizes expenses
+                                </li>
+                                <li style="color: #e2e8f0; margin-bottom: 0.5rem; padding-left: 1.5rem; position: relative;">
+                                    <span style="position: absolute; left: 0; color: #FF9800;">▸</span>
+                                    Learns your patterns
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Smart Job Tracking -->
+                <div class="col-lg-4 col-md-6">
+                    <div class="feature-hover-blue" style="background: rgba(26, 26, 26, 0.95); border: 2px solid #1976D2; border-radius: 12px; padding: 2rem; height: 100%; position: relative; overflow: hidden; transition: all 0.3s ease;">
+                        <div style="position: absolute; top: -20px; right: -20px; font-size: 6rem; opacity: 0.1;">📊</div>
+                        <div style="position: relative; z-index: 1;">
+                            <div style="display: flex; align-items: center; margin-bottom: 1rem;">
+                                <div style="width: 60px; height: 60px; background: #1976D2; border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-right: 1rem;">
+                                    <span style="font-size: 2rem;">🏗️</span>
+                                </div>
+                                <h3 style="color: #1976D2; margin: 0; font-size: 1.5rem;">Smart Job Tracking</h3>
+                            </div>
+                            <p style="color: #ffffff; font-weight: 600; margin-bottom: 1rem;">
+                                Real-time profitability, always.
+                            </p>
+                            <ul style="list-style: none; padding: 0; margin: 0;">
+                                <li style="color: #e2e8f0; margin-bottom: 0.5rem; padding-left: 1.5rem; position: relative;">
+                                    <span style="position: absolute; left: 0; color: #1976D2;">▸</span>
+                                    Live profit margins
+                                </li>
+                                <li style="color: #e2e8f0; margin-bottom: 0.5rem; padding-left: 1.5rem; position: relative;">
+                                    <span style="position: absolute; left: 0; color: #1976D2;">▸</span>
+                                    Material vs labor breakdown
+                                </li>
+                                <li style="color: #e2e8f0; margin-bottom: 0.5rem; padding-left: 1.5rem; position: relative;">
+                                    <span style="position: absolute; left: 0; color: #1976D2;">▸</span>
+                                    Alerts for overruns
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Receipt Genius -->
+                <div class="col-lg-4 col-md-6">
+                    <div class="feature-hover-green" style="background: rgba(26, 26, 26, 0.95); border: 2px solid #69F0AE; border-radius: 12px; padding: 2rem; height: 100%; position: relative; overflow: hidden; transition: all 0.3s ease;">
+                        <div style="position: absolute; top: -20px; right: -20px; font-size: 6rem; opacity: 0.1;">📸</div>
+                        <div style="position: relative; z-index: 1;">
+                            <div style="display: flex; align-items: center; margin-bottom: 1rem;">
+                                <div style="width: 60px; height: 60px; background: #69F0AE; border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-right: 1rem;">
+                                    <span style="font-size: 2rem;">🧾</span>
+                                </div>
+                                <h3 style="color: #69F0AE; margin: 0; font-size: 1.5rem;">Receipt Genius</h3>
+                            </div>
+                            <p style="color: #ffffff; font-weight: 600; margin-bottom: 1rem;">
+                                Snap. Done. Forever saved.
+                            </p>
+                            <ul style="list-style: none; padding: 0; margin: 0;">
+                                <li style="color: #e2e8f0; margin-bottom: 0.5rem; padding-left: 1.5rem; position: relative;">
+                                    <span style="position: absolute; left: 0; color: #69F0AE;">▸</span>
+                                    OCR extraction
+                                </li>
+                                <li style="color: #e2e8f0; margin-bottom: 0.5rem; padding-left: 1.5rem; position: relative;">
+                                    <span style="position: absolute; left: 0; color: #69F0AE;">▸</span>
+                                    Cloud backup
+                                </li>
+                                <li style="color: #e2e8f0; margin-bottom: 0.5rem; padding-left: 1.5rem; position: relative;">
+                                    <span style="position: absolute; left: 0; color: #69F0AE;">▸</span>
+                                    IRS compliant
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Mixed Money Master -->
+                <div class="col-lg-4 col-md-6">
+                    <div class="feature-hover-orange" style="background: rgba(26, 26, 26, 0.95); border: 2px solid #FF9800; border-radius: 12px; padding: 2rem; height: 100%; position: relative; overflow: hidden; transition: all 0.3s ease;">
+                        <div style="position: absolute; top: -20px; right: -20px; font-size: 6rem; opacity: 0.1;">💳</div>
+                        <div style="position: relative; z-index: 1;">
+                            <div style="display: flex; align-items: center; margin-bottom: 1rem;">
+                                <div style="width: 60px; height: 60px; background: #FF9800; border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-right: 1rem;">
+                                    <span style="font-size: 2rem;">🔀</span>
+                                </div>
+                                <h3 style="color: #FF9800; margin: 0; font-size: 1.5rem;">Mixed Money Master</h3>
+                            </div>
+                            <p style="color: #ffffff; font-weight: 600; margin-bottom: 1rem;">
+                                Personal. Business. Sorted.
+                            </p>
+                            <ul style="list-style: none; padding: 0; margin: 0;">
+                                <li style="color: #e2e8f0; margin-bottom: 0.5rem; padding-left: 1.5rem; position: relative;">
+                                    <span style="position: absolute; left: 0; color: #FF9800;">▸</span>
+                                    Auto-split transactions
+                                </li>
+                                <li style="color: #e2e8f0; margin-bottom: 0.5rem; padding-left: 1.5rem; position: relative;">
+                                    <span style="position: absolute; left: 0; color: #FF9800;">▸</span>
+                                    Multi-account tracking
+                                </li>
+                                <li style="color: #e2e8f0; margin-bottom: 0.5rem; padding-left: 1.5rem; position: relative;">
+                                    <span style="position: absolute; left: 0; color: #FF9800;">▸</span>
+                                    Cash reconciliation
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tax Maximizer -->
+                <div class="col-lg-4 col-md-6">
+                    <div class="feature-hover-blue" style="background: rgba(26, 26, 26, 0.95); border: 2px solid #1976D2; border-radius: 12px; padding: 2rem; height: 100%; position: relative; overflow: hidden; transition: all 0.3s ease;">
+                        <div style="position: absolute; top: -20px; right: -20px; font-size: 6rem; opacity: 0.1;">💰</div>
+                        <div style="position: relative; z-index: 1;">
+                            <div style="display: flex; align-items: center; margin-bottom: 1rem;">
+                                <div style="width: 60px; height: 60px; background: #1976D2; border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-right: 1rem;">
+                                    <span style="font-size: 2rem;">📈</span>
+                                </div>
+                                <h3 style="color: #1976D2; margin: 0; font-size: 1.5rem;">Tax Maximizer</h3>
+                            </div>
+                            <p style="color: #ffffff; font-weight: 600; margin-bottom: 1rem;">
+                                Every deduction. Found.
+                            </p>
+                            <ul style="list-style: none; padding: 0; margin: 0;">
+                                <li style="color: #e2e8f0; margin-bottom: 0.5rem; padding-left: 1.5rem; position: relative;">
+                                    <span style="position: absolute; left: 0; color: #1976D2;">▸</span>
+                                    Mileage tracking
+                                </li>
+                                <li style="color: #e2e8f0; margin-bottom: 0.5rem; padding-left: 1.5rem; position: relative;">
+                                    <span style="position: absolute; left: 0; color: #1976D2;">▸</span>
+                                    Equipment depreciation
+                                </li>
+                                <li style="color: #e2e8f0; margin-bottom: 0.5rem; padding-left: 1.5rem; position: relative;">
+                                    <span style="position: absolute; left: 0; color: #1976D2;">▸</span>
+                                    Quarterly estimates
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Instant Reports -->
+                <div class="col-lg-4 col-md-6">
+                    <div class="feature-hover-green" style="background: rgba(26, 26, 26, 0.95); border: 2px solid #69F0AE; border-radius: 12px; padding: 2rem; height: 100%; position: relative; overflow: hidden; transition: all 0.3s ease;">
+                        <div style="position: absolute; top: -20px; right: -20px; font-size: 6rem; opacity: 0.1;">📄</div>
+                        <div style="position: relative; z-index: 1;">
+                            <div style="display: flex; align-items: center; margin-bottom: 1rem;">
+                                <div style="width: 60px; height: 60px; background: #69F0AE; border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-right: 1rem;">
+                                    <span style="font-size: 2rem;">⚡</span>
+                                </div>
+                                <h3 style="color: #69F0AE; margin: 0; font-size: 1.5rem;">Instant Reports</h3>
+                            </div>
+                            <p style="color: #ffffff; font-weight: 600; margin-bottom: 1rem;">
+                                One click. Any report.
+                            </p>
+                            <ul style="list-style: none; padding: 0; margin: 0;">
+                                <li style="color: #e2e8f0; margin-bottom: 0.5rem; padding-left: 1.5rem; position: relative;">
+                                    <span style="position: absolute; left: 0; color: #69F0AE;">▸</span>
+                                    P&L statements
+                                </li>
+                                <li style="color: #e2e8f0; margin-bottom: 0.5rem; padding-left: 1.5rem; position: relative;">
+                                    <span style="position: absolute; left: 0; color: #69F0AE;">▸</span>
+                                    Cash flow analysis
+                                </li>
+                                <li style="color: #e2e8f0; margin-bottom: 0.5rem; padding-left: 1.5rem; position: relative;">
+                                    <span style="position: absolute; left: 0; color: #69F0AE;">▸</span>
+                                    Export to accountant
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Power Features Section -->
+            <div style="background: rgba(255, 152, 0, 0.05); border: 3px solid #FF9800; border-radius: 16px; padding: 3rem; margin-top: 4rem; position: relative; overflow: hidden;">
+                <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background-image: repeating-linear-gradient(90deg, transparent, transparent 100px, rgba(255,152,0,0.02) 100px, rgba(255,152,0,0.02) 101px); pointer-events: none;"></div>
+                
+                <div style="position: relative; z-index: 1;">
+                    <h3 style="color: #FF9800; text-align: center; font-size: 2.5rem; margin-bottom: 3rem; text-transform: uppercase;">
+                        Plus These Game-Changers
+                    </h3>
+                    
+                    <div class="row g-4">
+                        <div class="col-md-6 col-lg-3">
+                            <div style="text-align: center;">
+                                <div style="font-size: 3rem; margin-bottom: 1rem;">🔗</div>
+                                <h4 style="color: #FF9800; margin-bottom: 0.5rem;">Bank Sync</h4>
+                                <p style="color: #e2e8f0; font-size: 0.9rem;">All accounts, one view</p>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-3">
+                            <div style="text-align: center;">
+                                <div style="font-size: 3rem; margin-bottom: 1rem;">👥</div>
+                                <h4 style="color: #FF9800; margin-bottom: 0.5rem;">Team Access</h4>
+                                <p style="color: #e2e8f0; font-size: 0.9rem;">Share with your crew</p>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-3">
+                            <div style="text-align: center;">
+                                <div style="font-size: 3rem; margin-bottom: 1rem;">📱</div>
+                                <h4 style="color: #FF9800; margin-bottom: 0.5rem;">Mobile First</h4>
+                                <p style="color: #e2e8f0; font-size: 0.9rem;">Works on job sites</p>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-3">
+                            <div style="text-align: center;">
+                                <div style="font-size: 3rem; margin-bottom: 1rem;">🔒</div>
+                                <h4 style="color: #FF9800; margin-bottom: 0.5rem;">Bank Security</h4>
+                                <p style="color: #e2e8f0; font-size: 0.9rem;">256-bit encryption</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- The Big Number -->
+    <section style="background: linear-gradient(180deg, #2d3748 0%, #1a1a1a 100%); padding: 5rem 0; position: relative; overflow: hidden;">
+        <!-- Construction grid overlay -->
+        <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background-image: repeating-linear-gradient(0deg, transparent, transparent 50px, rgba(255,152,0,0.03) 50px, rgba(255,152,0,0.03) 51px), repeating-linear-gradient(90deg, transparent, transparent 50px, rgba(255,152,0,0.03) 50px, rgba(255,152,0,0.03) 51px); pointer-events: none;"></div>
+        <div class="container text-center" style="position: relative; z-index: 1;">
+            <h2 class="display-4 fw-bold mb-4" style="color: #ffffff;">
+                Average Contractor Loses
+            </h2>
+            <div style="font-size: 6rem; font-weight: 900; color: #EF4444; line-height: 1;">
+                $23,000
+            </div>
+            <p style="font-size: 1.5rem; color: #e2e8f0; margin-top: 1rem;">
+                Every Year in Missed Deductions
+            </p>
+            <div class="construction-tape" style="margin: 2rem auto;">
+                Because Everything's Mixed Up
+            </div>
+            
+            <div style="max-width: 600px; margin: 3rem auto;">
+                <h3 style="color: #69F0AE; font-size: 2rem; margin-bottom: 2rem;">
+                    CORA Finds It ALL:
+                </h3>
+                <div style="display: grid; gap: 1rem; text-align: left;">
+                    <div style="background: rgba(105, 240, 174, 0.1); padding: 1rem; border-radius: 4px; display: flex; justify-content: space-between; align-items: center;">
+                        <span style="color: #e2e8f0;">Personal card business expenses</span>
+                        <span style="color: #69F0AE; font-weight: 700;">✓ Found</span>
+                    </div>
+                    <div style="background: rgba(105, 240, 174, 0.1); padding: 1rem; border-radius: 4px; display: flex; justify-content: space-between; align-items: center;">
+                        <span style="color: #e2e8f0;">Cash payments to subs</span>
+                        <span style="color: #69F0AE; font-weight: 700;">✓ Tracked</span>
+                    </div>
+                    <div style="background: rgba(105, 240, 174, 0.1); padding: 1rem; border-radius: 4px; display: flex; justify-content: space-between; align-items: center;">
+                        <span style="color: #e2e8f0;">Mileage between jobs</span>
+                        <span style="color: #69F0AE; font-weight: 700;">✓ Logged</span>
+                    </div>
+                    <div style="background: rgba(105, 240, 174, 0.1); padding: 1rem; border-radius: 4px; display: flex; justify-content: space-between; align-items: center;">
+                        <span style="color: #e2e8f0;">That Home Depot run last Tuesday</span>
+                        <span style="color: #69F0AE; font-weight: 700;">✓ Saved</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Final CTA -->
+    <section style="background: linear-gradient(180deg, #1a1a1a 0%, #2d3748 50%, #1a1a1a 100%); padding: 5rem 0; position: relative; overflow: hidden;">
+        <!-- Construction grid overlay -->
+        <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background-image: repeating-linear-gradient(0deg, transparent, transparent 50px, rgba(255,152,0,0.03) 50px, rgba(255,152,0,0.03) 51px), repeating-linear-gradient(90deg, transparent, transparent 50px, rgba(255,152,0,0.03) 50px, rgba(255,152,0,0.03) 51px); pointer-events: none;"></div>
+        <div class="container text-center" style="position: relative; z-index: 1;">
+            <h2 class="display-4 fw-bold mb-4" style="color: #ffffff;">
+                Stop the <span style="color: #EF4444;">Mess</span>. 
+                Start <span style="color: #69F0AE;">Making Money</span>.
+            </h2>
+            <p class="lead mb-4" style="color: #e2e8f0; font-size: 1.5rem;">
+                30 days free. No credit card. Set up in 5 minutes.
+            </p>
+            <a href="/pricing" class="btn btn-construction btn-lg" style="font-size: 1.3rem; padding: 1rem 3rem;">
+                See Pricing →
+            </a>
+            <p style="color: #e2e8f0; margin-top: 2rem; font-size: 1.2rem;">
+                <span style="color: #69F0AE;">✓</span> Works with mixed accounts &nbsp;&nbsp;
+                <span style="color: #69F0AE;">✓</span> Handles cash & checks &nbsp;&nbsp;
+                <span style="color: #69F0AE;">✓</span> Just talk, no typing
+            </p>
+        </div>
+    </section>
+
+    <!-- Footer removed - now inherited from base_public.html -->
+
+
+
+{% endblock %}
+
+{% block page_scripts %}
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            
+            // Get Started button hover effect
+            const getStartedBtn = document.querySelector('.btn-construction');
+            if (getStartedBtn) {
+                getStartedBtn.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-2px)';
+                    this.style.boxShadow = '0 6px 20px rgba(255,152,0,0.5)';
+                });
+                getStartedBtn.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0)';
+                    this.style.boxShadow = '0 4px 15px rgba(255,152,0,0.4)';
+                });
+            }
+            
+            // Handle mobile navbar background
+            const navbarToggler = document.querySelector('.navbar-toggler');
+            const navbarCollapse = document.querySelector('#navbarNav');
+            
+            if (navbarToggler && navbarCollapse) {
+                navbarToggler.addEventListener('click', function() {
+                    setTimeout(() => {
+                        if (navbarCollapse.classList.contains('show')) {
+                            navbarCollapse.style.background = 'rgba(26, 26, 26, 0.98)';
+                            navbarCollapse.style.padding = '1rem';
+                            navbarCollapse.style.marginTop = '0.5rem';
+                            navbarCollapse.style.borderRadius = '4px';
+                            navbarCollapse.style.border = '2px solid rgba(255, 152, 0, 0.3)';
+                        }
+                    }, 10);
+                });
+            }
+            
+            // Add sheen animation to footer button
+            const footerBtn = document.querySelector('footer button[type="submit"]');
+            if (footerBtn) {
+                setInterval(() => {
+                    const sheen = footerBtn.querySelector('.footer-sheen');
+                    if (sheen) {
+                        sheen.style.left = '-100%';
+                        sheen.style.transition = 'none';
+                        setTimeout(() => {
+                            sheen.style.transition = 'left 1.5s ease-in-out';
+                            sheen.style.left = '200%';
+                        }, 50);
+                    }
+                }, 3000);
+            }
+            
+            // Intersection Observer for fade-in animations
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, observerOptions);
+            
+            // Observe all sections
+            document.querySelectorAll('section').forEach(section => {
+                section.style.opacity = '0';
+                section.style.transform = 'translateY(20px)';
+                section.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                observer.observe(section);
+            });
+            
+            // Add construction grid animation
+            const gridPatterns = document.querySelectorAll('[style*="repeating-linear-gradient"]');
+            gridPatterns.forEach(pattern => {
+                let offset = 0;
+                setInterval(() => {
+                    offset = (offset + 1) % 100;
+                    if (pattern.style.backgroundImage.includes('90deg')) {
+                        pattern.style.backgroundPosition = `${offset}px 0`;
+                    }
+                }, 50);
+            });
+        });
+        
+        // Add interactive hover to connection nodes
+        const connectionNodes = document.querySelectorAll('.connection-node');
+        connectionNodes.forEach(node => {
+            node.addEventListener('mouseenter', function() {
+                const icon = this.querySelector('.node-icon');
+                if (icon) {
+                    icon.style.transform = 'scale(1.15)';
+                    icon.style.boxShadow = '0 4px 8px rgba(0,0,0,0.1)';
+                }
+            });
+            
+            node.addEventListener('mouseleave', function() {
+                const icon = this.querySelector('.node-icon');
+                if (icon) {
+                    icon.style.transform = 'scale(1)';
+                    icon.style.boxShadow = 'none';
+                }
+            });
+        });
+        
+        // Add hover effect to brain
+        const brainCircle = document.querySelector('.brain-circle');
+        if (brainCircle) {
+            brainCircle.addEventListener('mouseenter', function() {
+                this.style.transform = 'scale(1.05)';
+            });
+            brainCircle.addEventListener('mouseleave', function() {
+                this.style.transform = 'scale(1)';
+            });
+        }
+    });
+    </script>
+    
+    <!-- Landing Page JavaScript -->
+
+
+    <!-- Core modules provided by cora-bundle.js -->
+    <!-- <script src="/static/js/mobile-navigation.js"></script> -->
+
+    <!-- Font Awesome - loaded at end like landing page -->
+    
+    
+    <!-- CORA Chat Interface -->
+
+    <!-- Fix CSP issues with inline event handlers -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Handle input focus/blur events
+            const inputs = document.querySelectorAll('input[type="email"], input[type="text"], select');
+            inputs.forEach(input => {
+                input.addEventListener('focus', function() {
+                    this.style.borderColor = '#FF9800';
+                    this.style.boxShadow = '0 0 0 2px rgba(255,152,0,0.1)';
+                });
+                
+                input.addEventListener('blur', function() {
+                    this.style.borderColor = 'rgba(255,152,0,0.3)';
+                    this.style.boxShadow = 'none';
+                });
+            });
+            
+            // Handle button hover events
+            const buttons = document.querySelectorAll('.btn, button');
+            buttons.forEach(button => {
+                button.addEventListener('mouseover', function() {
+                    if (this.classList.contains('btn-primary')) {
+                        this.style.transform = 'translateY(-3px)';
+                        this.style.boxShadow = '0 8px 25px rgba(255,152,0,0.6)';
+                    }
+                });
+                
+                button.addEventListener('mouseout', function() {
+                    if (this.classList.contains('btn-primary')) {
+                        this.style.transform = 'translateY(0)';
+                        this.style.boxShadow = '0 6px 20px rgba(255,152,0,0.5)';
+                    }
+                });
+            });
+        });
+        
+        // Handle newsletter signup forms
+        async function handleEmailSignup(e) {
+            e.preventDefault();
+            const form = e.target;
+            const emailInput = form.querySelector('input[type="email"]');
+            const submitBtn = form.querySelector('button[type="submit"]');
+            
+            const email = emailInput.value;
+            if (!email) return;
+            
+            // Show loading state
+            const originalText = submitBtn.textContent;
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Subscribing...';
+            
+            try {
+                // Capture email via API
+                const formData = new FormData();
+                formData.append('email', email);
+                
+                const response = await fetch('/api/v1/capture-email', {
+                    method: 'POST',
+                    body: formData
+                });
+                
+                if (response.ok) {
+                    // Store email for signup
+                    localStorage.setItem('signupEmail', email);
+                    
+                    // Show success feedback
+                    submitBtn.textContent = 'Success!';
+                    submitBtn.style.background = '#69F0AE';
+                    submitBtn.style.color = '#1a1a1a';
+                    
+                    // Redirect to signup after brief delay
+                    setTimeout(() => {
+                        window.location.href = '/signup?email=' + encodeURIComponent(email);
+                    }, 1500);
+                } else {
+                    throw new Error('Failed to capture email');
+                }
+            } catch (error) {
+                console.error('Email capture error:', error);
+                
+                // Show error feedback
+                submitBtn.textContent = 'Try Again';
+                submitBtn.style.background = '#FF5252';
+                
+                // Reset after delay
+                setTimeout(() => {
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = originalText;
+                    submitBtn.style.background = '#FF9800';
+                    submitBtn.style.color = '#1a1a1a';
+                }, 2000);
+            }
+        }
+        
+        // Wire up all newsletter forms
+        const forms = document.querySelectorAll('form');
+        forms.forEach(form => {
+            if (form.querySelector('input[type="email"]')) {
+                form.addEventListener('submit', handleEmailSignup);
+            }
+        });
+    </script>
+{% endblock %}

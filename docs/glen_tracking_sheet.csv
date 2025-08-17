@@ -1,0 +1,4 @@
+Job Name,Customer,Quote,Materials,Labor Sub,Labor Own,Permits,Equipment,Other,Total Costs,Profit,Margin %,Notes
+Smith Bathroom,John Smith,12000,3500,4000,2200,450,300,0,=SUM(D2:I2),=B2-J2,=K2/B2*100,Low margin - no markup
+Wilson Kitchen,Sarah Wilson,8500,4000,800,1600,0,0,0,=SUM(D3:I3),=B3-J3,=K3/B3*100,Good margin
+Johnson Addition,Bob Johnson,45000,18000,12000,8000,1200,800,0,=SUM(D4:I4),=B4-J4,=K4/B4*100,Check unbilled extras

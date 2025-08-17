@@ -13,6 +13,9 @@ ALWAYS run this instead of python app.py!
 import subprocess
 import sys
 import os
+import logging
+
+logger = logging.getLogger(__name__)
 
 # Add current directory to path so we can import our modules
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
@@ -20,6 +23,8 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from health_check import check_health
 from index_cora import update_indexes
 from python_selector import PYTHON_CMD
+
+
 
 def print_banner():
     """Show CORA startup banner"""
@@ -43,8 +48,12 @@ def check_git_status():
             if len(changes) > 5:
                 print(f"   ... and {len(changes) - 5} more")
             print()
-    except:
+    except subprocess.SubprocessError as e:
+        logger.warning(f"Git check failed - subprocess error: {str(e)}")
         pass  # Git not available
+    except FileNotFoundError:
+        logger.info("Git not found - skipping uncommitted changes check")
+        pass  # Git not installed
 
 def main():
     """Main startup sequence"""
@@ -65,6 +74,8 @@ def main():
         print("\n❌ Fix health issues before starting!")
         return 1
     print()
+    
+
     
     # Step 3: Check git
     check_git_status()

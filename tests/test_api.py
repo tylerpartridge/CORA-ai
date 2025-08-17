@@ -4,6 +4,13 @@ API Testing Suite for CORA
 Tests all endpoints to verify functionality
 """
 
+import sys
+from pathlib import Path
+# Add parent directory to path for imports
+sys.path.insert(0, str(Path(__file__).parent.parent))
+# Fix import paths
+
+
 import requests
 import json
 from datetime import datetime

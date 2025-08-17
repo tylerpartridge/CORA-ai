@@ -1,7 +1,14 @@
 """
 Integration Tests for Complete User Journey
-Tests the full flow: signup → login → add expense → categorize → export
+Tests the full flow: signup -> login -> add expense -> categorize -> export
 """
+
+import sys
+from pathlib import Path
+# Add parent directory to path for imports
+sys.path.insert(0, str(Path(__file__).parent.parent))
+# Fix import paths
+
 
 import pytest
 import json
@@ -17,7 +24,7 @@ class TestCompleteUserJourney:
     """Test the complete user journey from signup to export"""
     
     def test_full_user_journey(self):
-        """Test complete user journey: signup → expense → export"""
+        """Test complete user journey: signup -> expense -> export"""
         
         # Step 1: User Signup
         signup_data = {

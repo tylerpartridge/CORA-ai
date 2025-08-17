@@ -7,12 +7,20 @@
 """
 
 from fastapi import APIRouter, HTTPException, Depends
-from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
-from pydantic import BaseModel
+from fastapi.responses import JSONResponse
+from fastapi.security import OAuth2PasswordRequestForm
+from pydantic import BaseModel, validator
 from sqlalchemy.orm import Session
 from datetime import datetime, timedelta
+import re
 
 from models import get_db, UserPreference
+from utils.error_constants import (
+    ErrorMessages, 
+    STATUS_BAD_REQUEST, STATUS_UNAUTHORIZED, STATUS_FORBIDDEN,
+    STATUS_NOT_FOUND, STATUS_CONFLICT, STATUS_SERVER_ERROR,
+    STATUS_SERVICE_UNAVAILABLE
+)
 from services.auth_service import (
     authenticate_user, create_access_token, create_user,
     ACCESS_TOKEN_EXPIRE_MINUTES, validate_user_input,
@@ -23,6 +31,7 @@ from services.auth_service import (
 from services.email_service import send_password_reset_email, send_welcome_email
 from typing import List, Optional
 from dependencies.auth import get_current_user
+from config import config
 
 # Create router
 auth_router = APIRouter(
@@ -31,27 +40,95 @@ auth_router = APIRouter(
     responses={404: {"description": "Not found"}},
 )
 
-# Request models
-class LoginRequest(BaseModel):
+# Request models with enhanced validation
+from utils.validation import ValidatedBaseModel, validate_email, validate_password
+
+class LoginRequest(ValidatedBaseModel):
     email: str
     password: str
+    remember_me: Optional[bool] = False
+    
+    @validator('email')
+    def validate_email(cls, v):
+        return validate_email(v)
+    
+    @validator('password')
+    def validate_password(cls, v):
+        if not v or not isinstance(v, str):
+            raise ValueError("Password is required")
+        return v
 
-class RegisterRequest(BaseModel):
+class RegisterRequest(ValidatedBaseModel):
     email: str
     password: str
     confirm_password: str
+    
+    @validator('email')
+    def validate_email(cls, v):
+        return validate_email(v)
+    
+    @validator('password')
+    def validate_password(cls, v):
+        return validate_password(v)
+    
+    @validator('confirm_password')
+    def validate_confirm_password(cls, v, values):
+        if 'password' in values and v != values['password']:
+            raise ValueError("Passwords do not match")
+        return v
 
-class PasswordResetRequest(BaseModel):
+class PasswordResetRequest(ValidatedBaseModel):
     email: str
+    
+    @validator('email')
+    def validate_email(cls, v):
+        return validate_email(v)
 
-class PasswordResetConfirmRequest(BaseModel):
+class PasswordResetConfirmRequest(ValidatedBaseModel):
     token: str
     new_password: str
     confirm_password: str
+    
+    @validator('token')
+    def validate_token(cls, v):
+        if not v or not isinstance(v, str):
+            raise ValueError("Token is required")
+        if len(v) < 10:
+            raise ValueError("Invalid token format")
+        return v
+    
+    @validator('new_password')
+    def validate_new_password(cls, v):
+        return validate_password(v)
+    
+    @validator('confirm_password')
+    def validate_confirm_password(cls, v, values):
+        if 'new_password' in values and v != values['new_password']:
+            raise ValueError("Passwords do not match")
+        return v
 
-class PreferenceRequest(BaseModel):
+class PreferenceRequest(ValidatedBaseModel):
     key: str
     value: str
+    
+    @validator('key')
+    def validate_key(cls, v):
+        if not v or not isinstance(v, str):
+            raise ValueError("Preference key is required")
+        if len(v) > 100:
+            raise ValueError("Preference key must be 100 characters or less")
+        # Only allow alphanumeric, underscore, and dash
+        if not re.match(r'^[a-zA-Z0-9_-]+$', v):
+            raise ValueError("Preference key can only contain letters, numbers, underscore, and dash")
+        return v
+    
+    @validator('value')
+    def validate_value(cls, v):
+        if not isinstance(v, str):
+            raise ValueError("Preference value must be a string")
+        if len(v) > 1000:
+            raise ValueError("Preference value must be 1000 characters or less")
+        return v
 
 class PreferenceResponse(BaseModel):
     id: int
@@ -67,11 +144,82 @@ class PreferenceBulkUpdate(BaseModel):
     preferences: List[PreferenceRequest]
 
 @auth_router.post("/login")
-async def login(
+async def login_json(
+    request: LoginRequest,
+    db: Session = Depends(get_db)
+):
+    """JSON Login endpoint for frontend"""
+    try:
+        
+        # Authenticate user using existing auth service
+        user = authenticate_user(db, request.email, request.password)
+        
+        # Check if account is active and email verified
+        if user.is_active != "true":
+            raise HTTPException(
+                status_code=403,
+                detail="Account is inactive. Please verify your email."
+            )
+        
+        if user.email_verified != "true":
+            raise HTTPException(
+                status_code=403,
+                detail="Please verify your email before logging in."
+            )
+        
+        # Create access token
+        access_token_expires = timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
+        access_token = create_access_token(
+            data={"sub": user.email}, expires_delta=access_token_expires
+        )
+        
+        # Successful login
+
+        # Set secure HttpOnly cookie for browser-based auth
+        response = JSONResponse({
+            "success": True,
+            "message": "Login successful",
+            "redirect": "/dashboard",
+            "expires_in": ACCESS_TOKEN_EXPIRE_MINUTES * 60
+        })
+        response.set_cookie(
+            key="access_token",
+            value=access_token,
+            httponly=True,
+            secure=(not config.DEBUG),
+            samesite="lax",
+            max_age=ACCESS_TOKEN_EXPIRE_MINUTES * 60,
+            path="/"
+        )
+        return response
+        
+    except InvalidCredentialsError:
+        raise HTTPException(
+            status_code=401,
+            detail="Invalid email or password"
+        )
+    except AuthenticationError as e:
+        raise HTTPException(
+            status_code=401,
+            detail="Invalid email or password"
+        )
+    except ValidationError as e:
+        raise HTTPException(
+            status_code=400,
+            detail="Invalid input data"
+        )
+    except Exception as e:
+        raise HTTPException(
+            status_code=500,
+            detail="Login failed"
+        )
+
+@auth_router.post("/login-form")
+async def login_form(
     form_data: OAuth2PasswordRequestForm = Depends(),
     db: Session = Depends(get_db)
 ):
-    """Login endpoint with comprehensive error handling"""
+    """OAuth2 Form Login endpoint (for compatibility)"""
     try:
         user = authenticate_user(db, form_data.username, form_data.password)
         
@@ -99,7 +247,7 @@ async def login(
         )
     except AuthenticationError as e:
         raise HTTPException(
-            status_code=503,
+            status_code=STATUS_SERVICE_UNAVAILABLE,
             detail=str(e)
         )
     except Exception as e:
@@ -119,26 +267,80 @@ async def register(request: RegisterRequest, db: Session = Depends(get_db)):
         # Create user
         user = create_user(db, request.email, request.password)
         
-        # Send welcome email
+        # Link to ContractorWaitlist if they came through lead capture
         try:
-            send_welcome_email(user.email)
-        except Exception as e:
-            # Log email failure but don't fail registration
-            print(f"Failed to send welcome email to {user.email}: {str(e)}")
+            from models.waitlist import ContractorWaitlist
+            waitlist_entry = db.query(ContractorWaitlist).filter(
+                ContractorWaitlist.email == request.email.lower().strip()
+            ).first()
+            if waitlist_entry:
+                waitlist_entry.status = 'active'
+                waitlist_entry.invitation_accepted_at = datetime.now()
+                db.commit()
+        except Exception:
+            pass  # Don't fail registration if waitlist update fails
         
-        # Generate token for immediate login
+        # Send verification email if needed
+        print(f"DEBUG: Checking email verification for {user.email}, verified status: {user.email_verified}")
+        if user.email_verified == "false":
+            print(f"DEBUG: User needs verification, attempting to send email...")
+            try:
+                from services.email_service import send_email_verification
+                from services.auth_service import create_email_verification_token
+                
+                # Create verification token
+                verification_token = create_email_verification_token(db, user.email)
+                
+                # Send verification email
+                print(f"DEBUG: About to call send_email_verification with token: {verification_token[:20]}...")
+                result = send_email_verification(
+                    to_email=user.email,
+                    verification_token=verification_token,
+                    user_name=user.email.split('@')[0]
+                )
+                print(f"DEBUG: send_email_verification returned: {result}")
+                if not result:
+                    print(f"WARNING: Email send returned False for {user.email}")
+            except Exception as e:
+                # Log email failure but don't fail registration
+                import traceback
+                print(f"Failed to send verification email to {user.email}: {str(e)}")
+                print(f"Full error trace: {traceback.format_exc()}")
+        
+        # Decide next action based on verification state
         access_token_expires = timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
         access_token = create_access_token(
             data={"sub": user.email}, expires_delta=access_token_expires
         )
-        
-        return {
-            "message": "User registered successfully",
+
+        # If the user is immediately active/verified (dev mode or no email service), auto-login
+        if getattr(user, "is_active", "false") == "true" and getattr(user, "email_verified", "false") == "true":
+            response = JSONResponse({
+                "success": True,
+                "message": "User registered successfully",
+                "email": user.email,
+                "next_action": "auto_login",
+                "redirect": "/select-plan",
+                "expires_in": ACCESS_TOKEN_EXPIRE_MINUTES * 60
+            })
+            response.set_cookie(
+                key="access_token",
+                value=access_token,
+                httponly=True,
+                secure=(not config.DEBUG),
+                samesite="lax",
+                max_age=ACCESS_TOKEN_EXPIRE_MINUTES * 60,
+                path="/"
+            )
+            return response
+
+        # Otherwise, require email verification
+        return JSONResponse({
+            "success": True,
+            "message": "Account created. Please verify your email to activate your account.",
             "email": user.email,
-            "access_token": access_token,
-            "token_type": "bearer",
-            "expires_in": ACCESS_TOKEN_EXPIRE_MINUTES * 60
-        }
+            "next_action": "verify_email"
+        })
         
     except ValidationError as e:
         raise HTTPException(
@@ -152,7 +354,7 @@ async def register(request: RegisterRequest, db: Session = Depends(get_db)):
         )
     except AuthenticationError as e:
         raise HTTPException(
-            status_code=503,
+            status_code=STATUS_SERVICE_UNAVAILABLE,
             detail=str(e)
         )
     except Exception as e:
@@ -163,8 +365,10 @@ async def register(request: RegisterRequest, db: Session = Depends(get_db)):
 
 @auth_router.post("/logout")
 async def logout():
-    """Logout endpoint - stub for now"""
-    return {"message": "Logged out successfully"}
+    """Logout endpoint - clear auth cookie"""
+    response = JSONResponse({"message": "Logged out successfully"})
+    response.delete_cookie("access_token", path="/")
+    return response
 
 # User preferences endpoints
 @auth_router.get("/preferences", response_model=List[PreferenceResponse])
@@ -322,6 +526,8 @@ async def request_password_reset(
             try:
                 send_password_reset_email(request.email, token, reset_url)
             except Exception as e:
+                import logging
+                logging.error(f"Password reset email failed for {request.email}: {e}", exc_info=True)
                 print(f"Failed to send password reset email to {request.email}: {str(e)}")
         
         # Always return success to prevent email enumeration
@@ -332,7 +538,7 @@ async def request_password_reset(
         
     except PasswordResetError as e:
         raise HTTPException(
-            status_code=503,
+            status_code=STATUS_SERVICE_UNAVAILABLE,
             detail=str(e)
         )
     except Exception as e:
@@ -406,7 +612,7 @@ async def validate_reset_token(
         
     except PasswordResetError as e:
         raise HTTPException(
-            status_code=503,
+            status_code=STATUS_SERVICE_UNAVAILABLE,
             detail=str(e)
         )
     except Exception as e:

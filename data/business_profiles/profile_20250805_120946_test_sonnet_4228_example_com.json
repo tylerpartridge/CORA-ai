@@ -1,0 +1,23 @@
+{
+  "userEmail": "test_sonnet_4228@example.com",
+  "businessProfile": {
+    "businessName": "Sonnet Test Construction",
+    "businessType": "Construction",
+    "industry": "General Contracting",
+    "monthlyRevenueRange": "10000-25000"
+  },
+  "detailedOnboardingData": {
+    "name": "Test User",
+    "email": "test_sonnet_4228@example.com",
+    "businessType": [
+      "Construction"
+    ],
+    "experience": "5+ years",
+    "goals": [
+      "Increase profits",
+      "Better management"
+    ],
+    "completedAt": "2025-08-05T09:40:00Z"
+  },
+  "createdAt": "2025-08-05T12:09:46.704579"
+}

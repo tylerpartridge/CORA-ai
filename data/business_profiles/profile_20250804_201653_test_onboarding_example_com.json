@@ -1,0 +1,22 @@
+{
+  "userEmail": "test_onboarding@example.com",
+  "businessProfile": {
+    "businessName": "Test Construction Co",
+    "businessType": "Construction",
+    "industry": "Construction",
+    "monthlyRevenueRange": "50k-100k"
+  },
+  "detailedOnboardingData": {
+    "name": "Test User",
+    "email": "test_onboarding@example.com",
+    "businessType": [
+      "Construction"
+    ],
+    "experience": "5 years",
+    "goals": [
+      "Increase profits",
+      "Better project management"
+    ]
+  },
+  "createdAt": "2025-08-04T20:16:53.791654"
+}

@@ -40,10 +40,13 @@ class StripeService:
         try:
             # Stripe Connect OAuth refresh
             refresh_url = "https://connect.stripe.com/oauth/token"
+            # Import centralized config
+            from config import config
+            
             data = {
                 "grant_type": "refresh_token",
                 "refresh_token": self.integration.refresh_token,
-                "client_secret": "YOUR_STRIPE_CLIENT_SECRET"  # TODO: Get from env
+                "client_secret": config.STRIPE_API_KEY
             }
             
             response = requests.post(refresh_url, data=data)
@@ -326,5 +329,6 @@ class StripeService:
             account_info = self.get_account_info()
             return "error" not in account_info
             
-        except Exception:
+        except Exception as e:
+            print(f"Stripe connection test failed: {str(e)}")
             return False 

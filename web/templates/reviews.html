@@ -1,0 +1,1171 @@
+{% extends "base_public.html" %}
+
+{% block page_title %}Reviews - Real Contractors Share Their CORA Experience | Job Costing Success Stories{% endblock %}
+{% block page_description %}See how contractors save hours every week and thousands every year with CORA. Real reviews from real contractors who transformed their businesses.{% endblock %}
+
+{% block page_css %}
+<style>
+        /* Common construction theme styles moved to construction-theme.css */
+        
+        
+        /* CORA gradient style matching chat widget */
+        .btn-cora-gradient {
+            text-decoration: none !important;
+            background: linear-gradient(135deg, #FF9800 0%, #F57C00 100%) !important;
+            color: white !important;
+            border: none !important;
+            transition: all 0.3s ease !important;
+        }
+        
+        .btn-cora-gradient:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 20px rgba(155, 89, 198, 0.4) !important;
+            background: linear-gradient(135deg, #8B49B6 0%, #3F7EE7 100%) !important;
+        }
+        
+        /* Blue-first gradient for Meet CORA button */
+        .btn-blue-first:hover {
+            transform: translateY(-2px) !important;
+            box-shadow: 0 4px 20px rgba(79, 142, 247, 0.4) !important;
+            background: linear-gradient(135deg, #3F7EE7 0%, #3F7EE7 70%, #8B49B6 100%) !important;
+        }
+        
+        /* Construction-themed button styles */
+        .btn-construction:hover {
+            transform: translateY(-2px) !important;
+            background: #F57C00 !important;
+            box-shadow: 0 6px 20px rgba(255,152,0,0.5) !important;
+        }
+        
+        .btn-construction-secondary:hover {
+            transform: translateY(-2px) !important;
+            background: #1565C0 !important;
+            box-shadow: 0 4px 15px rgba(25,118,210,0.4) !important;
+        }
+        
+        /* Dark input styling */
+        #emailInput::placeholder {
+            color: #a0aec0;
+        }
+        
+        #emailInput:focus {
+            background: rgba(45, 55, 72, 1) !important;
+            border-color: #FF9800 !important;
+            box-shadow: 0 0 0 3px rgba(255,152,0,0.1) !important;
+            outline: none !important;
+        }
+        
+        /* Remove default link underlines */
+        a {
+            text-decoration: none;
+        }
+        
+        /* Button Styles */
+        .btn-construction {
+            background: #FF9800;
+            color: #1a1a1a;
+            padding: 0.75rem 1.5rem;
+            font-weight: 700;
+            border-radius: 4px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            box-shadow: 0 4px 15px rgba(255,152,0,0.4);
+            border: none;
+        }
+        
+        .btn-construction:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255,152,0,0.5);
+            color: #1a1a1a;
+            background: #F57C00;
+        }
+        
+        /* Logo hover effect */
+        .navbar-brand img {
+            transition: all 0.3s ease;
+            filter: brightness(0.9);
+        }
+        
+        .navbar-brand:hover img {
+            filter: brightness(1.1);
+            transform: scale(1.05);
+        }
+        
+        /* Logo gradient wrapper - EASY TO ROLLBACK: just remove the logo-gradient-wrapper div */
+        .logo-gradient-wrapper {
+            position: relative;
+            display: inline-block;
+        }
+        
+        .logo-gradient-wrapper::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, #FF9800 0%, #F57C00 100%);
+            mix-blend-mode: color;
+            pointer-events: none;
+            opacity: 0.9;
+        }
+        
+        /* Alternative approach: mask the logo with gradient */
+        .logo-with-gradient {
+            filter: brightness(0) saturate(100%);
+            opacity: 0.9;
+        }
+        
+        /* Fix email input styling */
+        #emailInput {
+            background: rgba(255,255,255,0.95) !important;
+            color: #333 !important;
+            border: 2px solid rgba(93,78,140,0.2) !important;
+        }
+        
+        /* Center nav Get Started button */
+        .nav-item .btn-wellness {
+            display: inline-flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+        }
+        
+        /* Hide theme toggle button and any dark mode toggle */
+        .theme-toggle {
+            display: none !important;
+        }
+        
+        /* Hide any button in bottom right corner */
+        button[style*="position: fixed"][style*="bottom"][style*="right"],
+        button[style*="position:fixed"][style*="bottom"][style*="right"],
+        .theme-toggle[style*="position: fixed"],
+        .theme-toggle[style*="position:fixed"] {
+            display: none !important;
+        }
+        
+        /* Feature card hover effects */
+        .feature-card {
+            transition: all 0.3s ease;
+            border: 2px solid transparent !important;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(155, 110, 200, 0.15) !important;
+            border-color: #E6F4FF !important;
+        }
+        
+        /* Responsive Design for Features */
+        @media (max-width: 768px) {
+            /* Construction Theme Mobile Styles */
+            
+            /* Typography adjustments */
+            h1, .display-4 {
+                font-size: 2rem !important;
+            }
+            
+            h2, .display-5 {
+                font-size: 1.75rem !important;
+            }
+            
+            .lead {
+                font-size: 1.1rem !important;
+            }
+            
+            /* Navigation mobile */
+            .navbar {
+                padding: 0.75rem 1rem !important;
+            }
+            
+            /* Hero section mobile */
+            .hero-section {
+                padding-top: 3rem !important;
+                padding-bottom: 3rem !important;
+            }
+            
+            /* Construction chat bubble mobile */
+            .terminal-window {
+                font-size: 0.9rem !important;
+                padding: 1rem !important;
+            }
+            
+            /* Button mobile sizing */
+            .btn-construction, .btn-construction-secondary {
+                padding: 0.75rem 1.5rem !important;
+                font-size: 0.9rem !important;
+            }
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+
+    <style>
+        /* Force construction theme colors */
+        .cora-chat-bubble {
+            background: linear-gradient(135deg, #FF9800 0%, #F57C00 100%) !important;
+            
+            animation: construction-glow 3s ease-in-out infinite !important;
+        }
+        .cora-chat-bubble:hover {
+            animation: none !important;
+            box-shadow: 0 6px 30px rgba(255, 152, 0, 0.6) !important;
+        }
+        /* zoom controls styling is centralized; no page overrides */
+        
+        /* Reviews Page Specific Styles */
+        .reviews-hero {
+            background: linear-gradient(180deg, #1a1a1a 0%, #2d3748 100%);
+            padding: 100px 20px 60px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .reviews-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: 
+                repeating-linear-gradient(0deg, transparent, transparent 50px, rgba(255,152,0,0.03) 50px, rgba(255,152,0,0.03) 51px),
+                repeating-linear-gradient(90deg, transparent, transparent 50px, rgba(255,152,0,0.03) 50px, rgba(255,152,0,0.03) 51px);
+            pointer-events: none;
+        }
+        
+        /* Review card styles */
+        .review-card {
+            background: rgba(26, 26, 26, 0.95);
+            border: 3px solid rgba(255, 152, 0, 0.2);
+            border-radius: 8px;
+            padding: 2.5rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            height: 100%;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+        }
+        
+        .review-card:hover {
+            transform: translateY(-5px);
+            border-color: #FF9800;
+            box-shadow: 0 15px 50px rgba(255, 152, 0, 0.3);
+        }
+        
+        /* Construction tape badge */
+        .construction-tape {
+            position: absolute;
+            top: 10px;
+            right: -60px;
+            transform: rotate(25deg);
+            z-index: 10;
+            background: #FFD700;
+            padding: 0.5rem 6rem 0.5rem 8rem;
+            font-size: 0.8rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: #000;
+            box-shadow: 2px 2px 8px rgba(0,0,0,0.3);
+        }
+        
+        /* Stat counter animation */
+        @keyframes countUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .stat-number {
+            animation: countUp 0.8s ease-out;
+            font-variant-numeric: tabular-nums;
+        }
+        
+        /* Success metrics section */
+        .metrics-section {
+            background: rgba(255, 152, 0, 0.05);
+            border-top: 4px solid #FF9800;
+            border-bottom: 4px solid #FF9800;
+            padding: 4rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .metrics-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: repeating-linear-gradient(
+                45deg,
+                transparent,
+                transparent 20px,
+                rgba(255, 152, 0, 0.02) 20px,
+                rgba(255, 152, 0, 0.02) 40px
+            );
+            pointer-events: none;
+        }
+        
+        /* Video testimonial styles */
+        .video-testimonial {
+            background: rgba(26, 26, 26, 0.95);
+            border: 3px solid rgba(255, 152, 0, 0.3);
+            border-radius: 8px;
+            overflow: hidden;
+            position: relative;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .video-testimonial:hover {
+            border-color: #FF9800;
+            transform: scale(1.02);
+        }
+        
+        .play-button {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80px;
+            height: 80px;
+            background: rgba(255, 152, 0, 0.9);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 20px rgba(255, 152, 0, 0.5);
+        }
+        
+        .play-button:hover {
+            background: #FF9800;
+            transform: translate(-50%, -50%) scale(1.1);
+            box-shadow: 0 6px 30px rgba(255, 152, 0, 0.7);
+        }
+        
+        /* Before/After comparison */
+        .comparison-card {
+            background: rgba(26, 26, 26, 0.95);
+            border: 2px solid rgba(255, 152, 0, 0.2);
+            border-radius: 8px;
+            padding: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .before-section {
+            border-right: 2px dashed rgba(255, 152, 0, 0.3);
+            padding-right: 2rem;
+        }
+        
+        .after-section {
+            padding-left: 2rem;
+        }
+        
+        /* Industry filter tabs */
+        .industry-tabs {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        
+        .industry-tab {
+            background: rgba(26, 26, 26, 0.9);
+            border: 2px solid rgba(255, 152, 0, 0.3);
+            padding: 0.75rem 1.5rem;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
+        }
+        
+        .industry-tab:hover {
+            border-color: #FF9800;
+            background: rgba(255, 152, 0, 0.1);
+        }
+        
+        .industry-tab.active {
+            background: #FF9800;
+            color: #1a1a1a;
+            border-color: #FF9800;
+        }
+        
+        /* Review gallery grid */
+        .review-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+        
+        /* Trust badges */
+        .trust-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(255, 152, 0, 0.1);
+            border: 1px solid rgba(255, 152, 0, 0.3);
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        /* Feature comparison table */
+        .comparison-table {
+            background: rgba(26, 26, 26, 0.95);
+            border: 2px solid rgba(255, 152, 0, 0.2);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        .comparison-table th {
+            background: rgba(255, 152, 0, 0.1);
+            color: #FF9800;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 1rem;
+            border-bottom: 2px solid rgba(255, 152, 0, 0.3);
+        }
+        
+        .comparison-table td {
+            padding: 1rem;
+            border-bottom: 1px solid rgba(255, 152, 0, 0.1);
+            color: #e2e8f0;
+        }
+        
+        /* CTA section */
+        .cta-section {
+            background: linear-gradient(135deg, rgba(255, 152, 0, 0.1) 0%, rgba(25, 118, 210, 0.1) 100%);
+            border: 3px solid rgba(255, 152, 0, 0.3);
+            border-radius: 8px;
+            padding: 3rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .cta-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: repeating-conic-gradient(from 0deg at 50% 50%, transparent 0deg, rgba(255, 152, 0, 0.03) 20deg, transparent 40deg);
+            animation: rotate 60s linear infinite;
+        }
+        
+        @keyframes rotate {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+</head>
+<body>
+
+    
+
+    <!-- Hero Section -->
+    <section class="reviews-hero">
+        <div class="container text-center position-relative">
+            <span style="color: #FF9800; font-weight: 700; text-transform: uppercase; letter-spacing: 3px; font-size: 0.875rem;">CONTRACTOR REVIEWS</span>
+            <h1 class="display-3 fw-bold mb-3" style="color: #ffffff; text-transform: uppercase; letter-spacing: 2px;">
+                Real Stories. <span style="color: #FF9800;">Real Results.</span>
+            </h1>
+            <p class="lead mb-4" style="color: #e2e8f0; max-width: 700px; margin: 0 auto;">
+                Join thousands of contractors who transformed their businesses with CORA. 
+                From solo operators to 50+ crew companies, see how they're saving time and making more money.
+            </p>
+            
+            <!-- Trust indicators -->
+            <div class="d-flex justify-content-center gap-3 flex-wrap mt-4">
+                <div class="trust-badge">
+                    <span style="color: #FFD700;">⭐</span>
+                    <span style="color: #e2e8f0;">4.9/5 Average Rating</span>
+                </div>
+                <div class="trust-badge">
+                    <span style="color: #69F0AE;">✓</span>
+                    <span style="color: #e2e8f0;">2,847 Verified Reviews</span>
+                </div>
+                <div class="trust-badge">
+                    <span style="color: #4db8ff;">🏆</span>
+                    <span style="color: #e2e8f0;">Industry Leader 2024</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Success Metrics Section -->
+    <section class="metrics-section">
+        <div class="container">
+            <div class="row text-center">
+                <div class="col-md-3 mb-4">
+                    <div class="stat-number" style="font-size: 3rem; font-weight: 800; color: #FF9800;">
+                        $2.3M
+                    </div>
+                    <p style="color: #e2e8f0; text-transform: uppercase; letter-spacing: 1px; font-weight: 600;">
+                        Saved by Users
+                    </p>
+                    <small style="color: #a0aec0;">Average $8,200/year per contractor</small>
+                </div>
+                <div class="col-md-3 mb-4">
+                    <div class="stat-number" style="font-size: 3rem; font-weight: 800; color: #69F0AE;">
+                        156K
+                    </div>
+                    <p style="color: #e2e8f0; text-transform: uppercase; letter-spacing: 1px; font-weight: 600;">
+                        Hours Saved
+                    </p>
+                    <small style="color: #a0aec0;">3-5 hours per week average</small>
+                </div>
+                <div class="col-md-3 mb-4">
+                    <div class="stat-number" style="font-size: 3rem; font-weight: 800; color: #4db8ff;">
+                        98%
+                    </div>
+                    <p style="color: #e2e8f0; text-transform: uppercase; letter-spacing: 1px; font-weight: 600;">
+                        Keep Using CORA
+                    </p>
+                    <small style="color: #a0aec0;">After first 30 days</small>
+                </div>
+                <div class="col-md-3 mb-4">
+                    <div class="stat-number" style="font-size: 3rem; font-weight: 800; color: #FFD700;">
+                        <30min
+                    </div>
+                    <p style="color: #e2e8f0; text-transform: uppercase; letter-spacing: 1px; font-weight: 600;">
+                        Setup Time
+                    </p>
+                    <small style="color: #a0aec0;">From signup to first job tracked</small>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Video Testimonials -->
+    <section style="background: #1a1a1a; padding: 80px 20px; position: relative;">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="display-5 fw-bold" style="color: #ffffff;">
+                    <span style="color: #FF9800;">🎥</span> Watch Contractors Share Their Experience
+                </h2>
+                <p style="color: #a0aec0; max-width: 600px; margin: 0 auto;">
+                    Real contractors, real stories, no scripts. See how CORA fits into their daily workflow.
+                </p>
+            </div>
+
+            <div class="row g-4 mb-5">
+                <!-- Video 1 -->
+                <div class="col-lg-6">
+                    <div class="video-testimonial" style="height: 350px; background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450"><rect fill="%231a1a1a" width="800" height="450"/><text x="400" y="225" font-family="Arial" font-size="24" fill="%23666" text-anchor="middle" dominant-baseline="middle">Video Thumbnail</text></svg>') center/cover;">
+                        <div class="play-button">
+                            <span style="font-size: 2rem; color: #1a1a1a; margin-left: 5px;">▶</span>
+                        </div>
+                        <div style="position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(to top, rgba(0,0,0,0.9), transparent); padding: 2rem;">
+                            <h4 style="color: #ffffff; margin-bottom: 0.5rem;">Mike's 5-Minute Setup Story</h4>
+                            <p style="color: #a0aec0; margin: 0;">Residential contractor shows his first week with CORA</p>
+                            <small style="color: #FF9800;">3:42</small>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Video 2 -->
+                <div class="col-lg-6">
+                    <div class="video-testimonial" style="height: 350px; background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450"><rect fill="%231a1a1a" width="800" height="450"/><text x="400" y="225" font-family="Arial" font-size="24" fill="%23666" text-anchor="middle" dominant-baseline="middle">Video Thumbnail</text></svg>') center/cover;">
+                        <div class="play-button">
+                            <span style="font-size: 2rem; color: #1a1a1a; margin-left: 5px;">▶</span>
+                        </div>
+                        <div style="position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(to top, rgba(0,0,0,0.9), transparent); padding: 2rem;">
+                            <h4 style="color: #ffffff; margin-bottom: 0.5rem;">How Sarah Saved $12K Last Year</h4>
+                            <p style="color: #a0aec0; margin: 0;">Commercial GC breaks down her CORA ROI</p>
+                            <small style="color: #FF9800;">5:18</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Industry Filter Tabs -->
+    <section style="background: linear-gradient(180deg, #1a1a1a 0%, #2d3748 100%); padding: 80px 20px; position: relative;">
+        <div class="container">
+            <div class="text-center mb-4">
+                <h2 class="display-5 fw-bold" style="color: #ffffff;">
+                    Reviews by <span style="color: #FF9800;">Trade</span>
+                </h2>
+                <p style="color: #a0aec0;">Find contractors in your industry</p>
+            </div>
+
+            <div class="industry-tabs" id="industryTabs">
+                <div class="industry-tab active" data-filter="all">
+                    All Trades
+                </div>
+                <div class="industry-tab" data-filter="general">
+                    🏗️ General Contractors
+                </div>
+                <div class="industry-tab" data-filter="electrical">
+                    ⚡ Electrical
+                </div>
+                <div class="industry-tab" data-filter="plumbing">
+                    🔧 Plumbing
+                </div>
+                <div class="industry-tab" data-filter="hvac">
+                    ❄️ HVAC
+                </div>
+                <div class="industry-tab" data-filter="roofing">
+                    🏠 Roofing
+                </div>
+            </div>
+
+            <!-- Reviews Gallery -->
+            <div class="review-gallery" id="reviewsGallery">
+                <!-- Marcus - Residential -->
+                <div class="review-card" data-trade="general">
+                    <div class="construction-tape">5 STARS</div>
+                    <div style="position: absolute; bottom: -20px; right: -20px; font-size: 150px; color: rgba(255,152,0,0.05); transform: rotate(-15deg);">🔨</div>
+                    
+                    <div style="margin-bottom: 2rem;">
+                        <div class="d-flex align-items-center mb-3">
+                            <div style="width: 60px; height: 60px; background: #FF9800; border-radius: 4px; display: flex; align-items: center; justify-content: center; margin-right: 1rem; font-size: 2rem;">
+                                👷
+                            </div>
+                            <div>
+                                <h5 style="margin: 0; color: #ffffff; font-weight: 700;">Marcus Johnson</h5>
+                                <p style="margin: 0; color: #a0aec0; font-size: 0.875rem;">Residential GC • Dallas, TX</p>
+                                <div style="color: #FFD700;">⭐⭐⭐⭐⭐</div>
+                            </div>
+                        </div>
+                        
+                        <p style="color: #e2e8f0; font-size: 1.05rem; line-height: 1.7;">
+                            "I'm not a numbers guy. I swing hammers for a living. 
+                            <span style="color: #FF9800; font-weight: 600;">CORA gets that.</span> 
+                            I literally just tell her what I bought while I'm walking to my truck. 
+                            Takes 30 seconds. My accountant says my books have never been cleaner."
+                        </p>
+                    </div>
+                    
+                    <div style="border-top: 2px solid rgba(255,152,0,0.2); padding-top: 1rem;">
+                        <div class="d-flex justify-content-between">
+                            <div>
+                                <span style="color: #69F0AE; font-weight: 700; font-size: 1.5rem;">3 hrs</span>
+                                <small style="color: #a0aec0; display: block;">saved weekly</small>
+                            </div>
+                            <div class="text-end">
+                                <span style="color: #4db8ff; font-weight: 700; font-size: 1.5rem;">$6,200</span>
+                                <small style="color: #a0aec0; display: block;">saved in 2024</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Lisa - Commercial -->
+                <div class="review-card" data-trade="general">
+                    <div class="construction-tape">TOP RATED</div>
+                    <div style="position: absolute; bottom: -20px; right: -20px; font-size: 150px; color: rgba(255,152,0,0.05); transform: rotate(-15deg);">🏗️</div>
+                    
+                    <div style="margin-bottom: 2rem;">
+                        <div class="d-flex align-items-center mb-3">
+                            <div style="width: 60px; height: 60px; background: #4db8ff; border-radius: 4px; display: flex; align-items: center; justify-content: center; margin-right: 1rem; font-size: 2rem;">
+                                👩‍🔧
+                            </div>
+                            <div>
+                                <h5 style="margin: 0; color: #ffffff; font-weight: 700;">Lisa Chen</h5>
+                                <p style="margin: 0; color: #a0aec0; font-size: 0.875rem;">Commercial GC • Seattle, WA</p>
+                                <div style="color: #FFD700;">⭐⭐⭐⭐⭐</div>
+                            </div>
+                        </div>
+                        
+                        <p style="color: #e2e8f0; font-size: 1.05rem; line-height: 1.7;">
+                            "Running 12 projects simultaneously? Before CORA, I had no clue which jobs made money until months later. 
+                            Now I see <span style="color: #FF9800; font-weight: 600;">real-time margins on every job.</span> 
+                            Last month we saved $8K by catching material overruns early."
+                        </p>
+                    </div>
+                    
+                    <div style="border-top: 2px solid rgba(255,152,0,0.2); padding-top: 1rem;">
+                        <div class="d-flex justify-content-between">
+                            <div>
+                                <span style="color: #69F0AE; font-weight: 700; font-size: 1.5rem;">12</span>
+                                <small style="color: #a0aec0; display: block;">concurrent jobs</small>
+                            </div>
+                            <div class="text-end">
+                                <span style="color: #4db8ff; font-weight: 700; font-size: 1.5rem;">$42K</span>
+                                <small style="color: #a0aec0; display: block;">additional profit</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tom - Electrical -->
+                <div class="review-card" data-trade="electrical">
+                    <div class="construction-tape">VERIFIED</div>
+                    <div style="position: absolute; bottom: -20px; right: -20px; font-size: 150px; color: rgba(255,152,0,0.05); transform: rotate(-15deg);">⚡</div>
+                    
+                    <div style="margin-bottom: 2rem;">
+                        <div class="d-flex align-items-center mb-3">
+                            <div style="width: 60px; height: 60px; background: #FFD700; border-radius: 4px; display: flex; align-items: center; justify-content: center; margin-right: 1rem; font-size: 2rem;">
+                                ⚡
+                            </div>
+                            <div>
+                                <h5 style="margin: 0; color: #ffffff; font-weight: 700;">Tom Rodriguez</h5>
+                                <p style="margin: 0; color: #a0aec0; font-size: 0.875rem;">Master Electrician • Phoenix, AZ</p>
+                                <div style="color: #FFD700;">⭐⭐⭐⭐⭐</div>
+                            </div>
+                        </div>
+                        
+                        <p style="color: #e2e8f0; font-size: 1.05rem; line-height: 1.7;">
+                            "Used to spend Sunday nights doing paperwork. Now? 
+                            <span style="color: #FF9800; font-weight: 600;">I'm done in 15 minutes on Friday.</span> 
+                            Voice tracking while I'm on site is a game changer. My wife loves having me back on weekends."
+                        </p>
+                    </div>
+                    
+                    <div style="border-top: 2px solid rgba(255,152,0,0.2); padding-top: 1rem;">
+                        <div class="d-flex justify-content-between">
+                            <div>
+                                <span style="color: #69F0AE; font-weight: 700; font-size: 1.5rem;">4 hrs</span>
+                                <small style="color: #a0aec0; display: block;">saved weekly</small>
+                            </div>
+                            <div class="text-end">
+                                <span style="color: #4db8ff; font-weight: 700; font-size: 1.5rem;">208 hrs</span>
+                                <small style="color: #a0aec0; display: block;">saved yearly</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Dave - Plumbing -->
+                <div class="review-card" data-trade="plumbing">
+                    <div class="construction-tape">CREW FAV</div>
+                    <div style="position: absolute; bottom: -20px; right: -20px; font-size: 150px; color: rgba(255,152,0,0.05); transform: rotate(-15deg);">🔧</div>
+                    
+                    <div style="margin-bottom: 2rem;">
+                        <div class="d-flex align-items-center mb-3">
+                            <div style="width: 60px; height: 60px; background: #69F0AE; border-radius: 4px; display: flex; align-items: center; justify-content: center; margin-right: 1rem; font-size: 2rem;">
+                                🔧
+                            </div>
+                            <div>
+                                <h5 style="margin: 0; color: #ffffff; font-weight: 700;">Dave Mitchell</h5>
+                                <p style="margin: 0; color: #a0aec0; font-size: 0.875rem;">Plumbing Company • Chicago, IL</p>
+                                <div style="color: #FFD700;">⭐⭐⭐⭐⭐</div>
+                            </div>
+                        </div>
+                        
+                        <p style="color: #e2e8f0; font-size: 1.05rem; line-height: 1.7;">
+                            "My crew actually uses it! They just talk to CORA like she's part of the team. 
+                            <span style="color: #FF9800; font-weight: 600;">No more lost receipts or forgotten expenses.</span> 
+                            We caught a supply house overcharging us $3K last quarter because CORA flagged the pattern."
+                        </p>
+                    </div>
+                    
+                    <div style="border-top: 2px solid rgba(255,152,0,0.2); padding-top: 1rem;">
+                        <div class="d-flex justify-content-between">
+                            <div>
+                                <span style="color: #69F0AE; font-weight: 700; font-size: 1.5rem;">8</span>
+                                <small style="color: #a0aec0; display: block;">crew members</small>
+                            </div>
+                            <div class="text-end">
+                                <span style="color: #4db8ff; font-weight: 700; font-size: 1.5rem;">100%</span>
+                                <small style="color: #a0aec0; display: block;">expense capture</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Steve - HVAC -->
+                <div class="review-card" data-trade="hvac">
+                    <div class="construction-tape">GAME CHANGER</div>
+                    <div style="position: absolute; bottom: -20px; right: -20px; font-size: 150px; color: rgba(255,152,0,0.05); transform: rotate(-15deg);">❄️</div>
+                    
+                    <div style="margin-bottom: 2rem;">
+                        <div class="d-flex align-items-center mb-3">
+                            <div style="width: 60px; height: 60px; background: #4db8ff; border-radius: 4px; display: flex; align-items: center; justify-content: center; margin-right: 1rem; font-size: 2rem;">
+                                ❄️
+                            </div>
+                            <div>
+                                <h5 style="margin: 0; color: #ffffff; font-weight: 700;">Steve Thompson</h5>
+                                <p style="margin: 0; color: #a0aec0; font-size: 0.875rem;">HVAC Specialist • Denver, CO</p>
+                                <div style="color: #FFD700;">⭐⭐⭐⭐⭐</div>
+                            </div>
+                        </div>
+                        
+                        <p style="color: #e2e8f0; font-size: 1.05rem; line-height: 1.7;">
+                            "First software that actually understands HVAC pricing. Equipment, labor, maintenance contracts - 
+                            <span style="color: #FF9800; font-weight: 600;">CORA tracks it all.</span> 
+                            My profit margins went from 'I think we're doing okay' to exactly 23.4%. Knowledge is power."
+                        </p>
+                    </div>
+                    
+                    <div style="border-top: 2px solid rgba(255,152,0,0.2); padding-top: 1rem;">
+                        <div class="d-flex justify-content-between">
+                            <div>
+                                <span style="color: #69F0AE; font-weight: 700; font-size: 1.5rem;">23.4%</span>
+                                <small style="color: #a0aec0; display: block;">profit margin</small>
+                            </div>
+                            <div class="text-end">
+                                <span style="color: #4db8ff; font-weight: 700; font-size: 1.5rem;">↑ 8%</span>
+                                <small style="color: #a0aec0; display: block;">margin increase</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Mike - Roofing -->
+                <div class="review-card" data-trade="roofing">
+                    <div class="construction-tape">ESSENTIAL</div>
+                    <div style="position: absolute; bottom: -20px; right: -20px; font-size: 150px; color: rgba(255,152,0,0.05); transform: rotate(-15deg);">🏠</div>
+                    
+                    <div style="margin-bottom: 2rem;">
+                        <div class="d-flex align-items-center mb-3">
+                            <div style="width: 60px; height: 60px; background: #FF9800; border-radius: 4px; display: flex; align-items: center; justify-content: center; margin-right: 1rem; font-size: 2rem;">
+                                🏠
+                            </div>
+                            <div>
+                                <h5 style="margin: 0; color: #ffffff; font-weight: 700;">Mike Williams</h5>
+                                <p style="margin: 0; color: #a0aec0; font-size: 0.875rem;">Roofing Contractor • Tampa, FL</p>
+                                <div style="color: #FFD700;">⭐⭐⭐⭐⭐</div>
+                            </div>
+                        </div>
+                        
+                        <p style="color: #e2e8f0; font-size: 1.05rem; line-height: 1.7;">
+                            "Storm season is chaos. Jobs everywhere, materials flying, crews spread thin. 
+                            <span style="color: #FF9800; font-weight: 600;">CORA keeps it all straight.</span> 
+                            I know exactly what each storm job costs me and which insurance claims actually pay out profit."
+                        </p>
+                    </div>
+                    
+                    <div style="border-top: 2px solid rgba(255,152,0,0.2); padding-top: 1rem;">
+                        <div class="d-flex justify-content-between">
+                            <div>
+                                <span style="color: #69F0AE; font-weight: 700; font-size: 1.5rem;">47</span>
+                                <small style="color: #a0aec0; display: block;">storm jobs tracked</small>
+                            </div>
+                            <div class="text-end">
+                                <span style="color: #4db8ff; font-weight: 700; font-size: 1.5rem;">100%</span>
+                                <small style="color: #a0aec0; display: block;">accurate billing</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Load More Button -->
+            <div class="text-center mt-5">
+                <button class="btn-construction" style="padding: 1rem 2rem;">
+                    Load More Reviews →
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Before/After Comparison Section -->
+    <section style="background: #1a1a1a; padding: 80px 20px; position: relative;">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="display-5 fw-bold" style="color: #ffffff;">
+                    Life <span style="color: #FF9800;">Before</span> vs <span style="color: #69F0AE;">After</span> CORA
+                </h2>
+                <p style="color: #a0aec0; max-width: 600px; margin: 0 auto;">
+                    Real contractors share how their business changed
+                </p>
+            </div>
+
+            <div class="row g-4">
+                <!-- Comparison 1 -->
+                <div class="col-lg-6">
+                    <div class="comparison-card">
+                        <h4 style="color: #ffffff; margin-bottom: 1.5rem;">
+                            Sarah's Commercial Construction Co.
+                        </h4>
+                        <div class="row">
+                            <div class="col-6 before-section">
+                                <h5 style="color: #FF5252; text-transform: uppercase; font-size: 0.9rem; letter-spacing: 1px; margin-bottom: 1rem;">
+                                    ❌ BEFORE
+                                </h5>
+                                <ul style="list-style: none; padding: 0; margin: 0;">
+                                    <li style="color: #a0aec0; margin-bottom: 0.75rem;">
+                                        <span style="color: #FF5252;">•</span> 6 hours/week on paperwork
+                                    </li>
+                                    <li style="color: #a0aec0; margin-bottom: 0.75rem;">
+                                        <span style="color: #FF5252;">•</span> Shoebox full of receipts
+                                    </li>
+                                    <li style="color: #a0aec0; margin-bottom: 0.75rem;">
+                                        <span style="color: #FF5252;">•</span> No idea which jobs profit
+                                    </li>
+                                    <li style="color: #a0aec0; margin-bottom: 0.75rem;">
+                                        <span style="color: #FF5252;">•</span> Stressed at tax time
+                                    </li>
+                                    <li style="color: #a0aec0;">
+                                        <span style="color: #FF5252;">•</span> Lost $15K to bad jobs
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="col-6 after-section">
+                                <h5 style="color: #69F0AE; text-transform: uppercase; font-size: 0.9rem; letter-spacing: 1px; margin-bottom: 1rem;">
+                                    ✓ AFTER
+                                </h5>
+                                <ul style="list-style: none; padding: 0; margin: 0;">
+                                    <li style="color: #e2e8f0; margin-bottom: 0.75rem;">
+                                        <span style="color: #69F0AE;">✓</span> 30 minutes/week max
+                                    </li>
+                                    <li style="color: #e2e8f0; margin-bottom: 0.75rem;">
+                                        <span style="color: #69F0AE;">✓</span> Everything digital & backed up
+                                    </li>
+                                    <li style="color: #e2e8f0; margin-bottom: 0.75rem;">
+                                        <span style="color: #69F0AE;">✓</span> Real-time profit tracking
+                                    </li>
+                                    <li style="color: #e2e8f0; margin-bottom: 0.75rem;">
+                                        <span style="color: #69F0AE;">✓</span> Taxes done in 1 hour
+                                    </li>
+                                    <li style="color: #e2e8f0;">
+                                        <span style="color: #69F0AE;">✓</span> +$42K additional profit
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Comparison 2 -->
+                <div class="col-lg-6">
+                    <div class="comparison-card">
+                        <h4 style="color: #ffffff; margin-bottom: 1.5rem;">
+                            Mike's Residential Remodeling
+                        </h4>
+                        <div class="row">
+                            <div class="col-6 before-section">
+                                <h5 style="color: #FF5252; text-transform: uppercase; font-size: 0.9rem; letter-spacing: 1px; margin-bottom: 1rem;">
+                                    ❌ BEFORE
+                                </h5>
+                                <ul style="list-style: none; padding: 0; margin: 0;">
+                                    <li style="color: #a0aec0; margin-bottom: 0.75rem;">
+                                        <span style="color: #FF5252;">•</span> Excel nightmare
+                                    </li>
+                                    <li style="color: #a0aec0; margin-bottom: 0.75rem;">
+                                        <span style="color: #FF5252;">•</span> Weekend data entry
+                                    </li>
+                                    <li style="color: #a0aec0; margin-bottom: 0.75rem;">
+                                        <span style="color: #FF5252;">•</span> Missing 20% of expenses
+                                    </li>
+                                    <li style="color: #a0aec0; margin-bottom: 0.75rem;">
+                                        <span style="color: #FF5252;">•</span> Wife helped with books
+                                    </li>
+                                    <li style="color: #a0aec0;">
+                                        <span style="color: #FF5252;">•</span> 15% profit margins
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="col-6 after-section">
+                                <h5 style="color: #69F0AE; text-transform: uppercase; font-size: 0.9rem; letter-spacing: 1px; margin-bottom: 1rem;">
+                                    ✓ AFTER
+                                </h5>
+                                <ul style="list-style: none; padding: 0; margin: 0;">
+                                    <li style="color: #e2e8f0; margin-bottom: 0.75rem;">
+                                        <span style="color: #69F0AE;">✓</span> Voice entry on-site
+                                    </li>
+                                    <li style="color: #e2e8f0; margin-bottom: 0.75rem;">
+                                        <span style="color: #69F0AE;">✓</span> Weekends are free
+                                    </li>
+                                    <li style="color: #e2e8f0; margin-bottom: 0.75rem;">
+                                        <span style="color: #69F0AE;">✓</span> 100% expense capture
+                                    </li>
+                                    <li style="color: #e2e8f0; margin-bottom: 0.75rem;">
+                                        <span style="color: #69F0AE;">✓</span> Wife says "thank you!"
+                                    </li>
+                                    <li style="color: #e2e8f0;">
+                                        <span style="color: #69F0AE;">✓</span> 24% profit margins
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Feature Comparison Table -->
+    <section style="background: #1a1a1a; padding: 80px 20px; position: relative;">
+        <!-- Construction grid pattern -->
+        <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background-image: repeating-linear-gradient(45deg, transparent, transparent 20px, rgba(255,152,0,0.02) 20px, rgba(255,152,0,0.02) 40px); pointer-events: none;"></div>
+        
+        <div class="container" style="position: relative; z-index: 1;">
+            <div class="text-center mb-5">
+                <h2 class="display-5 fw-bold" style="color: #ffffff; text-shadow: 2px 2px 4px rgba(0,0,0,0.5);">
+                    Why Contractors Choose <span style="color: #FF9800;">CORA</span>
+                </h2>
+                <p style="color: #e2e8f0; max-width: 600px; margin: 0 auto; font-size: 1.1rem;">
+                    Based on 2,847 verified reviews
+                </p>
+            </div>
+
+            <div class="comparison-table" style="max-width: 900px; margin: 0 auto; background: #1a1a1a; border: 3px solid #FF9800; border-radius: 16px; padding: 2.5rem; box-shadow: 0 15px 40px rgba(255, 152, 0, 0.4);">
+                <table class="table table-borderless mb-0" style="background: transparent !important; color: #ffffff !important;">
+                    <thead>
+                        <tr style="border-bottom: 3px solid #FF9800; background: transparent !important;">
+                            <th style="width: 40%; color: #ffffff !important; font-size: 1.2rem; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; padding: 1.5rem 1rem; background: transparent !important;">Feature</th>
+                            <th class="text-center" style="width: 30%; color: #69F0AE !important; font-size: 1.2rem; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; padding: 1.5rem 1rem; background: transparent !important;">CORA</th>
+                            <th class="text-center" style="width: 30%; color: #FF5252 !important; font-size: 1.2rem; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; padding: 1.5rem 1rem; background: transparent !important;">Others</th>
+                        </tr>
+                    </thead>
+                    <tbody style="background: transparent !important;">
+                        <tr style="border-bottom: 1px solid rgba(255, 152, 0, 0.2); background: transparent !important;">
+                            <td style="color: #ffffff !important; font-weight: 700; font-size: 1.1rem; padding: 1.5rem 1rem; background: transparent !important;">Setup Time</td>
+                            <td class="text-center" style="padding: 1.5rem 1rem; background: transparent !important;"><span style="color: #69F0AE; font-weight: 800; font-size: 1.2rem;">5 minutes</span></td>
+                            <td class="text-center" style="padding: 1.5rem 1rem; background: transparent !important;"><span style="color: #FF5252; font-weight: 700; font-size: 1.2rem;">2-4 hours</span></td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid rgba(255, 152, 0, 0.2); background: transparent !important;">
+                            <td style="color: #ffffff !important; font-weight: 700; font-size: 1.1rem; padding: 1.5rem 1rem; background: transparent !important;">Voice Entry</td>
+                            <td class="text-center" style="padding: 1.5rem 1rem; background: transparent !important;"><span style="color: #69F0AE; font-size: 1.8rem; font-weight: 800;">✓</span></td>
+                            <td class="text-center" style="padding: 1.5rem 1rem; background: transparent !important;"><span style="color: #FF5252; font-size: 1.8rem; font-weight: 800;">✗</span></td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid rgba(255, 152, 0, 0.2); background: transparent !important;">
+                            <td style="color: #ffffff !important; font-weight: 700; font-size: 1.1rem; padding: 1.5rem 1rem; background: transparent !important;">Made for Contractors</td>
+                            <td class="text-center" style="padding: 1.5rem 1rem; background: transparent !important;"><span style="color: #69F0AE; font-size: 1.8rem; font-weight: 800;">✓</span></td>
+                            <td class="text-center" style="padding: 1.5rem 1rem; background: transparent !important;"><span style="color: #FF5252; font-size: 1.8rem; font-weight: 800;">✗</span></td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid rgba(255, 152, 0, 0.2); background: transparent !important;">
+                            <td style="color: #ffffff !important; font-weight: 700; font-size: 1.1rem; padding: 1.5rem 1rem; background: transparent !important;">Real-time Profit Tracking</td>
+                            <td class="text-center" style="padding: 1.5rem 1rem; background: transparent !important;"><span style="color: #69F0AE; font-size: 1.8rem; font-weight: 800;">✓</span></td>
+                            <td class="text-center" style="padding: 1.5rem 1rem; background: transparent !important;"><span style="color: #FF5252; font-size: 1.8rem; font-weight: 800;">✗</span></td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid rgba(255, 152, 0, 0.2); background: transparent !important;">
+                            <td style="color: #ffffff !important; font-weight: 700; font-size: 1.1rem; padding: 1.5rem 1rem; background: transparent !important;">Crew Can Use It</td>
+                            <td class="text-center" style="padding: 1.5rem 1rem; background: transparent !important;"><span style="color: #69F0AE; font-size: 1.8rem; font-weight: 800;">✓</span></td>
+                            <td class="text-center" style="padding: 1.5rem 1rem; background: transparent !important;"><span style="color: #FF5252; font-size: 1.8rem; font-weight: 800;">✗</span></td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid rgba(255, 152, 0, 0.2); background: transparent !important;">
+                            <td style="color: #ffffff !important; font-weight: 700; font-size: 1.1rem; padding: 1.5rem 1rem; background: transparent !important;">Weekly Time Investment</td>
+                            <td class="text-center" style="padding: 1.5rem 1rem; background: transparent !important;"><span style="color: #69F0AE; font-weight: 800; font-size: 1.2rem;">15 min</span></td>
+                            <td class="text-center" style="padding: 1.5rem 1rem; background: transparent !important;"><span style="color: #FF5252; font-weight: 700; font-size: 1.2rem;">3-6 hours</span></td>
+                        </tr>
+                        <tr style="background: transparent !important;">
+                            <td style="color: #ffffff !important; font-weight: 700; font-size: 1.1rem; padding: 1.5rem 1rem; background: transparent !important;">Customer Rating</td>
+                            <td class="text-center" style="padding: 1.5rem 1rem; background: transparent !important;"><span style="color: #FFD700; font-weight: 800; font-size: 1.2rem;">4.9/5 ⭐</span></td>
+                            <td class="text-center" style="padding: 1.5rem 1rem; background: transparent !important;"><span style="color: #FF5252; font-weight: 700; font-size: 1.2rem;">3.2/5</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section style="background: #1a1a1a; padding: 80px 20px;">
+        <div class="container">
+            <div class="cta-section" style="position: relative; z-index: 1;">
+                <h2 class="display-4 fw-bold mb-4" style="color: #ffffff;">
+                    Join <span style="color: #FF9800;">2,847 Contractors</span> Who Transformed Their Business
+                </h2>
+                <p class="lead mb-4" style="color: #e2e8f0; max-width: 600px; margin: 0 auto;">
+                    Start your 30-day free trial. No credit card. No commitment. 
+                    Just results from day one.
+                </p>
+                
+                <div style="margin-top: 2rem;">
+                    <a href="/signup" class="btn-construction" style="padding: 1.2rem 3rem; font-size: 1.2rem;">
+                        Start Free Trial →
+                    </a>
+                </div>
+                
+                <div class="mt-4">
+                    <div class="d-flex justify-content-center gap-4 flex-wrap">
+                        <div class="trust-badge">
+                            <span style="color: #69F0AE;">✓</span>
+                            <span>Setup in 5 minutes</span>
+                        </div>
+                        <div class="trust-badge">
+                            <span style="color: #69F0AE;">✓</span>
+                            <span>Cancel anytime</span>
+                        </div>
+                        <div class="trust-badge">
+                            <span style="color: #69F0AE;">✓</span>
+                            <span>Real contractor support</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer removed - now inherited from base_public.html -->
+
+
+{% endblock %}
+
+{% block page_scripts %}
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+        });
+    </script>
+    
+    <!-- Industry Filter Script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const tabs = document.querySelectorAll('.industry-tab');
+            const reviews = document.querySelectorAll('.review-card');
+            
+            tabs.forEach(tab => {
+                tab.addEventListener('click', function() {
+                    // Update active tab
+                    tabs.forEach(t => t.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    // Filter reviews
+                    const filter = this.getAttribute('data-filter');
+                    reviews.forEach(review => {
+                        if (filter === 'all' || review.getAttribute('data-trade') === filter) {
+                            review.style.display = 'block';
+                        } else {
+                            review.style.display = 'none';
+                        }
+                    });
+                });
+            });
+            
+            // Animate stats on scroll
+            const observerOptions = {
+                threshold: 0.5,
+                rootMargin: '0px'
+            };
+            
+            const observer = new IntersectionObserver(function(entries) {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.animation = 'countUp 0.8s ease-out';
+                    }
+                });
+            }, observerOptions);
+            
+            document.querySelectorAll('.stat-number').forEach(stat => {
+                observer.observe(stat);
+            });
+        });
+    </script>
+    
+    <!-- Core scripts handled by cora-bundle.js; keep page-specific: -->
+
+    
+    <!-- Cora chat styling -->
+
+    
+    <!-- Cora Chat Interface -->
+
+{% endblock %}

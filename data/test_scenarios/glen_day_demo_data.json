@@ -1,0 +1,124 @@
+{
+  "scenario": "Glen Day - General Contractor Demo",
+  "created": "2025-08-02",
+  "purpose": "Demo preparation for first consulting client",
+  
+  "contractor_profile": {
+    "name": "Glen Day",
+    "email": "glen@daycontracting.com", 
+    "business_type": ["general", "remodeling", "concrete"],
+    "years_in_business": "veteran",
+    "business_size": "growing",
+    "service_area": "regional",
+    "customer_type": ["residential", "commercial"],
+    "tracking_method": ["paper", "spreadsheets"],
+    "main_challenge": ["profit_tracking", "paperwork", "time"],
+    "busy_season": ["spring", "summer"],
+    "business_goal": "increase_profits",
+    "typical_projects": [
+      {
+        "project_name": "Johnson Kitchen Remodel",
+        "type": "residential_renovation",
+        "quoted_amount": 25000,
+        "actual_expenses": [
+          {"category": "materials", "vendor": "Home Depot", "amount": 8500, "date": "2024-07-15"},
+          {"category": "labor", "vendor": "Day Contracting", "amount": 12000, "date": "2024-07-30"},
+          {"category": "permits", "vendor": "City Hall", "amount": 450, "date": "2024-07-10"},
+          {"category": "equipment", "vendor": "Tool Rental Plus", "amount": 300, "date": "2024-07-20"}
+        ],
+        "total_spent": 21250,
+        "profit_margin": 15.0,
+        "status": "completed"
+      },
+      {
+        "project_name": "Martinez Concrete Driveway", 
+        "type": "concrete_work",
+        "quoted_amount": 8500,
+        "actual_expenses": [
+          {"category": "materials", "vendor": "Ready Mix Concrete", "amount": 2800, "date": "2024-08-01"},
+          {"category": "labor", "vendor": "Day Contracting", "amount": 3200, "date": "2024-08-01"},
+          {"category": "equipment", "vendor": "Tool Rental Plus", "amount": 150, "date": "2024-08-01"}
+        ],
+        "total_spent": 6150,
+        "profit_margin": 27.6,
+        "status": "in_progress"
+      },
+      {
+        "project_name": "Williams Bathroom Addition",
+        "type": "residential_addition", 
+        "quoted_amount": 35000,
+        "actual_expenses": [
+          {"category": "materials", "vendor": "Home Depot", "amount": 12500, "date": "2024-06-15"},
+          {"category": "materials", "vendor": "Plumbing Supply Co", "amount": 3200, "date": "2024-06-20"},
+          {"category": "labor", "vendor": "Day Contracting", "amount": 18000, "date": "2024-07-15"},
+          {"category": "permits", "vendor": "City Hall", "amount": 850, "date": "2024-06-10"},
+          {"category": "equipment", "vendor": "Tool Rental Plus", "amount": 400, "date": "2024-06-25"}
+        ],
+        "total_spent": 34950,
+        "profit_margin": 0.14,
+        "status": "completed",
+        "notes": "Almost no profit - need better cost tracking!"
+      }
+    ]
+  },
+  
+  "pain_points_demonstration": {
+    "current_problems": [
+      "Can't tell if jobs are profitable until they're done",
+      "Receipts everywhere - truck, office, kitchen table", 
+      "Bidding based on gut feeling, not real costs",
+      "Time spent on paperwork instead of working",
+      "Missing tax deductions throughout the year"
+    ],
+    "cora_solutions": [
+      "Real-time profit tracking per job",
+      "Voice expense entry from the truck",
+      "Automatic categorization and job assignment", 
+      "15-minute weekly reviews instead of weekend marathons",
+      "Quarterly tax prep with captured deductions"
+    ]
+  },
+  
+  "demo_conversation_flow": [
+    {
+      "phase": "greeting",
+      "cora_message": "Hey there! I'm CORA, and I help contractors like you track profits and save time on paperwork. What's your name?",
+      "user_response": "Glen Day",
+      "user_intent": "casual_introduction"
+    },
+    {
+      "phase": "business_discovery", 
+      "cora_message": "Nice to meet you, Glen! What type of contractor work do you do? I see options here for different trades. [business_types]",
+      "user_response": "General Contractor, Remodeling, Concrete",
+      "user_intent": "multi_trade_selection"
+    },
+    {
+      "phase": "years_experience",
+      "cora_message": "General contracting with remodeling and concrete - that's a solid combo! How long have you been in the business? [years_in_business]", 
+      "user_response": "Industry Veteran",
+      "user_intent": "establish_credibility"
+    },
+    {
+      "phase": "business_size",
+      "cora_message": "Veteran contractor - you've seen it all! What's your crew size like these days? [business_sizes]",
+      "user_response": "Growing Company",
+      "user_intent": "scaling_business"
+    },
+    {
+      "phase": "main_challenge",
+      "cora_message": "Growing company means growing headaches! What's your biggest pain point right now? [pain_points]",
+      "user_response": "Can't track profits, Paperwork chaos, No time for books",
+      "user_intent": "multiple_pain_points"
+    }
+  ],
+  
+  "expected_dashboard_greeting": "Morning Glen! 🔨 Ready to tackle some big projects today? As a veteran general contractor with a growing company, you know every dollar counts. Let's make sure you're capturing all your profits!",
+  
+  "demo_value_props": [
+    "Save 20+ hours monthly on paperwork",
+    "Find 15% more profit on average", 
+    "Never miss a tax deduction again",
+    "Know job profitability in real-time",
+    "Voice entry while driving between jobs"
+  ]
+}

@@ -1,0 +1,330 @@
+{% extends "base.html" %}
+
+{% block title %}Construction Profit Tracking for Texas Contractors | Houston, Dallas, Austin | CORA{% endblock %}
+{% block description %}Built for Texas construction companies. Track job profits in real-time from Houston high-rises to Dallas renovations. Never lose money on another Texas project.{% endblock %}
+{% block keywords %}Texas construction software, Houston contractor tools, Dallas job costing, Austin construction profit tracking, Texas contractor app{% endblock %}
+
+{% block og_title %}Texas Construction Profit Tracking - Built for the Lone Star State{% endblock %}
+{% block og_description %}From Houston's humidity to Dallas heat, track every job's profit in real-time. Built by Texas contractors, for Texas contractors.{% endblock %}
+
+{% block content %}
+<!-- Hero Section with Texas Focus -->
+<section class="hero-section py-5" style="background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6 text-lg-start text-center">
+                <div class="mb-3">
+                    <img src="/static/images/texas-flag-icon.svg" alt="Texas" style="height: 40px;" class="me-2">
+                    <span class="badge bg-primary">Built for Texas Contractors</span>
+                </div>
+                <h1 class="display-4 fw-bold text-white mb-4">
+                    Construction Profit Tracking<br>
+                    for <span style="color: #FF9800;">Texas Contractors</span>
+                </h1>
+                <p class="lead text-white mb-4">
+                    From Houston's commercial builds to Dallas renovations and Austin's 
+                    booming residential market - track every job's profit in real-time.
+                </p>
+                <div class="d-flex flex-column flex-sm-row gap-3 justify-content-lg-start justify-content-center mb-4">
+                    <a href="/signup" class="btn btn-primary btn-lg px-5 py-3">
+                        Start Free Texas Trial →
+                    </a>
+                    <button class="btn btn-outline-light btn-lg px-5 py-3" onclick="openCoraChat()">
+                        Talk to a Texas Rep
+                    </button>
+                </div>
+                <p class="text-white-50">
+                    <i class="fas fa-check-circle text-success"></i> 500+ Texas contractors already using CORA
+                </p>
+            </div>
+            <div class="col-lg-6 mt-5 mt-lg-0">
+                <img src="/static/images/texas-construction-site.jpg" alt="Texas construction site" class="img-fluid rounded shadow-lg">
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Texas Market Stats -->
+<section class="py-5 bg-light">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="display-5 fw-bold mb-4">
+                Why Texas Contractors Need Better Profit Tracking
+            </h2>
+        </div>
+        <div class="row text-center">
+            <div class="col-md-3 mb-4">
+                <div class="stat-card bg-white p-4 rounded shadow-sm h-100">
+                    <h3 class="display-4 fw-bold" style="color: #FF9800;">$94B</h3>
+                    <p class="text-muted">Texas construction market size</p>
+                </div>
+            </div>
+            <div class="col-md-3 mb-4">
+                <div class="stat-card bg-white p-4 rounded shadow-sm h-100">
+                    <h3 class="display-4 fw-bold" style="color: #FF9800;">127°F</h3>
+                    <p class="text-muted">Peak job site temperatures affecting productivity</p>
+                </div>
+            </div>
+            <div class="col-md-3 mb-4">
+                <div class="stat-card bg-white p-4 rounded shadow-sm h-100">
+                    <h3 class="display-4 fw-bold" style="color: #FF9800;">68%</h3>
+                    <p class="text-muted">Texas jobs that go over budget</p>
+                </div>
+            </div>
+            <div class="col-md-3 mb-4">
+                <div class="stat-card bg-white p-4 rounded shadow-sm h-100">
+                    <h3 class="display-4 fw-bold" style="color: #FF9800;">45min</h3>
+                    <p class="text-muted">Average Houston traffic delay to job sites</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Texas-Specific Challenges -->
+<section class="py-5">
+    <div class="container">
+        <h2 class="display-5 fw-bold text-center mb-5">
+            Built to Handle Texas-Sized Challenges
+        </h2>
+        
+        <div class="row">
+            <div class="col-lg-6 mb-4">
+                <div class="challenge-card d-flex align-items-start">
+                    <div class="icon-wrapper me-3">
+                        <i class="fas fa-sun fa-2x" style="color: #FF9800;"></i>
+                    </div>
+                    <div>
+                        <h4>Heat & Productivity Tracking</h4>
+                        <p class="text-muted">Track how Texas heat affects your labor costs. CORA adjusts estimates based on temperature and crew productivity.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 mb-4">
+                <div class="challenge-card d-flex align-items-start">
+                    <div class="icon-wrapper me-3">
+                        <i class="fas fa-truck fa-2x" style="color: #FF9800;"></i>
+                    </div>
+                    <div>
+                        <h4>Multi-Site Management</h4>
+                        <p class="text-muted">Managing jobs across Houston, Dallas, Austin, and San Antonio? Track profits for each location in one dashboard.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 mb-4">
+                <div class="challenge-card d-flex align-items-start">
+                    <div class="icon-wrapper me-3">
+                        <i class="fas fa-hard-hat fa-2x" style="color: #FF9800;"></i>
+                    </div>
+                    <div>
+                        <h4>Subcontractor Tracking</h4>
+                        <p class="text-muted">Track costs across multiple subs - common in Texas's large commercial projects. Know exactly who's eating your profits.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 mb-4">
+                <div class="challenge-card d-flex align-items-start">
+                    <div class="icon-wrapper me-3">
+                        <i class="fas fa-comments fa-2x" style="color: #FF9800;"></i>
+                    </div>
+                    <div>
+                        <h4>Bilingual Support</h4>
+                        <p class="text-muted">Voice input works in English and Spanish. Perfect for Texas's diverse construction workforce.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Texas Success Stories -->
+<section class="py-5 bg-light">
+    <div class="container">
+        <h2 class="display-5 fw-bold text-center mb-5">
+            Texas Contractors <span style="color: #FF9800;">Saving Big</span> with CORA
+        </h2>
+        
+        <div class="row">
+            <div class="col-lg-4 mb-4">
+                <div class="testimonial-card bg-white p-4 rounded shadow h-100">
+                    <div class="d-flex align-items-center mb-3">
+                        <img src="/static/images/testimonial-houston.jpg" alt="Carlos Rodriguez" class="rounded-circle me-3" style="width: 60px;">
+                        <div>
+                            <h5 class="mb-0">Carlos Rodriguez</h5>
+                            <p class="text-muted small mb-0">Rodriguez Construction, Houston</p>
+                        </div>
+                    </div>
+                    <p class="mb-3">"CORA saved us $45,000 on our downtown Houston high-rise project. The real-time alerts caught material overruns before they killed our margins."</p>
+                    <div class="text-warning">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 mb-4">
+                <div class="testimonial-card bg-white p-4 rounded shadow h-100">
+                    <div class="d-flex align-items-center mb-3">
+                        <img src="/static/images/testimonial-dallas.jpg" alt="Jim Patterson" class="rounded-circle me-3" style="width: 60px;">
+                        <div>
+                            <h5 class="mb-0">Jim Patterson</h5>
+                            <p class="text-muted small mb-0">Patterson Builders, Dallas</p>
+                        </div>
+                    </div>
+                    <p class="mb-3">"Managing 6 renovation projects across DFW was a nightmare. CORA's multi-site tracking showed me exactly which jobs were profitable."</p>
+                    <div class="text-warning">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 mb-4">
+                <div class="testimonial-card bg-white p-4 rounded shadow h-100">
+                    <div class="d-flex align-items-center mb-3">
+                        <img src="/static/images/testimonial-austin.jpg" alt="Sarah Chen" class="rounded-circle me-3" style="width: 60px;">
+                        <div>
+                            <h5 class="mb-0">Sarah Chen</h5>
+                            <p class="text-muted small mb-0">Chen Custom Homes, Austin</p>
+                        </div>
+                    </div>
+                    <p class="mb-3">"Austin's boom means fast decisions. CORA's voice input lets me track costs while walking job sites. Never miss an expense now."</p>
+                    <div class="text-warning">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Local Features -->
+<section class="py-5">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6">
+                <h2 class="display-5 fw-bold mb-4">
+                    Features Texas Contractors Love
+                </h2>
+                <ul class="list-unstyled">
+                    <li class="mb-3">
+                        <i class="fas fa-check-circle text-success me-2"></i>
+                        <strong>Texas Sales Tax Tracking:</strong> Automatically calculates correct tax for each county
+                    </li>
+                    <li class="mb-3">
+                        <i class="fas fa-check-circle text-success me-2"></i>
+                        <strong>Heat Index Adjustments:</strong> Factor extreme weather into labor productivity
+                    </li>
+                    <li class="mb-3">
+                        <i class="fas fa-check-circle text-success me-2"></i>
+                        <strong>Multi-Location Dashboard:</strong> See all your Texas projects on one screen
+                    </li>
+                    <li class="mb-3">
+                        <i class="fas fa-check-circle text-success me-2"></i>
+                        <strong>Local Supplier Database:</strong> Quick access to Texas material suppliers
+                    </li>
+                    <li class="mb-3">
+                        <i class="fas fa-check-circle text-success me-2"></i>
+                        <strong>Storm Delay Tracking:</strong> Document weather delays for insurance claims
+                    </li>
+                </ul>
+            </div>
+            <div class="col-lg-6">
+                <div class="bg-light p-4 rounded">
+                    <h4 class="mb-3">Texas Market Coverage:</h4>
+                    <div class="row text-center">
+                        <div class="col-6 mb-3">
+                            <h5 style="color: #FF9800;">Houston</h5>
+                            <p class="small text-muted">127 contractors</p>
+                        </div>
+                        <div class="col-6 mb-3">
+                            <h5 style="color: #FF9800;">Dallas</h5>
+                            <p class="small text-muted">89 contractors</p>
+                        </div>
+                        <div class="col-6 mb-3">
+                            <h5 style="color: #FF9800;">Austin</h5>
+                            <p class="small text-muted">76 contractors</p>
+                        </div>
+                        <div class="col-6 mb-3">
+                            <h5 style="color: #FF9800;">San Antonio</h5>
+                            <p class="small text-muted">54 contractors</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="py-5 text-white text-center" style="background: linear-gradient(135deg, #002868 0%, #BF0A30 100%);">
+    <div class="container">
+        <h2 class="display-5 fw-bold mb-4">
+            Join 500+ Texas Contractors Tracking Profits in Real-Time
+        </h2>
+        <p class="lead mb-4">
+            Built in Texas, for Texas. Start your free trial today.
+        </p>
+        <div class="d-flex flex-column flex-sm-row gap-3 justify-content-center mb-4">
+            <a href="/signup?state=TX" class="btn btn-light btn-lg px-5 py-3">
+                Start Texas Free Trial →
+            </a>
+            <a href="tel:1-800-CORATX" class="btn btn-outline-light btn-lg px-5 py-3">
+                <i class="fas fa-phone me-2"></i> 1-800-CORA-TX
+            </a>
+        </div>
+        <p class="text-white-50">
+            <i class="fas fa-check-circle"></i> No credit card required
+            <i class="fas fa-check-circle ms-3"></i> Full support in English & Spanish
+            <i class="fas fa-check-circle ms-3"></i> Cancel anytime
+        </p>
+    </div>
+</section>
+
+<!-- Local Schema Markup -->
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    "name": "CORA - Texas Construction Profit Tracking",
+    "description": "Real-time profit tracking software for Texas construction contractors",
+    "address": {
+        "@type": "PostalAddress",
+        "addressRegion": "TX",
+        "addressCountry": "US"
+    },
+    "areaServed": [
+        {
+            "@type": "City",
+            "name": "Houston",
+            "containedInPlace": {
+                "@type": "State",
+                "name": "Texas"
+            }
+        },
+        {
+            "@type": "City",
+            "name": "Dallas"
+        },
+        {
+            "@type": "City",
+            "name": "Austin"
+        },
+        {
+            "@type": "City",
+            "name": "San Antonio"
+        }
+    ],
+    "priceRange": "$$"
+}
+</script>
+
+{% endblock %}

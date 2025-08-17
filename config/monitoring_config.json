@@ -1,0 +1,22 @@
+{
+  "sentry": {
+    "enabled": false,
+    "dsn": null
+  },
+  "prometheus": {
+    "enabled": true,
+    "port": 9090
+  },
+  "grafana": {
+    "enabled": true,
+    "port": 3000
+  },
+  "health_checks": {
+    "enabled": true,
+    "endpoints": [
+      "/api/health",
+      "/api/expenses/categories",
+      "/api/auth/login"
+    ]
+  }
+}

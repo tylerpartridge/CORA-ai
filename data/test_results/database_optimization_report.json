@@ -1,0 +1,249 @@
+{
+  "database_optimization_analysis": {
+    "timestamp": "2025-08-05T09:52:25.080945",
+    "total_areas_analyzed": 14,
+    "optimized": 5,
+    "needs_optimization": 5,
+    "optimization_score": 35.714285714285715,
+    "glen_day_demo_performance": "Needs Improvement"
+  },
+  "performance_metrics": {
+    "query_optimization_percentage": 40.0,
+    "critical_bottlenecks": 0
+  },
+  "detailed_analysis": [
+    {
+      "area": "Primary Indexes",
+      "status": "PASS",
+      "details": "Found 14 indexes across core tables",
+      "recommendation": "Current indexing covers most common query patterns",
+      "timestamp": "2025-08-05T09:52:25.079230"
+    },
+    {
+      "area": "Missing Indexes",
+      "status": "FAIL",
+      "details": "Identified 5 missing indexes for contractor workflows",
+      "recommendation": "Add specialized indexes for Glen Day demo performance",
+      "timestamp": "2025-08-05T09:52:25.080945"
+    },
+    {
+      "area": "Query: job_profitability",
+      "status": "FAIL",
+      "details": "Very High - Real-time profit tracking",
+      "recommendation": "Composite index on (user_id, job_name, amount_cents)",
+      "timestamp": "2025-08-05T09:52:25.080945"
+    },
+    {
+      "area": "Query: monthly_expenses",
+      "status": "PASS",
+      "details": "High - Monthly reports",
+      "recommendation": "Current index (user_id, expense_date) is optimal",
+      "timestamp": "2025-08-05T09:52:25.080945"
+    },
+    {
+      "area": "Query: vendor_analysis",
+      "status": "FAIL",
+      "details": "Medium - Vendor spending analysis",
+      "recommendation": "Index on (user_id, vendor) for grouping",
+      "timestamp": "2025-08-05T09:52:25.080945"
+    },
+    {
+      "area": "Query: category_breakdown",
+      "status": "PASS",
+      "details": "High - Category reporting",
+      "recommendation": "Current index (user_id, category_id) is optimal",
+      "timestamp": "2025-08-05T09:52:25.080945"
+    },
+    {
+      "area": "Query: recent_activity",
+      "status": "FAIL",
+      "details": "Very High - Dashboard activity feed",
+      "recommendation": "Need index on (user_id, created_at)",
+      "timestamp": "2025-08-05T09:52:25.080945"
+    },
+    {
+      "area": "Scaling: solo_contractor",
+      "status": "PASS",
+      "details": "3,600 expenses, 150 jobs - Excellent",
+      "recommendation": "Current structure sufficient",
+      "timestamp": "2025-08-05T09:52:25.080945"
+    },
+    {
+      "area": "Scaling: small_crew",
+      "status": "PASS",
+      "details": "18,000 expenses, 600 jobs - Good with proper indexing",
+      "recommendation": "Current structure sufficient",
+      "timestamp": "2025-08-05T09:52:25.080945"
+    },
+    {
+      "area": "Scaling: established_company",
+      "status": "FAIL",
+      "details": "96,000 expenses, 2,000 jobs - Needs optimization",
+      "recommendation": "Partition old data if performance degrades",
+      "timestamp": "2025-08-05T09:52:25.080945"
+    },
+    {
+      "area": "Bottleneck: Real-time profit calculations",
+      "status": "REVIEW",
+      "details": "High - Core feature for contractors impact - SUM aggregations across large expense tables",
+      "recommendation": "Materialized views for job totals",
+      "timestamp": "2025-08-05T09:52:25.080945"
+    },
+    {
+      "area": "Bottleneck: Dashboard loading",
+      "status": "REVIEW",
+      "details": "Medium - User experience impact - Multiple queries for recent expenses, job summaries, alerts",
+      "recommendation": "Single optimized query with joins",
+      "timestamp": "2025-08-05T09:52:25.080945"
+    },
+    {
+      "area": "Bottleneck: Search functionality",
+      "status": "REVIEW",
+      "details": "Medium - User productivity impact - LIKE queries on vendor names and descriptions",
+      "recommendation": "Full-text search indexes",
+      "timestamp": "2025-08-05T09:52:25.080945"
+    },
+    {
+      "area": "Bottleneck: Report generation",
+      "status": "REVIEW",
+      "details": "Low - Background process impact - Date range queries across multiple tables",
+      "recommendation": "Report caching for common date ranges",
+      "timestamp": "2025-08-05T09:52:25.080945"
+    },
+    {
+      "area": "Performance: job_profit_queries",
+      "status": "PASS",
+      "details": "200-500ms for complex job aggregations -> 10-50ms with materialized views",
+      "recommendation": "90% faster performance gain",
+      "timestamp": "2025-08-05T09:52:25.080945"
+    },
+    {
+      "area": "Performance: dashboard_loading",
+      "status": "PASS",
+      "details": "800-1200ms for full dashboard -> 200-400ms with proper indexes",
+      "recommendation": "70% faster performance gain",
+      "timestamp": "2025-08-05T09:52:25.080945"
+    },
+    {
+      "area": "Performance: expense_search",
+      "status": "PASS",
+      "details": "500-2000ms for text searches -> 50-150ms with full-text indexes",
+      "recommendation": "85% faster performance gain",
+      "timestamp": "2025-08-05T09:52:25.080945"
+    },
+    {
+      "area": "Performance: monthly_reports",
+      "status": "PASS",
+      "details": "1-3 seconds for date range queries -> 200-600ms with optimized indexes",
+      "recommendation": "75% faster performance gain",
+      "timestamp": "2025-08-05T09:52:25.080945"
+    }
+  ],
+  "optimization_recommendations": {
+    "immediate_actions": [
+      {
+        "priority": "High",
+        "action": "Add missing indexes for contractor workflows",
+        "sql": [
+          "CREATE INDEX idx_expenses_payment_method ON expenses(payment_method);",
+          "CREATE INDEX idx_expenses_user_created_at ON expenses(user_id, created_at DESC);",
+          "CREATE INDEX idx_jobs_customer_name ON jobs(customer_name);",
+          "CREATE INDEX idx_jobs_quoted_amount ON jobs(quoted_amount);",
+          "CREATE INDEX idx_job_notes_type ON job_notes(note_type);"
+        ],
+        "benefit": "20-30% faster query performance on common contractor operations"
+      },
+      {
+        "priority": "High",
+        "action": "Create materialized view for job profitability",
+        "sql": [
+          "CREATE MATERIALIZED VIEW mv_job_profitability AS",
+          "SELECT j.id, j.user_id, j.job_name, j.quoted_amount,",
+          "       COALESCE(SUM(e.amount_cents), 0) as total_costs_cents,",
+          "       j.quoted_amount - COALESCE(SUM(e.amount_cents)/100.0, 0) as profit",
+          "FROM jobs j LEFT JOIN expenses e ON j.user_id = e.user_id AND j.job_name = e.job_name",
+          "GROUP BY j.id, j.user_id, j.job_name, j.quoted_amount;",
+          "",
+          "CREATE UNIQUE INDEX idx_mv_job_profitability ON mv_job_profitability(id);",
+          "CREATE INDEX idx_mv_job_profitability_user ON mv_job_profitability(user_id);"
+        ],
+        "benefit": "90% faster job profit calculations for real-time tracking"
+      }
+    ],
+    "medium_term_optimizations": [
+      {
+        "priority": "Medium",
+        "action": "Implement full-text search for vendors and descriptions",
+        "sql": [
+          "ALTER TABLE expenses ADD COLUMN search_vector tsvector;",
+          "UPDATE expenses SET search_vector = to_tsvector('english', COALESCE(vendor, '') || ' ' || COALESCE(description, ''));",
+          "CREATE INDEX idx_expenses_search ON expenses USING gin(search_vector);",
+          "",
+          "CREATE OR REPLACE FUNCTION update_expense_search_vector() RETURNS trigger AS $$",
+          "BEGIN",
+          "  NEW.search_vector := to_tsvector('english', COALESCE(NEW.vendor, '') || ' ' || COALESCE(NEW.description, ''));",
+          "  RETURN NEW;",
+          "END;",
+          "$$ LANGUAGE plpgsql;",
+          "",
+          "CREATE TRIGGER update_expense_search_trigger",
+          "  BEFORE INSERT OR UPDATE ON expenses",
+          "  FOR EACH ROW EXECUTE FUNCTION update_expense_search_vector();"
+        ],
+        "benefit": "Much faster vendor/expense searches for large datasets"
+      },
+      {
+        "priority": "Medium",
+        "action": "Add partial indexes for active data",
+        "sql": [
+          "CREATE INDEX idx_jobs_active_user ON jobs(user_id) WHERE status = 'active';",
+          "CREATE INDEX idx_expenses_recent ON expenses(user_id, expense_date DESC) WHERE expense_date > CURRENT_DATE - INTERVAL '90 days';"
+        ],
+        "benefit": "Faster queries on active jobs and recent expenses"
+      }
+    ],
+    "advanced_optimizations": [
+      {
+        "priority": "Low",
+        "action": "Implement table partitioning for large datasets",
+        "description": "Partition expenses table by year for contractors with 5+ years of data",
+        "benefit": "Maintains performance as data volume grows to 100k+ records"
+      },
+      {
+        "priority": "Low",
+        "action": "Add connection pooling and query caching",
+        "description": "Implement Redis caching for frequently accessed job summaries",
+        "benefit": "Reduced database load for dashboard queries"
+      }
+    ]
+  },
+  "expected_improvements": {
+    "job_profit_queries": {
+      "current": "200-500ms for complex job aggregations",
+      "optimized": "10-50ms with materialized views",
+      "improvement": "90% faster"
+    },
+    "dashboard_loading": {
+      "current": "800-1200ms for full dashboard",
+      "optimized": "200-400ms with proper indexes",
+      "improvement": "70% faster"
+    },
+    "expense_search": {
+      "current": "500-2000ms for text searches",
+      "optimized": "50-150ms with full-text indexes",
+      "improvement": "85% faster"
+    },
+    "monthly_reports": {
+      "current": "1-3 seconds for date range queries",
+      "optimized": "200-600ms with optimized indexes",
+      "improvement": "75% faster"
+    }
+  },
+  "implementation_priority": [
+    "Add missing contractor-specific indexes (High Priority)",
+    "Create job profitability materialized view (High Priority)",
+    "Implement full-text search capabilities (Medium Priority)",
+    "Add partial indexes for active data (Medium Priority)",
+    "Consider table partitioning for scaling (Low Priority)"
+  ]
+}

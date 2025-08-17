@@ -1,0 +1,46 @@
+{
+  "userData": {
+    "name": "CORA",
+    "lastJobAmount": 12,
+    "fullConversation": [
+      {
+        "role": "assistant",
+        "content": "Hey! I'm CORA, and I'm going to help you see exactly how much profit you're leaving on the table. Takes about 3 minutes. First - what should I call you?"
+      },
+      {
+        "role": "user",
+        "content": "Johnny"
+      },
+      {
+        "role": "assistant",
+        "content": "Great, Johnny! Now, what type of construction work do you do? (select all that apply) \n\n[business_types]"
+      },
+      {
+        "role": "user",
+        "content": "Remodeling, Concrete, Painting and Framing"
+      },
+      {
+        "role": "assistant",
+        "content": "Got it. What's your biggest challenge with tracking jobs right now? \n\n[pain_points]"
+      },
+      {
+        "role": "user",
+        "content": "Can't track profits, Paperwork chaos and Missing tax deductions"
+      },
+      {
+        "role": "assistant",
+        "content": "Let me show you something cool. Tell me about a recent job - what was the total dollar amount you charged the customer? For example, if you did a bathroom remodel for $12,000 or a plumbing repair for $500, just tell me that number."
+      },
+      {
+        "role": "user",
+        "content": "$22,789.39 for a bathroom and kitchen remodel"
+      },
+      {
+        "role": "assistant",
+        "content": "A $22,789.39 job - nice! Here's the thing though: to show you REAL insights about your profit margins and where you might be leaving money on the table, I need to see patterns across several jobs.\n\nThe contractors using me are finding an average of $2,000 in missed deductions their first month. But that comes from tracking real data, not guessing.\n\nReady to start tracking? I'll help you log your next job in under 2 minutes. Let's go! \n\n[complete_onboarding]"
+      }
+    ]
+  },
+  "completedAt": "2025-08-01T16:54:34.626Z",
+  "savedAt": "2025-08-01T16:54:34.630174"
+}

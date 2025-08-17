@@ -1,0 +1,127 @@
+{
+    "name": "CORA - Construction Financial Intelligence",
+    "short_name": "CORA",
+    "description": "Voice-powered expense tracking and financial management for construction contractors",
+    "start_url": "/dashboard",
+    "display": "standalone",
+    "orientation": "portrait-primary",
+    "theme_color": "#FF9800",
+    "background_color": "#ffffff",
+    "scope": "/",
+    "lang": "en",
+    "categories": ["business", "finance", "productivity"],
+    "icons": [
+        {
+            "src": "/static/images/logos/cora-logo.png",
+            "sizes": "192x192",
+            "type": "image/png",
+            "purpose": "any maskable"
+        },
+        {
+            "src": "/static/images/logos/cora-logo.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "any maskable"
+        },
+        {
+            "src": "/static/images/logos/cora-logo.png",
+            "sizes": "256x256",
+            "type": "image/png",
+            "purpose": "any"
+        }
+    ],
+    "shortcuts": [
+        {
+            "name": "Add Expense",
+            "short_name": "Expense",
+            "description": "Quickly add a new expense",
+            "url": "/dashboard?action=add-expense",
+            "icons": [
+                {
+                    "src": "/static/images/logos/cora-logo.png",
+                    "sizes": "96x96"
+                }
+            ]
+        },
+        {
+            "name": "Voice Entry",
+            "short_name": "Voice",
+            "description": "Use voice to add expenses",
+            "url": "/dashboard?action=voice-entry",
+            "icons": [
+                {
+                    "src": "/static/images/logos/cora-logo.png",
+                    "sizes": "96x96"
+                }
+            ]
+        },
+        {
+            "name": "View Jobs",
+            "short_name": "Jobs",
+            "description": "View job profitability",
+            "url": "/dashboard?tab=jobs",
+            "icons": [
+                {
+                    "src": "/static/images/logos/cora-logo.png",
+                    "sizes": "96x96"
+                }
+            ]
+        }
+    ],
+    "screenshots": [
+        {
+            "src": "/static/images/screenshots/dashboard-mobile.png",
+            "sizes": "390x844",
+            "type": "image/png",
+            "form_factor": "narrow",
+            "label": "Dashboard on mobile device"
+        },
+        {
+            "src": "/static/images/screenshots/dashboard-desktop.png",
+            "sizes": "1280x720",
+            "type": "image/png",
+            "form_factor": "wide",
+            "label": "Dashboard on desktop"
+        }
+    ],
+    "related_applications": [],
+    "prefer_related_applications": false,
+    "edge_side_panel": {
+        "preferred_width": 400
+    },
+    "launch_handler": {
+        "client_mode": "navigate-existing"
+    },
+    "handle_links": "preferred",
+    "protocol_handlers": [
+        {
+            "protocol": "web+cora",
+            "url": "/dashboard?action=%s"
+        }
+    ],
+    "file_handlers": [
+        {
+            "action": "/dashboard?action=upload-receipt",
+            "accept": {
+                "image/*": [".jpg", ".jpeg", ".png", ".webp"],
+                "application/pdf": [".pdf"]
+            }
+        }
+    ],
+    "share_target": {
+        "action": "/dashboard?action=share",
+        "method": "POST",
+        "enctype": "multipart/form-data",
+        "params": {
+            "title": "title",
+            "text": "text",
+            "url": "url",
+            "files": [
+                {
+                    "name": "receipt",
+                    "accept": ["image/*", "application/pdf"]
+                }
+            ]
+        }
+    }
+} 

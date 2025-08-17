@@ -1,0 +1,35 @@
+# Database Cleanup Feature - STATUS
+
+**Feature**: Database Consolidation & Cleanup
+**Status**: COMPLETED
+**Started**: 2025-08-07
+**Completed**: 2025-08-07
+
+## Opus Progress (2025-08-07):
+
+### ✅ Investigation Phase
+- Discovered 4 database files causing confusion
+- Found root `/cora.db` is the active one (14 users, 31 tables)
+- Identified `/data/cora.db` was outdated (3 users, missing tables)
+- Found health.py was checking wrong database
+
+### ✅ Cleanup Executed
+- Fixed `/routes/health.py` lines 27, 69 - now points to correct DB
+- Deleted `/data/cora.db` - outdated, wrong schema
+- Deleted `/deployment_package/cora.db` - empty template
+- Deleted `/database.db` - empty file
+- Deleted `/tools/QUARANTINE_DO_NOT_USE/` - dangerous navigation scripts
+
+### ✅ Documentation
+- Created `DATABASE_TRUTH.md` - single source of truth
+- Established new rule: DELETE don't archive
+
+## Result
+System now has ONE clear database: `/cora.db`
+No more confusion, no more dangerous archived scripts
+
+## Impact
+- Health checks now work correctly
+- No conflicting databases
+- Removed scripts that destroyed templates
+- Cleaner, less error-prone system

@@ -1,0 +1,113 @@
+{
+  "user_journey_testing": {
+    "timestamp": "2025-08-05T14:06:29.167648",
+    "test_user_email": "test_user_1754410401@example.com",
+    "total_steps": 14,
+    "passed": 12,
+    "failed": 1,
+    "warnings": 1,
+    "success_rate": 85.71428571428571,
+    "journey_quality": "GOOD",
+    "onboarding_ready": false
+  },
+  "journey_steps": [
+    "Landing Page Load",
+    "Onboarding Page Access",
+    "AI Onboarding Conversation",
+    "User Registration",
+    "Business Profile Creation",
+    "Dashboard Access",
+    "Dashboard CORA Engagement",
+    "Profit Analysis Features"
+  ],
+  "detailed_results": [
+    {
+      "step": "Landing Page Load",
+      "status": "FAIL",
+      "details": "Error: ('Connection aborted.', ConnectionResetError(10054, 'An existing connection was forcibly closed by the remote host', None, 10054, None))",
+      "timestamp": "2025-08-05T14:01:54.733056"
+    },
+    {
+      "step": "Onboarding Page Access",
+      "status": "PASS",
+      "details": "Onboarding page loaded successfully",
+      "timestamp": "2025-08-05T14:06:16.049699"
+    },
+    {
+      "step": "AI Conversation Turn 1",
+      "status": "PASS",
+      "details": "CORA responded appropriately (1 relevant keywords)",
+      "timestamp": "2025-08-05T14:06:17.640417"
+    },
+    {
+      "step": "AI Conversation Turn 2",
+      "status": "PASS",
+      "details": "CORA responded appropriately (4 relevant keywords)",
+      "timestamp": "2025-08-05T14:06:20.981255"
+    },
+    {
+      "step": "AI Conversation Turn 3",
+      "status": "PASS",
+      "details": "CORA responded appropriately (4 relevant keywords)",
+      "timestamp": "2025-08-05T14:06:25.037860"
+    },
+    {
+      "step": "Overall AI Conversation",
+      "status": "PASS",
+      "details": "3/3 turns successful",
+      "timestamp": "2025-08-05T14:06:25.037878"
+    },
+    {
+      "step": "User Registration",
+      "status": "PASS",
+      "details": "Account created successfully",
+      "timestamp": "2025-08-05T14:06:25.815478"
+    },
+    {
+      "step": "Business Profile Creation",
+      "status": "WARN",
+      "details": "Auth required - testing auth flow",
+      "timestamp": "2025-08-05T14:06:25.829996"
+    },
+    {
+      "step": "Dashboard Access",
+      "status": "PASS",
+      "details": "Dashboard loaded with: financial features, CORA integration",
+      "timestamp": "2025-08-05T14:06:25.851498"
+    },
+    {
+      "step": "Dashboard CORA Interaction 1",
+      "status": "PASS",
+      "details": "CORA provided helpful response (349 chars)",
+      "timestamp": "2025-08-05T14:06:27.357121"
+    },
+    {
+      "step": "Dashboard CORA Interaction 2",
+      "status": "PASS",
+      "details": "CORA provided helpful response (339 chars)",
+      "timestamp": "2025-08-05T14:06:29.130132"
+    },
+    {
+      "step": "Overall Dashboard CORA Engagement",
+      "status": "PASS",
+      "details": "2/2 interactions successful",
+      "timestamp": "2025-08-05T14:06:29.130147"
+    },
+    {
+      "step": "Profit Features in Dashboard",
+      "status": "PASS",
+      "details": "Features available: profit analysis, expense tracking, data visualization",
+      "timestamp": "2025-08-05T14:06:29.148305"
+    },
+    {
+      "step": "Profit API Endpoints",
+      "status": "PASS",
+      "details": "2/2 APIs accessible",
+      "timestamp": "2025-08-05T14:06:29.167362"
+    }
+  ],
+  "recommendations": [
+    "Address failed steps before launching to users",
+    "Focus on critical user flow elements first"
+  ]
+}

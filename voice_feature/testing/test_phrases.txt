@@ -1,0 +1,36 @@
+# Test Phrases for Voice Expense Entry
+
+## Basic Patterns
+"Home Depot receipt three forty seven"
+"Lumber for the Johnson job fifty five dollars"
+"Gas station fill up sixty five twenty"
+"Lunch for crew at McDonald's thirty two fifty"
+
+## Job-Specific
+"Two by fours for Johnson bathroom forty five"
+"Electrical supplies Smith kitchen one twenty five"
+"Paint for the Wilson house ninety eight"
+"Concrete for downtown office job five hundred"
+
+## Complex Patterns
+"Picked up lumber at Home Depot for Johnson job three hundred forty seven fifty"
+"Equipment rental for Smith project one fifty per day"
+"Subcontractor payment Mike's Electric Johnson bathroom eight hundred"
+
+## Edge Cases
+"Home depot" (lowercase)
+"forty-five dollars and fifty cents"
+"three fiddy" (slang)
+"a hundred bucks"
+"couple hundred for materials"
+
+## Without Jobs
+"Home Depot receipt forty five"
+"Gas for truck sixty"
+"Lunch twenty five"
+
+## Vendor Variations
+"The Home Depot"
+"Lowes hardware" 
+"Local lumber yard"
+"That hardware store on Main"

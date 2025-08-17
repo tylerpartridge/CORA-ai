@@ -78,13 +78,16 @@ async def get_auth_url(
                 detail="Stripe integration already exists for this user"
             )
         
+        # Import centralized config
+        from config import config
+        
         # Generate authorization URL
         auth_url = "https://connect.stripe.com/oauth/authorize"
         params = {
-            "client_id": os.getenv("STRIPE_CLIENT_ID", "YOUR_STRIPE_CLIENT_ID"),
+            "client_id": config.STRIPE_API_KEY,
             "response_type": "code",
             "scope": "read_write",
-            "redirect_uri": os.getenv("STRIPE_REDIRECT_URI", "https://cora.ai/api/integrations/stripe/callback"),
+            "redirect_uri": f"{config.BASE_URL}/api/integrations/stripe/callback",
             "state": str(current_user)  # CSRF protection
         }
         
@@ -112,12 +115,15 @@ async def oauth_callback(
         # Validate state parameter (CSRF protection)
         user_id = int(state)
         
+        # Import centralized config
+        from config import config
+        
         # Exchange code for tokens
         token_url = "https://connect.stripe.com/oauth/token"
         data = {
             "grant_type": "authorization_code",
             "code": code,
-            "client_secret": os.getenv("STRIPE_CLIENT_SECRET", "YOUR_STRIPE_CLIENT_SECRET")
+            "client_secret": config.STRIPE_API_KEY
         }
         
         response = requests.post(token_url, data=data)

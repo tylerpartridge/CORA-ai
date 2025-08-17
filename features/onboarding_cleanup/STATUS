@@ -1,0 +1,64 @@
+# Onboarding Files Cleanup Task
+
+## Status: IDENTIFIED - Needs Cleanup
+**Created:** 2025-08-14 by Claude
+**Issue:** Multiple duplicate/legacy onboarding files causing confusion
+
+## Current Active Onboarding:
+- **Route:** `/onboarding` (routes/pages.py:372)
+- **Template:** `web/templates/onboarding-ai-wizard.html`
+- **JavaScript:** `web/static/js/onboarding-ai-wizard.js`
+- **CSS:** `web/static/css/onboarding.css`
+- **API:** `routes/onboarding_routes.py` (prefix: /api/onboarding)
+
+## Files That Should Be Removed/Quarantined:
+
+### Broken Routes (missing templates):
+- `/onboarding-wizard` route (pages.py:381) - template doesn't exist
+- `/onboarding-ai` route (pages.py:386) - redundant
+
+### Duplicate Route Files:
+- `routes/onboarding_v2.py` - Why v2? Check if used
+
+### Unused Templates:
+- `web/templates/onboarding/welcome.html` (25KB)
+- `web/templates/onboarding/connect_bank.html`
+- `web/templates/onboarding/success.html`
+
+### Legacy JavaScript:
+- `web/static/js/enhanced_chat_onboarding.js`
+- `web/static/js/voice_onboarding.js`
+
+### Unused Feature Folder:
+- `features/conversational-onboarding/` - entire folder seems unused
+
+### Misplaced Test Files:
+- `test_onboarding_flow.py` (in root, should be in tests/)
+
+### Documentation/Prototypes:
+- `docs/chat_onboarding_prototype.html`
+
+## Recommendation:
+1. Keep only the active onboarding-ai-wizard files
+2. Move unused files to `/tools/QUARANTINE/onboarding_legacy/`
+3. Remove broken routes from pages.py
+4. Document in CLAUDE.md which onboarding is the real one
+
+## Commands to Clean:
+```bash
+# Create quarantine folder
+mkdir -p tools/QUARANTINE/onboarding_legacy
+
+# Move unused files (DO NOT RUN YET - needs approval)
+mv web/templates/onboarding/ tools/QUARANTINE/onboarding_legacy/
+mv routes/onboarding_v2.py tools/QUARANTINE/onboarding_legacy/
+mv web/static/js/enhanced_chat_onboarding.js tools/QUARANTINE/onboarding_legacy/
+mv web/static/js/voice_onboarding.js tools/QUARANTINE/onboarding_legacy/
+mv features/conversational-onboarding/ tools/QUARANTINE/onboarding_legacy/
+mv test_onboarding_flow.py tests/
+mv docs/chat_onboarding_prototype.html tools/QUARANTINE/onboarding_legacy/
+```
+
+## Note:
+This needs Tyler's approval before cleanup. The active onboarding works fine,
+but having 5+ different onboarding implementations is confusing.

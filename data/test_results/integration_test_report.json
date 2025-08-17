@@ -1,0 +1,239 @@
+{
+  "integration_testing": {
+    "timestamp": "2025-08-05T09:52:25.086839",
+    "total_tests": 35,
+    "passed": 31,
+    "failed": 3,
+    "warnings": 1,
+    "integration_score": 88.57142857142857,
+    "demo_readiness": "NEEDS_WORK"
+  },
+  "test_categories": {
+    "core_infrastructure": "Server, routes, basic functionality",
+    "api_endpoints": "REST API accessibility and functionality",
+    "static_assets": "JavaScript, CSS, and asset loading",
+    "chat_personality": "Enhanced CORA conversation system",
+    "profit_calculations": "Real-time profit tracking integration",
+    "database_connectivity": "Data layer and model integration",
+    "file_structure": "Enhancement file integration",
+    "test_suites": "Individual test suite execution",
+    "demo_readiness": "Glen Day specific demo preparation"
+  },
+  "detailed_results": [
+    {
+      "test": "Server Status",
+      "status": "PASS",
+      "details": "CORA server responding on port 8000",
+      "timestamp": "2025-08-05T09:51:33.908939"
+    },
+    {
+      "test": "Route: /",
+      "status": "PASS",
+      "details": "Landing page - Status 200",
+      "timestamp": "2025-08-05T09:51:33.918458"
+    },
+    {
+      "test": "Route: /onboarding",
+      "status": "PASS",
+      "details": "Onboarding flow - Status 200",
+      "timestamp": "2025-08-05T09:51:33.922474"
+    },
+    {
+      "test": "Route: /dashboard",
+      "status": "PASS",
+      "details": "Dashboard (should redirect if not authenticated) - Status 200",
+      "timestamp": "2025-08-05T09:51:33.946601"
+    },
+    {
+      "test": "Route: /profit-dashboard",
+      "status": "FAIL",
+      "details": "Unexpected status 404",
+      "timestamp": "2025-08-05T09:51:33.960556"
+    },
+    {
+      "test": "API: /api/cora-chat-v2/",
+      "status": "PASS",
+      "details": "Enhanced CORA chat endpoint available",
+      "timestamp": "2025-08-05T09:51:33.970690"
+    },
+    {
+      "test": "API: /api/auth/register",
+      "status": "PASS",
+      "details": "User registration endpoint available",
+      "timestamp": "2025-08-05T09:51:33.989342"
+    },
+    {
+      "test": "API: /api/onboarding/complete",
+      "status": "PASS",
+      "details": "Onboarding completion endpoint available",
+      "timestamp": "2025-08-05T09:51:33.998820"
+    },
+    {
+      "test": "API: /api/onboarding/create-business-profile",
+      "status": "PASS",
+      "details": "Business profile creation endpoint available",
+      "timestamp": "2025-08-05T09:51:34.008494"
+    },
+    {
+      "test": "API: /docs",
+      "status": "PASS",
+      "details": "API documentation endpoint available",
+      "timestamp": "2025-08-05T09:51:34.018453"
+    },
+    {
+      "test": "Asset: /static/js/onboarding-ai-wizard.js",
+      "status": "PASS",
+      "details": "Loading correctly (60938 bytes)",
+      "timestamp": "2025-08-05T09:51:34.027503"
+    },
+    {
+      "test": "Asset: /static/css/onboarding-ai-wizard.css",
+      "status": "FAIL",
+      "details": "Status 404",
+      "timestamp": "2025-08-05T09:51:34.039454"
+    },
+    {
+      "test": "Asset: /static/js/security.js",
+      "status": "PASS",
+      "details": "Loading correctly (11757 bytes)",
+      "timestamp": "2025-08-05T09:51:34.048990"
+    },
+    {
+      "test": "Chat Turn 1",
+      "status": "PASS",
+      "details": "Appropriate response with 2 relevant keywords",
+      "timestamp": "2025-08-05T09:51:36.709943"
+    },
+    {
+      "test": "Chat Turn 2",
+      "status": "FAIL",
+      "details": "Error: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))",
+      "timestamp": "2025-08-05T09:51:36.709943"
+    },
+    {
+      "test": "Chat Turn 3",
+      "status": "PASS",
+      "details": "Appropriate response with 3 relevant keywords",
+      "timestamp": "2025-08-05T09:51:44.049960"
+    },
+    {
+      "test": "Profit API: /api/profit-analysis/leak-detection",
+      "status": "PASS",
+      "details": "Endpoint accessible",
+      "timestamp": "2025-08-05T09:51:44.058723"
+    },
+    {
+      "test": "Profit API: /api/profit-analysis/quick-wins",
+      "status": "PASS",
+      "details": "Endpoint accessible",
+      "timestamp": "2025-08-05T09:51:44.068482"
+    },
+    {
+      "test": "Profit API: /api/profit-analysis/summary",
+      "status": "PASS",
+      "details": "Endpoint accessible",
+      "timestamp": "2025-08-05T09:51:44.077641"
+    },
+    {
+      "test": "Database Models",
+      "status": "PASS",
+      "details": "All models imported successfully",
+      "timestamp": "2025-08-05T09:51:44.383345"
+    },
+    {
+      "test": "Database Tables",
+      "status": "PASS",
+      "details": "Found 3/3 expected tables",
+      "timestamp": "2025-08-05T09:51:44.393895"
+    },
+    {
+      "test": "File: test_onboarding_flow.py",
+      "status": "PASS",
+      "details": "Exists (11407 bytes)",
+      "timestamp": "2025-08-05T09:51:44.393895"
+    },
+    {
+      "test": "File: test_profit_calculations.py",
+      "status": "PASS",
+      "details": "Exists (14452 bytes)",
+      "timestamp": "2025-08-05T09:51:44.393895"
+    },
+    {
+      "test": "File: test_personality_enhancements.py",
+      "status": "PASS",
+      "details": "Exists (13346 bytes)",
+      "timestamp": "2025-08-05T09:51:44.393895"
+    },
+    {
+      "test": "File: database_optimization_analysis.py",
+      "status": "PASS",
+      "details": "Exists (19309 bytes)",
+      "timestamp": "2025-08-05T09:51:44.393895"
+    },
+    {
+      "test": "File: data/test_scenarios/glen_day_demo_data.json",
+      "status": "PASS",
+      "details": "Exists (5459 bytes)",
+      "timestamp": "2025-08-05T09:51:44.393895"
+    },
+    {
+      "test": "File: data/test_scenarios/profit_calculation_demo.json",
+      "status": "PASS",
+      "details": "Exists (8781 bytes)",
+      "timestamp": "2025-08-05T09:51:44.393895"
+    },
+    {
+      "test": "File: data/cora_personality_enhancements.json",
+      "status": "PASS",
+      "details": "Exists (11747 bytes)",
+      "timestamp": "2025-08-05T09:51:44.393895"
+    },
+    {
+      "test": "File: routes/cora_chat_enhanced_v2.py",
+      "status": "PASS",
+      "details": "Exists (16581 bytes)",
+      "timestamp": "2025-08-05T09:51:44.393895"
+    },
+    {
+      "test": "File: schema/optimizations/glen_day_performance_optimizations.sql",
+      "status": "PASS",
+      "details": "Exists (10840 bytes)",
+      "timestamp": "2025-08-05T09:51:44.393895"
+    },
+    {
+      "test": "Glen Day Profile",
+      "status": "PASS",
+      "details": "Demo profile data correctly loaded",
+      "timestamp": "2025-08-05T09:51:44.393895"
+    },
+    {
+      "test": "Demo Projects",
+      "status": "PASS",
+      "details": "Found 3 demo projects",
+      "timestamp": "2025-08-05T09:51:44.393895"
+    },
+    {
+      "test": "Suite: test_onboarding_flow.py",
+      "status": "PASS",
+      "details": "End-to-end onboarding flow - All tests passed",
+      "timestamp": "2025-08-05T09:52:24.979412"
+    },
+    {
+      "test": "Suite: test_profit_calculations.py",
+      "status": "PASS",
+      "details": "Profit calculation accuracy - All tests passed",
+      "timestamp": "2025-08-05T09:52:25.037411"
+    },
+    {
+      "test": "Suite: database_optimization_analysis.py",
+      "status": "WARN",
+      "details": "Database performance - Completed with warnings",
+      "timestamp": "2025-08-05T09:52:25.086839"
+    }
+  ],
+  "recommendations": [
+    "Review and fix failed tests before demo",
+    "Ensure server is running and accessible",
+    "Verify database connectivity and schema"
+  ]
+}

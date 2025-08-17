@@ -1,0 +1,17 @@
+{
+  "userData": {
+    "name": "Test User",
+    "email": "test_onboarding@example.com",
+    "businessType": [
+      "Construction"
+    ],
+    "experience": "5 years",
+    "goals": [
+      "Increase profits",
+      "Better project management"
+    ],
+    "fullConversation": "Test conversation data"
+  },
+  "completedAt": "2025-08-04T14:00:00Z",
+  "savedAt": "2025-08-04T20:16:55.815257"
+}

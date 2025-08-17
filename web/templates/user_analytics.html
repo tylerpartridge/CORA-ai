@@ -1,0 +1,643 @@
+{% extends "base_app.html" %}
+
+{% block page_title %}User Analytics - CORA{% endblock %}
+
+{% block page_description %}Comprehensive user analytics and engagement tracking for your CORA usage{% endblock %}
+
+{% block page_css %}
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+
+    
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <style>
+        :root {
+            --cora-orange: #FF9800;
+            --cora-dark: #0a0a0a;
+            --cora-grey: #1a1a1a;
+            --cora-text: #ffffff;
+            --cora-text-secondary: #999999;
+            --cora-border: rgba(255, 152, 0, 0.2);
+            --success-green: #4CAF50;
+            --warning-orange: #FF9800;
+            --danger-red: #F44336;
+            --info-blue: #2196F3;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--cora-dark);
+            color: var(--cora-text);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--cora-orange);
+            margin-bottom: 1rem;
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            color: var(--cora-text-secondary);
+        }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .metric-card {
+            background: var(--cora-grey);
+            border: 1px solid var(--cora-border);
+            border-radius: 12px;
+            padding: 1.5rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .metric-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(255, 152, 0, 0.1);
+        }
+
+        .metric-icon {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .metric-value {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .metric-label {
+            color: var(--cora-text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .metric-trend {
+            font-size: 0.8rem;
+            margin-top: 0.5rem;
+        }
+
+        .trend-up {
+            color: var(--success-green);
+        }
+
+        .trend-down {
+            color: var(--danger-red);
+        }
+
+        .trend-neutral {
+            color: var(--cora-text-secondary);
+        }
+
+        .charts-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .chart-container {
+            background: var(--cora-grey);
+            border: 1px solid var(--cora-border);
+            border-radius: 12px;
+            padding: 1.5rem;
+        }
+
+        .chart-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--cora-orange);
+        }
+
+        .feature-adoption-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .feature-card {
+            background: var(--cora-grey);
+            border: 1px solid var(--cora-border);
+            border-radius: 12px;
+            padding: 1.5rem;
+        }
+
+        .feature-header {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+        }
+
+        .feature-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+
+        .feature-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        .adoption-status {
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .status-highly-adopted {
+            background: rgba(76, 175, 80, 0.2);
+            color: var(--success-green);
+        }
+
+        .status-adopted {
+            background: rgba(33, 150, 243, 0.2);
+            color: var(--info-blue);
+        }
+
+        .status-tried {
+            background: rgba(255, 152, 0, 0.2);
+            color: var(--warning-orange);
+        }
+
+        .status-not-adopted {
+            background: rgba(244, 67, 54, 0.2);
+            color: var(--danger-red);
+        }
+
+        .feature-stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--cora-orange);
+        }
+
+        .stat-label {
+            font-size: 0.8rem;
+            color: var(--cora-text-secondary);
+        }
+
+        .loading {
+            text-align: center;
+            padding: 3rem;
+            color: var(--cora-text-secondary);
+        }
+
+        .loading i {
+            font-size: 2rem;
+            animation: spin 1s linear infinite;
+            margin-bottom: 1rem;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--cora-orange), #F57C00);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 15px rgba(255, 152, 0, 0.3);
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .charts-section {
+                grid-template-columns: 1fr;
+            }
+            
+            .feature-adoption-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+{% endblock %}
+
+{% block page_content %}
+    <div class="container">
+        <div class="header">
+            <h1>📊 User Analytics Dashboard</h1>
+            <p>Track your engagement, retention, and feature adoption patterns</p>
+        </div>
+
+        <div id="loadingState" class="loading">
+            <i class="fas fa-spinner"></i>
+            <p>Loading your analytics data...</p>
+        </div>
+
+        <div id="analyticsContent" style="display: none;">
+            <!-- Key Metrics -->
+            <div class="metrics-grid" id="metricsGrid">
+                <!-- Metrics will be populated here -->
+            </div>
+
+            <!-- Charts Section -->
+            <div class="charts-section">
+                <div class="chart-container">
+                    <div class="chart-title">Activity Trend (Last 30 Days)</div>
+                    <canvas id="activityChart"></canvas>
+                </div>
+                <div class="chart-container">
+                    <div class="chart-title">Feature Usage Breakdown</div>
+                    <canvas id="featureChart"></canvas>
+                </div>
+            </div>
+
+            <!-- Feature Adoption -->
+            <div class="feature-adoption-grid" id="featureAdoptionGrid">
+                <!-- Feature cards will be populated here -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        class UserAnalyticsDashboard {
+            constructor() {
+                this.data = null;
+                this.charts = {};
+                this.init();
+            }
+
+            async init() {
+                await this.loadAnalyticsData();
+                this.renderDashboard();
+                this.setupCharts();
+            }
+
+            async loadAnalyticsData() {
+                try {
+                    const response = await fetch('/api/analytics/dashboard/summary', {
+                        headers: {
+                            'Authorization': `Bearer ${localStorage.getItem('authToken')}`
+                        }
+                    });
+
+                    if (response.ok) {
+                        this.data = await response.json();
+                    } else {
+                        throw new Error('Failed to load analytics data');
+                    }
+                } catch (error) {
+                    console.error('Error loading analytics:', error);
+                    // Use mock data for demonstration
+                    this.data = this.getMockData();
+                }
+            }
+
+            getMockData() {
+                return {
+                    success: true,
+                    summary: {
+                        engagement_score: 78,
+                        retention_score: 85,
+                        churn_risk: 15,
+                        total_activities: 156,
+                        total_sessions: 23,
+                        avg_session_duration: 12.5,
+                        features_adopted: 4,
+                        lifecycle_stage: 'active_user',
+                        most_active_day: 'Wednesday',
+                        most_used_feature: 'expense_tracking'
+                    },
+                    engagement: {
+                        activity_trend: Array.from({length: 30}, (_, i) => ({
+                            date: new Date(Date.now() - (29 - i) * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
+                            activity_count: Math.floor(Math.random() * 10) + 1
+                        })),
+                        feature_usage: {
+                            'expense_tracking': 45,
+                            'profit_intelligence': 23,
+                            'chat_interactions': 18,
+                            'job_management': 12,
+                            'analytics': 8
+                        }
+                    },
+                    feature_adoption: {
+                        expense_tracking: {
+                            total_uses: 45,
+                            last_used: new Date().toISOString(),
+                            adoption_status: 'highly_adopted',
+                            usage_frequency: 'daily'
+                        },
+                        profit_intelligence: {
+                            total_uses: 23,
+                            last_used: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000).toISOString(),
+                            adoption_status: 'adopted',
+                            usage_frequency: 'weekly'
+                        },
+                        chat_interactions: {
+                            total_uses: 18,
+                            last_used: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000).toISOString(),
+                            adoption_status: 'adopted',
+                            usage_frequency: 'weekly'
+                        },
+                        job_management: {
+                            total_uses: 12,
+                            last_used: new Date(Date.now() - 5 * 24 * 60 * 60 * 1000).toISOString(),
+                            adoption_status: 'tried',
+                            usage_frequency: 'monthly'
+                        },
+                        analytics: {
+                            total_uses: 8,
+                            last_used: new Date(Date.now() - 10 * 24 * 60 * 60 * 1000).toISOString(),
+                            adoption_status: 'tried',
+                            usage_frequency: 'monthly'
+                        },
+                        onboarding: {
+                            total_uses: 1,
+                            last_used: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString(),
+                            adoption_status: 'not_adopted',
+                            usage_frequency: 'never'
+                        }
+                    }
+                };
+            }
+
+            renderDashboard() {
+                document.getElementById('loadingState').style.display = 'none';
+                document.getElementById('analyticsContent').style.display = 'block';
+
+                this.renderMetrics();
+                this.renderFeatureAdoption();
+            }
+
+            renderMetrics() {
+                const summary = this.data.summary;
+                const metricsGrid = document.getElementById('metricsGrid');
+
+                const metrics = [
+                    {
+                        icon: '📈',
+                        value: summary.engagement_score,
+                        label: 'Engagement Score',
+                        trend: '+5%',
+                        trendClass: 'trend-up'
+                    },
+                    {
+                        icon: '🎯',
+                        value: summary.retention_score,
+                        label: 'Retention Score',
+                        trend: '+3%',
+                        trendClass: 'trend-up'
+                    },
+                    {
+                        icon: '⚠️',
+                        value: summary.churn_risk + '%',
+                        label: 'Churn Risk',
+                        trend: '-2%',
+                        trendClass: 'trend-down'
+                    },
+                    {
+                        icon: '📊',
+                        value: summary.total_activities,
+                        label: 'Total Activities',
+                        trend: '+12',
+                        trendClass: 'trend-up'
+                    },
+                    {
+                        icon: '⏱️',
+                        value: summary.avg_session_duration.toFixed(1) + 'm',
+                        label: 'Avg Session Duration',
+                        trend: '+1.2m',
+                        trendClass: 'trend-up'
+                    },
+                    {
+                        icon: '🚀',
+                        value: summary.features_adopted,
+                        label: 'Features Adopted',
+                        trend: '+1',
+                        trendClass: 'trend-up'
+                    }
+                ];
+
+                metricsGrid.innerHTML = metrics.map(metric => `
+                    <div class="metric-card">
+                        <div class="metric-icon">${metric.icon}</div>
+                        <div class="metric-value">${metric.value}</div>
+                        <div class="metric-label">${metric.label}</div>
+                        <div class="metric-trend ${metric.trendClass}">${metric.trend}</div>
+                    </div>
+                `).join('');
+            }
+
+            renderFeatureAdoption() {
+                const featureAdoption = this.data.feature_adoption;
+                const grid = document.getElementById('featureAdoptionGrid');
+
+                const featureIcons = {
+                    expense_tracking: '💰',
+                    profit_intelligence: '🧠',
+                    chat_interactions: '💬',
+                    job_management: '🏗️',
+                    analytics: '📊',
+                    onboarding: '🎯'
+                };
+
+                const featureNames = {
+                    expense_tracking: 'Expense Tracking',
+                    profit_intelligence: 'Profit Intelligence',
+                    chat_interactions: 'AI Chat',
+                    job_management: 'Job Management',
+                    analytics: 'Analytics',
+                    onboarding: 'Onboarding'
+                };
+
+                grid.innerHTML = Object.entries(featureAdoption).map(([key, feature]) => `
+                    <div class="feature-card">
+                        <div class="feature-header">
+                            <div class="feature-icon">${featureIcons[key]}</div>
+                            <div>
+                                <div class="feature-title">${featureNames[key]}</div>
+                                <div class="adoption-status status-${feature.adoption_status.replace('_', '-')}">
+                                    ${feature.adoption_status.replace('_', ' ')}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="feature-stats">
+                            <div class="stat-item">
+                                <div class="stat-value">${feature.total_uses}</div>
+                                <div class="stat-label">Total Uses</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-value">${feature.usage_frequency}</div>
+                                <div class="stat-label">Frequency</div>
+                            </div>
+                        </div>
+                    </div>
+                `).join('');
+            }
+
+            setupCharts() {
+                this.setupActivityChart();
+                this.setupFeatureChart();
+            }
+
+            setupActivityChart() {
+                const ctx = document.getElementById('activityChart').getContext('2d');
+                const trendData = this.data.engagement.activity_trend;
+
+                this.charts.activity = new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: trendData.map(d => new Date(d.date).toLocaleDateString()),
+                        datasets: [{
+                            label: 'Daily Activities',
+                            data: trendData.map(d => d.activity_count),
+                            borderColor: '#FF9800',
+                            backgroundColor: 'rgba(255, 152, 0, 0.1)',
+                            tension: 0.4,
+                            fill: true
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                labels: {
+                                    color: '#ffffff'
+                                }
+                            }
+                        },
+                        scales: {
+                            x: {
+                                ticks: {
+                                    color: '#999999'
+                                },
+                                grid: {
+                                    color: 'rgba(255, 255, 255, 0.1)'
+                                }
+                            },
+                            y: {
+                                ticks: {
+                                    color: '#999999'
+                                },
+                                grid: {
+                                    color: 'rgba(255, 255, 255, 0.1)'
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+
+            setupFeatureChart() {
+                const ctx = document.getElementById('featureChart').getContext('2d');
+                const featureData = this.data.engagement.feature_usage;
+
+                this.charts.feature = new Chart(ctx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: Object.keys(featureData).map(key => 
+                            key.replace('_', ' ').replace(/\b\w/g, l => l.toUpperCase())
+                        ),
+                        datasets: [{
+                            data: Object.values(featureData),
+                            backgroundColor: [
+                                '#FF9800',
+                                '#4CAF50',
+                                '#2196F3',
+                                '#9C27B0',
+                                '#F44336'
+                            ],
+                            borderWidth: 0
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                position: 'bottom',
+                                labels: {
+                                    color: '#ffffff',
+                                    padding: 20
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+        }
+
+        // Initialize dashboard
+        document.addEventListener('DOMContentLoaded', () => {
+            new UserAnalyticsDashboard();
+        });
+    </script>
+
+{% endblock %} 

@@ -13,17 +13,26 @@ from .payment import Payment
 from .business_profile import BusinessProfile
 from .user_preference import UserPreference
 from .password_reset_token import PasswordResetToken
+from .email_verification_token import EmailVerificationToken
 from .plaid_integration import PlaidIntegration, PlaidAccount, PlaidTransaction, PlaidSyncHistory
 from .quickbooks_integration import QuickBooksIntegration
 from .stripe_integration import StripeIntegration
 from .feedback import Feedback
 from .user_activity import UserActivity
+from .job import Job, JobNote
+from .waitlist import ContractorWaitlist
+from .job_alert import JobAlert
+from .analytics import AnalyticsLog
+from .prediction_feedback import PredictionFeedback
+from .intelligence_state import IntelligenceSignal, EmotionalProfile
 
 __all__ = [
     'Base', 'engine', 'SessionLocal', 'get_db',
     'User', 'Expense', 'ExpenseCategory', 
     'Customer', 'Subscription', 'Payment',
-    'BusinessProfile', 'UserPreference', 'PasswordResetToken',
+    'BusinessProfile', 'UserPreference', 'PasswordResetToken', 'EmailVerificationToken',
     'PlaidIntegration', 'PlaidAccount', 'PlaidTransaction', 'PlaidSyncHistory',
-    'QuickBooksIntegration', 'StripeIntegration', 'Feedback', 'UserActivity'
+    'QuickBooksIntegration', 'StripeIntegration', 'Feedback', 'UserActivity',
+    'Job', 'JobNote', 'ContractorWaitlist', 'JobAlert', 'AnalyticsLog', 'PredictionFeedback',
+    'IntelligenceSignal', 'EmotionalProfile'
 ] 

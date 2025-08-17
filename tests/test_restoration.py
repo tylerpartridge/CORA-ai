@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 """
-🧭 LOCATION: /CORA/tests/test_restoration.py
-🎯 PURPOSE: Test restoration progress - safe validation framework
-🔗 IMPORTS: pytest, basic validation functions
-📤 EXPORTS: Test functions for restoration validation
+[LOCATION] LOCATION: /CORA/tests/test_restoration.py
+[TARGET] PURPOSE: Test restoration progress - safe validation framework
+[LINK] IMPORTS: pytest, basic validation functions
+[EXPORT] EXPORTS: Test functions for restoration validation
 """
 
 import pytest
@@ -19,10 +19,10 @@ def test_server_imports():
     try:
         import app
         assert hasattr(app, 'app'), "app.py should have 'app' attribute"
-        print("✅ Server imports successfully")
+        print("[OK] Server imports successfully")
         return True
     except ImportError as e:
-        pytest.fail(f"❌ Server import failed: {e}")
+        pytest.fail(f"[ERROR] Server import failed: {e}")
 
 def test_database_exists():
     """Test that the database files exist and are accessible"""
@@ -33,11 +33,11 @@ def test_database_exists():
     ]
     
     for db_file in db_files:
-        assert os.path.exists(db_file), f"❌ Database file missing: {db_file}"
+        assert os.path.exists(db_file), f"[ERROR] Database file missing: {db_file}"
         # Test file is readable
-        assert os.access(db_file, os.R_OK), f"❌ Database file not readable: {db_file}"
+        assert os.access(db_file, os.R_OK), f"[ERROR] Database file not readable: {db_file}"
     
-    print("✅ All database files exist and are accessible")
+    print("[OK] All database files exist and are accessible")
     return True
 
 def test_directory_structure():
@@ -50,11 +50,11 @@ def test_directory_structure():
     ]
     
     for dir_name in required_dirs:
-        assert os.path.exists(dir_name), f"❌ Directory missing: {dir_name}"
+        assert os.path.exists(dir_name), f"[ERROR] Directory missing: {dir_name}"
         init_file = os.path.join(dir_name, '__init__.py')
-        assert os.path.exists(init_file), f"❌ __init__.py missing in {dir_name}"
+        assert os.path.exists(init_file), f"[ERROR] __init__.py missing in {dir_name}"
     
-    print("✅ Directory structure is correct")
+    print("[OK] Directory structure is correct")
     return True
 
 def test_route_imports():
@@ -70,11 +70,11 @@ def test_route_imports():
         try:
             __import__(module_name)
             imported_count += 1
-            print(f"✅ {module_name} imports successfully")
+            print(f"[OK] {module_name} imports successfully")
         except ImportError:
-            print(f"⚠️ {module_name} not yet created (expected during restoration)")
+            print(f"[WARNING] {module_name} not yet created (expected during restoration)")
     
-    print(f"✅ {imported_count}/{len(route_modules)} route modules imported")
+    print(f"[OK] {imported_count}/{len(route_modules)} route modules imported")
     return imported_count > 0  # At least one should work
 
 def test_model_imports():
@@ -97,11 +97,11 @@ def test_model_imports():
         try:
             __import__(module_name)
             imported_count += 1
-            print(f"✅ {module_name} imports successfully")
+            print(f"[OK] {module_name} imports successfully")
         except ImportError:
-            print(f"⚠️ {module_name} not yet created (expected during restoration)")
+            print(f"[WARNING] {module_name} not yet created (expected during restoration)")
     
-    print(f"✅ {imported_count}/{len(model_modules)} model modules imported")
+    print(f"[OK] {imported_count}/{len(model_modules)} model modules imported")
     return imported_count >= 8  # At least the core models should work
 
 def test_configuration_files():
@@ -113,9 +113,9 @@ def test_configuration_files():
     ]
     
     for config_file in config_files:
-        assert os.path.exists(config_file), f"❌ Configuration file missing: {config_file}"
+        assert os.path.exists(config_file), f"[ERROR] Configuration file missing: {config_file}"
     
-    print("✅ All configuration files exist")
+    print("[OK] All configuration files exist")
     return True
 
 def test_documentation_files():
@@ -127,9 +127,9 @@ def test_documentation_files():
     ]
     
     for doc_file in doc_files:
-        assert os.path.exists(doc_file), f"❌ Documentation file missing: {doc_file}"
+        assert os.path.exists(doc_file), f"[ERROR] Documentation file missing: {doc_file}"
     
-    print("✅ All documentation files exist")
+    print("[OK] All documentation files exist")
     return True
 
 def test_backup_cleanup_progress():
@@ -150,13 +150,13 @@ def test_backup_cleanup_progress():
                 pass  # Some files may be locked
     
     # Should have fewer than 26,000 files (original count)
-    assert total_files < 26000, f"❌ Too many backup files remaining: {total_files}"
-    print(f"✅ Backup cleanup progress: {total_files} files remaining")
+    assert total_files < 26000, f"[ERROR] Too many backup files remaining: {total_files}"
+    print(f"[OK] Backup cleanup progress: {total_files} files remaining")
     return True
 
 if __name__ == "__main__":
     """Run all tests and provide summary"""
-    print("🧪 CORA RESTORATION TEST SUITE")
+    print("[TEST] CORA RESTORATION TEST SUITE")
     print("=" * 50)
     
     tests = [
@@ -178,14 +178,14 @@ if __name__ == "__main__":
             if test():
                 passed += 1
         except Exception as e:
-            print(f"❌ {test.__name__} failed: {e}")
+            print(f"[ERROR] {test.__name__} failed: {e}")
     
     print("=" * 50)
-    print(f"📊 TEST RESULTS: {passed}/{total} tests passed")
+    print(f"[STATS] TEST RESULTS: {passed}/{total} tests passed")
     
     if passed == total:
         print("🎉 All tests passed! Restoration is progressing well.")
     elif passed >= total * 0.7:
-        print("✅ Most tests passed. Restoration is on track.")
+        print("[OK] Most tests passed. Restoration is on track.")
     else:
-        print("⚠️ Several tests failed. Review restoration progress.") 
+        print("[WARNING] Several tests failed. Review restoration progress.") 

@@ -1,0 +1,24 @@
+{% extends "base_public.html" %}
+{% block content %}
+<div class="container py-5 knowledge-base">
+  <h1 class="mb-4">CORA Help Center</h1>
+  <div class="mb-3"><input id="help-search" class="form-control" placeholder="Search for help..." onkeyup="searchHelp()"></div>
+  <div class="row">
+    <div class="col-md-6"><h3>Getting Started</h3><ul>
+      <li><a href="/help/create-account">Creating Your Account</a></li>
+      <li><a href="/help/first-expense">Adding Your First Expense</a></li>
+      <li><a href="/help/connect-bank">Connecting Bank Accounts</a></li>
+    </ul></div>
+    <div class="col-md-6"><h3>Expenses</h3><ul>
+      <li><a href="/help/receipt-scanning">Scanning Receipts</a></li>
+      <li><a href="/help/mileage-tracking">Tracking Mileage</a></li>
+      <li><a href="/help/recurring-expenses">Recurring Expenses</a></li>
+    </ul></div>
+  </div>
+</div>
+<script>
+function searchHelp(){ const q=(document.getElementById('help-search').value||'').toLowerCase(); document.querySelectorAll('.knowledge-base a').forEach(a=>{ const m=a.textContent.toLowerCase().includes(q); const li=a.closest('li'); if(li) li.style.display=m?'':'none'; }); }
+</script>
+{% endblock %}
+
+

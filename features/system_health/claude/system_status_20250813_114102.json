@@ -1,0 +1,33 @@
+{
+  "timestamp": "2025-08-13T11:41:02.778767",
+  "health_percentage": 100,
+  "status": true,
+  "checks": {
+    "core_files": true,
+    "database": true,
+    "routes": true,
+    "templates": true,
+    "static_files": true,
+    "environment": true,
+    "security": true,
+    "activity": true
+  },
+  "issues": [],
+  "warnings": [
+    "Missing routes: ['/api/expenses', '/api/jobs']",
+    "Missing templates: ['dashboard.html']"
+  ],
+  "successes": [
+    "Core file exists: app.py",
+    "Core file exists: models.py",
+    "Core file exists: config.py",
+    "Core file exists: requirements.txt",
+    "Core file exists: cora.db",
+    "Database OK - Users: 20, Expenses: 150, Jobs: 3",
+    "API routes registered: 348",
+    "Templates found: 23",
+    "Static files - CSS: 9, JS: 66",
+    "Security middleware files: 3/3",
+    "Recent activity: 150 expenses in last 30 days"
+  ]
+}

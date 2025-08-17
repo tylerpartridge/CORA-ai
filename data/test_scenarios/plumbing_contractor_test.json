@@ -1,0 +1,49 @@
+{
+  "scenario": "Solo Plumbing Contractor - Mobile Testing",
+  "created": "2025-08-02",
+  "purpose": "Test mobile responsiveness and solo contractor workflow",
+  
+  "contractor_profile": {
+    "name": "Mike Rodriguez", 
+    "email": "mike@mrplumbing.com",
+    "business_type": ["plumbing"],
+    "years_in_business": "experienced",
+    "business_size": "solo",
+    "service_area": "local",
+    "customer_type": ["residential"],
+    "tracking_method": ["paper"],
+    "main_challenge": ["time", "cashflow"],
+    "busy_season": ["winter"], 
+    "business_goal": "balance"
+  },
+  
+  "typical_workday": {
+    "morning": "Emergency call - toilet overflow at Henderson house",
+    "afternoon": "Scheduled faucet installation at Martinez home", 
+    "evening": "Quick repair at Johnson rental property",
+    "paperwork_time": "Sunday evening, 2 hours minimum"
+  },
+  
+  "voice_expense_scenarios": [
+    "Spent 45 dollars on pipe fittings at Ferguson for the Henderson job",
+    "Picked up a new toilet at Home Depot, 280 bucks for Martinez", 
+    "Gas and lunch, about 25 dollars today",
+    "Emergency call surcharge, charged customer 150 extra for same-day"
+  ],
+  
+  "pain_points": [
+    "Always driving between jobs - no time for data entry",
+    "Receipts get lost or damaged in the truck",
+    "Don't know which jobs make money until tax time",
+    "Spend whole Sunday organizing receipts instead of family time",
+    "Emergency calls mess up schedule and profit tracking"
+  ],
+  
+  "mobile_test_requirements": [
+    "Large touch targets for work gloves",
+    "Works in bright sunlight (high contrast)",
+    "Quick voice entry while parked",
+    "Offline capability for poor cell areas",
+    "Simple interface - no complex navigation"
+  ]
+}

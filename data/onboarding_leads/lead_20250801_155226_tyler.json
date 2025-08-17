@@ -1,0 +1,16 @@
+{
+  "userData": {
+    "name": "Tyler",
+    "businessType": "general",
+    "businessTypeDisplay": "General Contractor",
+    "jobCount": 5,
+    "painPoint": "paperwork",
+    "painPointDisplay": "Paperwork Chaos",
+    "lastJobAmount": 120000,
+    "lastJobFormatted": "$120k",
+    "estimatedProfit": 18000,
+    "potentialTaxSavings": 3600
+  },
+  "completedAt": "2025-08-01T15:52:26.689Z",
+  "savedAt": "2025-08-01T15:52:26.693576"
+}

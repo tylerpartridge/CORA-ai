@@ -1,0 +1,96 @@
+# CSS Guardian Feature Status
+**Created**: 2025-08-12 by Opus 4.1
+**Purpose**: Prevent CSS conflicts and enforce single source of truth
+**Status**: 🟡 IN DEVELOPMENT
+
+## Problem Statement
+The navbar font inconsistency incident (3+ hour debugging) revealed:
+- Multiple CSS sources competing for control
+- rem units vulnerable to global changes
+- No automated detection of CSS conflicts
+- No enforcement of single source of truth
+
+## Solution
+CSS Guardian - automated CSS conflict prevention and detection system
+
+## Components
+
+### 1. CSS Ownership Registry ✅ CREATED
+- Maps each component to its authoritative CSS file
+- Enforces single source of truth
+- Location: `/features/css_guardian/claude/css_ownership.json`
+
+### 2. CSS Conflict Detector ✅ CREATED
+- Scans for duplicate selectors across files
+- Identifies competing styles
+- Detects rem usage in critical UI
+- Location: `/features/css_guardian/claude/css_conflict_detector.py`
+
+### 3. Pre-commit Hook ✅ CREATED
+- Validates CSS changes before commit
+- Prevents nav styles outside navbar.css
+- Checks for rem units in critical components
+- Location: `/features/css_guardian/claude/pre_commit_css_check.sh`
+
+### 4. JavaScript Style Monitor ✅ CREATED
+- Detects JavaScript style modifications
+- Found zoom_controls.js and accessibility.js modifying root font-size!
+- Alerts on dangerous patterns
+- Location: `/features/css_guardian/claude/js_style_monitor.py`
+
+### 5. CSS Health Dashboard ⏳ PENDING
+- Visual overview of CSS conflicts
+- Ownership violations report
+- Unit usage analysis
+
+## Implementation Progress
+
+### Opus 4.1 Progress (2025-08-12):
+✅ Created feature structure
+✅ Built CSS ownership registry
+✅ Implemented conflict detector
+✅ Created pre-commit hook
+✅ Integrated with awareness system
+⏳ Next: Runtime monitor and dashboard
+
+## Testing
+- Run: `python features/css_guardian/claude/css_conflict_detector.py`
+- Install hook: `cp features/css_guardian/claude/pre_commit_css_check.sh .git/hooks/pre-commit`
+
+## Integration Points
+- Awareness Registry: Updated with CSS Guardian capability
+- CI/CD: Pre-commit hooks ready
+- Documentation: CSS ownership rules documented
+
+## Next Steps
+1. Test conflict detector on current codebase
+2. Install pre-commit hook
+3. Build runtime monitor
+4. Create health dashboard
+
+## Success Metrics
+- Zero CSS conflicts in production
+- No rem units in critical UI
+- Single source of truth maintained
+- Debugging time reduced from hours to minutes
+
+## Scan Results (2025-08-14)
+
+### What I ran
+- `python features/css_guardian/claude/css_conflict_detector.py`
+- `python features/css_guardian/claude/js_style_monitor.py`
+
+### Results
+- CSS Conflict Detector: PASS (0 conflicts, 0 violations, 0 REM issues)
+- JS Style Monitor: FOUND 2 CRITICAL issues modifying `document.documentElement.style.fontSize`
+  - `web/static/js/zoom_controls.js` (line ~7)
+  - `web/static/js/accessibility.js` (line ~900)
+
+### Recommendations
+- Keep navbar/footer on px units (already policy) to immunize critical UI
+- Scope font-size changes to a container instead of `documentElement`
+- Consider disabling global zoom in production, or feature-flag it
+
+### Next
+- Add guardrails in `navbar.css` if needed (single high-specificity font-size rule)
+- Audit pages where zoom is initialized; ensure no inline overrides

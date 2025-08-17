@@ -1,0 +1,73 @@
+{% extends "base_app.html" %}
+{% block title %}Expenses - CORA{% endblock %}
+
+{% block content %}
+<div style="padding: 2rem; max-width: 1200px; margin: 0 auto;">
+    <!-- Header -->
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+        <div>
+            <h1 style="color: #FF9800; font-size: 2rem; margin: 0;">Expense Tracker</h1>
+            <p style="color: #a0aec0; margin-top: 0.5rem;">
+                Total: <strong style="color: #69F0AE; font-size: 1.5rem;">{{ total }}</strong> 
+                ({{ count }} expenses)
+            </p>
+        </div>
+        <div style="display: flex; gap: 1rem;">
+            <a href="/add-expense" 
+               style="background: #FF9800; color: #1a1a1a; padding: 0.75rem 1.5rem; border-radius: 4px; text-decoration: none; font-weight: 700; text-transform: uppercase; display: inline-block;">
+                + Add Expense
+            </a>
+            <a href="/api/expenses/export" 
+               style="background: #1976D2; color: white; padding: 0.75rem 1.5rem; border-radius: 4px; text-decoration: none; font-weight: 700; text-transform: uppercase; display: inline-block;">
+                ⬇ Export CSV
+            </a>
+        </div>
+    </div>
+
+    <!-- Expenses Table -->
+    <div style="background: rgba(45, 55, 72, 0.95); border-radius: 8px; padding: 1.5rem; box-shadow: 0 4px 20px rgba(0,0,0,0.3);">
+        {% if expenses %}
+        <table style="width: 100%; border-collapse: collapse;">
+            <thead>
+                <tr style="border-bottom: 2px solid #FF9800;">
+                    <th style="text-align: left; padding: 1rem; color: #FF9800;">Date</th>
+                    <th style="text-align: left; padding: 1rem; color: #FF9800;">Amount</th>
+                    <th style="text-align: left; padding: 1rem; color: #FF9800;">Category</th>
+                    <th style="text-align: left; padding: 1rem; color: #FF9800;">Description</th>
+                    <th style="text-align: left; padding: 1rem; color: #FF9800;">Job</th>
+                    <th style="text-align: center; padding: 1rem; color: #FF9800;">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for expense in expenses %}
+                <tr style="border-bottom: 1px solid rgba(255, 152, 0, 0.1);">
+                    <td style="padding: 1rem; color: #e2e8f0;">{{ expense.date }}</td>
+                    <td style="padding: 1rem; color: #69F0AE; font-weight: 600;">{{ expense.amount }}</td>
+                    <td style="padding: 1rem; color: #e2e8f0;">{{ expense.category }}</td>
+                    <td style="padding: 1rem; color: #a0aec0;">{{ expense.description[:50] }}</td>
+                    <td style="padding: 1rem; color: #e2e8f0;">{{ expense.job }}</td>
+                    <td style="padding: 1rem; text-align: center;">
+                        <form method="POST" action="/api/expenses/delete/{{ expense.id }}" style="display: inline;">
+                            <button type="submit" 
+                                    onclick="return confirm('Delete this expense?')"
+                                    style="background: #dc3545; color: white; border: none; padding: 0.5rem 1rem; border-radius: 4px; cursor: pointer; font-weight: 600;">
+                                Delete
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <div style="text-align: center; padding: 3rem; color: #a0aec0;">
+            <p style="font-size: 1.5rem; margin-bottom: 1rem;">No expenses yet</p>
+            <a href="/add-expense" 
+               style="background: #FF9800; color: #1a1a1a; padding: 0.75rem 1.5rem; border-radius: 4px; text-decoration: none; font-weight: 700; text-transform: uppercase; display: inline-block;">
+                Add Your First Expense
+            </a>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

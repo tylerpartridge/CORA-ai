@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Nav Debug Tool</title>
+    <style>
+        body {
+            font-family: monospace;
+            padding: 20px;
+            background: #1a1a1a;
+            color: #fff;
+        }
+        .debug-output {
+            background: #333;
+            padding: 20px;
+            border-radius: 5px;
+            margin: 10px 0;
+            white-space: pre-wrap;
+        }
+        button {
+            background: #FF9800;
+            color: #000;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            margin: 5px;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <h1>CORA Nav Debug Tool</h1>
+    <p>Click the buttons below to analyze the navigation:</p>
+    
+    <button onclick="checkLogin()">Check /login Page</button>
+    <button onclick="checkSignup()">Check /signup Page</button>
+    
+    <div id="output" class="debug-output">Results will appear here...</div>
+
+    <script>
+        function analyzeNav(url) {
+            fetch(url)
+                .then(response => response.text())
+                .then(html => {
+                    // Create a temporary DOM to analyze
+                    const parser = new DOMParser();
+                    const doc = parser.parseFromString(html, 'text/html');
+                    
+                    // Find all CSS files
+                    const cssFiles = Array.from(doc.querySelectorAll('link[rel="stylesheet"]'))
+                        .map(link => link.href)
+                        .filter(href => href.includes('.css'));
+                    
+                    // Find nav-link elements
+                    const navLinks = doc.querySelectorAll('.nav-link');
+                    
+                    // Find inline styles
+                    const inlineStyles = Array.from(doc.querySelectorAll('style'))
+                        .map(style => style.textContent.substring(0, 200) + '...');
+                    
+                    // Create output
+                    let output = `\n=== Analysis of ${url} ===\n\n`;
+                    output += `CSS Files Loaded (${cssFiles.length}):\n`;
+                    cssFiles.forEach((file, i) => {
+                        output += `  ${i+1}. ${file}\n`;
+                    });
+                    
+                    output += `\nNav Links Found: ${navLinks.length}\n`;
+                    
+                    output += `\nInline <style> blocks: ${inlineStyles.length}\n`;
+                    if (inlineStyles.length > 0) {
+                        output += 'First inline style preview:\n' + inlineStyles[0] + '\n';
+                    }
+                    
+                    // Check for specific issues
+                    if (html.includes('style="color: #4db8ff')) {
+                        output += '\n⚠️ WARNING: Found inline blue color style!\n';
+                    }
+                    
+                    if (html.includes('font-size: 14px')) {
+                        output += '\n⚠️ WARNING: Found 14px font-size somewhere!\n';
+                    }
+                    
+                    document.getElementById('output').textContent = output;
+                    
+                    // Also send to server console
+                    fetch('/api/debug-nav', {
+                        method: 'POST',
+                        headers: {'Content-Type': 'application/json'},
+                        body: JSON.stringify({url: url, analysis: output})
+                    });
+                });
+        }
+        
+        function checkLogin() {
+            analyzeNav('/login');
+        }
+        
+        function checkSignup() {
+            analyzeNav('/signup');
+        }
+    </script>
+</body>
+</html>

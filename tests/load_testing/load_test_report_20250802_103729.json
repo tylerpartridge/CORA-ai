@@ -1,0 +1,110 @@
+{
+  "timestamp": "20250802_103729",
+  "base_url": "http://localhost:8000",
+  "results": [
+    {
+      "test": "smoke",
+      "metrics": {
+        "scenario": "smoke",
+        "total_requests": 50,
+        "successful_requests": 50,
+        "failed_requests": 0,
+        "total_test_time": 5.481320142745972,
+        "requests_per_second": 9.121890110025857,
+        "response_times": {
+          "min": 0.008549213409423828,
+          "max": 0.26871681213378906,
+          "mean": 0.028165240287780762,
+          "median": 0.012649178504943848,
+          "p95": 0.26842761039733887,
+          "p99": 0.26871681213378906
+        },
+        "status_codes": {
+          "200": 50
+        }
+      },
+      "analysis": {
+        "passed": true,
+        "issues": [
+          "Low throughput: 9.12 requests/sec"
+        ],
+        "recommendations": [
+          "Consider implementing caching for frequently accessed endpoints",
+          "Review database query optimization",
+          "Check for N+1 query problems",
+          "Consider implementing connection pooling",
+          "Review server resource allocation"
+        ]
+      }
+    },
+    {
+      "test": "load",
+      "metrics": {
+        "scenario": "load",
+        "total_requests": 1000,
+        "successful_requests": 1000,
+        "failed_requests": 0,
+        "total_test_time": 11.413618564605713,
+        "requests_per_second": 87.61463284755787,
+        "response_times": {
+          "min": 0.004503726959228516,
+          "max": 0.3764760494232178,
+          "mean": 0.04739079189300537,
+          "median": 0.03441417217254639,
+          "p95": 0.09645199775695801,
+          "p99": 0.3740990161895752
+        },
+        "status_codes": {
+          "200": 1000
+        }
+      },
+      "analysis": {
+        "passed": true,
+        "issues": [],
+        "recommendations": [
+          "System performs well under tested load"
+        ]
+      }
+    },
+    {
+      "test": "stress",
+      "metrics": {
+        "scenario": "stress",
+        "total_requests": 3000,
+        "successful_requests": 1175,
+        "failed_requests": 1825,
+        "total_test_time": 60.27042078971863,
+        "requests_per_second": 49.77566044323623,
+        "response_times": {
+          "min": 0.004413127899169922,
+          "max": 0.46060681343078613,
+          "mean": 0.12479181736073595,
+          "median": 0.09722161293029785,
+          "p95": 0.32010698318481445,
+          "p99": 0.43458032608032227
+        },
+        "status_codes": {
+          "200": 1175
+        },
+        "error_types": {
+          "Cannot connect to host localhost:8000 ssl:default [The remote computer refused the network connection]": 1815,
+          "[WinError 10054] An existing connection was forcibly closed by the remote host": 8,
+          "[WinError 64] The specified network name is no longer available": 2
+        }
+      },
+      "analysis": {
+        "passed": false,
+        "issues": [
+          "Error rate (60.8%) exceeds 1% threshold"
+        ],
+        "recommendations": [
+          "Consider implementing caching for frequently accessed endpoints",
+          "Review database query optimization",
+          "Check for N+1 query problems",
+          "Consider implementing connection pooling",
+          "Review server resource allocation"
+        ]
+      }
+    }
+  ]
+}

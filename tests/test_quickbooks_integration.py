@@ -1,10 +1,17 @@
 #!/usr/bin/env python3
 """
-🧭 LOCATION: /CORA/tests/test_quickbooks_integration.py
-🎯 PURPOSE: Test QuickBooks integration OAuth flow and API interactions
-🔗 IMPORTS: pytest, requests, os
-📤 EXPORTS: Test functions for QuickBooks integration
+[LOCATION] LOCATION: /CORA/tests/test_quickbooks_integration.py
+[TARGET] PURPOSE: Test QuickBooks integration OAuth flow and API interactions
+[LINK] IMPORTS: pytest, requests, os
+[EXPORT] EXPORTS: Test functions for QuickBooks integration
 """
+
+import sys
+from pathlib import Path
+# Add parent directory to path for imports
+sys.path.insert(0, str(Path(__file__).parent.parent))
+# Fix import paths
+
 
 import pytest
 import requests
@@ -380,5 +387,5 @@ if __name__ == "__main__":
     if os.getenv("QUICKBOOKS_CLIENT_ID"):
         pytest.main([__file__, "-v"])
     else:
-        print("⚠️  QuickBooks environment variables not set. Skipping tests.")
+        print("[WARNING]  QuickBooks environment variables not set. Skipping tests.")
         print("📋 Set up environment variables following docs/quickbooks-test-env.md") 

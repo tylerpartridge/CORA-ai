@@ -1,0 +1,237 @@
+# CORA Access Controls Policy
+
+**Document Version:** 1.0  
+**Effective Date:** July 22, 2025  
+**Status:** Beta Implementation  
+**Classification:** Internal / Plaid Submission
+
+## 1. Executive Summary
+
+This Access Controls Policy defines how CORA manages and controls access to its AI-powered financial management platform. As a beta service currently processing financial data for early adopters, CORA implements a comprehensive access control framework based on JWT authentication and Role-Based Access Control (RBAC) principles.
+
+## 2. Access Control Principles
+
+### 2.1 Core Principles
+- **Least Privilege:** Users are granted only the minimum access required for their role
+- **Separation of Duties:** Critical functions require appropriate authorization levels
+- **Defense in Depth:** Multiple layers of access controls protect sensitive resources
+- **Zero Trust:** All access requests are verified, regardless of origin
+
+### 2.2 Access Control Governance
+- Access controls are reviewed quarterly by the development team
+- All access control changes require documentation and testing
+- Emergency access procedures are defined and audited
+- Access control effectiveness is monitored through audit logs
+
+## 3. User Access Management
+
+### 3.1 User Registration and Provisioning
+- New users register through secure forms with CSRF protection
+- Email verification is required for account activation
+- Initial access is limited to basic user role
+- Business profiles require additional verification steps
+
+### 3.2 User Authentication
+CORA implements JWT-based authentication with the following specifications:
+- **Token Type:** Bearer tokens (OAuth2 standard)
+- **Token Storage:** Secure client-side storage with HttpOnly cookies
+- **Token Expiration:** Configurable expiration (default: 24 hours)
+- **Token Refresh:** Automatic refresh mechanism for active sessions
+
+### 3.3 Password Management
+- Minimum password requirements enforced
+- Password hashing using secure algorithms
+- Password reset via secure email verification
+- No password reuse for last 5 passwords (planned enhancement)
+
+### 3.4 Account Deactivation
+- User-initiated account deactivation available
+- Admin-initiated deactivation for policy violations
+- Automatic deactivation after 90 days of inactivity (planned)
+- Data retention per privacy policy requirements
+
+## 4. Role-Based Access Control (RBAC)
+
+### 4.1 Role Definitions
+
+#### Standard User Role
+- Access to personal financial data
+- Create, read, update, delete own expenses
+- Connect personal bank accounts
+- Generate personal reports
+- Submit feedback
+
+#### Admin Role
+- All standard user permissions
+- Access to system administration functions
+- User management capabilities
+- System configuration access
+- Audit log review
+
+### 4.2 Authorization Implementation
+```python
+# Current implementation uses decorators for role enforcement
+@require_authentication  # Basic authentication check
+@require_ownership(resource_type="expense")  # Resource-level access
+@require_admin  # Admin-only functions
+```
+
+### 4.3 Resource-Level Access Control
+CORA implements object-level authorization to prevent IDOR vulnerabilities:
+- Expense records tied to user email
+- Business profiles owned by specific users
+- Feedback submissions linked to submitter
+- Bank connections isolated per user
+
+## 5. Authentication Mechanisms
+
+### 5.1 JWT Implementation
+- **Algorithm:** HS256 (HMAC with SHA-256)
+- **Claims:** User email, user ID, expiration, issued at
+- **Validation:** Token signature and expiration verified on each request
+- **Revocation:** Token blacklist for emergency revocation (planned)
+
+### 5.2 Session Management
+- Stateless authentication via JWT
+- No server-side session storage
+- Client-side token management with secure storage
+- Automatic logout on token expiration
+
+### 5.3 Multi-Factor Authentication (Planned)
+- Optional 2FA for user accounts
+- Mandatory 2FA for admin accounts
+- Support for TOTP authenticator apps
+- Backup codes for account recovery
+
+## 6. Access Review and Audit
+
+### 6.1 Access Reviews
+- **Frequency:** Quarterly for admin accounts, bi-annual for all users
+- **Process:** Automated report generation with manual review
+- **Documentation:** Review results stored in audit logs
+- **Remediation:** Immediate revocation of inappropriate access
+
+### 6.2 Audit Logging
+CORA maintains comprehensive audit logs including:
+- Authentication attempts (success/failure)
+- Authorization decisions
+- Resource access patterns
+- Administrative actions
+- Security events
+
+### 6.3 Monitoring and Alerting
+- Real-time monitoring of failed authentication attempts
+- Alert on privilege escalation attempts
+- Notification of unusual access patterns
+- Daily security event summaries
+
+## 7. Third-Party Access Controls
+
+### 7.1 API Integration Security
+- Plaid: Read-only access with encrypted tokens
+- Stripe: Restricted API keys with minimal permissions
+- QuickBooks: OAuth2 with scope limitations
+- All API keys stored encrypted and rotated regularly
+
+### 7.2 Third-Party Authentication
+- No third-party SSO currently implemented
+- OAuth2 used for financial service connections only
+- All third-party tokens encrypted at rest
+- Regular review of third-party permissions
+
+### 7.3 Vendor Access Management
+- No vendor access to production systems
+- Development access limited to authorized personnel
+- All access logged and reviewed
+- Vendor access agreements required
+
+## 8. Incident Response for Access Violations
+
+### 8.1 Detection and Classification
+- **Automated Detection:** Rate limiting, anomaly detection
+- **Severity Levels:** Critical (admin breach), High (user data), Medium (attempts)
+- **Response Time:** Critical - 1 hour, High - 4 hours, Medium - 24 hours
+
+### 8.2 Response Procedures
+1. **Immediate Actions:**
+   - Revoke compromised credentials
+   - Block suspicious IP addresses
+   - Preserve audit logs
+   
+2. **Investigation:**
+   - Determine scope of breach
+   - Identify affected users
+   - Collect forensic evidence
+   
+3. **Remediation:**
+   - Reset affected credentials
+   - Patch vulnerabilities
+   - Notify affected users per legal requirements
+   
+4. **Post-Incident:**
+   - Document lessons learned
+   - Update security controls
+   - Review and update policies
+
+### 8.3 Communication Protocol
+- Internal: Immediate notification to development team
+- Users: Notification within 72 hours for data breaches
+- Partners: Notification per contractual requirements
+- Regulators: As required by applicable laws
+
+## 9. Compliance and Standards
+
+### 9.1 Regulatory Alignment
+- GDPR: User consent and data access controls
+- CCPA: California resident privacy rights
+- PCI DSS: Not applicable (Stripe handles card data)
+- SOC 2: Working towards Type I compliance
+
+### 9.2 Security Standards
+- OWASP Top 10 mitigation strategies
+- NIST Cybersecurity Framework alignment
+- ISO 27001 principles (informal adoption)
+- Industry best practices for financial services
+
+## 10. Policy Maintenance
+
+### 10.1 Review Schedule
+- Annual comprehensive review
+- Quarterly security assessment updates
+- Ad-hoc updates for significant changes
+- Post-incident policy revisions
+
+### 10.2 Approval Process
+- Policy changes reviewed by development team
+- Major changes require CEO approval
+- All changes documented with rationale
+- Stakeholder communication for significant updates
+
+### 10.3 Training and Awareness
+- Developer training on secure coding practices
+- Admin training on access management
+- User education on account security
+- Regular security awareness updates
+
+## 11. Beta Considerations
+
+As CORA is currently in beta, the following considerations apply:
+- Enhanced monitoring of all access patterns
+- More frequent security reviews
+- Rapid iteration on security controls
+- Direct user feedback on security features
+- Preparation for scale with maintained security
+
+## 12. Contact Information
+
+For access control questions or security concerns:
+- **Email:** security@coraai.tech
+- **Development Team:** Tyler Lowe (CEO/Lead Developer)
+- **Response Time:** 24-48 hours for non-critical issues
+
+---
+
+**Document History:**
+- v1.0 - Initial version for Plaid submission (July 22, 2025)
+
+**Next Review Date:** October 22, 2025

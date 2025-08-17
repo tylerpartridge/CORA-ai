@@ -1,0 +1,78 @@
+============================================================
+       CORA CODE HEALTH DASHBOARD
+============================================================
+Generated: 2025-08-10 10:00:30
+
+OVERALL HEALTH SCORE: 72/100
+[FAIR] Significant improvements needed
+
+FILE STATISTICS
+----------------------------------------
+Total Files: 209
+Python Files: 209
+
+CODE STATISTICS
+----------------------------------------
+Total Lines: 62,055
+Code Lines: 48,576
+Comment Lines: 4,033
+Blank Lines: 9,446
+Comment Ratio: 8.3%
+
+DOCUMENTATION
+----------------------------------------
+Total Functions: 1079
+Documented: 920
+Undocumented: 159
+Documentation Coverage: 85.3%
+
+CODE QUALITY
+----------------------------------------
+Unused Imports: 333
+TODOs/FIXMEs: 14
+High Complexity Files: 136
+Medium Complexity Files: 18
+Low Complexity Files: 55
+
+ERROR HANDLING
+----------------------------------------
+Standardized Errors: 14
+Hardcoded Status Codes: 242
+Inconsistent Errors: 0
+
+TEST COVERAGE
+----------------------------------------
+Files with Tests: 9
+Files without Tests: 462
+
+TOP ISSUES
+----------------------------------------
+- routes\auth_coordinator.py: Possible hardcoded password
+- features\safe_refactoring\claude\code_health_dashboard.py: Unsafe eval/exec usage
+- features\safe_refactoring\claude\code_health_dashboard.py: Possible hardcoded password
+- features\safe_refactoring\claude\archived_routes\auth_coordinator_backup.py: Possible hardcoded password
+- features\safe_refactoring\claude\archived_routes\auth_coordinator_backup2.py: Possible hardcoded password
+
+RECOMMENDATIONS
+----------------------------------------
+[HIGH] Testing
+  Issue: Only 1.9% of files have tests
+  Action: Add tests for untested modules
+
+[MEDIUM] Code Cleanliness
+  Issue: 333 unused imports found
+  Action: Remove unused imports to improve code clarity
+
+[MEDIUM] Consistency
+  Issue: Only 5.5% of errors use standard constants
+  Action: Migrate remaining errors to use error_constants.py
+
+[MEDIUM] Maintainability
+  Issue: 136 files have high complexity
+  Action: Refactor complex functions to improve readability
+
+[LOW] Technical Debt
+  Issue: 14 TODOs/FIXMEs in codebase
+  Action: Create tickets for TODOs and address them systematically
+
+============================================================
