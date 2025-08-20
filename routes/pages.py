@@ -275,6 +275,16 @@ async def bank_connect_page(request: Request):
     """Bank connection page (Plaid) - Premium feature"""
     return request.app.state.templates.TemplateResponse("plaid_connect.html", {"request": request})
 
+@router.get("/forgot-password", response_class=HTMLResponse)
+async def forgot_password_page(request: Request):
+    """Password reset page"""
+    return request.app.state.templates.TemplateResponse("forgot_password.html", {"request": request})
+
+@router.get("/reset-password", response_class=HTMLResponse)
+async def reset_password_page(request: Request):
+    """Password reset page with token"""
+    return request.app.state.templates.TemplateResponse("forgot_password.html", {"request": request})
+
 # Redirect old dashboard URLs to unified dashboard
 @router.get("/plaid-dashboard")
 async def plaid_dashboard_redirect():

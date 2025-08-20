@@ -9,7 +9,7 @@
 from fastapi import APIRouter, HTTPException, Depends
 from fastapi.responses import JSONResponse
 from fastapi.security import OAuth2PasswordRequestForm
-from pydantic import BaseModel, validator
+from pydantic import BaseModel, validator, EmailStr
 from sqlalchemy.orm import Session
 from datetime import datetime, timedelta
 import re
@@ -76,6 +76,9 @@ class RegisterRequest(ValidatedBaseModel):
         if 'password' in values and v != values['password']:
             raise ValueError("Passwords do not match")
         return v
+
+class EmailRequest(BaseModel):
+    email: EmailStr
 
 class PasswordResetRequest(ValidatedBaseModel):
     email: str
@@ -546,6 +549,32 @@ async def request_password_reset(
             status_code=500,
             detail="Failed to process password reset request"
         )
+
+@auth_router.post("/forgot-password")
+async def forgot_password(
+    request: EmailRequest,
+    db: Session = Depends(get_db)
+):
+    """Request password reset link"""
+    try:
+        user = db.query(User).filter(User.email == request.email).first()
+        if user:
+            token = create_password_reset_token(db, user.id)
+            # In production, send email with token
+            # For now, return token in response
+            return {
+                "success": True,
+                "message": "Reset link sent to email",
+                "token": token  # Remove in production
+            }
+        # Don't reveal if email exists
+        return {
+            "success": True,
+            "message": "If email exists, reset link has been sent"
+        }
+    except Exception as e:
+        logger.error(f"Forgot password error: {e}")
+        raise HTTPException(status_code=500, detail="Failed to process request")
 
 @auth_router.post("/reset-password")
 async def reset_password(
