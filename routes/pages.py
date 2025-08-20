@@ -268,7 +268,12 @@ async def integrations_page():
 @router.get("/integrations/plaid", response_class=HTMLResponse)
 async def integrations_plaid_page(request: Request):
     """Serve the Plaid integration page"""
-    return request.app.state.templates.TemplateResponse("integrations/plaid.html", {"request": request})
+    return request.app.state.templates.TemplateResponse("plaid_connect.html", {"request": request})
+
+@router.get("/bank-connect", response_class=HTMLResponse)
+async def bank_connect_page(request: Request):
+    """Bank connection page (Plaid) - Premium feature"""
+    return request.app.state.templates.TemplateResponse("plaid_connect.html", {"request": request})
 
 # Redirect old dashboard URLs to unified dashboard
 @router.get("/plaid-dashboard")
@@ -387,28 +392,58 @@ async def onboarding_page(request: Request):
 
 # Removed unused onboarding/connect-bank and onboarding/success routes
 
+@router.get("/add-expense")
+async def add_expense_page(request: Request):
+    """Serve the add expense form"""
+    return request.app.state.templates.TemplateResponse("add_expense.html", {
+        "request": request
+    })
+
+@router.get("/simple")
+async def simple_expenses_page(request: Request):
+    """Ultra-simple expense tracker for testing"""
+    return request.app.state.templates.TemplateResponse("simple_expenses.html", {
+        "request": request
+    })
+
 @router.get("/expenses")
 async def expenses_page(request: Request):
     """Serve the expenses page with swipeable cards"""
-    # Template doesn't exist, return a basic HTML page
-    return HTMLResponse(content="""
-    <!DOCTYPE html>
-    <html>
-    <head>
-        <title>Expenses - CORA AI</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="/static/css/construction-theme.css">
-    </head>
-    <body>
-        <div style="padding: 20px; text-align: center;">
-            <h1 style="color: #FF9800;">Expenses</h1>
-            <p>Expense tracking coming soon!</p>
-            <a href="/dashboard" style="color: #FF9800;">Back to Dashboard</a>
-        </div>
-    </body>
-    </html>
-    """)
+    try:
+        # Try to get current user for authenticated experience
+        from dependencies.auth_hybrid import get_current_user_hybrid
+        from dependencies.database import get_db
+        
+        try:
+            current_user = await get_current_user_hybrid(request, None, next(get_db()))
+        except:
+            current_user = None
+            
+        return request.app.state.templates.TemplateResponse("expenses.html", {
+            "request": request,
+            "user": current_user
+        })
+    except Exception as e:
+        # Fallback if template is missing
+        print(f"Error loading expenses template: {e}")
+        return HTMLResponse(content="""
+        <!DOCTYPE html>
+        <html>
+        <head>
+            <title>Expenses - CORA AI</title>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <link rel="stylesheet" href="/static/css/construction-theme.css">
+        </head>
+        <body>
+            <div style="padding: 20px; text-align: center;">
+                <h1 style="color: #FF9800;">Expenses</h1>
+                <p>Error loading expense tracker. Please try again.</p>
+                <a href="/dashboard" style="color: #FF9800;">Back to Dashboard</a>
+            </div>
+        </body>
+        </html>
+        """)
 
 @router.get("/reports")
 async def reports_page(request: Request):

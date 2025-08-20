@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Connect Your Bank - CORA</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #1a1a1a;
+            color: #fff;
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        h1 {
+            color: #FF9800;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        
+        .card {
+            background: #2a2a2a;
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 20px;
+            border: 2px solid #333;
+        }
+        
+        .connect-button {
+            background: #FF9800;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 18px;
+            border-radius: 8px;
+            cursor: pointer;
+            width: 100%;
+            margin: 20px 0;
+            transition: all 0.3s;
+        }
+        
+        .connect-button:hover {
+            background: #F57C00;
+            transform: translateY(-2px);
+        }
+        
+        .connect-button:disabled {
+            background: #666;
+            cursor: not-allowed;
+        }
+        
+        .status {
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            display: none;
+        }
+        
+        .status.success {
+            background: #4CAF50;
+            display: block;
+        }
+        
+        .status.error {
+            background: #f44336;
+            display: block;
+        }
+        
+        .status.info {
+            background: #2196F3;
+            display: block;
+        }
+        
+        .account {
+            background: #333;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 10px 0;
+        }
+        
+        .account-name {
+            font-weight: bold;
+            color: #FF9800;
+        }
+        
+        .sync-button {
+            background: #4CAF50;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            float: right;
+        }
+        
+        .back-link {
+            color: #FF9800;
+            text-decoration: none;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <a href="/dashboard" class="back-link">← Back to Dashboard</a>
+    
+    <h1>🏦 Connect Your Bank Account</h1>
+    
+    <div class="card">
+        <h2>Automatic Transaction Import</h2>
+        <p style="margin: 20px 0; color: #aaa;">
+            Connect your bank account to automatically import and categorize transactions. 
+            Your banking credentials are never stored - we use bank-level encryption through Plaid.
+        </p>
+        
+        <button id="connectBtn" class="connect-button" onclick="startPlaidLink()">
+            Connect Bank Account
+        </button>
+        
+        <div id="status" class="status"></div>
+    </div>
+    
+    <div class="card" id="accountsCard" style="display: none;">
+        <h2>Connected Accounts</h2>
+        <div id="accountsList"></div>
+    </div>
+    
+    <!-- Plaid Link SDK -->
+    <script src="https://cdn.plaid.com/link/v2/stable/link-initialize.js"></script>
+    
+    <script>
+        let linkHandler = null;
+        
+        // Get auth token
+        function getAuthToken() {
+            return localStorage.getItem('access_token') || 
+                   document.cookie.split('; ').find(row => row.startsWith('access_token='))?.split('=')[1];
+        }
+        
+        // Show status message
+        function showStatus(message, type) {
+            const status = document.getElementById('status');
+            status.className = 'status ' + type;
+            status.textContent = message;
+            status.style.display = 'block';
+            
+            if (type === 'success' || type === 'info') {
+                setTimeout(() => {
+                    status.style.display = 'none';
+                }, 5000);
+            }
+        }
+        
+        // Start Plaid Link
+        async function startPlaidLink() {
+            const btn = document.getElementById('connectBtn');
+            btn.disabled = true;
+            btn.textContent = 'Loading...';
+            
+            try {
+                const token = getAuthToken();
+                if (!token) {
+                    window.location.href = '/login';
+                    return;
+                }
+                
+                // Get link token from backend
+                const response = await fetch('/api/plaid/link-token', {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Content-Type': 'application/json'
+                    }
+                });
+                
+                if (!response.ok) {
+                    throw new Error('Failed to initialize bank connection');
+                }
+                
+                const data = await response.json();
+                
+                // Initialize Plaid Link
+                linkHandler = Plaid.create({
+                    token: data.link_token,
+                    onSuccess: async (public_token, metadata) => {
+                        // Exchange public token for access token
+                        await exchangeToken(public_token);
+                    },
+                    onExit: (err, metadata) => {
+                        btn.disabled = false;
+                        btn.textContent = 'Connect Bank Account';
+                        
+                        if (err) {
+                            showStatus('Connection cancelled', 'error');
+                        }
+                    },
+                    onEvent: (eventName, metadata) => {
+                        console.log('Plaid event:', eventName);
+                    }
+                });
+                
+                // Open Link
+                linkHandler.open();
+                
+            } catch (error) {
+                console.error('Plaid error:', error);
+                showStatus('Failed to start bank connection', 'error');
+                btn.disabled = false;
+                btn.textContent = 'Connect Bank Account';
+            }
+        }
+        
+        // Exchange public token
+        async function exchangeToken(publicToken) {
+            try {
+                const token = getAuthToken();
+                const response = await fetch('/api/plaid/exchange-token', {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ public_token: publicToken })
+                });
+                
+                if (!response.ok) {
+                    throw new Error('Token exchange failed');
+                }
+                
+                const data = await response.json();
+                showStatus('Bank account connected successfully!', 'success');
+                
+                // Reload accounts
+                loadAccounts();
+                
+                // Reset button
+                const btn = document.getElementById('connectBtn');
+                btn.disabled = false;
+                btn.textContent = 'Connect Another Account';
+                
+            } catch (error) {
+                console.error('Exchange error:', error);
+                showStatus('Failed to complete connection', 'error');
+            }
+        }
+        
+        // Load connected accounts
+        async function loadAccounts() {
+            try {
+                const token = getAuthToken();
+                const response = await fetch('/api/plaid/accounts', {
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                });
+                
+                if (!response.ok) {
+                    throw new Error('Failed to load accounts');
+                }
+                
+                const data = await response.json();
+                
+                if (data.accounts && data.accounts.length > 0) {
+                    displayAccounts(data.accounts);
+                }
+                
+            } catch (error) {
+                console.error('Load accounts error:', error);
+            }
+        }
+        
+        // Display accounts
+        function displayAccounts(accounts) {
+            const card = document.getElementById('accountsCard');
+            const list = document.getElementById('accountsList');
+            
+            list.innerHTML = accounts.map(account => `
+                <div class="account">
+                    <span class="account-name">${account.name}</span>
+                    <button class="sync-button" onclick="syncTransactions('${account.account_id}')">
+                        Sync Transactions
+                    </button>
+                    <div style="clear: both; padding-top: 10px;">
+                        <small>Type: ${account.type} | Balance: $${account.balances?.current || 0}</small>
+                    </div>
+                </div>
+            `).join('');
+            
+            card.style.display = 'block';
+        }
+        
+        // Sync transactions for account
+        async function syncTransactions(accountId) {
+            showStatus('Syncing transactions...', 'info');
+            
+            try {
+                const token = getAuthToken();
+                const response = await fetch('/api/plaid/sync', {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ account_id: accountId })
+                });
+                
+                if (!response.ok) {
+                    throw new Error('Sync failed');
+                }
+                
+                const data = await response.json();
+                showStatus(`Synced ${data.added || 0} new transactions`, 'success');
+                
+            } catch (error) {
+                console.error('Sync error:', error);
+                showStatus('Failed to sync transactions', 'error');
+            }
+        }
+        
+        // Check auth and load accounts on page load
+        window.addEventListener('DOMContentLoaded', () => {
+            const token = getAuthToken();
+            if (!token) {
+                window.location.href = '/login';
+                return;
+            }
+            
+            loadAccounts();
+        });
+    </script>
+</body>
+</html>
