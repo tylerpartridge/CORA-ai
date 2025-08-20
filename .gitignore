@@ -6,7 +6,23 @@ __pycache__/
 *.pyc
 venv/
 *.log
+nul
+NUL
+*.stackdump
 service_credentials.json
 backups/
 *.backup
 node_modules/
+.mind/
+.ai/
+.private/
+.claude/
+.archive/ 
+/artifacts/
+artifacts/*.json
+"# Development files - too large for git" 
+"AI_DISCUSSION_SPACE.md" 
+"AI_WORK_LOG.md" 
+"*.md" 
+"!README.md" 
+"!PRIORITY.md" 
