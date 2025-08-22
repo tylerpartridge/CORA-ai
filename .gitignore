@@ -24,3 +24,6 @@ artifacts/*.json
 "*.md" 
 "!README.md" 
 "!PRIORITY.md" 
+
+# local backups
+.gitignore.bak.*
