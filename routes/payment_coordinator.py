@@ -179,11 +179,7 @@ class SubscriptionUpdate(BaseModel):
     new_plan: Optional[str] = Field(None, pattern="^(free|standard|premium|enterprise)$")
     reason: Optional[str] = Field(None, max_length=500)
     
-class PaymentWebhook(BaseModel):
-    event_type: str
-    payment_id: str
-    timestamp: datetime
-    data: Dict[str, Any]
+# PaymentWebhook model removed - using raw Stripe events instead
 
 @payment_router.post("/checkout")
 async def create_checkout_session(
@@ -462,74 +458,104 @@ async def update_subscription(
 @payment_router.post("/webhook")
 async def payment_webhook(
     request: Request,
-    webhook_data: PaymentWebhook,
     db: Session = Depends(get_db)
 ):
-    """Handle payment provider webhooks with signature verification"""
+    """Handle Stripe webhooks with signature verification"""
     try:
         # Get raw body for signature verification
         body = await request.body()
         
-        # Prefer Stripe signature header when configured
-        signature = request.headers.get("Stripe-Signature") or request.headers.get("X-Webhook-Signature", "")
+        # Get Stripe signature header
+        signature = request.headers.get("Stripe-Signature", "")
         
-        # Verify webhook signature
-        if not verify_webhook_signature(body, signature, WEBHOOK_SECRET):
-            logger.error("Invalid webhook signature")
-            raise InvalidWebhookSignature("Webhook signature verification failed")
+        if not signature:
+            logger.error("No Stripe signature header found")
+            raise HTTPException(status_code=400, detail="Missing Stripe signature")
         
-        # Attempt to parse Stripe event if available
-        event_type = webhook_data.event_type
+        # Verify webhook signature and construct event
         event = None
-        if stripe and signature and WEBHOOK_SECRET:
+        if stripe and WEBHOOK_SECRET:
             try:
-                event = stripe.Webhook.construct_event(payload=body, sig_header=signature, secret=WEBHOOK_SECRET)
-                event_type = event.get("type", event_type)
-            except Exception as e:
-                logger.warning(f"Stripe event parsing failed, using payload type: {e}")
+                event = stripe.Webhook.construct_event(
+                    payload=body, 
+                    sig_header=signature, 
+                    secret=WEBHOOK_SECRET
+                )
+            except ValueError as e:
+                logger.error(f"Invalid payload: {e}")
+                raise HTTPException(status_code=400, detail="Invalid payload")
+            except stripe.error.SignatureVerificationError as e:
+                logger.error(f"Invalid signature: {e}")
+                raise HTTPException(status_code=400, detail="Invalid signature")
+        else:
+            logger.error("Stripe not configured or webhook secret missing")
+            raise HTTPException(status_code=500, detail="Webhook configuration error")
+        
+        # Extract event data
+        event_type = event.get("type")
+        event_id = event.get("id")
+        event_data = event.get("data", {}).get("object", {})
         
         # Log webhook (without sensitive data)
-        logger.info(f"Webhook received: {event_type} for payment {webhook_data.payment_id}")
+        logger.info(f"Webhook received: {event_type} (ID: {event_id})")
         
         # Process based on event type
         if event_type in ("payment_intent.succeeded", "checkout.session.completed", "invoice.payment_succeeded"):
-            # Update user subscription status
-            sub_data = event['data']['object']
-            sub = db.query(Subscription).filter(Subscription.user_email == sub_data.get('customer_email')).first()
-            if not sub:
-                sub = Subscription(user_email=sub_data.get('customer_email'))
-                db.add(sub)
-            sub.status = "active"
-            sub.plan_name = sub_data.get('plan', 'standard')
-            sub.current_period_start = datetime.fromtimestamp(sub_data['current_period_start'])
-            sub.current_period_end = datetime.fromtimestamp(sub_data['current_period_end'])
-            sub.stripe_subscription_id = sub_data['id']
-            db.commit()
+            logger.info(f"Processing successful payment: {event_id}")
+            
+            # Extract customer info from event data
+            customer_email = event_data.get('customer_email') or event_data.get('receipt_email')
+            payment_intent_id = event_data.get('id') or event_data.get('payment_intent')
+            
+            # Update payment status if exists
+            if payment_intent_id:
+                payment = db.query(Payment).filter(Payment.stripe_payment_intent_id == payment_intent_id).first()
+                if payment:
+                    payment.status = "succeeded"
+                    db.commit()
+                    logger.info(f"Updated payment {payment_intent_id} to succeeded")
+            
+            # Handle subscription activation if applicable
+            if customer_email:
+                sub = db.query(Subscription).filter(Subscription.user_email == customer_email).first()
+                if sub:
+                    sub.status = "active"
+                    db.commit()
+                    logger.info(f"Activated subscription for {customer_email}")
         
         elif event_type in ("payment_intent.payment_failed", "invoice.payment_failed"):
-            logger.warning(f"Payment failed: {webhook_data.payment_id}")
-            payment_id = webhook_data.data.get("payment_id")
-            # Update payment status in DB to 'failed'
-            payment = db.query(Payment).filter(Payment.stripe_payment_intent_id == payment_id).first()
-            if payment:
-                payment.status = "failed"
-                db.commit()
+            logger.warning(f"Payment failed: {event_id}")
+            payment_intent_id = event_data.get('id') or event_data.get('payment_intent')
+            
+            if payment_intent_id:
+                payment = db.query(Payment).filter(Payment.stripe_payment_intent_id == payment_intent_id).first()
+                if payment:
+                    payment.status = "failed"
+                    db.commit()
+                    logger.info(f"Updated payment {payment_intent_id} to failed")
         
         elif event_type in ("customer.subscription.deleted", "customer.subscription.cancelled"):
-            logger.info(f"Subscription cancelled: {webhook_data.payment_id}")
-            sub_id = webhook_data.data.get("subscription_id")
-            sub = db.query(Subscription).filter(Subscription.stripe_subscription_id == sub_id).first()
-            if sub:
-                sub.status = "canceled"
-                sub.canceled_at = datetime.utcnow()
-                db.commit()
+            logger.info(f"Subscription cancelled: {event_id}")
+            subscription_id = event_data.get('id')
+            
+            if subscription_id:
+                sub = db.query(Subscription).filter(Subscription.stripe_subscription_id == subscription_id).first()
+                if sub:
+                    sub.status = "canceled"
+                    sub.canceled_at = datetime.utcnow()
+                    db.commit()
+                    logger.info(f"Cancelled subscription {subscription_id}")
+        
+        else:
+            logger.info(f"Unhandled webhook event type: {event_type}")
         
         # Always return 200 to acknowledge receipt
-        return {"status": "received"}
+        return {"status": "received", "event_type": event_type, "event_id": event_id}
         
-    except InvalidWebhookSignature as e:
-        raise HTTPException(status_code=401, detail=str(e))
+    except HTTPException:
+        # Re-raise HTTP exceptions (400, 401, 500)
+        raise
     except Exception as e:
         logger.error(f"Webhook processing error: {str(e)}")
         # Still return 200 to prevent retries for processing errors
-        return {"status": "error", "message": "Processing failed"}
+        return {"status": "error", "message": "Processing failed", "event_type": event_type}
