@@ -119,6 +119,33 @@
         transition: opacity 0.3s ease;
     }
     .password-toggle:hover { opacity: 0.8; }
+    
+    /* Remember me checkbox styling */
+    .form-check {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+    .form-check-input {
+        background: rgba(45, 55, 72, 0.95) !important;
+        border: 2px solid rgba(255,152,0,0.3) !important;
+        width: 1rem;
+        height: 1rem;
+        margin: 0 !important;
+    }
+    .form-check-input:checked {
+        background: var(--construction-orange) !important;
+        border-color: var(--construction-orange) !important;
+    }
+    .form-check-input:focus {
+        border-color: var(--construction-orange) !important;
+        box-shadow: 0 0 0 0.2rem rgba(255,152,0,0.25) !important;
+    }
+    .form-check-label {
+        cursor: pointer;
+        user-select: none;
+    }
+    
     @media (max-width: 768px) { .signup-container { padding: 1.5rem; } h1 { font-size: 1.5rem; } }
     </style>
 {% endblock %}
@@ -163,6 +190,14 @@
                         </div>
                         <a href="/forgot-password" class="forgot-password">Forgot password?</a>
                     </div>
+                    
+                    <div class="form-check mb-3">
+                        <input type="checkbox" class="form-check-input" id="remember" name="remember" value="true">
+                        <label class="form-check-label" for="remember" style="color: var(--text-secondary); font-size: 0.875rem;">
+                            Keep me logged in for 30 days
+                        </label>
+                    </div>
+                    
                     <button type="submit" class="btn-signup" id="submitBtn">
                         <span class="btn-text">SIGN IN TO DASHBOARD →</span>
                     <span class="btn-loading"><span class="spinner-border spinner-border-sm me-2"></span>Signing you in...</span>
@@ -223,6 +258,7 @@ document.getElementById('loginForm').addEventListener('submit', async function(e
     const submitBtn = document.getElementById('submitBtn');
     const email = document.getElementById('email').value;
     const password = document.getElementById('password').value;
+    const remember = document.getElementById('remember').checked;
     
     submitBtn.classList.add('loading');
     submitBtn.disabled = true;
@@ -233,7 +269,7 @@ document.getElementById('loginForm').addEventListener('submit', async function(e
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ email, password })
+            body: JSON.stringify({ email, password, remember_me: remember })
         });
         
         const data = await response.json();

@@ -170,20 +170,27 @@ async def login_json(
                 detail="Please verify your email before logging in."
             )
         
-        # Create access token
-        access_token_expires = timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
+        # Create access token with conditional expiry
+        if request.remember_me:
+            access_token_expires = timedelta(days=30)
+        else:
+            access_token_expires = timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
+            
         access_token = create_access_token(
             data={"sub": user.email}, expires_delta=access_token_expires
         )
         
         # Successful login
 
+        # Calculate expiry time in seconds for cookie and response
+        expires_in_seconds = int(access_token_expires.total_seconds())
+
         # Set secure HttpOnly cookie for browser-based auth
         response = JSONResponse({
             "success": True,
             "message": "Login successful",
             "redirect": "/dashboard",
-            "expires_in": ACCESS_TOKEN_EXPIRE_MINUTES * 60
+            "expires_in": expires_in_seconds
         })
         response.set_cookie(
             key="access_token",
@@ -191,7 +198,7 @@ async def login_json(
             httponly=True,
             secure=(not config.DEBUG),
             samesite="lax",
-            max_age=ACCESS_TOKEN_EXPIRE_MINUTES * 60,
+            max_age=expires_in_seconds,
             path="/"
         )
         return response

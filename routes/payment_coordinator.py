@@ -496,6 +496,17 @@ async def payment_webhook(
         event_id = event.get("id")
         event_data = event.get("data", {}).get("object", {})
         
+        # Idempotency check - prevent double processing
+        from models.database import WebhookEvent
+        existing_event = db.query(WebhookEvent).filter(WebhookEvent.stripe_event_id == event_id).first()
+        if existing_event:
+            logger.info(f"Webhook already processed: {event_type} (ID: {event_id})")
+            return {"status": "already_processed", "event_id": event_id}
+        
+        # Record event for idempotency
+        webhook_record = WebhookEvent(stripe_event_id=event_id, event_type=event_type, processed_at=datetime.utcnow())
+        db.add(webhook_record)
+        
         # Log webhook (without sensitive data)
         logger.info(f"Webhook received: {event_type} (ID: {event_id})")
         

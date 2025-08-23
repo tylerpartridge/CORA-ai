@@ -1,11 +1,31 @@
+<bootup-config>
+version: 1
+runner: tools/bootup.sh
+index_primary: docs/bootup/_index.yml
+index_fallback: docs/bootup/_index.list
+outputs:
+  cards_dir: docs/awareness/cards
+  snapshot: docs/awareness/SNAPSHOT.md
+  report: docs/awareness/BOOTUP_REPORT.json
+protect:
+  immutable:
+    - BOOTUP.md
+    - docs/bootup/_index.yml
+    - docs/bootup/_index.list
+  append_only:
+    - AI_WORK_LOG.md
+    - AI_DISCUSSION_SPACE.md
+</bootup-config>
+
 # 🚀 SESSION BOOTUP
 
 ## Quick Start (Say This)
 
 I'm starting a new CORA session. Please:
 1. Read BOOTUP.md for session context
-2. Read state files first: NOW.md, STATUS.md, NEXT.md, docs/HANDOVER_ACTIVE.md
-3. Then read enforcement docs: docs/SYSTEM_RULES.md, docs/PREFLIGHT_CHECKLIST.md, docs/FILE_OPERATION_WORKFLOW.md
+2. **READ MVP_REQUIREMENTS.md FIRST** - This is the ONLY priority until launch
+3. Read state files: NOW.md, STATUS.md, NEXT.md, docs/HANDOVER_ACTIVE.md
+4. Then read enforcement docs: docs/SYSTEM_RULES.md, docs/PREFLIGHT_CHECKLIST.md, docs/FILE_OPERATION_WORKFLOW.md
 4. Skip - session tracking not yet implemented
 5. Give me a summary using this format:
    - Last Task: [from NOW.md]
@@ -29,6 +49,7 @@ I'm starting a new CORA session. Please:
 ## Full Bootup Process
 
 ### 1. Read Active State Files
+- **MVP_REQUIREMENTS.md** - 🗿 THE ONLY THING THAT MATTERS (65 items to launch)
 - **NOW.md** - Current work in progress
 - **STATUS.md** - System health status
 - **NEXT.md** - Task queue and priorities

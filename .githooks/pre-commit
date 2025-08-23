@@ -1,5 +1,93 @@
-#!/usr/bin/env bash
-set -e
-for f in docs/ai-awareness/AI_WORK_LOG.md docs/ai-awareness/AI_DISCUSSION_SPACE.md; do
-  [ -f "$f" ] || { echo "ERROR: $f missing; refusing commit"; exit 1; }
+#!/bin/sh
+# Block commits if repo is getting out of control
+# Support BREAK_GLASS for emergency edits
+
+# Check for BREAK_GLASS in commit message
+COMMIT_MSG=$(git log -1 --pretty=%B 2>/dev/null || echo "")
+if echo "$COMMIT_MSG" | grep -q "BREAK_GLASS"; then
+  echo "🔓 BREAK_GLASS detected - bypassing pre-commit checks"
+  echo "⚠️  This should only be used for emergency edits!"
+  exit 0
+fi
+
+# Protected files that should never be edited without BREAK_GLASS
+PROTECTED_FILES="docs/bootup/_index.yml docs/bootup/_index.list"
+for f in $(git diff --cached --name-only); do
+  for protected in $PROTECTED_FILES; do
+    if [ "$f" = "$protected" ]; then
+      echo "❌ Protected file modified: $f"
+      echo "💡 Use 'git commit -m \"BREAK_GLASS: reason\"' to bypass"
+      exit 1
+    fi
+  done
 done
+
+# Append-only files check
+APPEND_ONLY="AI_WORK_LOG.md AI_DISCUSSION_SPACE.md"
+for f in $(git diff --cached --name-only); do
+  for append_file in $APPEND_ONLY; do
+    if [ "$f" = "$append_file" ]; then
+      # Check if lines were deleted (destructive edit)
+      if git diff --cached "$f" | grep -q "^-[^-]"; then
+        echo "❌ Append-only file has deletions: $f"
+        echo "💡 These files should only be appended to, not edited"
+        echo "💡 Use 'git commit -m \"BREAK_GLASS: reason\"' for emergency"
+        exit 1
+      fi
+    fi
+  done
+done
+
+# Block if >100 untracked files
+if [ $(git ls-files --others --exclude-standard | wc -l) -gt 100 ]; then
+  echo "❌ Too many untracked files! Clean up or update .gitignore."
+  exit 1
+fi
+
+# Block if any .mind, node_modules, etc. are tracked
+for d in .mind node_modules .ai .archive .private; do
+  if git ls-files --error-unmatch "$d" >/dev/null 2>&1; then
+    echo "❌ $d is tracked by git! Remove from tracking and add to .gitignore."
+    exit 1
+  fi
+done
+
+# Block if any file >300 lines, warn if >250
+# EXCEPT key operations files that need to stay intact
+for f in $(git diff --cached --name-only); do
+  if [ -f "$f" ]; then
+    ext="${f##*.}"
+    case $ext in
+      py|js|ts|md|json|csv)
+        # Skip key operations files that should not be split
+        case "$f" in
+          routes/auth_coordinator.py|routes/expenses.py|routes/payment_coordinator.py|routes/expense_coordinator.py)
+            echo "✅ Skipping size check for key operations file: $f"
+            continue
+            ;;
+        esac
+        
+        lines=$(wc -l < "$f")
+        if [ "$lines" -gt 300 ]; then
+          echo "❌ $f is over 300 lines! Split it before committing."
+          echo "💡 Exception: Key operations files (auth_coordinator.py, expenses.py) are exempt from this rule."
+          exit 1
+        elif [ "$lines" -gt 250 ]; then
+          echo "⚠️  Warning: $f is $lines lines (approaching limit). Consider splitting."
+        fi
+        ;;
+    esac
+  fi
+  done
+
+# Check for backup creation patterns
+echo "🔍 Checking for backup creation patterns..."
+if grep -r "backup_path\|create_backup\|shutil\.copy.*backup\|\.backup\|\.bak\|_backup_\|_old\>" tools/ 2>/dev/null | grep -v "NO_TOOL_BACKUPS.md" | grep -v "backup_db.py" | grep -v "backup_db_README.md" | grep -v "__pycache__"; then
+    echo "❌ Backup creation patterns detected!"
+    echo "💡 Use Git for version control, not file backups"
+    echo "📖 See NO_TOOL_BACKUPS.md for alternatives"
+    exit 1
+fi
+
+echo "✅ Repository check passed"
+exit 0

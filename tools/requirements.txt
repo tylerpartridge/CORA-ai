@@ -1,0 +1,17 @@
+# Requirements for CORA AI Awareness Engines
+# Generated: 2025-08-23
+
+# The only external dependency is PyYAML for config files
+pyyaml>=6.0
+
+# All other functionality uses Python stdlib:
+# - pathlib (file operations)
+# - subprocess (git commands)
+# - datetime (timestamps)
+# - hashlib (checksums)
+# - json (manifests)
+# - gzip (compression)
+# - shutil (file operations)
+# - argparse (CLI)
+# - sys, os (system operations)
+# - textwrap, re (text processing)

@@ -20,10 +20,26 @@ node_modules/
 .archive/ 
 /artifacts/
 artifacts/*.json
-"# Development files - too large for git" 
-"*.md" 
-"!README.md" 
-"!PRIORITY.md" 
+# Large files - backed up separately
+# (Removed - these need to be tracked for awareness system)
 
-# local backups
-.gitignore.bak.*
+# Backup directories (stored elsewhere)
+/var/backups/
+backups/*.protected
+.backup/
+
+# Temporary backup files
+*.backup
+*.bak
+*.tmp
+SHA256SUMS.txt
+
+# Keep essential docs
+!README.md
+!PRIORITY.md
+!BACKUP_RESTORE.md
+!MVP_REQUIREMENTS.md
+!BOOTUP.md
+!HANDOFF.md
+!HANDOVER_ACTIVE.md
+!DO_NOT_DELETE.md 

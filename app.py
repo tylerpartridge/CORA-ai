@@ -823,6 +823,6 @@ async def resend_verification_endpoint(email: str, db: Session = Depends(get_db)
 
 if __name__ == "__main__":
     import uvicorn
-    port = 8001
+    port = int(os.getenv("PORT", 8001))
     # Single worker for easier debugging and Ctrl+C handling
     uvicorn.run("app:app", host="0.0.0.0", port=port, reload=False, workers=1)
