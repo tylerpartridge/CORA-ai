@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+set -e
+for f in docs/ai-awareness/AI_WORK_LOG.md docs/ai-awareness/AI_DISCUSSION_SPACE.md; do
+  [ -f "$f" ] || { echo "ERROR: $f missing; refusing commit"; exit 1; }
+done
