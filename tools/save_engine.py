@@ -171,7 +171,7 @@ class SaveEngine:
     
     def create_bundle(self, checkpoint_id: str) -> pathlib.Path:
         """Create progress bundle with all artifacts"""
-        timestamp = datetime.datetime.utcnow()
+        timestamp = datetime.datetime.now(datetime.UTC)
         date_parts = timestamp.strftime("%Y/%m/%d").split('/')
         
         # Create bundle directory
@@ -283,7 +283,7 @@ class SaveEngine:
     
     def update_logs(self, checkpoint_id: str, bundle_path: pathlib.Path):
         """Update AI_WORK_LOG and HANDOFF atomically"""
-        timestamp = datetime.datetime.utcnow().isoformat() + "Z"
+        timestamp = datetime.datetime.now(datetime.UTC).isoformat() + "Z"
         
         # Update AI_WORK_LOG.md (append-only)
         log_path = self.root / "AI_WORK_LOG.md"
@@ -337,7 +337,7 @@ class SaveEngine:
             self.lock_file.touch()
             
             # Generate checkpoint ID
-            timestamp = datetime.datetime.utcnow().strftime("%Y%m%d-%H%M%S")
+            timestamp = datetime.datetime.now(datetime.UTC).strftime("%Y%m%d-%H%M%S")
             checkpoint_id = f"ckpt-{timestamp}"
             
             # Create bundle
