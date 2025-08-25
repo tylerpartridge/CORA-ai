@@ -1,0 +1,38 @@
+{
+  "userEmail": "contact.cora.ai@gmail.com",
+  "businessProfile": {
+    "businessName": "Bill's plumbing Business",
+    "businessType": "plumbing",
+    "industry": "Construction",
+    "monthlyRevenueRange": "$5,000-$20,000"
+  },
+  "detailedOnboardingData": {
+    "name": "Bill",
+    "yearsInBusiness": "establishing",
+    "businessSize": "solo",
+    "serviceArea": "local",
+    "customerType": [
+      "residential",
+      "commercial"
+    ],
+    "trackingMethod": [
+      "paper",
+      "spreadsheets"
+    ],
+    "mainChallenge": [
+      "profit_tracking",
+      "paperwork",
+      "taxes",
+      "time"
+    ],
+    "busySeason": [
+      "spring",
+      "summer",
+      "fall"
+    ],
+    "businessGoal": [
+      "increase_profits"
+    ]
+  },
+  "createdAt": "2025-08-17T13:49:40.383829"
+}
