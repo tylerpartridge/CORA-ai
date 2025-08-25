@@ -43,3 +43,8 @@ SHA256SUMS.txt
 !HANDOFF.md
 !HANDOVER_ACTIVE.md
 !DO_NOT_DELETE.md 
+
+# runtime-only AI logs
+/AI_WORK_LOG.md
+/AI_DISCUSSION_SPACE.runtime.md
+
