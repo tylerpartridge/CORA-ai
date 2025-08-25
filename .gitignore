@@ -48,3 +48,6 @@ SHA256SUMS.txt
 /AI_WORK_LOG.md
 /AI_DISCUSSION_SPACE.runtime.md
 
+/cora.db
+/cora.db-wal
+/cora.db-shm
