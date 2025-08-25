@@ -8,45 +8,51 @@ FastAPI monolith served by uvicorn (systemd) on a DigitalOcean Ubuntu host. ngin
 ## Domains & TLS
 - Domain: coraai.tech
 - TLS: nginx active on :443
+  - Certificate path: `/etc/ssl/certs/coraai.tech.crt`
+  - Key path: `/etc/ssl/private/coraai.tech.key`
+  - Current validity: notBefore=Jun 28 2025, notAfter=Sep 26 2025  
+    👉 Renew before **Sep 19, 2025** to be safe.
 
 ## Hosts / OS
 - Ubuntu 24.10 (prod)
-- System service: cora.service (uvicorn)
+- System service: `cora.service` (uvicorn)
 
 ## Runtime / Ports
 - App: 0.0.0.0:8000 (uvicorn via systemd)
-- Frontend proxy: nginx on :80 and :443 → proxy to :8000 (see nginx include with upstream 8000)
+- Frontend proxy: nginx on :80 and :443
 
-## Data / DB
-- Current DB: **SQLite** (default) → `sqlite:///./cora.db`
-- Client binaries present: `psql 16.9` (not used), `sqlite3 3.46.1` (used by scripts)
+## Runtime / Proxy (nginx → uvicorn)
+- **nginx**: :80 / :443
+- **app**: uvicorn on 127.0.0.1:8000 (via `cora.service`)
+- **vhost file**: `/etc/nginx/sites-available/coraai.tech` (enabled at `/etc/nginx/sites-enabled/coraai.tech`)
+- **active snippet**:
 
-## Env & Secrets
-- `/var/www/cora/.env`
-  - REQUIRED: SECRET_KEY, OPENAI_API_KEY
-  - Optional: SENTRY_DSN, SENDGRID, STRIPE, PLAID
+server {
+listen 80;
+server_name coraai.tech www.coraai.tech
+;
+location / {
+proxy_pass http://127.0.0.1:8000
+;
+proxy_set_header Host $host;
+proxy_set_header X-Real-IP $remote_addr;
+proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+proxy_set_header X-Forwarded-Proto $scheme;
+}
+}
 
-## Deploy / Services
-- Service unit: `/etc/systemd/system/cora.service` (+ override)
-- Start/stop: `systemctl (re)start cora.service`
-- Health: `curl -sS localhost:8000/health`
-
-## Backups & Saves
-- Timers: `cora-save.timer` (15m), `cora-backup.timer` (03:15 UTC)
-- Manual: `cora save` and `cora-health`
-
-## Monitoring
-- Prometheus client, psutil metrics hooks
-- (TODO) Sentry DSN and external uptime checks
-
-## Runbooks (short)
-- App down: `journalctl -u cora.service -n 100 -o cat`, fix, `systemctl restart cora.service`
-- Port check: `ss -ltnp | grep -E ':8000|:80|:443'`
-- Nginx: `systemctl status nginx`, reload after changes: `nginx -t && systemctl reload nginx`
-
-## TODO (carry-forward)
-- Confirm nginx site config checked into repo (proxy → :8000), document file path(s)
-- SPF/DKIM/DMARC records for email provider
-- Decide DB future (stick with SQLite or move to Postgres) + backup/restore policy
-- Enable Sentry + uptime monitor
-- (Optional) blue/green or zero-downtime restart pattern
+server {
+listen 443 ssl;
+server_name coraai.tech www.coraai.tech
+;
+ssl_certificate /etc/ssl/certs/coraai.tech.crt;
+ssl_certificate_key /etc/ssl/private/coraai.tech.key;
+location / {
+proxy_pass http://127.0.0.1:8000
+;
+proxy_set_header Host $host;
+proxy_set_header X-Real-IP $remote_addr;
+proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+proxy_set_header X-Forwarded-Proto https;
+}
+}
