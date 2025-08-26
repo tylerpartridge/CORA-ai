@@ -1,61 +1,39 @@
-*.db
-*.db-journal
-.env
-.env.*
+# --- root hygiene ---
 __pycache__/
-*.pyc
-venv/
-*.log
-nul
-NUL
-*.stackdump
-service_credentials.json
-backups/
-*.backup
-node_modules/
-.mind/
-.ai/
-.private/
-.claude/
-.archive/ 
-/artifacts/
-artifacts/*.json
-# Large files - backed up separately
-# (Removed - these need to be tracked for awareness system)
-
-# Backup directories (stored elsewhere)
-/var/backups/
-backups/*.protected
-.backup/
-
-# Temporary backup files
-*.backup
-*.bak
-*.tmp
-SHA256SUMS.txt
-
-# Keep essential docs
-!README.md
-!PRIORITY.md
-!BACKUP_RESTORE.md
-!MVP_REQUIREMENTS.md
-!BOOTUP.md
-!HANDOFF.md
-!HANDOVER_ACTIVE.md
-!DO_NOT_DELETE.md 
-
-# runtime-only AI logs
-/AI_WORK_LOG.md
-/AI_DISCUSSION_SPACE.runtime.md
-
-/cora.db
-/cora.db-wal
-/cora.db-shm
-
-# keep repo root clean
-backups/
-
-# ignore runtime data
-/data/
-
 backups
+/data/
+.local/
+*.pyc
+*.pyo
+*.pyd
+.pytest_cache/
+coverage.xml
+*.log
+.DS_Store
+
+# node
+node_modules/
+dist/
+build/
+
+# windows: ignore local link placeholder if it reappears
+docs/ai-awareness/ai-awareness
+
+/docs/archive/dev_root/
+.env
+config/.env*
+.claude/settings.local.json
+test_recovery/database/
+venv/
+node_modules/
+docs/archive/dev_root/
+.ai/
+.mind/
+.private/
+.env
+config/.env*
+.claude/settings.local.json
+test_recovery/database/
+venv/
+node_modules/
+docs/archive/dev_root/

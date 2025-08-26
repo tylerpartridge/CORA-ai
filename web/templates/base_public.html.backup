@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block page_title %}CORA - Construction Financial Intelligence{% endblock %}</title>
+    <meta name="description" content="{% block page_description %}CORA helps contractors track jobs, control costs, and boost profits with AI-powered financial intelligence.{% endblock %}">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="/static/images/logos/cora-logo.png">
+    <link rel="icon" href="/static/favicon.ico">
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Resource hints -->
+    <link rel="preconnect" href="https://cdn.jsdelivr.net">
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com">
+    
+    <!-- Shared construction theme styles -->
+    <link rel="stylesheet" href="/static/css/construction-theme.css">
+    
+    <!-- CORA Navbar - This is THE single source of truth for navigation styling -->
+    <!-- MUST load LAST to override any other nav styles -->
+    <link rel="stylesheet" href="/static/css/navbar.css">
+    
+    <!-- Font Awesome (for social icons in footer) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <!-- PWA Manifest and Meta Tags -->
+    <link rel="manifest" href="/static/manifest.json">
+    <meta name="theme-color" content="#FF9800">
+    <!-- Deprecated: apple-mobile-web-app-capable; use mobile-web-app-capable -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="CORA">
+    
+    <!-- Construction Typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Prefetch auth pages (lighter than prerender) to avoid resource contention -->
+    <link rel="prefetch" href="/signup" as="document">
+    <link rel="prefetch" href="/login" as="document">
+    
+    <!-- Security (must be first) and core bundles -->
+    <script src="/static/js/security.js"></script>
+    <script src="/static/js/api-error-handler.js"></script>
+    
+    <!-- Production console.log guard -->
+    <script>
+        // Silence console.log in production unless DEBUG is set
+        if (window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1') {
+            const noop = function() {};
+            console.log = noop;
+            console.info = noop;
+            console.warn = noop;
+            // Keep console.error for critical issues
+        }
+    </script>
+    <!-- Core utilities bundled with esbuild (ESM) -->
+    {% set bm = bundle_manifest.files if bundle_manifest and bundle_manifest.files is defined else {} %}
+    {% set is_local = request.url.hostname in ['localhost', '127.0.0.1'] %}
+    {% set disable_perf_bundles = is_local %}
+    {% if not is_local %}
+      {% if bm.get('performance') %}
+      <script type="module" src="{{ bm['performance'] }}"></script>
+      {% else %}
+      <script type="module" src="/static/js/bundles/performance.js?v=20250810-2"></script>
+      {% endif %}
+      {% if bm.get('accessibility') %}
+      <script type="module" src="{{ bm['accessibility'] }}"></script>
+      {% else %}
+      <script type="module" src="/static/js/bundles/accessibility.js?v=20250810-3"></script>
+      {% endif %}
+      {% if bm.get('error-manager') %}
+      <script type="module" src="{{ bm['error-manager'] }}"></script>
+      {% else %}
+      <script type="module" src="/static/js/bundles/error-manager.js"></script>
+      {% endif %}
+      {% if bm.get('timeout-handler') %}
+      <script type="module" src="{{ bm['timeout-handler'] }}"></script>
+      {% else %}
+      <script type="module" src="/static/js/bundles/timeout-handler.js"></script>
+      {% endif %}
+    {% endif %}
+    {% if not disable_perf_bundles %}
+      {% if bm.get('web-vitals-monitoring') %}
+      <script type="module" src="{{ bm['web-vitals-monitoring'] }}"></script>
+      {% else %}
+      <!-- DISABLED FOR PERFORMANCE: web-vitals-monitoring.js causing freezing issues -->
+      {% endif %}
+    {% endif %}
+    
+    <!-- Base Construction Theme Variables -->
+    <style>
+        :root {
+            --construction-orange: #FF9800;
+            --construction-orange-hover: #F57C00;
+            --industrial-blue: #1976D2;
+            --industrial-blue-hover: #1565C0;
+            --bright-blue: #4db8ff;
+            --success-green: #69F0AE;
+            --dark-bg: #1a1a1a;
+            --dark-surface: rgba(26, 26, 26, 0.9);
+            --dark-input: rgba(45, 55, 72, 0.95);
+            --text-primary: #ffffff;
+            --text-secondary: #e2e8f0;
+            --text-muted: #a0aec0;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #1a1a1a;
+            color: #e2e8f0;
+            line-height: 1.6;
+            min-height: 100vh;
+            padding-top: 80px; /* Account for fixed nav */
+        }
+        
+        /* Hide theme toggle button */
+        .theme-toggle {
+            display: none !important;
+        }
+        /* Hide any accessibility floating toggles */
+        .accessibility-toggle, #high-contrast-toggle {
+            display: none !important;
+        }
+        /* zoom controls styling is centralized; no base overrides */
+
+        /* Cookie banner styles */
+        #cookie-consent-banner { position: fixed; bottom: 0; left: 0; right: 0; background: #333; color: #fff; padding: 20px; z-index: 9999; box-shadow: 0 -2px 10px rgba(0,0,0,0.2); }
+        #cookie-consent-banner .cookie-consent-content { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; gap: 20px; }
+        #cookie-consent-banner .cookie-consent-buttons { display: flex; gap: 10px; }
+        #cookie-consent-banner .cookie-consent-buttons button { padding: 8px 16px; border: none; border-radius: 4px; cursor: pointer; font-size: 14px; }
+        #cookie-consent-banner .btn-accept { background: #4CAF50; color: white; }
+        #cookie-consent-banner .btn-customize { background: #2196F3; color: white; }
+        #cookie-consent-banner .btn-reject { background: #666; color: white; }
+        
+        /* Construction grid overlay pattern */
+        .construction-grid {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: 
+                repeating-linear-gradient(0deg, transparent, transparent 50px, rgba(255,152,0,0.03) 50px, rgba(255,152,0,0.03) 51px),
+                repeating-linear-gradient(90deg, transparent, transparent 50px, rgba(255,152,0,0.03) 50px, rgba(255,152,0,0.03) 51px);
+            pointer-events: none;
+        }
+        
+        /* Navigation styles removed - ALL nav styling is in navbar.css (single source of truth) */
+        /* DO NOT add nav styles here - edit /static/css/navbar.css instead */
+        
+        /* Get Started button style */
+        .btn-construction {
+            background: #FF9800;
+            color: #1a1a1a;
+            padding: 0.75rem 1.5rem;
+            font-weight: 700;
+            border-radius: 4px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            box-shadow: 0 4px 15px rgba(255,152,0,0.4);
+            border: none;
+        }
+        
+        .btn-construction:hover {
+            background: #F57C00;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255,152,0,0.6);
+            color: #1a1a1a;
+        }
+    </style>
+    
+    <!-- Page specific CSS -->
+    {% block page_css %}{% endblock %}
+  </head>
+  <body>
+    
+    <!-- Navigation - Single source of truth for all public pages -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container" style="position: relative; z-index: 1;">
+            <a class="navbar-brand" href="/" style="display: flex; align-items: center; height:45px;">
+                <img src="/static/images/logos/cora-logo.png" alt="CORA">
+            </a>
+            
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" style="border: 2px solid #FF9800;">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                <ul class="navbar-nav align-items-center">
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.url.path == '/' %}active{% endif %}" href="/">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.url.path == '/features' %}active{% endif %}" href="/features">Features</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.url.path == '/how-it-works' %}active{% endif %}" href="/how-it-works">How It Works</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.url.path == '/pricing' %}active{% endif %}" href="/pricing">Pricing</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.url.path == '/reviews' %}active{% endif %}" href="/reviews">Reviews</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.url.path == '/contact' %}active{% endif %}" href="/contact">Contact</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/login">Login</a>
+                    </li>
+                    <li class="nav-item ms-3">
+                        <a class="btn-construction" href="/signup">Get Started</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- Main Content -->
+    <main id="content">
+      {% block content %}{% endblock %}
+    </main>
+    
+    <!-- Footer -->
+    <footer class="mt-0" style="background: linear-gradient(180deg, #1a1a1a 0%, #0d0d0d 100%); position: relative; overflow: hidden; border-top: 4px solid #FF9800;">
+        <!-- Construction grid pattern -->
+        <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background-image: repeating-linear-gradient(90deg, transparent, transparent 100px, rgba(255,152,0,0.02) 100px, rgba(255,152,0,0.02) 101px); pointer-events: none;"></div>
+        
+        <div class="container py-5">
+            <div class="row align-items-center">
+                <!-- Left side - Logo and tagline -->
+                <div class="col-lg-4 mb-4 mb-lg-0">
+                    <div class="mb-3">
+                        <img src="/static/images/logos/cora-logo.png" alt="CORA" height="40" style="filter: brightness(0.9);">
+                    </div>
+                    <p style="color: #a0aec0; font-size: 0.9rem; margin-bottom: 2rem; text-transform: uppercase; letter-spacing: 1px;">
+                        Job costing that actually works. 
+                        <span style="color: #FF9800; font-weight: 700;">15 minutes/week.</span>
+                    </p>
+                    <!-- Social links -->
+                    <div class="d-flex gap-3">
+                        <a href="https://twitter.com/corafinancial" target="_blank" rel="noopener noreferrer" class="social-icon" style="width: 40px; height: 40px; background: rgba(255,152,0,0.1); border: 2px solid rgba(255,152,0,0.2); border-radius: 4px; display: flex; align-items: center; justify-content: center; transition: all 0.3s ease;">
+                            <i class="fab fa-twitter" style="color: #FF9800;"></i>
+                        </a>
+                        <a href="https://linkedin.com/company/cora-financial" target="_blank" rel="noopener noreferrer" class="social-icon" style="width: 40px; height: 40px; background: rgba(255,152,0,0.1); border: 2px solid rgba(255,152,0,0.2); border-radius: 4px; display: flex; align-items: center; justify-content: center; transition: all 0.3s ease;">
+                            <i class="fab fa-linkedin" style="color: #FF9800;"></i>
+                        </a>
+                        <a href="https://youtube.com/@corafinancial" target="_blank" rel="noopener noreferrer" class="social-icon" style="width: 40px; height: 40px; background: rgba(255,152,0,0.1); border: 2px solid rgba(255,152,0,0.2); border-radius: 4px; display: flex; align-items: center; justify-content: center; transition: all 0.3s ease;">
+                            <i class="fab fa-youtube" style="color: #FF9800;"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Middle - Quick links -->
+                <div class="col-lg-4 mb-4 mb-lg-0">
+                    <div class="row">
+                        <div class="col-6">
+                            <h6 style="color: #FF9800; font-weight: 700; margin-bottom: 1rem; text-transform: uppercase; letter-spacing: 1px;">Features</h6>
+                            <ul style="list-style: none; padding: 0; margin: 0;">
+                                <li class="mb-2"><a href="/features" class="footer-link" style="color: #a0aec0; text-decoration: none; transition: color 0.3s ease; text-transform: uppercase; font-size: 0.8rem; letter-spacing: 0.5px;">Features</a></li>
+                                <li class="mb-2"><a href="/pricing" class="footer-link" style="color: #a0aec0; text-decoration: none; transition: color 0.3s ease; text-transform: uppercase; font-size: 0.8rem; letter-spacing: 0.5px;">Pricing</a></li>
+                                <li class="mb-2"><a href="/reviews" class="footer-link" style="color: #a0aec0; text-decoration: none; transition: color 0.3s ease; text-transform: uppercase; font-size: 0.8rem; letter-spacing: 0.5px;">Testimonials</a></li>
+                                <li class="mb-2"><a href="/#integrations" class="footer-link" style="color: #a0aec0; text-decoration: none; transition: color 0.3s ease; text-transform: uppercase; font-size: 0.8rem; letter-spacing: 0.5px;">Integrations</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-6">
+                            <h6 style="color: #4db8ff; font-weight: 700; margin-bottom: 1rem; text-transform: uppercase; letter-spacing: 1px;">Resources</h6>
+                            <ul style="list-style: none; padding: 0; margin: 0;">
+                                <li class="mb-2"><a href="/help" class="footer-link" style="color: #a0aec0; text-decoration: none; transition: color 0.3s ease; text-transform: uppercase; font-size: 0.8rem; letter-spacing: 0.5px;">Help Center</a></li>
+                                <li class="mb-2"><a href="/blog" class="footer-link" style="color: #a0aec0; text-decoration: none; transition: color 0.3s ease; text-transform: uppercase; font-size: 0.8rem; letter-spacing: 0.5px;">Blog</a></li>
+                                <li class="mb-2"><a href="/contact" class="footer-link" style="color: #a0aec0; text-decoration: none; transition: color 0.3s ease; text-transform: uppercase; font-size: 0.8rem; letter-spacing: 0.5px;">Contact</a></li>
+                                <li class="mb-2"><a href="/privacy" class="footer-link" style="color: #a0aec0; text-decoration: none; transition: color 0.3s ease; text-transform: uppercase; font-size: 0.8rem; letter-spacing: 0.5px;">Privacy</a></li>
+                                <li class="mb-2"><a href="/terms" class="footer-link" style="color: #a0aec0; text-decoration: none; transition: color 0.3s ease; text-transform: uppercase; font-size: 0.8rem; letter-spacing: 0.5px;">Terms</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Right side - Coming Soon -->
+                <div class="col-lg-4 mb-4 mb-lg-0">
+                    <div style="background: rgba(255,152,0,0.05); border: 2px solid rgba(255,152,0,0.2); border-radius: 8px; padding: 1.5rem; text-align: center;">
+                        <h6 style="color: #FF9800; font-weight: 700; margin-bottom: 0.5rem; text-transform: uppercase; letter-spacing: 1px;">🚧 Under Construction</h6>
+                        <p style="color: #a0aec0; font-size: 0.85rem; margin-bottom: 1rem;">Newsletter coming soon!</p>
+                        <p style="color: #6B7280; font-size: 0.75rem;">We're building something special for contractors. Stay tuned.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Bottom section -->
+            <div class="text-center mt-5 pt-4" style="border-top: 1px solid rgba(255,152,0,0.2);">
+                <p style="color: #6B7280; font-size: 0.875rem; margin-bottom: 1rem;">
+                    © 2025 CORA. Built for <span style="color: #FF9800; font-weight: 700;">CONTRACTORS</span> who want to make money.
+                </p>
+                <p style="color: #6B7280; font-size: 0.75rem; margin-bottom: 0;">
+                    <span style="color: #69F0AE;">✓</span> SOC 2 Compliant 
+                    <span class="mx-2">|</span> 
+                    <span style="color: #69F0AE;">✓</span> Bank-Level Security 
+                    <span class="mx-2">|</span> 
+                    <span style="color: #69F0AE;">✓</span> Your Data, Always Yours
+                </p>
+            </div>
+        </div>
+        
+        <!-- Bottom accent bar -->
+        <div style="position: absolute; bottom: 0; left: 0; right: 0; height: 4px; background: linear-gradient(90deg, #FF9800 0%, #1976D2 50%, #69F0AE 100%);"></div>
+    </footer>
+    
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Page specific scripts -->
+    {% block page_scripts %}{% endblock %}
+
+    <!-- HTMX disabled to restore native navigation -->
+
+    
+    
+    <!-- zoom controls styling is centralized; no base overrides -->
+
+    {% set hide_widget = hide_widget | default(false) %}
+    {% if not hide_widget %}
+    {% include "partials/cora_widget.html" %}
+    {% include "partials/zoom_controls.html" %}
+    <link rel="stylesheet" href="/static/css/cora-chat-consolidated.css">
+    <!-- Widget bootstrapper will load chat class; avoid double-including to prevent redeclare errors -->
+    <script src="/static/js/cora_widget.js"></script>
+    <script src="/static/js/zoom_controls.js"></script>
+    <!-- Feature flags requires auth; load non-blocking and ignore 401 -->
+    <script>
+      (function(){
+        try { var s=document.createElement('script'); s.src='/static/js/feature-flags.js'; s.defer=true; document.body.appendChild(s);} catch(e){}
+      })();
+    </script>
+    <script src="/static/js/cookie-consent.js"></script>
+    <!-- Social proof notifications disabled per UX decision -->
+    <!-- <script src="/static/js/social-proof.js"></script> -->
+    <!-- DISABLED FOR PERFORMANCE: exit-intent.js causing page freezing -->
+    <!-- <script src="/static/js/exit-intent.js"></script> -->
+    <script>
+      // Performance: image lazy-loading and data-bg backgrounds
+      document.addEventListener('DOMContentLoaded', () => {
+        document.querySelectorAll('img:not([loading])').forEach(img => img.setAttribute('loading','lazy'));
+        const lazyBg = document.querySelectorAll('[data-bg]');
+        const io = new IntersectionObserver(entries => {
+          entries.forEach(entry => { if (entry.isIntersecting) { const el=entry.target; el.style.backgroundImage = `url(${el.dataset.bg})`; io.unobserve(el);} });
+        });
+        lazyBg.forEach(el => io.observe(el));
+      });
+    </script>
+    <!-- Chat init handled by /static/js/cora_widget.js; inline fallback removed to avoid races -->
+    {% endif %}
+    
+    <!-- PWA Service Worker Registration -->
+    <script>
+        // Dev cleanup disabled to prevent navigation stalls
+        const isLocalhost = ['localhost', '127.0.0.1'].includes(location.hostname);
+        if ('serviceWorker' in navigator && !isLocalhost) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/static/service-worker.js')
+                    .then(registration => {
+                        console.log('PWA Service Worker registered successfully:', registration);
+                        registration.addEventListener('updatefound', () => {
+                            const newWorker = registration.installing;
+                            newWorker.addEventListener('statechange', () => {
+                                if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                                    console.log('New PWA version available');
+                                }
+                            });
+                        });
+                    })
+                    .catch(error => {
+                        console.log('PWA Service Worker registration failed:', error);
+                    });
+            });
+        }
+    </script>
+</body>
+</html>

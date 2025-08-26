@@ -1,0 +1,32 @@
+name: dev-root-verify
+on:
+  pull_request:
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify repo root hygiene (files only)
+        shell: bash
+        run: |
+          set -euo pipefail
+          KEEP=(
+            BOOTUP.md STATE.md MISSION.md OPERATIONS.md MEMORY.md README.md AI_WORK_LOG.md
+            app.py Makefile requirements.txt Dockerfile
+            .gitignore .gitattributes .editorconfig .env.example
+            pyproject.toml
+          )
+          mapfile -t FILES < <(find . -maxdepth 1 -type f -printf "%f\n" | sort)
+          UNKNOWN=()
+          for f in "${FILES[@]}"; do
+            ok=0
+            for k in "${KEEP[@]}"; do [[ "$f" == "$k" ]] && { ok=1; break; }; done
+            [[ $ok -eq 0 ]] && UNKNOWN+=("$f")
+          done
+          if ((${#UNKNOWN[@]})); then
+            echo "❌ Unexpected files in repo root:"
+            printf '  - %s\n' "${UNKNOWN[@]}"
+            exit 1
+          fi
+          echo "✅ Root hygiene PASSED."
