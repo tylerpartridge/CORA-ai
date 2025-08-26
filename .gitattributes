@@ -6,3 +6,4 @@
 .githooks/* text eol=lf
 *.ps1       text eol=crlf
 Makefile    text eol=lf
+.github/workflows/* text eol=lf
