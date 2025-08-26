@@ -37,3 +37,5 @@ test_recovery/database/
 venv/
 node_modules/
 docs/archive/dev_root/
+
+.archive/

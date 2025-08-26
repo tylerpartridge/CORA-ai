@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+# If this push is just a remote delete (e.g., "git push origin :branch"), skip verify
+if [ "$#" -ge 2 ] && [[ "$2" == :* ]]; then exit 0; fi
 if [ -x "./tools/dev_verify_root.sh" ]; then
   ./tools/dev_verify_root.sh
 else

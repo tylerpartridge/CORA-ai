@@ -1,7 +1,7 @@
 $keep = @(
- 'BOOTUP.md','STATE.md','MISSION.md','OPERATIONS.md','MEMORY.md','README.md','AI_WORK_LOG.md',
- 'app.py','Makefile','requirements.txt','Dockerfile',
- '.gitignore','.gitattributes','.editorconfig','.env','pyproject.toml','backups'
+  'BOOTUP.md','STATE.md','MISSION.md','OPERATIONS.md','MEMORY.md','README.md','AI_WORK_LOG.md',
+  'app.py','Makefile','requirements.txt','Dockerfile',
+  '.gitignore','.gitattributes','.editorconfig','.env','.env.example','pyproject.toml','backups'
 )
 $files  = Get-ChildItem -File -Force -Name
 $links  = Get-ChildItem -Force | Where-Object { $_.LinkType } | Select-Object -ExpandProperty Name
