@@ -54,3 +54,6 @@ SHA256SUMS.txt
 
 # keep repo root clean
 backups/
+
+# ignore runtime data
+/data/
