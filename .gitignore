@@ -51,3 +51,6 @@ SHA256SUMS.txt
 /cora.db
 /cora.db-wal
 /cora.db-shm
+
+# keep repo root clean
+backups/
