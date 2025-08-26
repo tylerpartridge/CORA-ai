@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+if [ -x "./tools/dev_verify_root.sh" ]; then
+  ./tools/dev_verify_root.sh
+else
+  powershell.exe -ExecutionPolicy Bypass -File tools/dev_verify_root.ps1
+fi
