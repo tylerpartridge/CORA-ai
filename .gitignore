@@ -18,3 +18,22 @@ build/
 
 # windows: ignore local link placeholder if it reappears
 docs/ai-awareness/ai-awareness
+
+/docs/archive/dev_root/
+.env
+config/.env*
+.claude/settings.local.json
+test_recovery/database/
+venv/
+node_modules/
+docs/archive/dev_root/
+.ai/
+.mind/
+.private/
+.env
+config/.env*
+.claude/settings.local.json
+test_recovery/database/
+venv/
+node_modules/
+docs/archive/dev_root/
