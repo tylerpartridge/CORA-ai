@@ -15,7 +15,7 @@ fail() { echo "❌ $1"; exit 1; }
 cd "$ROOT"
 
 # 1) Root cleanliness (must not contain unknown files)
-allowed="BOOTUP.md STATE.md MISSION.md OPERATIONS.md MEMORY.md README.md app.py Makefile requirements.txt Dockerfile"
+allowed="BOOTUP.md STATE.md MISSION.md OPERATIONS.md MEMORY.md README.md app.py Makefile requirements.txt Dockerfile AI_WORK_LOG.md"
 for f in * .*; do
   [[ "$f" =~ ^(\.|\.\.|\.git|docs|tools|scripts|CORA|node_modules|static|assets|migrations|tests|frontend|backend)$ ]] && continue
   if ! grep -qw "$f" <<< "$allowed"; then
