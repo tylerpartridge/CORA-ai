@@ -57,3 +57,5 @@ backups/
 
 # ignore runtime data
 /data/
+
+backups
