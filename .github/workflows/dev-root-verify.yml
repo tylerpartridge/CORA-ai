@@ -1,0 +1,31 @@
+name: dev-root-verify
+on:
+  pull_request:
+    branches: [ main ]
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Root hygiene check
+        shell: bash
+        run: |
+          set -euo pipefail
+          keep=("BOOTUP.md" "STATE.md" "MISSION.md" "OPERATIONS.md" "MEMORY.md" "README.md" "AI_WORK_LOG.md" \
+                "app.py" "Makefile" "requirements.txt" "Dockerfile" \
+                ".gitignore" ".gitattributes" ".editorconfig" "pyproject.toml" "backups")
+          unknown=()
+          shopt -s dotglob nullglob
+          for f in * .*; do
+            [[ "$f" == "." || "$f" == ".." ]] && continue
+            if [[ -f "$f" ]]; then
+              ok=0
+              for k in "${keep[@]}"; do [[ "$f" == "$k" ]] && ok=1; done
+              [[ $ok -eq 0 ]] && unknown+=("$f")
+            fi
+          done
+          if (( ${#unknown[@]} )); then
+            echo "❌ Unknown root files:"; printf '  - %s\n' "${unknown[@]}"
+            exit 1
+          fi
+          echo "✅ Root hygiene OK"
