@@ -1,32 +1,36 @@
 name: dev-root-verify
 on:
   pull_request:
-
 jobs:
   verify:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Verify repo root hygiene (files only)
+      - name: Verify repo root hygiene
         shell: bash
         run: |
           set -euo pipefail
-          KEEP=(
+          ROOT_WHITELIST=(
             BOOTUP.md STATE.md MISSION.md OPERATIONS.md MEMORY.md README.md AI_WORK_LOG.md
             app.py Makefile requirements.txt Dockerfile
-            .gitignore .gitattributes .editorconfig .env.example
-            pyproject.toml
+            .gitignore .gitattributes .editorconfig .env.example pyproject.toml
+            NO_TOOL_BACKUPS.md
+            .github .githooks backups
           )
-          mapfile -t FILES < <(find . -maxdepth 1 -type f -printf "%f\n" | sort)
-          UNKNOWN=()
-          for f in "${FILES[@]}"; do
-            ok=0
-            for k in "${KEEP[@]}"; do [[ "$f" == "$k" ]] && { ok=1; break; }; done
-            [[ $ok -eq 0 ]] && UNKNOWN+=("$f")
+          shopt -s dotglob
+          cd "$GITHUB_WORKSPACE"
+          mapfile -t files < <(find . -maxdepth 1 -mindepth 1 -printf '%P\n' | sort)
+          unknown=()
+          for f in "${files[@]}"; do
+            case "$f" in .github|.githooks|backups) continue;; esac
+            if ! printf '%s\0' "${ROOT_WHITELIST[@]}" | grep -qxz -- "$f"; then
+              unknown+=("$f")
+            fi
           done
-          if ((${#UNKNOWN[@]})); then
-            echo "❌ Unexpected files in repo root:"
-            printf '  - %s\n' "${UNKNOWN[@]}"
+          if (( ${#unknown[@]} )); then
+            echo "? Unknown files in repo root:"
+            printf '  - %s\n' "${unknown[@]}"
+            echo "::error title=Root hygiene failed::Unknown files in root. See NO_TOOL_BACKUPS.md."
             exit 1
           fi
-          echo "✅ Root hygiene PASSED."
+          echo "? Root hygiene passed."
