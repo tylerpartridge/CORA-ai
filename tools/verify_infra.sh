@@ -16,12 +16,21 @@ cd "$ROOT"
 
 # --- 1) Root cleanliness ---
 ALLOWED_FILES="BOOTUP.md STATE.md MISSION.md OPERATIONS.md MEMORY.md README.md app.py Makefile requirements.txt Dockerfile AI_WORK_LOG.md"
-BANNED_DIRS_REGEX='^(backups|__pycache__)$'
+BANNED_DIRS_REGEX='^(__pycache__)$'
 
 unknown=()
 while IFS= read -r item; do
-  # ignore dotfiles like .env, .gitignore, etc.
+  # ignore dotfiles
   [[ "$item" == .* ]] && continue
+
+  # allow a 'backups' symlink that points to the system path
+  if [[ "$item" == "backups" ]]; then
+    if [[ -L backups ]] && [[ "$(readlink -f backups)" == "/var/backups/cora/app" ]]; then
+      continue
+    else
+      unknown+=("$item"); continue
+    fi
+  fi
 
   # allow directories by default (except banned)
   if [[ -d "$item" ]]; then
