@@ -1,3 +1,22 @@
+# --- E2E base URL autodetect (inserted by helper) ---
+import os, pytest, requests
+BASE_URL = os.getenv("CORA_BASE_URL", "http://localhost:8000")
+REMOTE_URL = os.getenv("CORA_REMOTE_URL", "https://coraai.tech")
+
+def _ok(u):
+    try:
+        requests.get(f"{u}/api/health/status", timeout=1)
+        return True
+    except Exception:
+        return False
+
+if not _ok(BASE_URL):
+    if _ok(REMOTE_URL):
+        BASE_URL = REMOTE_URL
+        print(f"[OK] Using remote server for E2E: {REMOTE_URL}")
+    else:
+        pytest.skip("E2E target not reachable (start local server or set CORA_REMOTE_URL/CORA_BASE_URL)")
+# --- end insert ---
 import os, pytest
 if os.getenv('CORA_E2E','0') != '1':
     pytest.skip('E2E tests disabled (set CORA_E2E=1 to enable)', allow_module_level=True)
@@ -158,3 +177,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+

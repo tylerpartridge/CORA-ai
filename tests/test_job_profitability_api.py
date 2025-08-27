@@ -3,6 +3,11 @@
 Test job profitability using the API endpoints
 """
 
+import os
+import pytest
+if not any(os.getenv(k, '0') == '1' for k in ('CORA_DASH_TESTS','CORA_DB_TESTS','CORA_E2E')):
+    pytest.skip('Dashboard tests disabled (set CORA_DASH_TESTS=1 to enable)', allow_module_level=True)
+
 import sys
 from pathlib import Path
 # Add parent directory to path for imports

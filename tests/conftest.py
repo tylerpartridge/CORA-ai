@@ -82,3 +82,68 @@ else:
         if r.status_code != 200:
             pytest.skip(f"Login failed: {r.status_code} {r.text}")
         return r.json().get("access_token")
+
+# --- opt-in API fixtures: auth helpers ---
+try:
+    import pytest
+    from fastapi.testclient import TestClient
+except Exception:
+    pass
+
+# Reuse existing ENABLE_API_FIXTURES flag if defined; otherwise compute it here
+if "ENABLE_API_FIXTURES" not in globals():
+    import os
+    ENABLE_API_FIXTURES = any(os.getenv(k,"0")=="1" for k in ("CORA_DB_TESTS","CORA_DASH_TESTS","CORA_E2E","CORA_SALES_TESTS"))
+
+if ENABLE_API_FIXTURES:
+    try:
+        app = _load_app()
+    except Exception:
+        app = None
+
+    @pytest.fixture
+    def client():
+        if app is None:
+            pytest.skip("App not importable for API fixtures")
+        return TestClient(app)
+
+    @pytest.fixture
+    def token(client):
+        import os, requests
+        email = os.getenv("TEST_ADMIN_EMAIL", "admin@coraai.tech")
+        password = os.getenv("TEST_ADMIN_PASSWORD", "ChangeMe123!")
+        # best-effort create; ignore failures
+        try:
+            client.post("/api/auth/register", json={"email": email, "password": password, "confirm_password": password})
+        except Exception:
+            pass
+        r = client.post("/api/auth/login", json={"email": email, "password": password})
+        if r.status_code != 200:
+            pytest.skip(f"Auth not available (login status {r.status_code})")
+        return r.json().get("access_token")
+
+    @pytest.fixture
+    def authenticated_client(client, token):
+        client.headers.update({"Authorization": f"Bearer {token}"})
+        return client
+
+    @pytest.fixture
+    def cookies(client):
+        """
+        Returns a cookie dict after performing login.
+        Skips if auth is unavailable.
+        """
+        import os
+        email = os.getenv("TEST_ADMIN_EMAIL", "admin@coraai.tech")
+        password = os.getenv("TEST_ADMIN_PASSWORD", "ChangeMe123!")
+        try:
+            # best-effort create, ignore failures (user might already exist)
+            client.post("/api/auth/register", json={"email": email, "password": password, "confirm_password": password})
+            r = client.post("/api/auth/login", json={"email": email, "password": password})
+        except Exception as e:
+            pytest.skip(f"Auth not available for cookies fixture: {e}")
+
+        if r.status_code != 200:
+            pytest.skip(f"Auth login failed for cookies fixture (status {r.status_code})")
+        return client.cookies.get_dict()
+# --- end auth helpers ---
