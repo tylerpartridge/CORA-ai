@@ -1,3 +1,6 @@
+import os, pytest
+if os.getenv('CORA_E2E','0') != '1':
+    pytest.skip('E2E tests disabled (set CORA_E2E=1 to enable)', allow_module_level=True)
 #!/usr/bin/env python3
 """
 API Testing Suite for CORA
