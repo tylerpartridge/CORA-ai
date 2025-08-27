@@ -13,7 +13,7 @@ if not _ok(CHAT_URL):
         CHAT_URL = REMOTE_URL
         print(f"[OK] Using remote chat: {REMOTE_URL}")
     else:
-        pytest.skip("No chat server reachable (set CORA_CHAT_URL or start local)")
+        pytest.skip("No chat server reachable (set CORA_CHAT_URL or start local)", allow_module_level=True)
 # --- end insert ---
 # --- force short default timeout for requests in this test ---
 import os, requests
@@ -382,6 +382,11 @@ if __name__ == "__main__":
     print(f"- Tested {sum(len(q) for q in TEST_SCENARIOS.values())} scenarios")
     print(f"- {len(iterations)} categories need improvement")
     print(f"- Top priority: {iterations[0]['category'] if iterations else 'None'}")
+
+
+
+
+
 
 
 
