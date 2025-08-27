@@ -41,3 +41,4 @@ Visit [coraai.tech](https://coraai.tech) to learn more.
 
 ---
 *Version 4.0 - Built for the AI economy*
+![CI](https://github.com/tylerpartridge/CORA-ai/actions/workflows/ci.yml/badge.svg)
