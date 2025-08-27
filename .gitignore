@@ -39,3 +39,50 @@ node_modules/
 docs/archive/dev_root/
 
 .archive/
+# === CI baseline additions ===
+__pycache__/
+*.py[cod]
+*.pyd
+.pytest_cache/
+.coverage
+htmlcov/
+.mypy_cache/
+.pytype/
+.dmypy.json
+
+# Envs
+venv/
+.venv/
+env/
+ENV/
+pip-wheel-metadata/
+.eggs/
+*.egg-info/
+*.egg
+
+# IDE/OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Build
+dist/
+build/
+
+# Logs & temp
+*.log
+ci_test_log.txt
+
+# Env files
+.env
+.env.*
+!.env.example
+!.env.test
+.venv/
+venv/
+.pytest_cache/
+*.db
+.env*
+
+tests/*.bak

@@ -13,7 +13,7 @@ jobs:
           ROOT_WHITELIST=(
             BOOTUP.md STATE.md MISSION.md OPERATIONS.md MEMORY.md README.md AI_WORK_LOG.md
             app.py Makefile requirements.txt Dockerfile
-            .gitignore .gitattributes .editorconfig .env.example pyproject.toml
+            .gitignore .gitattributes .editorconfig .env.example pyproject.toml pytest.ini
             NO_TOOL_BACKUPS.md
             .github .githooks backups
           )
@@ -34,3 +34,4 @@ jobs:
             exit 1
           fi
           echo "? Root hygiene passed."
+

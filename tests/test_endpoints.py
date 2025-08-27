@@ -8,15 +8,14 @@ from datetime import datetime
 # Base URL for testing
 BASE_URL = "http://127.0.0.1:8002"
 
-def test_endpoint(name, method, endpoint, data=None, files=None):
-    """Test a single endpoint"""
-
 import sys
 from pathlib import Path
 # Add parent directory to path for imports
 sys.path.insert(0, str(Path(__file__).parent.parent))
 # Fix import paths
 
+def test_endpoint(name, method, endpoint, data=None, files=None):
+    """Test a single endpoint"""
     url = f"{BASE_URL}{endpoint}"
     try:
         if method == "GET":

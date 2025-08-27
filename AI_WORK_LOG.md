@@ -182,3 +182,5 @@ systemctl start cora-save.service
 - Timers already active; wrapper removes the race between "engines not here yet" and "ops needs saves".
 
 **Status: GREEN ✅ on oneshot; ready to graduate to engines once PR lands.**
+
+2025-08-27T14:03:56.406622Z  bootup: 20 cards → docs\ai-awareness\SNAPSHOT.md

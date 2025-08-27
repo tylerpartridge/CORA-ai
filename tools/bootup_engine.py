@@ -25,9 +25,13 @@ class BootupEngine:
     def __init__(self, repo_root: pathlib.Path):
         self.root = repo_root
         self.index_path = repo_root / "docs/bootup/_index.yml"
-        self.cards_dir = repo_root / "docs/awareness/cards"
-        self.snapshot_path = repo_root / "docs/awareness/SNAPSHOT.md"
-        self.report_path = repo_root / "docs/awareness/BOOTUP_REPORT.json"
+        # Prefer docs/awareness if it is a directory; otherwise fall back to docs/ai-awareness
+        awareness_root = repo_root / "docs/awareness"
+        if not awareness_root.exists() or not awareness_root.is_dir():
+            awareness_root = repo_root / "docs/ai-awareness"
+        self.cards_dir = awareness_root / "cards"
+        self.snapshot_path = awareness_root / "SNAPSHOT.md"
+        self.report_path = awareness_root / "BOOTUP_REPORT.json"
         
     def load_index(self) -> dict:
         """Load the bootup index configuration"""

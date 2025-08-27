@@ -1,0 +1,6 @@
+allow:
+  - docs/ai-awareness/*.md
+limits:
+  max_files: 100
+  max_file_mb: 2
+  max_card_words: 400
