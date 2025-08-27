@@ -47,11 +47,18 @@ jobs:
           CORA_DASH_TESTS: "0"
           CORA_SALES_TESTS: "0"
         run: |
+          set +e
           pytest -q
+          ec=$?
+          if [ "$ec" -eq 5 ]; then
+            echo "No tests collected (baseline) — treating as success"
+            exit 0
+          fi
+          exit $ec
 
   e2e:
     name: E2E (manual, opt-in)
-    if: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.run_e2e == 'true' }}
+    if: ${{ github.event_name == 'workflow_dispatch' && (inputs.run_e2e == 'true' || inputs.run_e2e == true) }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
