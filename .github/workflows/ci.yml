@@ -63,10 +63,15 @@ jobs:
 
   e2e:
     name: E2E (manual, opt-in)
-    if: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.run_e2e == 'true' }}
+    if: ${{ github.event_name == 'workflow_dispatch' }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+
+      - name: Debug E2E inputs
+        run: |
+          echo "event=${{ github.event_name }}"
+          echo "run_e2e=${{ github.event.inputs.run_e2e }}"
 
       - name: Setup Python
         uses: actions/setup-python@v5
@@ -85,6 +90,7 @@ jobs:
           [[ -f requirements-dev.txt ]] && pip install -r requirements-dev.txt || true
 
       - name: Run E2E smoke tests
+        if: ${{ github.event.inputs.run_e2e == 'true' }}
         env:
           PYTEST_DISABLE_PLUGIN_AUTOLOAD: "1"
           TZ: "UTC"
