@@ -1,0 +1,162 @@
+[
+  {
+    "id": "stripe_env_config",
+    "title": "Stripe Environment Variables Configuration",
+    "required_by": ["payment"],
+    "implemented_in": [],
+    "gap": "Missing STRIPE_SECRET_KEY, STRIPE_PUBLISHABLE_KEY, STRIPE_WEBHOOK_SECRET, and price IDs in production environment",
+    "risk": "Cannot process live payments despite having payment infrastructure",
+    "recommendation": "Configure all required Stripe environment variables in production deployment",
+    "priority": "P0"
+  },
+  {
+    "id": "payment_checkout_sessions",
+    "title": "Stripe Checkout Session Creation",
+    "required_by": ["payment"],
+    "implemented_in": ["routes/payment_coordinator.py", "services/stripe_service.py"],
+    "gap": "None - fully implemented",
+    "risk": "Low - robust implementation with error handling",
+    "recommendation": "Test with production Stripe keys once configured",
+    "priority": "P1"
+  },
+  {
+    "id": "webhook_handler",
+    "title": "Stripe Webhook Processing",
+    "required_by": ["payment"],
+    "implemented_in": ["routes/payment_coordinator.py"],
+    "gap": "Production webhook signature verification needed",
+    "risk": "Payment confirmations may fail without proper webhook verification",
+    "recommendation": "Add signature verification using production webhook secret",
+    "priority": "P0"
+  },
+  {
+    "id": "pricing_page_integration",
+    "title": "Pricing Page Payment Flow Connection",
+    "required_by": ["payment"],
+    "implemented_in": ["web/templates/pricing.html"],
+    "gap": "Pricing page not connected to actual checkout flow - no functional CTA buttons",
+    "risk": "Users cannot complete purchases despite landing on pricing page",
+    "recommendation": "Add checkout buttons that call /api/payments/checkout with appropriate price IDs",
+    "priority": "P0"
+  },
+  {
+    "id": "csv_upload_processing",
+    "title": "CSV File Upload and Processing",
+    "required_by": ["upload"],
+    "implemented_in": ["routes/receipt_upload.py", "routes/expense_routes.py", "middleware/file_upload_security.py"],
+    "gap": "None - fully implemented with OCR and security",
+    "risk": "Low - includes file validation, size limits, and user-specific storage",
+    "recommendation": "Production load testing for concurrent uploads",
+    "priority": "P2"
+  },
+  {
+    "id": "ocr_text_extraction",
+    "title": "OCR Processing for Receipt Images",
+    "required_by": ["upload"],
+    "implemented_in": ["routes/receipt_upload.py"],
+    "gap": "None - implemented with automatic expense categorization",
+    "risk": "Low - robust OCR implementation with error handling",
+    "recommendation": "Monitor OCR accuracy and processing time in production",
+    "priority": "P2"
+  },
+  {
+    "id": "csv_export_functionality",
+    "title": "CSV Export for Uploaded Data",
+    "required_by": ["upload"],
+    "implemented_in": ["routes/expense_routes.py"],
+    "gap": "None - export functionality implemented",
+    "risk": "Low - standard CSV export with proper formatting",
+    "recommendation": "Verify export includes all necessary fields for accounting software",
+    "priority": "P2"
+  },
+  {
+    "id": "pdf_report_generation",
+    "title": "PDF Report Generation (Full Reports)",
+    "required_by": ["generate"],
+    "implemented_in": ["routes/pdf_export.py", "utils/pdf_exporter.py"],
+    "gap": "None - comprehensive 5-section profit intelligence reports implemented",
+    "risk": "Low - well-structured with HTML+JSON export options",
+    "recommendation": "Load testing for concurrent report generation",
+    "priority": "P1"
+  },
+  {
+    "id": "section_reports",
+    "title": "Individual Section Report Generation",
+    "required_by": ["generate"],
+    "implemented_in": ["routes/pdf_export.py", "utils/pdf_exporter.py"],
+    "gap": "None - individual section reports (forecasting, vendors, jobs, pricing, benchmarks) implemented",
+    "risk": "Low - modular design allows for targeted reporting",
+    "recommendation": "Validate data accuracy across all report sections",
+    "priority": "P1"
+  },
+  {
+    "id": "report_download_system",
+    "title": "Secure Report Download System",
+    "required_by": ["generate", "view"],
+    "implemented_in": ["routes/pdf_export.py"],
+    "gap": "None - secure download with user access controls implemented",
+    "risk": "Low - proper authentication and file access validation",
+    "recommendation": "Test download performance for large PDF files",
+    "priority": "P2"
+  },
+  {
+    "id": "dashboard_metrics",
+    "title": "Real-time Financial Dashboard",
+    "required_by": ["view"],
+    "implemented_in": ["routes/dashboard_routes.py", "web/templates/core_protected/dashboard.html"],
+    "gap": "None - live dashboard with financial metrics implemented",
+    "risk": "Medium - performance may degrade with large datasets",
+    "recommendation": "Optimize dashboard queries and add caching for large user datasets",
+    "priority": "P1"
+  },
+  {
+    "id": "report_listing",
+    "title": "User Report Management and Listing",
+    "required_by": ["view"],
+    "implemented_in": ["routes/pdf_export.py"],
+    "gap": "None - complete report listing with timestamps and metadata",
+    "risk": "Low - proper user isolation and access controls",
+    "recommendation": "Add report archival/cleanup for old reports",
+    "priority": "P2"
+  },
+  {
+    "id": "landing_page",
+    "title": "Professional Landing Page",
+    "required_by": ["payment"],
+    "implemented_in": ["web/templates/index.html", "routes/pages.py"],
+    "gap": "None - professional construction-themed design with clear value proposition",
+    "risk": "Low - well-designed with responsive layout",
+    "recommendation": "A/B test different CTA placements for conversion optimization",
+    "priority": "P2"
+  },
+  {
+    "id": "pricing_page_display",
+    "title": "Pricing Page Display and Tiers",
+    "required_by": ["payment"],
+    "implemented_in": ["web/templates/pricing.html", "routes/pages.py"],
+    "gap": "None - three-tier pricing structure clearly displayed",
+    "risk": "Low - clear pricing presentation",
+    "recommendation": "Connect to actual payment processing (see pricing_page_integration)",
+    "priority": "P0"
+  },
+  {
+    "id": "email_capture",
+    "title": "Lead Generation Email Capture",
+    "required_by": ["payment"],
+    "implemented_in": ["web/templates/index.html"],
+    "gap": "None - email capture functionality implemented",
+    "risk": "Low - basic lead generation system in place",
+    "recommendation": "Integrate with email marketing platform for nurture campaigns",
+    "priority": "P2"
+  },
+  {
+    "id": "payment_links_direct",
+    "title": "Direct Stripe Payment Links Integration",
+    "required_by": ["payment"],
+    "implemented_in": [],
+    "gap": "No direct Stripe Payment Links implementation as backup payment method",
+    "risk": "Medium - single point of failure for payment processing",
+    "recommendation": "Implement Stripe Payment Links as alternative payment flow",
+    "priority": "P1"
+  }
+]
