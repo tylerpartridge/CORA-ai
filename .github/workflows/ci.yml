@@ -2,15 +2,18 @@ name: CI/CD Pipeline
 
 on:
   push:
+    branches: [ main, chore/** ]
   pull_request:
+    branches: [ main ]
   workflow_dispatch:
     inputs:
       run_e2e:
-        description: "Run E2E smoke tests"
+        description: "Run E2E tests"
         required: false
         default: "false"
+        type: boolean
       cora_base_url:
-        description: "Base URL for E2E tests"
+        description: "Base URL for E2E (e.g., https://coraai.tech)"
         required: false
         default: "https://coraai.tech"
 
@@ -60,7 +63,7 @@ jobs:
 
   e2e:
     name: E2E (manual, opt-in)
-    if: ${{ github.event_name == 'workflow_dispatch' && (inputs.run_e2e == 'true' || inputs.run_e2e == true) }}
+    if: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.run_e2e == 'true' }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
