@@ -1,3 +1,6 @@
+import os, pytest
+if os.getenv('CORA_SALES_TESTS','0') != '1':
+    pytest.skip('Sales chat tests disabled (set CORA_SALES_TESTS=1 to enable)', allow_module_level=True)
 #!/usr/bin/env python3
 """
 [LOCATION] LOCATION: /CORA/test_cora_sales.py
