@@ -15,7 +15,7 @@ if not _ok(BASE_URL):
         BASE_URL = REMOTE_URL
         print(f"[OK] Using remote server for E2E: {REMOTE_URL}")
     else:
-        pytest.skip("E2E target not reachable (start local server or set CORA_REMOTE_URL/CORA_BASE_URL)")
+        pytest.skip("E2E target not reachable (start local server or set CORA_REMOTE_URL/CORA_BASE_URL)", allow_module_level=True)
 # --- end insert ---
 import os, pytest
 if os.getenv('CORA_E2E','0') != '1':
