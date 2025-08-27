@@ -16,6 +16,10 @@ on:
         description: "Base URL for E2E (e.g., https://coraai.tech)"
         required: false
         default: "https://coraai.tech"
+      e2e_timeout:
+        description: "E2E timeout seconds"
+        required: false
+        default: "10"
 
 jobs:
   baseline:
@@ -72,6 +76,8 @@ jobs:
         run: |
           echo "event=${{ github.event_name }}"
           echo "run_e2e=${{ github.event.inputs.run_e2e }}"
+          echo "cora_base_url=${{ github.event.inputs.cora_base_url }}"
+          echo "e2e_timeout=${{ github.event.inputs.e2e_timeout }}"
 
       - name: Setup Python
         uses: actions/setup-python@v5
@@ -97,9 +103,13 @@ jobs:
           PYTHONPATH: "."
           CORA_E2E: "1"
           CORA_BASE_URL: "${{ github.event.inputs.cora_base_url }}"
+          E2E_TIMEOUT: "${{ github.event.inputs.e2e_timeout }}"
+          GIT_SHA: "${{ github.sha }}"
           # keep all other gates off by default for E2E
           CORA_DB_TESTS: "0"
           CORA_DASH_TESTS: "0"
           CORA_SALES_TESTS: "0"
         run: |
-          pytest -q tests/test_final_system.py
+          set -e
+          echo "GIT_SHA=$GIT_SHA"
+          pytest -q tests/test_final_system.py -rA --maxfail=1
