@@ -1,6 +1,13 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+# CI top guard: bail out early in GitHub Actions (no /var/www/cora there).
+if [ "${GITHUB_ACTIONS-}" = "true" ]; then
+  echo "✅ CI mode: infra checks skipped (enforced on PROD only)"
+  exit 0
+fi
+
+
 ROOT="/var/www/cora"
 BACKUP_DIR="/var/backups/cora/docs"
 BACKUP_MAX_HOURS=26
