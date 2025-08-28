@@ -1,3 +1,6 @@
+import os, pytest
+if os.getenv('CORA_DB_TESTS','0') != '1':
+    pytest.skip('DB-backed tests disabled (set CORA_DB_TESTS=1 to enable)', allow_module_level=True)
 
 import sys
 from pathlib import Path

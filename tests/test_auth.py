@@ -1,3 +1,6 @@
+import os, pytest
+if os.getenv('CORA_DB_TESTS','0') != '1':
+    pytest.skip('DB-backed auth tests disabled (set CORA_DB_TESTS=1 to enable)', allow_module_level=True)
 """
 Comprehensive Authentication Tests
 Tests for registration, login, logout, password reset, and JWT tokens

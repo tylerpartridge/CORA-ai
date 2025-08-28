@@ -365,9 +365,15 @@
                         </div>
                         
                         <div style="margin-top: auto;">
-                            <button class="btn-construction-secondary w-100 mb-3" onclick="window.location.href='/#get-started'">
+                            {% if payment_link_solo %}
+                            <a href="{{ payment_link_solo }}" class="btn-construction-secondary w-100 mb-3" style="display: inline-block; text-align: center; text-decoration: none;">
+                                Start Free Trial
+                            </a>
+                            {% else %}
+                            <button class="btn-construction-secondary w-100 mb-3" data-plan="SOLO" onclick="initiateCheckout('SOLO')">
                                 Start Free Trial
                             </button>
+                            {% endif %}
                             <p style="text-align: center; font-size: 0.875rem; color: #a0aec0; margin: 0;">
                                 No credit card required
                             </p>
@@ -463,9 +469,15 @@
                         </div>
                         
                         <div style="margin-top: auto;">
-                            <button class="btn-construction w-100 mb-3" style="font-size: 1.2rem; padding: 1.25rem !important;" onclick="window.location.href='/#get-started'">
+                            {% if payment_link_crew %}
+                            <a href="{{ payment_link_crew }}" class="btn-construction w-100 mb-3" style="font-size: 1.2rem; padding: 1.25rem !important; display: inline-block; text-align: center; text-decoration: none;">
+                                Start Tracking Jobs Now
+                            </a>
+                            {% else %}
+                            <button class="btn-construction w-100 mb-3" style="font-size: 1.2rem; padding: 1.25rem !important;" data-plan="CREW" onclick="initiateCheckout('CREW')">
                                 Start Tracking Jobs Now
                             </button>
+                            {% endif %}
                             <p style="text-align: center; font-size: 0.875rem; color: #FF9800; margin: 0; font-weight: 700;">
                                 Most contractors choose this plan
                             </p>
@@ -557,9 +569,15 @@
                         </div>
                         
                         <div style="margin-top: auto;">
-                            <button class="btn-construction-secondary w-100 mb-3" onclick="window.location.href='/#get-started'">
+                            {% if payment_link_business %}
+                            <a href="{{ payment_link_business }}" class="btn-construction-secondary w-100 mb-3" style="display: inline-block; text-align: center; text-decoration: none;">
+                                Start Free Trial
+                            </a>
+                            {% else %}
+                            <button class="btn-construction-secondary w-100 mb-3" data-plan="BUSINESS" onclick="initiateCheckout('BUSINESS')">
                                 Start Free Trial
                             </button>
+                            {% endif %}
                             <p style="text-align: center; font-size: 0.875rem; color: #a0aec0; margin: 0;">
                                 No credit card required
                             </p>
@@ -1093,47 +1111,44 @@
 {% endblock %}
 
 {% block page_scripts %}
-    <!-- Optional: guarded checkout initialization without changing existing content/actions -->
+    <!-- Checkout handler for fallback when PAYMENT_LINK not set -->
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const buttons = Array.from(document.querySelectorAll('button, a.btn'));
-            buttons.forEach(btn => {
-                const label = (btn.textContent || '').toLowerCase();
-                if (label.includes('buy') || label.includes('checkout')) {
-                    btn.addEventListener('click', async function(e) {
-                        try {
-                            e.preventDefault();
-                            const res = await fetch('/api/payments/checkout', {
-                                method: 'POST',
-                                headers: { 'Content-Type': 'application/json' },
-                                body: JSON.stringify({ plan: 'standard', payment_method: 'card', amount_cents: 4900, currency: 'USD' })
-                            });
-                            if (res.status === 401) {
-                                const next = encodeURIComponent(window.location.pathname + window.location.search);
-                                window.location.href = '/signup?next=' + next + '&start=checkout';
-                                return;
-                            }
-                            if (!res.ok) {
-                                console.warn('Checkout init failed with status:', res.status);
-                                alert('Unable to start checkout right now. Please try again or contact support.');
-                                return;
-                            }
-                            const data = await res.json();
-                            if (data.checkout_url) {
-                                window.location.href = data.checkout_url;
-                            } else if (data.checkout_session_id) {
-                                window.location.href = '/subscription?status=success&session_id=' + encodeURIComponent(data.checkout_session_id);
-                            } else {
-                                alert('Checkout initialized, but no redirect URL was provided. Please try again.');
-                            }
-                        } catch (err) {
-                            console.error('Checkout init failed', err);
-                            alert('Network error starting checkout. Please try again.');
-                        }
-                    }, { once: true });
+        async function initiateCheckout(planType) {
+            try {
+                const res = await fetch('/api/payments/checkout', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ 
+                        plan_type: planType,
+                        success_url: window.location.origin + '/subscription?status=success',
+                        cancel_url: window.location.origin + '/pricing'
+                    })
+                });
+                
+                if (res.status === 401) {
+                    window.location.href = '/signup?next=/pricing&plan=' + planType;
+                    return;
                 }
-            });
-        });
+                
+                if (!res.ok) {
+                    console.warn('Checkout failed:', res.status);
+                    alert('Unable to start checkout. Please try again or contact support.');
+                    return;
+                }
+                
+                const data = await res.json();
+                if (data.checkout_url) {
+                    window.location.href = data.checkout_url;
+                } else if (data.session_url) {
+                    window.location.href = data.session_url;
+                } else {
+                    alert('Checkout started but no redirect URL received. Please contact support.');
+                }
+            } catch (err) {
+                console.error('Checkout error:', err);
+                alert('Network error. Please check your connection and try again.');
+            }
+        }
     </script>
     
     <!-- ROI Calculator Script -->

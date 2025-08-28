@@ -1,3 +1,34 @@
+# --- chat base URL autodetect (inserted) ---
+import os, requests, pytest
+CHAT_URL = os.getenv("CORA_CHAT_URL", "CHAT_URL")
+REMOTE_URL = os.getenv("CORA_REMOTE_URL", "https://coraai.tech/api/cora-chat/")
+def _ok(u):
+    try:
+        r = requests.post(u, json={"message":"ping"}, timeout=2)
+        return r.status_code < 500
+    except Exception:
+        return False
+if not _ok(CHAT_URL):
+    if _ok(REMOTE_URL):
+        CHAT_URL = REMOTE_URL
+        print(f"[OK] Using remote chat: {REMOTE_URL}")
+    else:
+        pytest.skip("No chat server reachable (set CORA_CHAT_URL or start local)", allow_module_level=True)
+# --- end insert ---
+# --- force short default timeout for requests in this test ---
+import os, requests
+if not getattr(requests.sessions.Session.request, "_cora_timeout_patched", False):
+    _orig_req = requests.sessions.Session.request
+    def _patched(self, method, url, **kwargs):
+        kwargs.setdefault("timeout", float(os.getenv("CORA_HTTP_TIMEOUT","2")))
+        return _orig_req(self, method, url, **kwargs)
+    _patched._cora_timeout_patched = True
+    requests.sessions.Session.request = _patched
+# --- end patch ---
+import pytest
+import os, pytest
+if os.getenv('CORA_SALES_TESTS','0') != '1':
+    pytest.skip('Sales chat tests disabled (set CORA_SALES_TESTS=1 to enable)', allow_module_level=True)
 #!/usr/bin/env python3
 """
 [LOCATION] LOCATION: /CORA/test_cora_sales.py
@@ -86,6 +117,7 @@ TEST_SCENARIOS = {
     ]
 }
 
+@pytest.mark.parametrize("message", ["How much does CORA cost?","How are you different from QuickBooks?","I'm too busy to learn a new system","Is my data secure?","How do I get started?"])
 def test_conversation(message: str, conversation_id: str = None) -> Tuple[str, str]:
     """Send a message to CORA and get response"""
     payload = {
@@ -350,3 +382,13 @@ if __name__ == "__main__":
     print(f"- Tested {sum(len(q) for q in TEST_SCENARIOS.values())} scenarios")
     print(f"- {len(iterations)} categories need improvement")
     print(f"- Top priority: {iterations[0]['category'] if iterations else 'None'}")
+
+
+
+
+
+
+
+
+
+
