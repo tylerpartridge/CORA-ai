@@ -1,0 +1,1 @@
+docs/ai-awareness/NOW.md

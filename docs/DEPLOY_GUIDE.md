@@ -151,4 +151,4 @@ Wait for DNS to propagate (can take up to 48 hours)
 
 ---
 
-Remember: Keep it simple. Get it live. Iterate based on real feedback!
+Remember: Keep it simple. Get it live. Iterate based on real feedback!TLS Renewal: See OPERATIONS.md for TLS renewal steps (renew before Sep 19, 2025).

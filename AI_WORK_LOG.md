@@ -184,3 +184,7 @@ systemctl start cora-save.service
 **Status: GREEN ✅ on oneshot; ready to graduate to engines once PR lands.**
 
 2025-08-27T14:03:56.406622Z  bootup: 20 cards → docs\ai-awareness\SNAPSHOT.md
+
+2025-08-28T16:15:55.431821+00:00Z  ckpt-20250828-161555  saved bundle → /var/backups/cora/progress/2025/08/28/ckpt-20250828-161555
+
+2025-08-28T16:30:58.594850+00:00Z  ckpt-20250828-163058  saved bundle → /var/backups/cora/progress/2025/08/28/ckpt-20250828-163058

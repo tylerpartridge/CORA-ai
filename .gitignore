@@ -86,3 +86,6 @@ venv/
 .env*
 
 tests/*.bak
+cora.db
+cora.db-shm
+cora.db-wal
