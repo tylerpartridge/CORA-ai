@@ -15,7 +15,7 @@ fail() { echo "❌ $1"; exit 1; }
 cd "$ROOT"
 
 # --- 1) Root cleanliness ---
-ALLOWED_FILES="BOOTUP.md STATE.md MISSION.md OPERATIONS.md MEMORY.md README.md app.py Makefile requirements.txt Dockerfile AI_WORK_LOG.md"
+ALLOWED_FILES="BOOTUP.md STATE.md MISSION.md OPERATIONS.md MEMORY.md README.md app.py Makefile requirements.txt Dockerfile AI_WORK_LOG.md MVP_REQUIREMENTS.md NOW.md STATUS.md NEXT.md"
 BANNED_DIRS_REGEX='^(__pycache__)$'
 
 unknown=()
