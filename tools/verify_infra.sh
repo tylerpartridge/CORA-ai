@@ -15,7 +15,7 @@ fail() { echo "❌ $1"; exit 1; }
 cd "$ROOT"
 
 # --- 1) Root cleanliness ---
-ALLOWED_FILES="BOOTUP.md STATE.md MISSION.md OPERATIONS.md MEMORY.md README.md app.py Makefile requirements.txt Dockerfile AI_WORK_LOG.md MVP_REQUIREMENTS.md NOW.md STATUS.md NEXT.md"
+ALLOWED_FILES="BOOTUP.md STATE.md MISSION.md OPERATIONS.md MEMORY.md README.md app.py Makefile requirements.txt Dockerfile AI_WORK_LOG.md MVP_REQUIREMENTS.md NOW.md STATUS.md NEXT.md GPT5_handoff.md NO_TOOL_BACKUPS.md pytest.ini"
 BANNED_DIRS_REGEX='^(__pycache__)$'
 
 unknown=()
@@ -52,6 +52,13 @@ if (( ${#unknown[@]} )); then
   exit 1
 else
   pass "Root cleanliness OK"
+fi
+
+
+# CI guard: skip system services in GitHub Actions
+if [ "${GITHUB_ACTIONS-}" = "true" ]; then
+  pass "CI mode: skipping system service checks"
+  exit 0
 fi
 
 # --- 2) Backup timer active ---
