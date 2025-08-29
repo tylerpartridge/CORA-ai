@@ -1,7 +1,15 @@
-### 2025-08-29T16:32:33-02:30 — Housekeeping: baton normalized
-- Archived Sonnet milestone handoff into 3 parts (≤250 lines each)
-- Restored canonical GPT5_handoff.md at repo root
-- Open PR: chore/2025-08-29-archive-sonnet-handoff
+## 💾 CHECKPOINT: 2025-08-29 16:45
+**Status:** Capsule sync milestone merged (commit b2d9478) 
+**Last Action:** GPT5_handoff baton aligned and awareness operations completed
+**Next Priority:** Resume MVP partials (money-path: Stripe link/CTA, upload/generate/view)
+**Blockers:** None - system fully operational with green CI status
+**Context:** Repo cleaned (main pulled, feature branch deleted), awareness health GREEN
+
+### 2025-08-29T16:45:00-02:30 — Checkpoint Complete: System Synchronized
+- ✅ Archived Sonnet milestone handoff into 3 parts (≤250 lines each)
+- ✅ Restored canonical GPT5_handoff.md at repo root
+- ✅ Merged PR: chore/2025-08-29-archive-sonnet-handoff (commit b2d9478)
+- ✅ Capsule sync completed across all awareness files
 # NOW - Current Status & Next Steps
 
 ## 🎉 SYSTEM STATUS: BETA LAUNCH READY

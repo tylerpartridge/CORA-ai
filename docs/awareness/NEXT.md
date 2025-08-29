@@ -1,6 +1,13 @@
-### 2025-08-29T16:32:33-02:30 — NEXT (P0/P1)
-- [P0] Merge PR: archive handoff + restore baton
-- [P0] hydrate next thread using GPT5_handoff.md (Part B → update)
+## 💾 CHECKPOINT: 2025-08-29 16:45
+**Status:** Capsule sync milestone merged (commit b2d9478) 
+**Last Action:** GPT5_handoff baton aligned and awareness operations completed
+**Next Priority:** Resume MVP partials (money-path: Stripe link/CTA, upload/generate/view)
+**Blockers:** None - system fully operational with green CI status
+**Context:** Repo cleaned (main pulled, feature branch deleted), awareness health GREEN
+
+### 2025-08-29T16:45:00-02:30 — NEXT (Updated)
+- [P0] ✅ Merge PR: archive handoff + restore baton (COMPLETED)
+- [P0] ✅ hydrate next thread using GPT5_handoff.md (Part B → update) (COMPLETED)
 - [P0] Resume MVP partials on money-path (Stripe link/CTA, upload/generate/view)
 - [P1] End-to-end prod test sweep after merge
 - [P1] Add beta onboarding helpers (Calendly link, tips page)

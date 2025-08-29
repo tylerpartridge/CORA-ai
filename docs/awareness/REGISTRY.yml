@@ -1,0 +1,23 @@
+# 2025-08-29T16:45:00-02:30 — checkpoint complete
+checkpoint:
+  status: complete
+  commit: b2d9478
+  awareness_ops: locked
+  all_files_synchronized: true
+  next_focus: mvp_partials
+
+handoff:
+  gpt5_handoff_present: true
+  path: GPT5_handoff.md
+  part_b_updated: true
+  archived_sonnet_handoff_parts:
+    - docs/ai-audits/2025-08-29/sonnet_handoff_report_part01.md
+    - docs/ai-audits/2025-08-29/sonnet_handoff_report_part02.md
+    - docs/ai-audits/2025-08-29/sonnet_handoff_report_part03.md
+
+awareness:
+  bootup_hydration_rules: established
+  checkpoint_discipline: active
+  compaction_policies: documented
+  ci_test_stability: green_15s_timeout
+

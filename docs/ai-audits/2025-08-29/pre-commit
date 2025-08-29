@@ -18,8 +18,8 @@ AWARENESS_FILES=(
 violations=()
 
 for file in "${AWARENESS_FILES[@]}"; do
-  # Find any instance of the file outside docs/awareness/ (limit depth for speed)
-  found=$(find . -maxdepth 2 -name "$file" -not -path "./docs/awareness/$file" -not -path "./.git/*" 2>/dev/null || true)
+  # Find any instance of the file outside docs/awareness/
+  found=$(find . -name "$file" -not -path "./docs/awareness/$file" -not -path "./.git/*" 2>/dev/null || true)
   
   if [ -n "$found" ]; then
     while IFS= read -r path; do

@@ -298,3 +298,10 @@ Saved checkpoint: /var/backups/cora/progress/2025/08/26/ckpt-20250826-193655 at 
 Saved checkpoint: /var/backups/cora/progress/2025/08/26/ckpt-20250826-195205 at 2025-08-26T19:52:08+00:00 UTC
 Saved checkpoint: /var/backups/cora/progress/2025/08/28/ckpt-20250828-161555 at 2025-08-28T16:15:58+00:00 UTC
 Saved checkpoint: /var/backups/cora/progress/2025/08/28/ckpt-20250828-163058 at 2025-08-28T16:31:01+00:00 UTC
+
+## 💾 CHECKPOINT: 2025-08-29 16:45
+**Status:** Capsule sync milestone merged (commit b2d9478) 
+**Last Action:** GPT5_handoff baton aligned and awareness operations completed
+**Next Priority:** Resume MVP partials (money-path: Stripe link/CTA, upload/generate/view)
+**Blockers:** None - system fully operational with green CI status
+**Context:** Repo cleaned (main pulled, feature branch deleted), awareness health GREEN

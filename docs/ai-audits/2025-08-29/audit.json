@@ -1,0 +1,166 @@
+{
+  "audit_date": "2025-08-29T16:45:00Z",
+  "audit_type": "awareness_namespace_consolidation", 
+  "found_files": {
+    "NOW.md": [
+      {
+        "path": "/mnt/host/c/CORA/NOW.md",
+        "size_bytes": 25,
+        "type": "pointer",
+        "last_3_lines": ["docs/ai-awareness/NOW.md"],
+        "is_canonical": false
+      },
+      {
+        "path": "/mnt/host/c/CORA/docs/ai-awareness/NOW.md", 
+        "size_bytes": 4280,
+        "type": "content",
+        "last_3_lines": [
+          "- All critical fixes implemented",
+          "",
+          "**Next action:** Complete Git setup and begin beta user acquisition."
+        ],
+        "is_canonical": true
+      }
+    ],
+    "NEXT.md": [
+      {
+        "path": "/mnt/host/c/CORA/NEXT.md",
+        "size_bytes": 25,
+        "type": "pointer", 
+        "last_3_lines": ["docs/ai-awareness/NEXT.md"],
+        "is_canonical": false
+      },
+      {
+        "path": "/mnt/host/c/CORA/docs/ai-awareness/NEXT.md",
+        "size_bytes": 5975,
+        "type": "content",
+        "last_3_lines": [
+          "---",
+          "**Strategic Status:** 🎉 **PRODUCTION ROUTE ISSUE RESOLVED** - BETA LAUNCH READY",
+          "**Next Milestone:** Begin beta user program and user acquisition"
+        ],
+        "is_canonical": true
+      }
+    ],
+    "STATUS.md": [
+      {
+        "path": "/mnt/host/c/CORA/STATUS.md",
+        "size_bytes": 27,
+        "type": "pointer",
+        "last_3_lines": ["docs/ai-awareness/STATUS.md"],
+        "is_canonical": false
+      },
+      {
+        "path": "/mnt/host/c/CORA/docs/ai-awareness/STATUS.md",
+        "size_bytes": 5637,
+        "type": "content",
+        "last_3_lines": [
+          "---",
+          "",
+          "**The CORA system is now fully operational both locally and in production, ready for beta user acquisition and launch.**"
+        ],
+        "is_canonical": true
+      }
+    ],
+    "AI_WORK_LOG.md": [
+      {
+        "path": "/mnt/host/c/CORA/AI_WORK_LOG.md",
+        "size_bytes": 8017,
+        "type": "rotated_archive",
+        "last_3_lines": [
+          "2025-08-28T16:15:55.431821+00:00Z  ckpt-20250828-161555  saved bundle → /var/backups/cora/progress/2025/08/28/ckpt-20250828-161555",
+          "",
+          "2025-08-28T16:30:58.594850+00:00Z  ckpt-20250828-163058  saved bundle → /var/backups/cora/progress/2025/08/28/ckpt-20250828-163058"
+        ],
+        "is_canonical": false
+      },
+      {
+        "path": "/mnt/host/c/CORA/docs/ai-awareness/AI_WORK_LOG.md",
+        "size_bytes": 33730,
+        "type": "active_log",
+        "last_3_lines": [
+          "**Next Priority:** Resume MVP partials (money-path: Stripe link/CTA, upload/generate/view)",
+          "**Blockers:** None - system fully operational with green CI status", 
+          "**Context:** Repo cleaned (main pulled, feature branch deleted), awareness health GREEN"
+        ],
+        "is_canonical": true
+      }
+    ],
+    "AI_DISCUSSION_SPACE.md": [
+      {
+        "path": "/mnt/host/c/CORA/docs/ai-awareness/AI_DISCUSSION_SPACE.md",
+        "size_bytes": 2536,
+        "type": "content",
+        "last_3_lines": [
+          "**Next Priority:** Resume MVP partials (money-path: Stripe link/CTA, upload/generate/view)",
+          "**Blockers:** None - system fully operational with green CI status",
+          "**Context:** Repo cleaned (main pulled, feature branch deleted), awareness health GREEN"
+        ],
+        "is_canonical": true
+      }
+    ],
+    "REGISTRY.yml": [
+      {
+        "path": "/mnt/host/c/CORA/docs/ai-awareness/REGISTRY.yml",
+        "size_bytes": 650,
+        "type": "content",
+        "last_3_lines": [
+          "  compaction_policies: documented",
+          "  ci_test_stability: green_15s_timeout",
+          ""
+        ],
+        "is_canonical": true
+      }
+    ],
+    "LOST_AND_FOUND.md": [
+      {
+        "path": "/mnt/host/c/CORA/docs/ai-awareness/LOST_AND_FOUND.md",
+        "size_bytes": 312,
+        "type": "content", 
+        "last_3_lines": [
+          "- 2025-08-29T16:45:00-02:30 — CHECKPOINT COMPLETE: Awareness ops locked, all files synchronized with capsules (commit b2d9478). Next focus: MVP partials completion.",
+          "- 2025-08-29T16:32:33-02:30 — Archived Sonnet milestone handoff split into parts; root baton = GPT5_handoff.md (Playbook + Session Capsule).",
+          ""
+        ],
+        "is_canonical": true
+      }
+    ]
+  },
+  "canonical_choices": {
+    "NOW.md": "docs/ai-awareness/NOW.md",
+    "NEXT.md": "docs/ai-awareness/NEXT.md", 
+    "STATUS.md": "docs/ai-awareness/STATUS.md",
+    "AI_WORK_LOG.md": "docs/ai-awareness/AI_WORK_LOG.md",
+    "AI_DISCUSSION_SPACE.md": "docs/ai-awareness/AI_DISCUSSION_SPACE.md",
+    "REGISTRY.yml": "docs/ai-awareness/REGISTRY.yml",
+    "LOST_AND_FOUND.md": "docs/ai-awareness/LOST_AND_FOUND.md"
+  },
+  "target_namespace": "docs/awareness/",
+  "writer_references_found": [
+    {
+      "file": "/mnt/host/c/CORA/AI_WORK_LOG.md",
+      "line": 143,
+      "content": "       | tee -a docs/ai-awareness/AI_WORK_LOG.md >/dev/null"
+    },
+    {
+      "file": "/mnt/host/c/CORA/tools/save_oneshot.sh", 
+      "line": 3,
+      "content": "printf \"Saved checkpoint: %s at %s UTC\\n\" \"$ck\" \"$(date -u -Is)\" | tee -a /var/www/cora/docs/ai-awareness/AI_WORK_LOG.md >/dev/null"
+    },
+    {
+      "file": "/mnt/host/c/CORA/tools/save_fallback.sh",
+      "line": 36,
+      "content": "  | tee -a \"${repo}/docs/ai-awareness/AI_WORK_LOG.md\" >/dev/null"
+    },
+    {
+      "file": "/mnt/host/c/CORA/tools/save.sh",
+      "line": 21,
+      "content": "if [ -n \"${last_bundle:-}\" ] && ! grep -Fq \"$last_bundle\" docs/ai-awareness/AI_WORK_LOG.md 2>/dev/null; then"
+    },
+    {
+      "file": "/mnt/host/c/CORA/tools/save.sh",
+      "line": 22,
+      "content": "  echo \"Saved checkpoint: $last_bundle at $(date -u -Is) UTC\" >> docs/ai-awareness/AI_WORK_LOG.md"
+    }
+  ]
+}

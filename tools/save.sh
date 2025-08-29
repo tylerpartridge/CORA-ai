@@ -18,6 +18,6 @@ if [ -n "${last_bundle:-}" ] && [ ! -f "$last_bundle/repo.tgz" ]; then
 fi
 
 # Awareness log line (guard against dupes)
-if [ -n "${last_bundle:-}" ] && ! grep -Fq "$last_bundle" docs/ai-awareness/AI_WORK_LOG.md 2>/dev/null; then
-  echo "Saved checkpoint: $last_bundle at $(date -u -Is) UTC" >> docs/ai-awareness/AI_WORK_LOG.md
+if [ -n "${last_bundle:-}" ] && ! grep -Fq "$last_bundle" docs/awareness/AI_WORK_LOG.md 2>/dev/null; then
+  echo "Saved checkpoint: $last_bundle at $(date -u -Is) UTC" >> docs/awareness/AI_WORK_LOG.md
 fi

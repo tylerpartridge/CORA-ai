@@ -1,0 +1,2 @@
+- 2025-08-29T16:45:00-02:30 — CHECKPOINT COMPLETE: Awareness ops locked, all files synchronized with capsules (commit b2d9478). Next focus: MVP partials completion.
+- 2025-08-29T16:32:33-02:30 — Archived Sonnet milestone handoff split into parts; root baton = GPT5_handoff.md (Playbook + Session Capsule).
