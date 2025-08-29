@@ -1,3 +1,9 @@
+### 2025-08-29T16:32:33-02:30 — NEXT (P0/P1)
+- [P0] Merge PR: archive handoff + restore baton
+- [P0] hydrate next thread using GPT5_handoff.md (Part B → update)
+- [P0] Resume MVP partials on money-path (Stripe link/CTA, upload/generate/view)
+- [P1] End-to-end prod test sweep after merge
+- [P1] Add beta onboarding helpers (Calendly link, tips page)
 # NEXT - Strategic Roadmap for Beta Launch
 
 ## 🎉 SYSTEM STATUS: BETA LAUNCH READY
