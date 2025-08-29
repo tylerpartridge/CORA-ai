@@ -1,5 +1,8 @@
 # OPERATIONS
 
+## Bootup Discipline
+- Bootup must honor Optional block: `# present` → hydrate, `# optional` → skip
+
 ## TLS Renewal
 
 Renew Let's Encrypt TLS **before Sep 19, 2025**.
