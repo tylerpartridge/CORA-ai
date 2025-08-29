@@ -366,13 +366,13 @@
                         
                         <div style="margin-top: auto;">
                             {% if payment_link_solo %}
-                            <a href="{{ payment_link_solo }}" class="btn-construction-secondary w-100 mb-3" style="display: inline-block; text-align: center; text-decoration: none;">
+                            <a href="{{ payment_link_solo }}" class="btn-construction-secondary w-100 mb-3" style="display: inline-block; text-align: center; text-decoration: none;" target="_blank" rel="noopener">
                                 Start Free Trial
                             </a>
                             {% else %}
-                            <button class="btn-construction-secondary w-100 mb-3" data-plan="SOLO" onclick="initiateCheckout('SOLO')">
+                            <a href="/signup?plan=SOLO" class="btn-construction-secondary w-100 mb-3" style="display: inline-block; text-align: center; text-decoration: none;">
                                 Start Free Trial
-                            </button>
+                            </a>
                             {% endif %}
                             <p style="text-align: center; font-size: 0.875rem; color: #a0aec0; margin: 0;">
                                 No credit card required
@@ -470,13 +470,13 @@
                         
                         <div style="margin-top: auto;">
                             {% if payment_link_crew %}
-                            <a href="{{ payment_link_crew }}" class="btn-construction w-100 mb-3" style="font-size: 1.2rem; padding: 1.25rem !important; display: inline-block; text-align: center; text-decoration: none;">
+                            <a href="{{ payment_link_crew }}" class="btn-construction w-100 mb-3" style="font-size: 1.2rem; padding: 1.25rem !important; display: inline-block; text-align: center; text-decoration: none;" target="_blank" rel="noopener">
                                 Start Tracking Jobs Now
                             </a>
                             {% else %}
-                            <button class="btn-construction w-100 mb-3" style="font-size: 1.2rem; padding: 1.25rem !important;" data-plan="CREW" onclick="initiateCheckout('CREW')">
+                            <a href="/signup?plan=CREW" class="btn-construction w-100 mb-3" style="font-size: 1.2rem; padding: 1.25rem !important; display: inline-block; text-align: center; text-decoration: none;">
                                 Start Tracking Jobs Now
-                            </button>
+                            </a>
                             {% endif %}
                             <p style="text-align: center; font-size: 0.875rem; color: #FF9800; margin: 0; font-weight: 700;">
                                 Most contractors choose this plan
@@ -570,13 +570,13 @@
                         
                         <div style="margin-top: auto;">
                             {% if payment_link_business %}
-                            <a href="{{ payment_link_business }}" class="btn-construction-secondary w-100 mb-3" style="display: inline-block; text-align: center; text-decoration: none;">
+                            <a href="{{ payment_link_business }}" class="btn-construction-secondary w-100 mb-3" style="display: inline-block; text-align: center; text-decoration: none;" target="_blank" rel="noopener">
                                 Start Free Trial
                             </a>
                             {% else %}
-                            <button class="btn-construction-secondary w-100 mb-3" data-plan="BUSINESS" onclick="initiateCheckout('BUSINESS')">
+                            <a href="/signup?plan=BUSINESS" class="btn-construction-secondary w-100 mb-3" style="display: inline-block; text-align: center; text-decoration: none;">
                                 Start Free Trial
-                            </button>
+                            </a>
                             {% endif %}
                             <p style="text-align: center; font-size: 0.875rem; color: #a0aec0; margin: 0;">
                                 No credit card required

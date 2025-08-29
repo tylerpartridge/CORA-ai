@@ -1,0 +1,245 @@
+{
+  "audit_metadata": {
+    "date": "2025-08-30",
+    "auditor": "Sonnet (READ-ONLY)",
+    "scope": "MVP_REQUIREMENTS.md partial items",
+    "total_requirements": 65,
+    "completed_count": 53,
+    "partial_count": 12,
+    "missing_count": 0,
+    "completion_percentage": 81.5
+  },
+  "requirements_audit": {
+    "user_registration_timezone": {
+      "requirement_id": "1_timezone_selection",
+      "title": "Timezone selection",
+      "category": "User Registration/Login",
+      "current_status": "PARTIAL",
+      "description": "User model exists but UI/flow incomplete",
+      "files": [],
+      "implementation_notes": "No timezone picker in signup/settings UI",
+      "test_coverage": "UNKNOWN",
+      "estimated_effort": "1-2 hours",
+      "priority": "HIGH"
+    },
+    "business_profile_job_types": {
+      "requirement_id": "2_typical_job_types", 
+      "title": "Typical job types",
+      "category": "Business Profile Setup",
+      "current_status": "PARTIAL",
+      "description": "Backend exists, UI incomplete",
+      "files": [
+        "routes/onboarding_routes.py:1-50"
+      ],
+      "implementation_notes": "Onboarding infrastructure present but user flow incomplete",
+      "test_coverage": "UNKNOWN",
+      "estimated_effort": "2-3 hours",
+      "priority": "MEDIUM"
+    },
+    "business_profile_save_progress": {
+      "requirement_id": "2_save_progress_resume",
+      "title": "Save progress/resume later",
+      "category": "Business Profile Setup", 
+      "current_status": "PARTIAL",
+      "description": "Session storage missing",
+      "files": [],
+      "implementation_notes": "No persistence mechanism found for onboarding state",
+      "test_coverage": "NONE",
+      "estimated_effort": "2-3 hours",
+      "priority": "MEDIUM"
+    },
+    "business_profile_skip_option": {
+      "requirement_id": "2_skip_option",
+      "title": "Skip option",
+      "category": "Business Profile Setup",
+      "current_status": "PARTIAL", 
+      "description": "Navigation flow incomplete",
+      "files": [],
+      "implementation_notes": "No skip buttons in onboarding UI",
+      "test_coverage": "NONE",
+      "estimated_effort": "1 hour",
+      "priority": "LOW"
+    },
+    "insights_minimum_data_check": {
+      "requirement_id": "6_minimum_data_check",
+      "title": "Minimum data check",
+      "category": "Weekly Insights Report",
+      "current_status": "PARTIAL",
+      "description": "Logic exists but thresholds undefined",
+      "files": [],
+      "implementation_notes": "No minimum expense/job validation before sending reports",
+      "test_coverage": "UNKNOWN",
+      "estimated_effort": "1-2 hours",
+      "priority": "MEDIUM"
+    },
+    "insights_unsubscribe_link": {
+      "requirement_id": "6_unsubscribe_link",
+      "title": "Unsubscribe link", 
+      "category": "Weekly Insights Report",
+      "current_status": "PARTIAL",
+      "description": "Email templates exist but links missing",
+      "files": [
+        "web/templates/emails/welcome.html",
+        "web/templates/emails/"
+      ],
+      "implementation_notes": "Email infrastructure present but unsubscribe URLs not implemented",
+      "test_coverage": "UNKNOWN",
+      "estimated_effort": "2-3 hours",
+      "priority": "MEDIUM"
+    },
+    "export_date_range_selection": {
+      "requirement_id": "8_date_range_selection",
+      "title": "Date range selection",
+      "category": "Export Data",
+      "current_status": "PARTIAL",
+      "description": "Export works but no date filtering",
+      "files": [
+        "routes/account_management.py:21-55"
+      ],
+      "implementation_notes": "Basic export functionality exists, user date controls missing",
+      "test_coverage": "PARTIAL",
+      "estimated_effort": "2-3 hours", 
+      "priority": "LOW"
+    },
+    "export_filename_with_date": {
+      "requirement_id": "8_filename_with_date",
+      "title": "Filename with date",
+      "category": "Export Data", 
+      "current_status": "PARTIAL",
+      "description": "Partial timestamp, format inconsistent",
+      "files": [
+        "routes/account_management.py:51"
+      ],
+      "implementation_notes": "Timestamp exists but format could be standardized",
+      "test_coverage": "PARTIAL",
+      "estimated_effort": "30 minutes",
+      "priority": "LOW"
+    },
+    "account_delete_account": {
+      "requirement_id": "9_delete_account",
+      "title": "Delete account",
+      "category": "Account Management",
+      "current_status": "PARTIAL",
+      "description": "API exists but incomplete flow",
+      "files": [
+        "routes/account_management.py:58-87",
+        "tools/temp/delete_accounts.py"
+      ],
+      "implementation_notes": "Soft delete API implemented but missing UI integration",
+      "test_coverage": "PARTIAL", 
+      "estimated_effort": "1-2 hours",
+      "priority": "LOW"
+    }
+  },
+  "money_path_analysis": {
+    "payment_link_primary": {
+      "status": "INFRASTRUCTURE_READY",
+      "description": "Template conditional blocks present, env vars missing",
+      "files": [
+        "web/templates/pricing.html:368-376",
+        "web/templates/pricing.html:472-480", 
+        "web/templates/pricing.html:572-580"
+      ],
+      "missing_components": [
+        "PAYMENT_LINK_SOLO env var",
+        "PAYMENT_LINK_CREW env var",
+        "PAYMENT_LINK_BUSINESS env var"
+      ],
+      "priority": "P0_CRITICAL"
+    },
+    "stripe_checkout_fallback": {
+      "status": "ROUTES_EXIST_IMPLEMENTATION_UNCLEAR",
+      "description": "OAuth integration present, checkout endpoint missing",
+      "files": [
+        "routes/stripe_integration.py",
+        "routes/payments.py",
+        "web/templates/pricing.html:1116-1151"
+      ],
+      "missing_components": [
+        "/api/payments/checkout endpoint"
+      ],
+      "priority": "P0_CRITICAL"
+    }
+  },
+  "risk_assessment": {
+    "high_risk": [
+      "money_path_incomplete", 
+      "timezone_handling_missing"
+    ],
+    "medium_risk": [
+      "onboarding_flow_incomplete",
+      "email_unsubscribe_missing"
+    ],
+    "low_risk": [
+      "export_feature_polish",
+      "account_deletion_ui"
+    ]
+  },
+  "implementation_roadmap": {
+    "p0_launch_blockers": [
+      {
+        "task": "Payment Link Setup",
+        "description": "Add PAYMENT_LINK_* environment variables",
+        "effort": "15 minutes",
+        "files": ["env configuration"]
+      },
+      {
+        "task": "Checkout Endpoint Implementation", 
+        "description": "Implement /api/payments/checkout endpoint",
+        "effort": "2-3 hours",
+        "files": ["routes/payments.py"]
+      },
+      {
+        "task": "Timezone Selection UI",
+        "description": "Add timezone picker to signup/settings",
+        "effort": "1-2 hours", 
+        "files": ["web/templates/", "routes/"]
+      }
+    ],
+    "p1_user_experience": [
+      {
+        "task": "Date Range Export",
+        "description": "Add date filtering to data export",
+        "effort": "2-3 hours",
+        "files": ["routes/account_management.py"]
+      },
+      {
+        "task": "Email Unsubscribe",
+        "description": "Add unsubscribe links and preference management",
+        "effort": "2-3 hours", 
+        "files": ["web/templates/emails/", "routes/"]
+      },
+      {
+        "task": "Onboarding Flow Completion",
+        "description": "Add save/resume/skip functionality",
+        "effort": "4-5 hours",
+        "files": ["routes/onboarding_routes.py", "web/templates/"]
+      }
+    ],
+    "p2_polish": [
+      {
+        "task": "Delete Account UI",
+        "description": "Connect existing API to frontend",
+        "effort": "1-2 hours",
+        "files": ["web/templates/", "static/js/"]
+      },
+      {
+        "task": "Export Filename Standards",
+        "description": "Standardize export file naming",
+        "effort": "30 minutes",
+        "files": ["routes/account_management.py"]
+      },
+      {
+        "task": "Report Minimum Data Validation",
+        "description": "Add thresholds before sending weekly reports",
+        "effort": "1-2 hours",
+        "files": ["services/", "routes/"]
+      }
+    ]
+  },
+  "total_estimated_effort": {
+    "hours_min": 7,
+    "hours_max": 11,
+    "critical_path": "Payment integration (2-3 hours)"
+  }
+}

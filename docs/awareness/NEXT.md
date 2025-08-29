@@ -5,12 +5,24 @@
 **Blockers:** None - system fully operational with green CI status
 **Context:** Repo cleaned (main pulled, feature branch deleted), awareness health GREEN
 
-### 2025-08-29T16:45:00-02:30 — NEXT (Updated)
-- [P0] ✅ Merge PR: archive handoff + restore baton (COMPLETED)
-- [P0] ✅ hydrate next thread using GPT5_handoff.md (Part B → update) (COMPLETED)
-- [P0] Resume MVP partials on money-path (Stripe link/CTA, upload/generate/view)
-- [P1] End-to-end prod test sweep after merge
-- [P1] Add beta onboarding helpers (Calendly link, tips page)
+### 2025-08-29T21:00:00-02:30 — NEXT (Stripe CTA Focus)
+**Priority: Money-path: Stripe CTA / Payment Link Implementation**
+
+**[P0] Stripe CTA Tasks:**
+1. Add nav "Pricing" link + CTA
+2. Payment Link path (PAYMENT_LINK_URL env var)
+3. Checkout fallback (/api/checkout, STRIPE_* envs)
+4. Success/Cancel page render
+5. README quickstart + tests
+
+**[P1] Follow-up:**
+- End-to-end prod test sweep after payment implementation
+- Beta onboarding helpers (Calendly link, tips page)
+
+**[COMPLETED]**
+- ✅ Awareness namespace consolidation
+- ✅ CI guard implementation 
+- ✅ Pre-commit enforcement hooks
 # NEXT - Strategic Roadmap for Beta Launch
 
 ## 🎉 SYSTEM STATUS: BETA LAUNCH READY

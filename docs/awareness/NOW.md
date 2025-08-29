@@ -5,11 +5,15 @@
 **Blockers:** None - system fully operational with green CI status
 **Context:** Repo cleaned (main pulled, feature branch deleted), awareness health GREEN
 
-### 2025-08-29T16:45:00-02:30 — Checkpoint Complete: System Synchronized
-- ✅ Archived Sonnet milestone handoff into 3 parts (≤250 lines each)
-- ✅ Restored canonical GPT5_handoff.md at repo root
-- ✅ Merged PR: chore/2025-08-29-archive-sonnet-handoff (commit b2d9478)
-- ✅ Capsule sync completed across all awareness files
+### 2025-08-29T21:00:00-02:30 — Current Focus: Money-path Implementation
+**Money-path: Stripe CTA / Payment Link (Payment Link primary; Checkout fallback)**
+
+Recent Completions:
+- ✅ Awareness namespace consolidation: All files moved to docs/awareness/
+- ✅ CI guard implementation: Prevents future duplicate awareness files  
+- ✅ Pre-commit enforcement: Blocks commits with awareness violations
+- ✅ Writer references updated: All scripts point to correct paths
+- ✅ BOOTUP.md corrected: Updated all awareness file paths
 # NOW - Current Status & Next Steps
 
 ## 🎉 SYSTEM STATUS: BETA LAUNCH READY

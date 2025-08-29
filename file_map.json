@@ -1,0 +1,9 @@
+{
+  "nav_entry": "C:\\CORA\\web\\templates\\components\\navigation.html",
+  "pricing_page": "C:\\CORA\\web\\templates\\pricing.html",
+  "success_page": "C:\\CORA\\web\\templates\\subscription.html",
+  "cancel_page": "C:\\CORA\\web\\templates\\subscription.html",
+  "api_checkout_route": "C:\\CORA\\routes\\stripe_integration.py",
+  "config_module": "C:\\CORA\\app.py",
+  "tests_file": "C:\\CORA\\tests\\test_stripe_payment.py"
+}
