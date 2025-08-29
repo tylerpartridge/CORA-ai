@@ -1,24 +1,10 @@
 <bootup-config>
-version: 1
-runner: tools/bootup.sh
-index_primary: docs/bootup/_index.yml
-index_fallback: docs/bootup/_index.list
-outputs:
-  cards_dir: docs/awareness/cards
-  snapshot: docs/awareness/SNAPSHOT.md
-  report: docs/awareness/BOOTUP_REPORT.json
-protect:
-  immutable:
-    - BOOTUP.md
-    - docs/bootup/_index.yml
-    - docs/bootup/_index.list
-  append_only:
-    - AI_WORK_LOG.md
-    - AI_DISCUSSION_SPACE.md
-</bootup-config>
 
-# 🚀 SESSION BOOTUP
-
+- /docs/ai-awareness/SPARKS.md  # present
+- /docs/ai-awareness/DECISIONS.md  # optional
+- /docs/ai-awareness/THRESHOLDS.md  # optional
+- /docs/ai-awareness/METRICS_SNAPSHOT.md  # optional
+- /docs/ai-awareness/AIM.md  # optional
 ## Quick Start (Say This)
 
 I'm starting a new CORA session. Please:
@@ -209,3 +195,6 @@ DEFAULT: Read documentation before answering. Never create without permission.
 REMEMBER: Tools aren't optional - they're how we maintain quality.
 
 ---
+
+## Optional (if present)
+
