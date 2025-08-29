@@ -1,3 +1,7 @@
+### 2025-08-29T16:32:33-02:30 — Housekeeping: baton normalized
+- Archived Sonnet milestone handoff into 3 parts (≤250 lines each)
+- Restored canonical GPT5_handoff.md at repo root
+- Open PR: chore/2025-08-29-archive-sonnet-handoff
 # NOW - Current Status & Next Steps
 
 ## 🎉 SYSTEM STATUS: BETA LAUNCH READY

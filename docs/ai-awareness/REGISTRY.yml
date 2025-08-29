@@ -1,0 +1,9 @@
+# 2025-08-29T16:32:33-02:30 — housekeeping
+handoff:
+  gpt5_handoff_present: true
+  path: GPT5_handoff.md
+  archived_sonnet_handoff_parts:
+    - docs/ai-audits/2025-08-29/sonnet_handoff_report_part01.md
+    - docs/ai-audits/2025-08-29/sonnet_handoff_report_part02.md
+    - docs/ai-audits/2025-08-29/sonnet_handoff_report_part03.md
+
