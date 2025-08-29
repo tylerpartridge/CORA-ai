@@ -53,4 +53,9 @@
 - Full awareness required for AI
 
 ---
-*Auto-update: Daily at 02:00 UTC*
+*Auto-update: Daily at 02:00 UTC*`n## REFERENCES
+- /docs/ai-awareness/SPARKS.md
+- /docs/ai-awareness/DECISIONS.md
+- /docs/ai-awareness/THRESHOLDS.md
+- /docs/ai-awareness/METRICS_SNAPSHOT.md
+- /docs/ai-awareness/AIM.md
