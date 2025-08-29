@@ -13,16 +13,19 @@ I'm starting a new CORA session. Please:
 3. Read state files: NOW.md, STATUS.md, NEXT.md, docs/HANDOVER_ACTIVE.md
 4. Then read enforcement docs: docs/SYSTEM_RULES.md, docs/PREFLIGHT_CHECKLIST.md, docs/FILE_OPERATION_WORKFLOW.md
 4. Skip - session tracking not yet implemented
-5. Give me a summary using this format:
+5. **Before major ops: run checkpoint** - Update awareness files before risky operations
+6. Give me a summary using this format:
    - Last Task: [from NOW.md]
    - System Status: [from STATUS.md]
    - Next Priority: [from NEXT.md]
    - Active Rules: [confirm enforcement]
-6. Include quick commands reminder: checkpoint (save), status (health), focus (current task)
-7. Confirm you've read ALL three enforcement docs (SYSTEM_RULES, PREFLIGHT, WORKFLOW)
-8. Check docs/INFRASTRUCTURE.md for deployment/hosting details (DigitalOcean, coraai.tech)
-9. IMPORTANT: Use TodoWrite immediately when given ANY task (even 2-step tasks)
-10. STOP and wait for my direction (do not run commands yet)
+7. Include quick commands reminder: checkpoint (save), status (health), focus (current task)
+8. Confirm you've read ALL three enforcement docs (SYSTEM_RULES, PREFLIGHT, WORKFLOW)
+9. Check docs/INFRASTRUCTURE.md for deployment/hosting details (DigitalOcean, coraai.tech)
+10. IMPORTANT: Use TodoWrite immediately when given ANY task (even 2-step tasks)
+11. STOP and wait for my direction (do not run commands yet)
+
+**Note:** Checkpoints appear in session logs when awareness files are updated.
 
 ## 🔄 Quick Refresh (Use Often!)
 
@@ -197,4 +200,7 @@ REMEMBER: Tools aren't optional - they're how we maintain quality.
 ---
 
 ## Optional (if present)
+
+### Checkpoint System Reference
+For comprehensive checkpoint procedures, see `/docs/ai-awareness/CHECKPOINT_SYSTEM.md`
 
