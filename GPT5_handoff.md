@@ -54,9 +54,9 @@
 **North Star:** Finish MVP partials on money-path; keep CI GREEN.
 
 **Repo / Branch**
-- Repo: cora (main at {short_commit})
+- Repo: cora (main at 09efd3e)
 - Branch: `chore/2025-08-29-archive-sonnet-handoff` (status: GREEN)
-- CI: {green/yellow/red}; Notes: {…}
+- CI: green; Notes: {…}
 
 **Facts (quick)**
 - Landing: {repo|external}; CTA → {PaymentLink|Missing}
