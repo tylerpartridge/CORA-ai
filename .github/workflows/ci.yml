@@ -32,6 +32,11 @@ jobs:
         run: |
           chmod +x ./ci_duplicate_guard.sh
           bash ./ci_duplicate_guard.sh
+      
+      - name: Checkpoint logging guard
+        run: |
+          chmod +x ./tools/ci_guard_no_checkpoint_in_worklog.sh
+          bash ./tools/ci_guard_no_checkpoint_in_worklog.sh
 
   baseline:
     name: Baseline (gated tests off)
