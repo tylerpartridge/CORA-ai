@@ -38,6 +38,7 @@ I'm starting a new CORA session. Please:
 ## Full Bootup Process
 
 ### 1. Read Active State Files
+- **docs/awareness/MISSION.md** - Core mission and values
 - **docs/ai-awareness/MVP_REQUIREMENTS.md** - 🗿 THE ONLY THING THAT MATTERS (65 items to launch)
 - **docs/awareness/NOW.md** - Current work in progress
 - **docs/awareness/STATUS.md** - System health status

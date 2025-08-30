@@ -129,8 +129,19 @@ async def contact_page(request: Request):
 
 @router.get("/pricing")
 async def pricing_page(request: Request):
-    """Serve pricing page"""
-    return request.app.state.templates.TemplateResponse("pricing.html", {"request": request})
+    """Serve pricing page with payment link configuration"""
+    import os
+    
+    # Get payment links from environment variables
+    # Priority: plan-specific > generic > None (template will handle fallback)
+    context = {
+        "request": request,
+        "payment_link_solo": os.getenv("PAYMENT_LINK_SOLO") or os.getenv("PAYMENT_LINK"),
+        "payment_link_crew": os.getenv("PAYMENT_LINK_CREW") or os.getenv("PAYMENT_LINK"), 
+        "payment_link_business": os.getenv("PAYMENT_LINK_BUSINESS") or os.getenv("PAYMENT_LINK")
+    }
+    
+    return request.app.state.templates.TemplateResponse("pricing.html", context)
 
 @router.get("/select-plan")
 async def select_plan_page(request: Request):

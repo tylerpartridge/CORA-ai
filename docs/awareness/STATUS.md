@@ -1,9 +1,11 @@
-## 💾 CHECKPOINT: 2025-08-29 16:45
-**Status:** Capsule sync milestone merged (commit b2d9478) 
-**Last Action:** GPT5_handoff baton aligned and awareness operations completed
-**Next Priority:** Resume MVP partials (money-path: Stripe link/CTA, upload/generate/view)
-**Blockers:** None - system fully operational with green CI status
-**Context:** Repo cleaned (main pulled, feature branch deleted), awareness health GREEN
+## 💾 CHECKPOINT: 2025-08-29 21:00
+**HEALTH:** GREEN
+**BLOCKERS:** none
+**NOTES:** awareness namespace consolidated; duplicate guard active; CI passing
+**Status:** Awareness namespace consolidation completed with CI enforcement
+**Last Action:** Hardened CI guard and consolidated all awareness files under docs/awareness/
+**Next Priority:** Money-path: Stripe CTA / Payment Link (Payment Link primary, Checkout fallback)
+**Context:** All awareness operations complete and locked; system ready for payment implementation
 
 """
 🧭 LOCATION: /CORA/STATUS.md
