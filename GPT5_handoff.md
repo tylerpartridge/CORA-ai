@@ -57,6 +57,29 @@
 - **TodoWrite** → required for any 2+ step task (forces a checklist doc)
 - **handoff** → update Part B, then carry this file to the next thread
 
+### Prompt Labeling (Required)
+All prompts must begin with a clear header identifying the target collaborator and be formatted as standalone code blocks for easy copy-paste:
+
+```
+SONNET — [task description]
+[detailed prompt text with no extra commentary]
+```
+
+```  
+OPUS — [task description]
+[detailed prompt text with no extra commentary]
+```
+
+```
+CURSOR — [task description] 
+[detailed prompt text with no extra commentary]
+```
+
+```
+TYLER — [task description]
+[detailed prompt text with no extra commentary]
+```
+
 ### Commit Protocol (Non-Negotiable)
 - Every change produced by Opus/Sonnet must be committed immediately.
 - GPT-5 MUST output the exact `git add/commit/push` block whenever an edit is proposed.
@@ -74,6 +97,7 @@ git push -u origin <branch>
 ### Roles & Rules
 - **Tyler**: intent, runs labeled commands, merges PRs.
 - **GPT-5 (orchestrator)**: plan, delegate, prompts, scope guard. **As orchestrator you must always be clear in prompts which collaborator (Sonnet, Opus, Cursor, Tyler) is intended to act. Each prompt must be a single copy-paste code block.**
+  - **Prompt Labeling Standard:** Every prompt MUST begin with a clear header naming the target (e.g., "SONNET — …", "OPUS — …", "TYLER — …", "CURSOR — …"). Each prompt must be in its own code block, with no extra commentary inside the block.
   - When providing next actions, GPT-5 MUST give a single recommended path forward (no multiple-choice). Always choose one direction based on best judgment and evidence.
 - **Sonnet (READ-ONLY)**: audits, docs, JSON gap inventories, copy.
 - **Opus (CODE-ONLY)**: FastAPI features, routes, tests, minimal diffs.
@@ -163,42 +187,17 @@ TL;DR: Opus does 100% of the code work. You (through Cursor or another git clien
 
 ## PART B — SESSION CAPSULE (UPDATE EACH THREAD; NEWEST FIRST)
 
-### Session: 2025-08-29  (Timezone: America/St_Johns)
-**North Star:** Resume MVP partials completion; awareness ops locked.
+### Session: 2025-08-30 (America/St_Johns)
+**North Star:** Ship money-path features from a clean, protected awareness baseline.
 
-**Repo / Branch**
-- Repo: cora (main at b2d9478)
-- Branch: main (merged chore/2025-08-29-archive-sonnet-handoff)
-- CI: GREEN ✅ (all builds passing)
+**State**
+- Main is clean; PR #19 merged (squash). Guards active and passing.
+- Checkpoint logs redirected → `docs/awareness/CHECKPOINT_LOG.md`.
+- Awareness corpus stable; `AI_WORK_LOG.md` carries human work entries only.
 
-**Facts (quick)**
-- Landing: repo; CTA → Stripe link/CTA (pending)
-- Stripe presence: webhook_secret yes, payment_link needs implementation, price_ids need review
-- Routes: billing y/n, webhook y, upload pending, reports y, pricing pending, healthz y
+**System Health:** GREEN
 
-**P0 (must do)**
-1) ✅ Archive Sonnet milestone handoff (COMPLETED - commit b2d9478).
-2) ✅ Restore canonical `GPT5_handoff.md` at root (COMPLETED).
-3) Resume MVP partials (money-path: Stripe link/CTA, upload/generate/view).
-
-**P1/P2**
-- P1: Final production end-to-end test sweep after MVP partials.
-- P2: Beta onboarding helpers (calendly, tips page).
-
-**Decisions Needed**
-- Focus on 12 remaining MVP partial items from MVP_REQUIREMENTS.md
-
-**Awareness Updates**
-- NOW.md (checkpoint capsule): ✅ YES
-- NEXT.md (checkpoint capsule): ✅ YES  
-- AI_WORK_LOG.md (checkpoint capsule): ✅ YES
-- AI_DISCUSSION_SPACE.md (checkpoint capsule): ✅ YES
-- STATUS.md (checkpoint capsule): ✅ YES
-
-**Next Actions**
-- SONNET: awareness ops COMPLETE/LOCKED - do not reopen
-- OPUS: resume MVP partials implementation (money-path focus)
-- TYLER: merge confirmed complete, ready for next MVP sprint phase
+**Next Action:** Create fresh branch from `main` for today's focus per MVP priorities.
 
 **Handoff Note**
 Carry this file forward next thread; update the Session Capsule only.
