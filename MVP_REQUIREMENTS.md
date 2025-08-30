@@ -1,1 +1,0 @@
-docs/ai-awareness/MVP_REQUIREMENTS.md
