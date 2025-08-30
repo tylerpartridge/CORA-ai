@@ -182,4 +182,16 @@ git log --all --full-history -- AI_DISCUSSION_SPACE.md
 
 
 ---
-**Latest checkpoint**: ckpt-20250823-183221 at 2025-08-23T18:32:22.211049Z
+
+## 💾 CHECKPOINT: 2025-08-29 16:45 - AWARENESS OPS COMPLETE
+**Status:** Capsule sync milestone merged (commit b2d9478)  
+**Achievement:** All awareness infrastructure complete and locked
+**Next Focus:** MVP partials (money-path: Stripe link/CTA, upload/generate/view)
+
+### Compressed Context Summary:
+- **Awareness System**: Bootup hydration rules, checkpoint discipline, compaction policies all established
+- **CI/Test Stability**: 15s timeout defaults, tools/bootup_engine.py operational 
+- **Agent Coordination**: GPT-5 orchestrates, Sonnet audits, Opus implements, Cursor CI/tests
+- **MVP Status**: 53/65 items complete (81.5%), focus on 12 remaining partials
+- **System Health**: Beta launch ready, production operational, green CI status
+- **STOP POINT**: Awareness ops finished/locked - do not reopen except for explicit new rules

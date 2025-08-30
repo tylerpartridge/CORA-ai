@@ -51,40 +51,41 @@
 ## PART B — SESSION CAPSULE (UPDATE EACH THREAD; NEWEST FIRST)
 
 ### Session: 2025-08-29  (Timezone: America/St_Johns)
-**North Star:** Finish MVP partials on money-path; keep CI GREEN.
+**North Star:** Resume MVP partials completion; awareness ops locked.
 
 **Repo / Branch**
-- Repo: cora (main at 09efd3e)
-- Branch: `chore/2025-08-29-archive-sonnet-handoff` (status: GREEN)
-- CI: green; Notes: {…}
+- Repo: cora (main at b2d9478)
+- Branch: main (merged chore/2025-08-29-archive-sonnet-handoff)
+- CI: GREEN ✅ (all builds passing)
 
 **Facts (quick)**
-- Landing: {repo|external}; CTA → {PaymentLink|Missing}
-- Stripe presence: payment_link {yes/no}, price_ids {yes/no}, webhook_secret {yes/no}
-- Routes: billing {y/n}, webhook {y/n}, upload {y/n}, reports {y/n}, pricing {y/n}, healthz {y/n}
+- Landing: repo; CTA → Stripe link/CTA (pending)
+- Stripe presence: webhook_secret yes, payment_link needs implementation, price_ids need review
+- Routes: billing y/n, webhook y, upload pending, reports y, pricing pending, healthz y
 
 **P0 (must do)**
-1) Archive Sonnet milestone handoff without breaking 300-line rule (SPLIT ✅).
-2) Restore canonical `GPT5_handoff.md` at root (this file).
-3) Proceed to close remaining MVP partials (money-path).
+1) ✅ Archive Sonnet milestone handoff (COMPLETED - commit b2d9478).
+2) ✅ Restore canonical `GPT5_handoff.md` at root (COMPLETED).
+3) Resume MVP partials (money-path: Stripe link/CTA, upload/generate/view).
 
 **P1/P2**
-- P1: Final production end-to-end test sweep.
+- P1: Final production end-to-end test sweep after MVP partials.
 - P2: Beta onboarding helpers (calendly, tips page).
 
 **Decisions Needed**
-- None (today’s scope is housekeeping + unblock MVP).
+- Focus on 12 remaining MVP partial items from MVP_REQUIREMENTS.md
 
 **Awareness Updates**
-- NOW.md (top-append): {yes/no}
-- NEXT.md (top-append): {yes/no}
-- REGISTRY.yml (append): {yes/no}
-- LOST_AND_FOUND.md (append): {yes/no}
+- NOW.md (checkpoint capsule): ✅ YES
+- NEXT.md (checkpoint capsule): ✅ YES  
+- AI_WORK_LOG.md (checkpoint capsule): ✅ YES
+- AI_DISCUSSION_SPACE.md (checkpoint capsule): ✅ YES
+- STATUS.md (checkpoint capsule): ✅ YES
 
 **Next Actions**
-- SONNET: not needed
-- OPUS: pending P0 items from audit (money-path only)
-- TYLER: open PR with archive + baton restore; merge when CI green
+- SONNET: awareness ops COMPLETE/LOCKED - do not reopen
+- OPUS: resume MVP partials implementation (money-path focus)
+- TYLER: merge confirmed complete, ready for next MVP sprint phase
 
 **Handoff Note**
 Carry this file forward next thread; update the Session Capsule only.

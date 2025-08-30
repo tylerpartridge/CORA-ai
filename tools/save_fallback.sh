@@ -33,6 +33,6 @@ tar -czf "${ckpt_dir}/repo.tgz" \
 
 # append to awareness log (append-only flag allows this)
 printf "Saved checkpoint: %s at %s UTC\n" "${ckpt_dir}" "$(date -u -Is)" \
-  | tee -a "${repo}/docs/ai-awareness/AI_WORK_LOG.md" >/dev/null
+  | tee -a "${repo}/docs/awareness/AI_WORK_LOG.md" >/dev/null
 
 echo "✅ checkpoint created at: ${ckpt_dir}"

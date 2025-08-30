@@ -1,16 +1,16 @@
 <bootup-config>
 
-- /docs/ai-awareness/SPARKS.md  # present
-- /docs/ai-awareness/DECISIONS.md  # optional
-- /docs/ai-awareness/THRESHOLDS.md  # optional
-- /docs/ai-awareness/METRICS_SNAPSHOT.md  # optional
-- /docs/ai-awareness/AIM.md  # optional
+- /docs/ai-awareness/SPARKS.md  # present - Optional Meta
+- /docs/ai-awareness/DECISIONS.md  # optional - Optional Meta
+- /docs/ai-awareness/THRESHOLDS.md  # optional - Optional Meta
+- /docs/ai-awareness/METRICS_SNAPSHOT.md  # optional - Optional Meta
+- /docs/ai-awareness/AIM.md  # optional - Optional Meta
 ## Quick Start (Say This)
 
 I'm starting a new CORA session. Please:
 1. Read BOOTUP.md for session context
 2. **READ MVP_REQUIREMENTS.md FIRST** - This is the ONLY priority until launch
-3. Read state files: NOW.md, STATUS.md, NEXT.md, docs/HANDOVER_ACTIVE.md
+3. Read state files: docs/awareness/NOW.md, docs/awareness/STATUS.md, docs/awareness/NEXT.md, docs/HANDOVER_ACTIVE.md
 4. Then read enforcement docs: docs/SYSTEM_RULES.md, docs/PREFLIGHT_CHECKLIST.md, docs/FILE_OPERATION_WORKFLOW.md
 4. Skip - session tracking not yet implemented
 5. **Before major ops: run checkpoint** - Update awareness files before risky operations
@@ -38,11 +38,11 @@ I'm starting a new CORA session. Please:
 ## Full Bootup Process
 
 ### 1. Read Active State Files
-- **MVP_REQUIREMENTS.md** - 🗿 THE ONLY THING THAT MATTERS (65 items to launch)
-- **NOW.md** - Current work in progress
-- **STATUS.md** - System health status
-- **NEXT.md** - Task queue and priorities
-- **HANDOVER_ACTIVE.md** - Claude ↔ Cursor collaboration status
+- **docs/ai-awareness/MVP_REQUIREMENTS.md** - 🗿 THE ONLY THING THAT MATTERS (65 items to launch)
+- **docs/awareness/NOW.md** - Current work in progress
+- **docs/awareness/STATUS.md** - System health status
+- **docs/awareness/NEXT.md** - Task queue and priorities
+- **docs/HANDOVER_ACTIVE.md** - Claude ↔ Cursor collaboration status
 
 ### 2. Check System Health
 ```bash

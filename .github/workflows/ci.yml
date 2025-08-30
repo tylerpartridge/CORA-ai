@@ -22,9 +22,21 @@ on:
         default: "10"
 
 jobs:
+  awareness-guard:
+    name: Awareness Namespace Guard
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Duplicate awareness files guard
+        run: |
+          chmod +x ./ci_duplicate_guard.sh
+          bash ./ci_duplicate_guard.sh
+
   baseline:
     name: Baseline (gated tests off)
     runs-on: ubuntu-latest
+    needs: awareness-guard
     steps:
       - uses: actions/checkout@v4
 

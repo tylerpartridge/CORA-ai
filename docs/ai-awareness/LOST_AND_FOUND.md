@@ -1,1 +1,0 @@
-- 2025-08-29T16:32:33-02:30 — Archived Sonnet milestone handoff split into parts; root baton = GPT5_handoff.md (Playbook + Session Capsule).

@@ -67,3 +67,10 @@
 
 ---
 *File reconstructed from context - original was deleted during today's session*
+
+## 💾 CHECKPOINT: 2025-08-29 16:45
+**Status:** Capsule sync milestone merged (commit b2d9478) 
+**Last Action:** GPT5_handoff baton aligned and awareness operations completed
+**Next Priority:** Resume MVP partials (money-path: Stripe link/CTA, upload/generate/view)
+**Blockers:** None - system fully operational with green CI status
+**Context:** Repo cleaned (main pulled, feature branch deleted), awareness health GREEN
