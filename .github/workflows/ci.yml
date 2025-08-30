@@ -28,8 +28,10 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       
-      - name: Check awareness namespace compliance
-        run: ./ci_duplicate_guard.sh
+      - name: Duplicate awareness files guard
+        run: |
+          chmod +x ./ci_duplicate_guard.sh
+          bash ./ci_duplicate_guard.sh
 
   baseline:
     name: Baseline (gated tests off)
