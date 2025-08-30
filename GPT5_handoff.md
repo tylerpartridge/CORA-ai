@@ -94,6 +94,41 @@ git commit -m "<conventional message>"
 git push -u origin <branch>
 ```
 
+## Development Workflow (Required)
+
+1) New work always starts from a clean `main`.
+2) Create a feature branch:
+   - Naming: `feature/YYYY-MM-DD-<brief-task>`
+3) Make focused changes (one intent per PR).
+4) Commit early/often; push the branch.
+5) Open a PR to `main`, let CI/guards run.
+6) Merge PR (squash). Do **not** commit directly to `main` unless RED.
+7) Pull `main` locally (`git pull --prune`) after merges.
+
+### End-of-Day Close
+- Append newest-on-top entry in `docs/awareness/AI_WORK_LOG.md` summarizing what landed and system health.
+- Update GPT5_handoff.md "Session Capsule" with:
+  - State (GREEN/YELLOW/RED)
+  - What shipped today
+  - **Next Action** for tomorrow (one line)
+- If a branch is mid-flight, ensure it's pushed and PR is open.
+
+### Morning Boot (Next Day)
+- `git checkout main && git pull --prune`
+- Create a fresh feature branch from `main` for the **one** top priority.
+- Proceed with the Development Workflow steps above.
+
+### Prompt Labeling (Reminder)
+All prompts MUST start with a header naming the actor (SONNET / OPUS / TYLER / CURSOR) and be in their own code block. No mixed-actor blocks.
+
+### Command Cheatsheet (keep here for Tyler)
+- Create branch: `git checkout -b feature/YYYY-MM-DD-<task>`
+- Stage+commit: `git add -A && git commit -m "<type>(scope): <message>"`
+- Push: `git push -u origin $(git rev-parse --abbrev-ref HEAD)`
+- Open PR: `gh pr create --fill --base main --head $(git rev-parse --abbrev-ref HEAD)`
+- Merge PR: `gh pr merge <#> --squash --delete-branch` (or `--admin` if policy allows)
+- Sync main: `git checkout main && git pull --prune`
+
 ### Roles & Rules
 - **Tyler**: intent, runs labeled commands, merges PRs.
 - **GPT-5 (orchestrator)**: plan, delegate, prompts, scope guard. **As orchestrator you must always be clear in prompts which collaborator (Sonnet, Opus, Cursor, Tyler) is intended to act. Each prompt must be a single copy-paste code block.**
