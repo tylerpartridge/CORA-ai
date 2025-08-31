@@ -143,6 +143,22 @@ async def pricing_page(request: Request):
     
     return request.app.state.templates.TemplateResponse("pricing.html", context)
 
+@router.get("/pricing/success")
+async def pricing_success(request: Request):
+    """Handle successful payment from Stripe Payment Link"""
+    return request.app.state.templates.TemplateResponse(
+        "pricing_success.html",
+        {"request": request}
+    )
+
+@router.get("/pricing/cancel")
+async def pricing_cancel(request: Request):
+    """Handle cancelled payment from Stripe Payment Link"""
+    return request.app.state.templates.TemplateResponse(
+        "pricing_cancel.html",
+        {"request": request}
+    )
+
 @router.get("/select-plan")
 async def select_plan_page(request: Request):
     """Plan selection page - shown after signup, before onboarding"""

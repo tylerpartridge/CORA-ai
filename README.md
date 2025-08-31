@@ -35,6 +35,30 @@ Built with simplicity and scale in mind:
 - AI-first API design
 - Human-AI collaborative workspace (.mind/)
 
+## 💳 Stripe Payment Configuration
+
+CORA supports Stripe Payment Links for subscription CTAs on the pricing page.
+
+### Environment Variables
+
+Configure these in your `.env` file:
+
+```bash
+# Generic payment link (applies to all plans if specific ones aren't set)
+PAYMENT_LINK=https://buy.stripe.com/your_generic_payment_link
+
+# Plan-specific payment links (optional, override generic)
+PAYMENT_LINK_SOLO=https://buy.stripe.com/your_solo_plan_link
+PAYMENT_LINK_CREW=https://buy.stripe.com/your_crew_plan_link
+PAYMENT_LINK_BUSINESS=https://buy.stripe.com/your_business_plan_link
+```
+
+### Fallback Behavior
+
+- If payment links are configured, CTAs will open Stripe Payment Links in a new tab
+- If no payment links are set, CTAs fallback to `/signup?plan=PLANNAME`
+- Plan-specific links override the generic PAYMENT_LINK
+
 ## 📞 Contact
 
 Visit [coraai.tech](https://coraai.tech) to learn more.

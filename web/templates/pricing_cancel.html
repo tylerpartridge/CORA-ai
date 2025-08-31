@@ -1,0 +1,53 @@
+{% extends "base_public.html" %}
+
+{% block page_title %}Payment Cancelled - CORA{% endblock %}
+{% block page_description %}Your payment was cancelled. You can try again anytime.{% endblock %}
+
+{% block content %}
+<section style="background: linear-gradient(180deg, #1a1a1a 0%, #2d3748 100%); min-height: 80vh; display: flex; align-items: center;">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-6">
+                <div style="background: var(--dark-surface); padding: 3rem; border-radius: 8px; border: 3px solid rgba(255, 152, 0, 0.5); text-align: center;">
+                    <div style="width: 100px; height: 100px; background: rgba(255, 152, 0, 0.1); border: 4px solid #FF9800; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 2rem;">
+                        <span style="font-size: 3rem;">⚠️</span>
+                    </div>
+                    
+                    <h1 style="color: #FF9800; margin-bottom: 1rem; text-transform: uppercase;">Payment Cancelled</h1>
+                    
+                    <p style="color: #e2e8f0; font-size: 1.2rem; margin-bottom: 2rem;">
+                        No worries! Your payment was cancelled and you haven't been charged.
+                    </p>
+                    
+                    <div style="background: rgba(255, 152, 0, 0.1); padding: 1.5rem; border-radius: 4px; margin-bottom: 2rem;">
+                        <h3 style="color: #4db8ff; margin-bottom: 1rem;">Still Interested?</h3>
+                        <p style="color: #e2e8f0; margin-bottom: 1rem;">
+                            CORA offers a 30-day free trial with no credit card required.
+                        </p>
+                        <ul style="list-style: none; padding: 0; margin: 0;">
+                            <li style="color: #e2e8f0; margin-bottom: 0.5rem;">
+                                <span style="color: #69F0AE;">✓</span> Track jobs and expenses
+                            </li>
+                            <li style="color: #e2e8f0; margin-bottom: 0.5rem;">
+                                <span style="color: #69F0AE;">✓</span> Real-time profit tracking
+                            </li>
+                            <li style="color: #e2e8f0; margin-bottom: 0.5rem;">
+                                <span style="color: #69F0AE;">✓</span> Cancel anytime
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <div class="d-flex justify-content-center gap-3">
+                        <a href="/pricing" class="btn-construction">
+                            View Plans Again
+                        </a>
+                        <a href="/signup" class="btn-construction-secondary">
+                            Start Free Trial
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
