@@ -10,6 +10,7 @@ import os
 from contextlib import contextmanager
 from fastapi.testclient import TestClient
 import pytest
+from bs4 import BeautifulSoup
 
 
 @contextmanager
@@ -33,33 +34,24 @@ def env(**kwargs):
 
 def get_cta_hrefs(html: str) -> dict:
     """
-    Extract CTA hrefs from pricing page HTML.
+    Extract CTA hrefs from pricing page HTML using data-testid attributes.
     Returns dict with plan names as keys and hrefs as values.
-    
-    Using simple string parsing instead of BeautifulSoup to avoid dependency.
     """
-    # Find all pricing card CTAs by looking for the pattern
-    import re
-    
+    soup = BeautifulSoup(html, 'html.parser')
     hrefs = {}
     
-    # Find SOLO CTA
-    solo_match = re.search(r'<a[^>]*href="([^"]+)"[^>]*>.*?Start Free Trial.*?</a>.*?SOLO', html, re.DOTALL)
-    if not solo_match:
-        # Try reverse order
-        solo_match = re.search(r'SOLO.*?<a[^>]*href="([^"]+)"[^>]*>.*?Start Free Trial.*?</a>', html, re.DOTALL)
-    if solo_match:
-        hrefs['SOLO'] = solo_match.group(1)
+    # Find CTAs by data-testid
+    solo_cta = soup.find('a', attrs={'data-testid': 'cta-solo'})
+    if solo_cta:
+        hrefs['SOLO'] = solo_cta.get('href')
     
-    # Find CREW CTA (different text)
-    crew_match = re.search(r'CREW.*?<a[^>]*href="([^"]+)"[^>]*>.*?Start Tracking Jobs Now.*?</a>', html, re.DOTALL)
-    if crew_match:
-        hrefs['CREW'] = crew_match.group(1)
+    crew_cta = soup.find('a', attrs={'data-testid': 'cta-crew'})
+    if crew_cta:
+        hrefs['CREW'] = crew_cta.get('href')
     
-    # Find BUSINESS CTA
-    business_match = re.search(r'BUSINESS.*?<a[^>]*href="([^"]+)"[^>]*>.*?Start Free Trial.*?</a>', html, re.DOTALL)
-    if business_match:
-        hrefs['BUSINESS'] = business_match.group(1)
+    business_cta = soup.find('a', attrs={'data-testid': 'cta-business'})
+    if business_cta:
+        hrefs['BUSINESS'] = business_cta.get('href')
     
     return hrefs
 
@@ -179,17 +171,23 @@ def test_target_blank_for_payment_links(test_client):
         response = test_client.get("/pricing")
         assert response.status_code == 200
         
-        # Check for target="_blank" and rel="noopener" on payment links
-        assert 'href="https://buy.stripe.com/test"' in response.text
-        assert 'target="_blank"' in response.text
-        assert 'rel="noopener"' in response.text
+        soup = BeautifulSoup(response.text, 'html.parser')
         
-        # Check that signup links don't have target="_blank"
-        assert 'href="/signup?plan=CREW"' in response.text
-        # The /signup links should not have target="_blank" immediately after them
-        import re
-        signup_pattern = re.compile(r'href="/signup\?plan=\w+"[^>]*target="_blank"')
-        assert not signup_pattern.search(response.text), "Signup links should not open in new tab"
+        # Check SOLO CTA has target="_blank" for external link
+        solo_cta = soup.find('a', attrs={'data-testid': 'cta-solo'})
+        assert solo_cta.get('href') == 'https://buy.stripe.com/test'
+        assert solo_cta.get('target') == '_blank'
+        assert 'noopener' in str(solo_cta.get('rel'))
+        
+        # Check CREW CTA doesn't have target="_blank" for internal link
+        crew_cta = soup.find('a', attrs={'data-testid': 'cta-crew'})
+        assert crew_cta.get('href') == '/signup?plan=CREW'
+        assert crew_cta.get('target') is None, "Internal links should not open in new tab"
+        
+        # Check BUSINESS CTA doesn't have target="_blank" for internal link
+        business_cta = soup.find('a', attrs={'data-testid': 'cta-business'})
+        assert business_cta.get('href') == '/signup?plan=BUSINESS'
+        assert business_cta.get('target') is None, "Internal links should not open in new tab"
 
 
 if __name__ == "__main__":

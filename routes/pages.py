@@ -133,15 +133,45 @@ async def pricing_page(request: Request):
     import os
     
     # Get payment links from environment variables
-    # Priority: plan-specific > generic > None (template will handle fallback)
+    # Priority: plan-specific > generic > None (backend computes exact fallback)
+    generic = os.getenv("PAYMENT_LINK")
+    link_solo = os.getenv("PAYMENT_LINK_SOLO") or generic
+    link_crew = os.getenv("PAYMENT_LINK_CREW") or generic
+    link_business = os.getenv("PAYMENT_LINK_BUSINESS") or generic
+
+    def resolved_cta(plan: str, link: str) -> str:
+        # Exact fallback per tests: /signup?plan=<PLAN>
+        return link if link else f"/signup?plan={plan}"
+
     context = {
         "request": request,
-        "payment_link_solo": os.getenv("PAYMENT_LINK_SOLO") or os.getenv("PAYMENT_LINK"),
-        "payment_link_crew": os.getenv("PAYMENT_LINK_CREW") or os.getenv("PAYMENT_LINK"), 
-        "payment_link_business": os.getenv("PAYMENT_LINK_BUSINESS") or os.getenv("PAYMENT_LINK")
+        # Keep originals for template target attributes
+        "payment_link_solo": os.getenv("PAYMENT_LINK_SOLO"),
+        "payment_link_crew": os.getenv("PAYMENT_LINK_CREW"),
+        "payment_link_business": os.getenv("PAYMENT_LINK_BUSINESS"),
+        # Computed final hrefs (tests assert exact fallbacks)
+        "cta_href_solo": resolved_cta("SOLO", link_solo),
+        "cta_href_crew": resolved_cta("CREW", link_crew),
+        "cta_href_business": resolved_cta("BUSINESS", link_business),
     }
     
     return request.app.state.templates.TemplateResponse("pricing.html", context)
+
+@router.get("/pricing/success")
+async def pricing_success(request: Request):
+    """Handle successful payment from Stripe Payment Link"""
+    return request.app.state.templates.TemplateResponse(
+        "pricing_success.html",
+        {"request": request}
+    )
+
+@router.get("/pricing/cancel")
+async def pricing_cancel(request: Request):
+    """Handle cancelled payment from Stripe Payment Link"""
+    return request.app.state.templates.TemplateResponse(
+        "pricing_cancel.html",
+        {"request": request}
+    )
 
 @router.get("/select-plan")
 async def select_plan_page(request: Request):
