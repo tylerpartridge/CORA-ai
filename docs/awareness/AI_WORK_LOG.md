@@ -4,6 +4,13 @@
 > Format: **Date — Model — Summary**
 > Newest entries first.
 
+## 2025-09-01 — Timezone selection verified
+- Created throwaway user: test_landing3@example.com via signup UI
+- DB shows timezone=America/New_York (auto-detected from browser)
+- Confirms signup flow persists timezone and exports will respect user tz
+- Test suite present but gated (requires CORA_DB_TESTS / CORA_E2E flags)
+- Manual acceptance complete; feature marked DONE
+
 ## 2025-08-30 — EOD Checkpoint (21:09 UTC)
 **Model:** Claude 3.5 Sonnet  
 **Summary:** 
