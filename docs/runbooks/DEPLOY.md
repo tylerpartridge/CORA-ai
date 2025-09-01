@@ -262,3 +262,13 @@ After successful deployment:
 
 *Last updated: 2025-09-01*  
 *Next review: 2025-10-01*
+## 🔁 Quick Start (Windows/PowerShell)
+
+From repo root:
+\\\powershell
+.\deploy
+\\\
+
+This calls \scripts/Invoke-CoraDeploy.ps1\, runs the deploy on the server, and smoke-checks:
+- \/health\ returns JSON (HTTP 200)
+- \/api/status\ returns HTTP 200
