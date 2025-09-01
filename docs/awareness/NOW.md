@@ -1,19 +1,25 @@
-## 💾 CHECKPOINT: 2025-08-29 16:45
-**Status:** Capsule sync milestone merged (commit b2d9478) 
-**Last Action:** GPT5_handoff baton aligned and awareness operations completed
-**Next Priority:** Resume MVP partials (money-path: Stripe link/CTA, upload/generate/view)
-**Blockers:** None - system fully operational with green CI status
-**Context:** Repo cleaned (main pulled, feature branch deleted), awareness health GREEN
+## 💾 CHECKPOINT: 2025-08-31 17:00
+**Status:** Quick Wins Intel Audit completed - full implementation blueprint ready
+**Last Action:** Created comprehensive quick_wins_audit.md with file paths, effort estimates, and dependency mapping
+**Next Priority:** Execute MVP quick wins: Skip buttons (2h) → Filename standardization (2h) → Data validation (2h)
+**Blockers:** None - implementation path fully mapped, ready for execution
+**Context:** Audit reveals strong foundations exist; 6 total hours to complete 3 features
 
-### 2025-08-29T21:00:00-02:30 — Current Focus: Money-path Implementation
-**Money-path: Stripe CTA / Payment Link (Payment Link primary; Checkout fallback)**
+### 2025-08-31 — Current Focus: MVP Partials Quick Wins Sprint
+**Refined Phase 1 Quick Wins (6 hours, post-timezone):**
+1. **Skip Buttons** (2h) - Build on existing foundation in onboarding-ai-wizard.js
+2. **Filename Standardization** (2h) - Apply `cora_{type}_{email}_{YYYYMMDD}.csv` pattern to 4 export functions
+3. **Data Validation** (2h) - Create weekly_report_service.py with minimum data checks
+
+**Implementation Intel Available:** docs/ai-audits/2025-08-31/quick_wins_audit.md
 
 Recent Completions:
-- ✅ Awareness namespace consolidation: All files moved to docs/awareness/
-- ✅ CI guard implementation: Prevents future duplicate awareness files  
-- ✅ Pre-commit enforcement: Blocks commits with awareness violations
-- ✅ Writer references updated: All scripts point to correct paths
-- ✅ BOOTUP.md corrected: Updated all awareness file paths
+- ✅ Stripe CTA implementation: Payment Links with /signup fallback
+- ✅ Test stability: data-testid selectors replace text matching
+- ✅ Quick Wins Intel Audit: Comprehensive implementation blueprints for 3 features
+- ✅ Foundation analysis: Skip buttons (strong), Filename (inconsistent), Data validation (missing)
+- ✅ Effort mapping: 2 hours per feature, 6 hours total for MVP completion boost
+- ✅ File path identification: All target files and modification points mapped
 # NOW - Current Status & Next Steps
 
 ## 🎉 SYSTEM STATUS: BETA LAUNCH READY

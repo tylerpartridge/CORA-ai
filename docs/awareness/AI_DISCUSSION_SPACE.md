@@ -4,10 +4,12 @@
 
 ## Current State of CORA
 
-### MVP Progress (as of 2025-08-22)
-- **Complete:** 52/65 items (80%)
-- **Partial:** 13/65 items (20%)
-- **Missing:** 0/65 items (0%)
+### MVP Quick Wins Sprint (2025-08-31)
+**Skip Buttons:** ✅ Complete - `/web/static/js/onboarding-ai-wizard.js` + `/routes/onboarding_routes.py` enhanced  
+**Filename Standardization:** Ready - 4 export functions → `cora_{type}_{email}_{YYYYMMDD}.csv` pattern  
+**Data Validation:** Ready - NEW `services/weekly_report_service.py` with 3/5/3 thresholds  
+**Acceptance:** Unified filenames across exports + validation before weekly reports + skip capability per onboarding step  
+**Effort:** 4 hours remaining (Skip complete, 2h each for Filename + Validation)
 - **Time to Launch:** 2-3 days
 
 ### Key Discoveries Today
