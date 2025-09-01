@@ -16,7 +16,16 @@ import logging
 from models import get_db, User, Expense
 from dependencies.auth import get_current_user
 from services.weekly_report_service import WeeklyReportService, DataValidationReason
-from services.email_service import EmailService
+import logging
+logger = logging.getLogger("cora.weekly_insights")
+try:
+    from services.email_service import EmailService  # type: ignore
+except Exception as e:
+    logger.warning("EmailService unavailable (%s); weekly insights will skip email sending.", e)
+    class EmailService:
+        @staticmethod
+        def send_report(*args, **kwargs):
+            return None
 from utils.pdf_exporter import PDFExporter
 
 logger = logging.getLogger(__name__)
