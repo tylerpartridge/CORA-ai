@@ -28,4 +28,7 @@
 
 ## 2025-08-30 — Pricing CTA Implementation Complete
 **Model:** Claude 3.5 Sonnet (Opus Mode)
-**Summary:** Implemented Stripe Payment Links for pricing CTAs. Routes pass PAYMENT_LINK environment variables to template. Template uses payment links when set, falls back to /signup?plan=X otherwise. Removed JavaScript checkout modal to prevent errors. Added comprehensive test coverage for all scenarios.
+**Summary:** Implemented Stripe Payment Links for pricing CTAs. Routes pass PAYMENT_LINK environment variables to template. Template uses payment links when set, falls back to /signup?plan=X otherwise. Removed JavaScript checkout modal to prevent errors. Added comprehensive test coverage for all scenarios.## 2025-09-01 — Deploy wiring + scripted deploy
+- Merged PR #32: repo deploy script + team runbook + BOOTUP/NOW/NEXT pointers
+- First scripted deploy via Invoke-CoraDeploy.ps1 (batch window): /health 200 JSON, /api/status 200
+- Notes: service restart clean; nginx unchanged; no errors in journalctl
