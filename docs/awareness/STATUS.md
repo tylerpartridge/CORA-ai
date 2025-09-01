@@ -1,3 +1,11 @@
+## 💾 CHECKPOINT: 2025-09-01 15:30 UTC
+**HEALTH:** GREEN
+**BLOCKERS:** none
+**NOTES:** Batch deploys succeeded; smokes 200; pre-commit size guard flagged export_manager.js (>300 lines).
+
+**Completed:** Filename standardization, Weekly Insights data validation
+**Status:** All systems operational; timezone-aware exports and 3/5/3 validation rules fully integrated
+
 ## 💾 CHECKPOINT: 2025-09-01 12:18 UTC
 **HEALTH:** GREEN
 **BLOCKERS:** none

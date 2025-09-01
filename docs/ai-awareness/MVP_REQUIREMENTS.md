@@ -18,7 +18,7 @@
 - [x] Password reset
 - [x] Rate limiting
 - [x] Remember me option
-- [ ] Timezone selection ⚠️ PARTIAL
+- [x] Timezone selection
 - [x] Currency setting (default USD)
 
 ### 2️⃣ Business Profile Setup
@@ -27,7 +27,7 @@
 - [ ] Typical job types ⚠️ PARTIAL
 - [x] Main expense categories
 - [ ] Save progress/resume later ⚠️ PARTIAL
-- [ ] Skip option ⚠️ PARTIAL
+- [x] Skip option
 
 ### 3️⃣ Voice Expense Entry
 - [x] Voice-to-text capture
@@ -65,7 +65,7 @@
 - [x] Profit leaks identified
 - [x] Overspending alerts
 - [x] Email delivery (configured sender)
-- [ ] Minimum data check ⚠️ PARTIAL
+- [x] Minimum data check
 - [ ] Unsubscribe link ⚠️ PARTIAL
 - [x] View in app option
 
@@ -85,7 +85,7 @@
 - [ ] Date range selection ⚠️ PARTIAL
 - [x] Email or download option
 - [x] Include job data
-- [ ] Filename with date ⚠️ PARTIAL
+- [x] Filename with date
 - [x] Success confirmation
 
 ### 9️⃣ Account Management
