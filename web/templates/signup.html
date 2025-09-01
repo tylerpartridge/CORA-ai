@@ -120,6 +120,43 @@
                         <label for="passwordConfirm" class="form-label">Confirm Password</label>
                         <input type="password" class="form-control" id="passwordConfirm" name="passwordConfirm" required minlength="10" placeholder="Re-enter password" autocomplete="new-password">
                     </div>
+                    <div class="mb-4">
+                        <label for="timezone" class="form-label">Your Timezone</label>
+                        <select class="form-control" id="timezone" name="timezone" required>
+                            <option value="">Select your timezone...</option>
+                            <optgroup label="North America">
+                                <option value="Pacific/Honolulu">Hawaii (HST)</option>
+                                <option value="America/Anchorage">Alaska (AKST)</option>
+                                <option value="America/Los_Angeles">Pacific Time (PST/PDT)</option>
+                                <option value="America/Phoenix">Arizona (MST)</option>
+                                <option value="America/Denver">Mountain Time (MST/MDT)</option>
+                                <option value="America/Chicago">Central Time (CST/CDT)</option>
+                                <option value="America/New_York">Eastern Time (EST/EDT)</option>
+                                <option value="America/Toronto">Toronto (EST/EDT)</option>
+                            </optgroup>
+                            <optgroup label="Central/South America">
+                                <option value="America/Mexico_City">Mexico City (CST)</option>
+                                <option value="America/Sao_Paulo">São Paulo (BRT)</option>
+                            </optgroup>
+                            <optgroup label="Europe">
+                                <option value="Europe/London">London (GMT/BST)</option>
+                                <option value="Europe/Paris">Paris (CET/CEST)</option>
+                                <option value="Europe/Berlin">Berlin (CET/CEST)</option>
+                                <option value="Europe/Moscow">Moscow (MSK)</option>
+                            </optgroup>
+                            <optgroup label="Asia">
+                                <option value="Asia/Dubai">Dubai (GST)</option>
+                                <option value="Asia/Kolkata">India (IST)</option>
+                                <option value="Asia/Shanghai">China (CST)</option>
+                                <option value="Asia/Tokyo">Tokyo (JST)</option>
+                                <option value="Asia/Seoul">Seoul (KST)</option>
+                            </optgroup>
+                            <optgroup label="Pacific">
+                                <option value="Australia/Sydney">Sydney (AEST/AEDT)</option>
+                                <option value="Pacific/Auckland">Auckland (NZST/NZDT)</option>
+                            </optgroup>
+                        </select>
+                    </div>
                     <button type="submit" class="btn-signup" id="submitBtn">
                         <span class="btn-text">START SAVING MONEY →</span>
                     <span class="btn-loading"><span class="spinner-border spinner-border-sm me-2"></span>Building Your Account...</span>
@@ -178,6 +215,76 @@ if (emailFromUrl) {
         emailField.value = decodeURIComponent(emailFromUrl);
     }
 }
+
+// Auto-detect and select user's timezone
+const timezoneSelect = document.getElementById('timezone');
+if (timezoneSelect) {
+    try {
+        // Get browser's timezone
+        const browserTimezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+        
+        // Try to find and select the matching option
+        const options = timezoneSelect.options;
+        for (let i = 0; i < options.length; i++) {
+            if (options[i].value === browserTimezone) {
+                timezoneSelect.selectedIndex = i;
+                break;
+            }
+        }
+        
+        // If not found in the list, try to find the closest match
+        if (timezoneSelect.value === '') {
+            // Map common browser timezones to our list
+            const timezoneMap = {
+                'US/Pacific': 'America/Los_Angeles',
+                'US/Mountain': 'America/Denver',
+                'US/Central': 'America/Chicago',
+                'US/Eastern': 'America/New_York',
+                'US/Hawaii': 'Pacific/Honolulu',
+                'US/Alaska': 'America/Anchorage',
+                'Canada/Eastern': 'America/Toronto',
+                'Brazil/East': 'America/Sao_Paulo',
+                'GB': 'Europe/London',
+                'GMT': 'Europe/London',
+                'CET': 'Europe/Paris',
+                'EET': 'Europe/Berlin',
+                'Asia/Calcutta': 'Asia/Kolkata',
+                'Australia/NSW': 'Australia/Sydney',
+                'NZ': 'Pacific/Auckland'
+            };
+            
+            const mappedTimezone = timezoneMap[browserTimezone];
+            if (mappedTimezone) {
+                for (let i = 0; i < options.length; i++) {
+                    if (options[i].value === mappedTimezone) {
+                        timezoneSelect.selectedIndex = i;
+                        break;
+                    }
+                }
+            }
+        }
+        
+        // Default to America/New_York if still not selected
+        if (timezoneSelect.value === '') {
+            for (let i = 0; i < options.length; i++) {
+                if (options[i].value === 'America/New_York') {
+                    timezoneSelect.selectedIndex = i;
+                    break;
+                }
+            }
+        }
+    } catch (e) {
+        console.error('Timezone detection failed:', e);
+        // Default to America/New_York on error
+        for (let i = 0; i < timezoneSelect.options.length; i++) {
+            if (timezoneSelect.options[i].value === 'America/New_York') {
+                timezoneSelect.selectedIndex = i;
+                break;
+            }
+        }
+    }
+}
+
 // Focus handling will be done by signup-form.js
 });
     </script>
