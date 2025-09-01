@@ -1,23 +1,36 @@
-## 💾 CHECKPOINT: 2025-08-29 16:45
-**Status:** Capsule sync milestone merged (commit b2d9478) 
-**Last Action:** GPT5_handoff baton aligned and awareness operations completed
-**Next Priority:** Resume MVP partials (money-path: Stripe link/CTA, upload/generate/view)
-**Blockers:** None - system fully operational with green CI status
-**Context:** Repo cleaned (main pulled, feature branch deleted), awareness health GREEN
+## 💾 CHECKPOINT: 2025-08-31 17:00
+**Status:** Quick Wins implementation intelligence gathered - execution-ready blueprints created
+**Last Action:** Sonnet intel audit completed with file paths, effort estimates, and implementation strategies
+**Next Priority:** Execute refined quick wins (6 hours): Skip buttons → Filename standardization → Data validation
+**Blockers:** None - comprehensive audit reveals clear implementation paths with low complexity
+**Context:** Foundations analyzed, inconsistencies mapped, ready for systematic execution
 
-### 2025-08-29T21:00:00-02:30 — NEXT (Stripe CTA Focus)
-**Priority: Money-path: Stripe CTA / Payment Link Implementation**
+### 2025-08-31 — NEXT: Execution-Ready Quick Wins Sprint
 
-**[P0] Stripe CTA Tasks:**
-1. Add nav "Pricing" link + CTA
-2. Payment Link path (PAYMENT_LINK_URL env var)
-3. Checkout fallback (/api/checkout, STRIPE_* envs)
-4. Success/Cancel page render
-5. README quickstart + tests
+**Phase 1: Quick Wins (Execution-Ready Sequence) - 2 hours each**
+1. ✅ **Skip Buttons** - COMPLETED: Per-step skip functionality implemented
+   - Files: `web/static/js/onboarding-ai-wizard.js`, `routes/onboarding_routes.py`
+   - Status: Skip infrastructure enhanced, backend API ready
+   
+2. **Filename Standardization** - Apply unified `cora_{type}_{email}_{YYYYMMDD}.csv` pattern
+   - Files: `routes/expense_routes.py:164`, `routes/expenses.py:690`, `routes/dashboard_routes.py:676`, `web/static/js/export_manager.js:218`
+   - Blueprint: Generate_filename utility function, timezone-aware dates
+   
+3. **Data Validation** - Create minimum data checks for weekly insights  
+   - Files: NEW `services/weekly_report_service.py`, integrate with task automation
+   - Blueprint: 3/5/3 thresholds (recent/total/days), validation enum, user messaging
 
-**[P1] Follow-up:**
-- End-to-end prod test sweep after payment implementation
-- Beta onboarding helpers (Calendly link, tips page)
+**Phase 2: Medium Effort (2-4 hours each)**
+5. **Job types** - Add job type selection to onboarding checklist
+6. **Save/resume** - Implement onboarding session storage
+7. **Unsubscribe link** - Create unsubscribe route and update email templates
+
+**Phase 3: Complex Features (4+ hours each)**
+8. **Date range selection** - Add date pickers to export UI with filtering
+9. **Delete account** - Full soft delete implementation with 30-day grace period
+
+**Launch Readiness:** Execute 3 features (6 hours) → Test → Deploy → MVP COMPLETE (53→57→61→65 items ✅)
+**Implementation Blueprints:** Available in `docs/ai-audits/2025-08-31/quick_wins_audit.md`
 
 **[COMPLETED]**
 - ✅ Awareness namespace consolidation
