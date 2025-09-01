@@ -277,7 +277,13 @@ class ExportManager {
         // Generate standardized filename: cora_{type}_{email}_{YYYYMMDD}.csv
         const userEmail = this.getCurrentUserEmail();
         const dateStr = this.getCurrentDate();
-        const filename = `cora_${exportType}_${userEmail}_${dateStr}.csv`;
+        // Sanitize email: @ -> _at_, non-alphanumeric -> -
+        const sanitizedEmail = userEmail.toLowerCase()
+            .replace('@', '_at_')
+            .replace(/[^a-z0-9._-]/g, '-')
+            .replace(/-+/g, '-')
+            .replace(/^-|-$/g, '');
+        const filename = `cora_${exportType}_${sanitizedEmail}_${dateStr}.csv`;
         
         this.downloadCSV(csv, filename);
     }

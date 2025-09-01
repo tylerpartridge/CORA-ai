@@ -38,18 +38,18 @@ class TestFilenameGeneration:
         
         # Check specific parts
         assert filename.startswith('cora_expenses_')
-        assert 'user_example.com' in filename
+        assert 'user_at_example.com' in filename
         assert filename.endswith('.csv')
     
     def test_email_sanitization(self):
         """Test email sanitization in filenames"""
         test_cases = [
-            ('user@example.com', 'user_example.com'),
-            ('john.doe+tag@company.co.uk', 'john.doe_tag_company.co.uk'),
-            ('admin@localhost', 'admin_localhost'),
-            ('user!#$%@test.com', 'user_test.com'),
+            ('user@example.com', 'user_at_example.com'),
+            ('john.doe+tag@company.co.uk', 'john.doe-tag_at_company.co.uk'),
+            ('admin@localhost', 'admin_at_localhost'),
+            ('user!#$%@test.com', 'user-_at_test.com'),
             ('', 'user'),  # Empty email fallback
-            ('@@@', 'user'),  # Invalid email fallback
+            ('@@@', '_at__at__at_'),  # Multiple @ characters
         ]
         
         for email, expected_part in test_cases:
@@ -99,7 +99,7 @@ class TestFilenameGeneration:
         filename3 = generate_filename('test', 'user@test.com', '')
         
         # All should generate valid filenames
-        pattern = r'^cora_test_user_test\.com_\d{8}\.csv$'
+        pattern = r'^cora_test_user_at_test\.com_\d{8}\.csv$'
         assert re.match(pattern, filename1), "Invalid timezone should fallback gracefully"
         assert re.match(pattern, filename2), "None timezone should fallback gracefully"
         assert re.match(pattern, filename3), "Empty timezone should fallback gracefully"
@@ -178,9 +178,9 @@ def test_filename_pattern_regex():
     pattern = r'^cora_[a-zA-Z0-9_]+_[a-zA-Z0-9._-]+_\d{8}\.csv$'
     
     valid_filenames = [
-        'cora_expenses_user_test.com_20250831.csv',
+        'cora_expenses_user_at_test.com_20250831.csv',
         'cora_dashboard_admin_20250831.csv',
-        'cora_report_john.doe_company.com_20250831.csv',
+        'cora_report_john.doe_at_company.com_20250831.csv',
         'cora_test_123_user-name_20250831.csv',
     ]
     
