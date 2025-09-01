@@ -62,6 +62,7 @@ class RegisterRequest(ValidatedBaseModel):
     email: str
     password: str
     confirm_password: str
+    timezone: Optional[str] = "America/New_York"
     
     @validator('email')
     def validate_email(cls, v):
@@ -76,6 +77,18 @@ class RegisterRequest(ValidatedBaseModel):
         if 'password' in values and v != values['password']:
             raise ValueError("Passwords do not match")
         return v
+    
+    @validator('timezone')
+    def validate_timezone(cls, v):
+        if not v:
+            return "America/New_York"
+        # Validate timezone is a valid IANA timezone
+        import zoneinfo
+        try:
+            zoneinfo.ZoneInfo(v)
+            return v
+        except:
+            return "America/New_York"
 
 class EmailRequest(BaseModel):
     email: EmailStr
@@ -274,8 +287,8 @@ async def register(request: RegisterRequest, db: Session = Depends(get_db)):
         # Validate input
         validate_user_input(request.email, request.password, request.confirm_password)
         
-        # Create user
-        user = create_user(db, request.email, request.password)
+        # Create user with timezone
+        user = create_user(db, request.email, request.password, request.timezone)
         
         # Link to ContractorWaitlist if they came through lead capture
         try:

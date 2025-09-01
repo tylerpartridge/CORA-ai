@@ -269,7 +269,8 @@ document.addEventListener('DOMContentLoaded', function() {
             const data = {
                 email: formData.get('email'),
                 password: formData.get('password'),
-                confirm_password: formData.get('passwordConfirm')  // Backend expects confirm_password
+                confirm_password: formData.get('passwordConfirm'),  // Backend expects confirm_password
+                timezone: formData.get('timezone') || 'America/New_York'  // Include timezone with fallback
             };
             
             // Name will be collected during onboarding

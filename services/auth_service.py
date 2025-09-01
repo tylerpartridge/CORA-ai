@@ -195,7 +195,7 @@ def create_access_token(data: dict, expires_delta: Optional[timedelta] = None):
         logger.error(f"Failed to create access token: {str(e)}")
         raise AuthenticationError("Failed to generate authentication token")
 
-def create_user(db: Session, email: str, password: str) -> User:
+def create_user(db: Session, email: str, password: str, timezone: Optional[str] = "America/New_York") -> User:
     """Create new user with comprehensive error handling"""
     try:
         # Validate input
@@ -238,7 +238,8 @@ def create_user(db: Session, email: str, password: str) -> User:
             email=email,
             hashed_password=hashed_password,
             is_active=is_active,
-            email_verified=email_verified
+            email_verified=email_verified,
+            timezone=timezone
         )
         db.add(db_user)
         db.commit()
