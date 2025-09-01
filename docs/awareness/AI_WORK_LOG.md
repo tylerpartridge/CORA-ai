@@ -4,6 +4,16 @@
 > Format: **Date — Model — Summary**
 > Newest entries first.
 
+## 2025-09-01 — GPT-5/Opus — "Filename standardization shipped (timezone-aware); tests updated; deployed GREEN."
+
+## 2025-09-01 — Weekly insights validation shipped (3/5/3)
+- ✅ Merged PR #38: adds weekly validation service and route (`services/weekly_report_service.py`, `routes/weekly_insights.py`)
+- ✅ Added tests: `tests/test_weekly_validation.py` (green)
+- 🚀 Deployed in batch window; smokes passed (`/health` 200, `/api/status` 200)
+- 🟢 System health: GREEN
+
+## 2025-09-01 — GPT-5/Opus — "Weekly Insights 3/5/3 validation shipped; routes integrated; tests passing; deployed GREEN."
+
 ## 2025-09-01 — Filename standardization shipped
 - ✅ Merged PR #36: standardize CSV export filenames to `cora_{type}_{email}_{YYYYMMDD}.csv` (timezone-aware)
 - ✅ Updated `utils/filenames.py`, `web/static/js/export_manager.js`, and `tests/test_export_filenames.py`

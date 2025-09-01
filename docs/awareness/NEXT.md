@@ -1,3 +1,5 @@
+**Next Action:** Split `web/static/js/export_manager.js` into smaller modules (<300 lines) to satisfy guard.
+
 ## 💾 CHECKPOINT: 2025-09-01 12:18 UTC
 **Status:** Post-deploy
 **Next Priority:** (1) Monitor prod logs (24h) (2) Refactor: split services/auth_service.py (<300 lines) (3) QA: onboarding skip + exports
