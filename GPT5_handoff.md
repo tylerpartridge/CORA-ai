@@ -223,10 +223,12 @@ TL;DR: Opus does 100% of the code work. You (through Cursor or another git clien
 ## PART B — SESSION CAPSULE (UPDATE EACH THREAD; NEWEST FIRST)
 
 ### Session: 2025-09-01 15:30 UTC
-**Shipped:** Weekly Insights 3/5/3 validation (PR #38) with friendly feedback
-- Files: `services/weekly_report_service.py`, `routes/weekly_insights.py`, `tests/test_weekly_validation.py`
-- Deploy: GREEN; smokes passed (200/200)
+**Shipped:**
+- Weekly Insights 3/5/3 validation (PR #38)
+- Unsubscribe link + opt-in/opt-out for weekly insights emails (PR #40)
+- Deploy: GREEN; smokes 200/200
 **System Health:** GREEN
+**Notes:** Manual checklist walkthroughs skipped by intent; full review will happen once core MVP tasks are done.
 **Next Action (single):** Split `export_manager.js` (<300 lines) to satisfy pre-commit guard.
 
 ### Session: 2025-09-01 (America/St_Johns)

@@ -4,6 +4,12 @@
 > Format: **Date — Model — Summary**
 > Newest entries first.
 
+## 2025-09-01 — Unsubscribe link implemented (opt-in/opt-out)
+- ✅ Merged PR #40: unsubscribe route + opt-in/opt-out for weekly insights emails
+- ✅ Files: `models/user.py`, `migrations/add_weekly_insights_opt_in.py`, `routes/weekly_insights.py`, `routes/settings.py`, `dependencies/auth.py`, `app.py`, `tests/test_unsubscribe.py`
+- 🚀 Deployed in batch window; smokes passed (`/health` 200, `/api/status` 200)
+- 🟢 System health: GREEN
+
 ## 2025-09-01 — GPT-5/Opus — "Filename standardization shipped (timezone-aware); tests updated; deployed GREEN."
 
 ## 2025-09-01 — Weekly insights validation shipped (3/5/3)
