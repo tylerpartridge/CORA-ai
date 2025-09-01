@@ -327,6 +327,9 @@ app.include_router(error_router)
 app.include_router(health_router)
 app.include_router(account_management_router)
 app.include_router(feature_flags_router)
+app.include_router(weekly_insights_router)
+app.include_router(settings_router)
+app.include_router(unsubscribe_router)
 
 # Include feedback router for beta users
 from routes.feedback_routes import feedback_router
@@ -357,6 +360,10 @@ app.include_router(referral_router)
 # Conversational onboarding registration removed - feature not implemented
 
 # Test panel removed - no longer needed
+
+# Add additional routes
+from routes.weekly_insights import weekly_insights_router
+from routes.settings import settings_router, unsubscribe_router
 
 # Add WebSocket endpoint
 from routes.websocket import websocket_endpoint

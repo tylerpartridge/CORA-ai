@@ -87,3 +87,28 @@ async def require_admin(
             detail="Admin access required"
         )
     return current_user
+
+def create_unsubscribe_token(user_id: int) -> str:
+    """Create a JWT token for unsubscribe links"""
+    from datetime import datetime, timedelta, timezone
+    expire = datetime.now(timezone.utc) + timedelta(days=7)  # Token valid for 7 days
+    payload = {
+        "sub": str(user_id),
+        "type": "unsubscribe",
+        "exp": expire
+    }
+    token = jwt.encode(payload, SECRET_KEY, algorithm=ALGORITHM)
+    return token
+
+def verify_unsubscribe_token(token: str) -> int:
+    """Verify and decode unsubscribe token"""
+    try:
+        payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
+        if payload.get("type") != "unsubscribe":
+            raise ValueError("Invalid token type")
+        user_id = payload.get("sub")
+        if user_id is None:
+            raise ValueError("Invalid token payload")
+        return int(user_id)
+    except JWTError:
+        raise ValueError("Invalid or expired token")

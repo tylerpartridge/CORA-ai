@@ -125,11 +125,11 @@ async def generate_weekly_insights(
             "validation_context": details
         }
         
-        # Send email if requested (in background)
-        if send_email and current_user.email:
+        # Send email if requested and user has opted in (in background)
+        if send_email and current_user.email and getattr(current_user, 'weekly_insights_opt_in', 'true') == 'true':
             background_tasks.add_task(
                 send_weekly_insights_email,
-                current_user.email,
+                current_user,
                 report_data,
                 db
             )
@@ -208,7 +208,7 @@ async def validate_weekly_insights_data(
 
 
 async def send_weekly_insights_email(
-    user_email: str,
+    user: User,
     report_data: Dict,
     db: Session
 ):
@@ -216,11 +216,16 @@ async def send_weekly_insights_email(
     Send weekly insights report via email (background task).
     
     Args:
-        user_email: Recipient email address
+        user: User object
         report_data: Report data dictionary
         db: Database session
     """
     try:
+        # Generate unsubscribe token
+        from dependencies.auth import create_unsubscribe_token
+        unsubscribe_token = create_unsubscribe_token(user.id)
+        unsubscribe_url = f"https://coraai.tech/unsubscribe?token={unsubscribe_token}"
+        
         # Create email content
         email_subject = f"Your Weekly Insights Report - {report_data['period']}"
         
@@ -240,8 +245,8 @@ async def send_weekly_insights_email(
             </ul>
             
             <p style="margin-top: 30px; font-size: 12px; color: #666;">
-                This report was generated on {report_data['generated_at']}.
-                To unsubscribe from weekly reports, please visit your account settings.
+                This report was generated on {report_data['generated_at']}.<br>
+                <a href="{unsubscribe_url}" style="color: #9B6EC8;">Unsubscribe from weekly insights</a>
             </p>
         </body>
         </html>
@@ -250,15 +255,15 @@ async def send_weekly_insights_email(
         # Send email using EmailService
         email_service = EmailService()
         success = await email_service.send_email(
-            to_email=user_email,
+            to_email=user.email,
             subject=email_subject,
             html_content=email_html
         )
         
         if success:
-            logger.info(f"Weekly insights email sent to {user_email}")
+            logger.info(f"Weekly insights email sent to {user.email}")
         else:
-            logger.error(f"Failed to send weekly insights email to {user_email}")
+            logger.error(f"Failed to send weekly insights email to {user.email}")
             
     except Exception as e:
         logger.error(f"Error sending weekly insights email: {str(e)}")

@@ -25,6 +25,7 @@ class User(Base):
     email_verified = Column(String(10), default="false")  # SQLite boolean as string
     email_verified_at = Column(DateTime, nullable=True)
     timezone = Column(String(50), nullable=True, default="America/New_York")  # User's timezone
+    weekly_insights_opt_in = Column(String(10), default="true")  # SQLite boolean as string for email preferences
     # stripe_customer_id = Column(String, nullable=True)  # TODO: Add this column to database
     
     # Relationships
@@ -41,6 +42,8 @@ class User(Base):
     # Intelligence relationships
     intelligence_signals = relationship("IntelligenceSignal", back_populates="user", cascade="all, delete-orphan")
     emotional_profile = relationship("EmotionalProfile", back_populates="user", uselist=False, cascade="all, delete-orphan")
+    # Onboarding relationships
+    onboarding_steps = relationship("UserOnboardingStep", back_populates="user", cascade="all, delete-orphan")
     
     def __repr__(self):
         return f"<User(email='{self.email}')>"
