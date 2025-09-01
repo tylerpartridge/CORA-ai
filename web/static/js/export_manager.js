@@ -7,12 +7,70 @@ class ExportManager {
     constructor() {
         this.exportQueue = [];
         this.isExporting = false;
+        this.userEmail = null;
         this.init();
     }
     
     init() {
         this.createExportButton();
         this.addExportStyles();
+        this.loadUserInfo();
+    }
+    
+    async loadUserInfo() {
+        // Try to get user email from various sources
+        try {
+            // Check if user info is in local storage or session
+            const storedUser = localStorage.getItem('userInfo') || sessionStorage.getItem('userInfo');
+            if (storedUser) {
+                const user = JSON.parse(storedUser);
+                this.userEmail = user.email;
+                return;
+            }
+            
+            // Check if it's in a global variable (common pattern)
+            if (window.userEmail) {
+                this.userEmail = window.userEmail;
+                return;
+            }
+            
+            // Check if it's in the DOM (sometimes rendered in a data attribute)
+            const userElement = document.querySelector('[data-user-email]');
+            if (userElement) {
+                this.userEmail = userElement.dataset.userEmail;
+                return;
+            }
+            
+            // Try to fetch from API
+            const response = await fetch('/api/user/me');
+            if (response.ok) {
+                const user = await response.json();
+                this.userEmail = user.email;
+                // Cache it for future use
+                sessionStorage.setItem('userInfo', JSON.stringify(user));
+            }
+        } catch (error) {
+            console.log('Could not load user info:', error);
+            // Fallback to 'user' if we can't get the email
+            this.userEmail = 'user';
+        }
+    }
+    
+    getCurrentUserEmail() {
+        // Sanitize email for filename usage
+        if (!this.userEmail) return 'user';
+        
+        // Replace @ and other special chars with underscore
+        return this.userEmail.replace(/[^a-zA-Z0-9._-]/g, '_').toLowerCase();
+    }
+    
+    getCurrentDate() {
+        // Get current date in YYYYMMDD format
+        const now = new Date();
+        const year = now.getFullYear();
+        const month = String(now.getMonth() + 1).padStart(2, '0');
+        const day = String(now.getDate()).padStart(2, '0');
+        return `${year}${month}${day}`;
     }
     
     createExportButton() {
@@ -215,7 +273,13 @@ class ExportManager {
     async exportToCSV(exportType, fromDate, toDate) {
         const data = await this.fetchExportData(exportType, fromDate, toDate);
         const csv = this.convertToCSV(data, exportType);
-        this.downloadCSV(csv, `${exportType}_${fromDate}_to_${toDate}.csv`);
+        
+        // Generate standardized filename: cora_{type}_{email}_{YYYYMMDD}.csv
+        const userEmail = this.getCurrentUserEmail();
+        const dateStr = this.getCurrentDate();
+        const filename = `cora_${exportType}_${userEmail}_${dateStr}.csv`;
+        
+        this.downloadCSV(csv, filename);
     }
     
     async exportToPDF(exportType, fromDate, toDate) {

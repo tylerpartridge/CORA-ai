@@ -19,6 +19,7 @@ from functools import lru_cache
 
 from models import get_db, User, Expense, ExpenseCategory, Job
 from dependencies.auth import get_current_user
+from utils.filenames import generate_filename
 
 logger = logging.getLogger(__name__)
 
@@ -706,11 +707,16 @@ async def export_dashboard_data(
             ])
 
         output.seek(0)
+        
+        # Generate standardized filename with user's timezone
+        user_timezone = getattr(current_user, 'timezone', 'UTC')
+        filename = generate_filename('dashboard', current_user.email, user_timezone)
+        
         return StreamingResponse(
             io.BytesIO(output.getvalue().encode("utf-8")),
             media_type="text/csv",
             headers={
-                "Content-Disposition": "attachment; filename=dashboard_expenses.csv"
+                "Content-Disposition": f"attachment; filename={filename}"
             },
         )
 

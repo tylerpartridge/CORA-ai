@@ -18,6 +18,7 @@ import hashlib
 
 from models import get_db, Expense, ExpenseCategory, User
 from utils.redis_manager import redis_manager
+from utils.filenames import generate_filename
 from dependencies.auth import get_current_user
 import re
 import asyncio
@@ -712,9 +713,9 @@ async def export_expenses_csv(
         
         csv_content += f"{expense.expense_date.strftime('%Y-%m-%d')},{description},{amount_formatted},{expense.currency},{vendor},{category_name},{expense.payment_method or ''},{expense.receipt_url or ''}\n"
     
-    # Generate filename with current date
-    from datetime import date
-    filename = f"cora_expenses_{current_user.email}_{date.today().strftime('%Y%m%d')}.csv"
+    # Generate standardized filename with user's timezone
+    user_timezone = getattr(current_user, 'timezone', 'UTC')
+    filename = generate_filename('expenses', current_user.email, user_timezone)
     
     return Response(
         content=csv_content,

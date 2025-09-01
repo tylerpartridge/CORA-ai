@@ -15,6 +15,7 @@ from typing import Optional
 
 from models import get_db, User, Expense
 from dependencies.auth import get_current_user
+from utils.filenames import generate_filename
 
 # Router setup
 expense_router = APIRouter(prefix="", tags=["Expenses"])
@@ -199,7 +200,10 @@ async def export_expenses_csv(
     
     # Prepare download
     output.seek(0)
-    filename = f"expenses_{current_user.email}_{date.today().isoformat()}.csv"
+    
+    # Generate standardized filename with user's timezone
+    user_timezone = getattr(current_user, 'timezone', 'UTC')
+    filename = generate_filename('expenses', current_user.email, user_timezone)
     
     return StreamingResponse(
         io.BytesIO(output.getvalue().encode()),
