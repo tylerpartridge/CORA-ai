@@ -222,6 +222,19 @@ TL;DR: Opus does 100% of the code work. You (through Cursor or another git clien
 
 ## PART B — SESSION CAPSULE (UPDATE EACH THREAD; NEWEST FIRST)
 
+### Session: 2025-08-31 (America/St_Johns)
+**North Star:** Money-path stability and deploy hygiene.
+
+**State**
+- PR #20 (Stripe CTA finalization) previously deployed; PR #21 (routes/pricing.py extraction) merged and deployed.
+- Service restarted on prod; /pricing returns 200 (origin); CTAs verified (data-testid anchors present; Stripe links active).
+- Local CTA suite: 6 passed.
+- Operational Awareness rule active: stash prod awareness edits before pulls.
+
+**System Health:** GREEN
+
+**Next Action:** Execute MVP quick wins from the partials audit — start with **Timezone selection**, then **Skip buttons**, **Data validation**, **Filename standardization**.
+
 ### Session: 2025-08-30 (America/St_Johns)
 **North Star:** Ship money-path features from a clean, protected awareness baseline.
 
@@ -236,3 +249,4 @@ TL;DR: Opus does 100% of the code work. You (through Cursor or another git clien
 
 **Handoff Note**
 Carry this file forward next thread; update the Session Capsule only.
+
