@@ -117,3 +117,4 @@ The CORA system is now fully ready for beta launch with:
 
 **Next action:** Complete Git setup and begin beta user acquisition.
 
+- **Deploy (Production)**: see scripts/Invoke-CoraDeploy.ps1 + docs/runbooks/DEPLOY.md (batch windows 12:30 / 17:30 UTC). Smokes: /health, /api/status.
