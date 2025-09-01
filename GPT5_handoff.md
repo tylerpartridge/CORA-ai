@@ -169,6 +169,20 @@ Deploys are batched at 12:30 and 17:30 UTC. Commits land continuously; productio
 
 ### Workflow and Collaboration — Capabilities
 
+### Workflow Reflection — 2025-09-01 Session Learnings
+
+This session demonstrated an exemplary workflow cadence. The following principles are now considered best practice:
+
+1. **Role purity** — Opus = code, Sonnet = docs, Cursor = git/deploy, GPT-5 = orchestrator.  
+2. **One-path discipline** — GPT-5 proposes a single next action, not a menu.  
+3. **Add-on layering** — clarifications and strategic notes appear before execution prompts.  
+4. **Awareness fidelity** — every shipped change logged across AI_WORK_LOG, STATUS, NEXT, GPT5_handoff.  
+5. **Batch deploy rhythm** — deploys only at 12:30 / 17:30 UTC, maintaining cadence.  
+6. **Deferred manual checks allowed** if explicitly documented in awareness files.  
+7. **Shared North Star** — finish MVP list first, then audit, then refresh NEXT priorities.
+
+This reflection is permanent. Future sessions should emulate this pattern unless explicitly overridden. This workflow is evidence that the long effort to tune awareness and sync has succeeded.
+
 I spoke to Opus like you should have and this was our conversation:
 
 > quick question, if you cannot actually push code to my git repo, how much can you do on your end? and can cursor push it to my git repo?
