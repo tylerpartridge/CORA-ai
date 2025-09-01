@@ -1,3 +1,6 @@
+## 💾 CHECKPOINT: 2025-09-01 12:18 UTC
+**Status:** Post-deploy
+**Next Priority:** (1) Monitor prod logs (24h) (2) Refactor: split services/auth_service.py (<300 lines) (3) QA: onboarding skip + exports
 ## 💾 CHECKPOINT: 2025-08-31 17:00
 **Status:** Quick Wins implementation intelligence gathered - execution-ready blueprints created
 **Last Action:** Sonnet intel audit completed with file paths, effort estimates, and implementation strategies
@@ -180,3 +183,4 @@ cd /root/cora && git pull && pm2 restart cora
 ---
 **Strategic Status:** 🎉 **PRODUCTION ROUTE ISSUE RESOLVED** - BETA LAUNCH READY
 **Next Milestone:** Begin beta user program and user acquisition
+

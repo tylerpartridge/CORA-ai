@@ -1,3 +1,7 @@
+## 💾 CHECKPOINT: 2025-09-01 12:18 UTC
+**HEALTH:** GREEN
+**BLOCKERS:** none
+**NOTES:** Origin 502 resolved by aligning nginx → app port; external smokes OK
 ## 💾 CHECKPOINT: 2025-08-31 17:00
 **HEALTH:** GREEN
 **BLOCKERS:** none
@@ -119,3 +123,4 @@
 ---
 
 **The CORA system is now fully operational both locally and in production, ready for beta user acquisition and launch.**
+
