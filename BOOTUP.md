@@ -205,3 +205,7 @@ REMEMBER: Tools aren't optional - they're how we maintain quality.
 ### Checkpoint System Reference
 For comprehensive checkpoint procedures, see `/docs/ai-awareness/CHECKPOINT_SYSTEM.md`
 
+### Deploy (Production)
+- Use scripts/Invoke-CoraDeploy.ps1 during the 12:30 / 17:30 UTC windows.
+- Runbook: docs/runbooks/DEPLOY.md
+- Smokes: /health (JSON 200), /api/status (200).

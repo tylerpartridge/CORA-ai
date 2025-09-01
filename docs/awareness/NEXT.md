@@ -184,3 +184,4 @@ cd /root/cora && git pull && pm2 restart cora
 **Strategic Status:** 🎉 **PRODUCTION ROUTE ISSUE RESOLVED** - BETA LAUNCH READY
 **Next Milestone:** Begin beta user program and user acquisition
 
+- Deploy procedure is documented & scripted; use during batch windows. Later: replace services/auth_validation.py stubs with real checks (non-blocking).
