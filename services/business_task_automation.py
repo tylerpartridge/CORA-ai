@@ -142,8 +142,27 @@ class BusinessTaskAutomation:
         }
     
     async def _generate_financial_report(self) -> Dict[str, Any]:
-        """Generate monthly financial report"""
+        """Generate monthly financial report with data validation"""
         try:
+            # Import validation service
+            from services.weekly_report_service import WeeklyReportService, DataValidationReason
+            
+            # Validate user has sufficient data for report generation
+            is_valid, reason, context = WeeklyReportService.meets_minimum_data(
+                user_id=self.user.id,
+                db=self.db,
+                window="30d"
+            )
+            
+            if not is_valid:
+                logger.info(f"Skipping financial report for user {self.user.email}: {reason.value}")
+                return {
+                    "skipped": True,
+                    "reason": reason.value,
+                    "message": WeeklyReportService.get_validation_message(reason, context),
+                    "context": context
+                }
+            
             # Get expenses for the last month
             end_date = datetime.now()
             start_date = end_date - timedelta(days=30)
