@@ -1,36 +1,144 @@
 #!/usr/bin/env python3
 """
-🧭 LOCATION: /CORA/services/weekly_report_service.py
-🎯 PURPOSE: Weekly insights report generation with data validation
-🔗 IMPORTS: SQLAlchemy models, datetime utilities
-📤 EXPORTS: WeeklyReportService, DataValidationReason, validation functions
+Weekly Report Validation Service
+
+Validates if user has sufficient data for meaningful weekly insights.
+Thresholds: 3 recent expenses, 5 total expenses, 3 active days.
 """
 
 from enum import Enum
-from datetime import datetime, timedelta
-from typing import Tuple, Dict, Optional
-import logging
+from datetime import datetime, timedelta, timezone
+from typing import Tuple, Dict, Any
 from sqlalchemy.orm import Session
-from sqlalchemy import and_
+from sqlalchemy import func, distinct
+import logging
 
-# Import models
-from models.expense import Expense
-from models.user import User
-from models.job import Job
+from models import User, Expense
 
 logger = logging.getLogger(__name__)
 
 
+class ValidationStatus(Enum):
+    """Status codes for weekly report validation."""
+    OK = "OK"
+    INSUFFICIENT_RECENT = "INSUFFICIENT_RECENT"
+    INSUFFICIENT_TOTAL = "INSUFFICIENT_TOTAL"
+    INSUFFICIENT_DAYS = "INSUFFICIENT_DAYS"
+
+
 class DataValidationReason(Enum):
-    """Reasons why data validation might fail for weekly reports"""
+    """Legacy enum for backward compatibility"""
     INSUFFICIENT_EXPENSES = "need_more_expenses"
     NO_TIME_RANGE = "need_time_range"
     NO_RECENT_ACTIVITY = "no_recent_activity"
     VALID = "sufficient_data"
 
 
+def validate_weekly_report(
+    user_id: int, 
+    db: Session,
+    window_days: int = 7
+) -> Tuple[ValidationStatus, Dict[str, Any]]:
+    """
+    Validate if user has sufficient data for weekly insights.
+    
+    Args:
+        user_id: User ID to validate
+        db: Database session
+        window_days: Number of days to look back (default 7)
+    
+    Returns:
+        Tuple of (ValidationStatus, details dict)
+        Details include counts and threshold info for UI messaging
+    
+    Thresholds:
+        - recent_count >= 3 (expenses in last window_days)
+        - total_count >= 5 (all-time expenses)
+        - active_days >= 3 (distinct days with expenses in window)
+    """
+    # Calculate date window
+    now = datetime.now(timezone.utc)
+    window_start = now - timedelta(days=window_days)
+    
+    # Get recent expense count (last 7 days)
+    recent_count = db.query(func.count(Expense.id)).filter(
+        Expense.user_id == user_id,
+        Expense.expense_date >= window_start.date()
+    ).scalar() or 0
+    
+    # Get total expense count (all-time)
+    total_count = db.query(func.count(Expense.id)).filter(
+        Expense.user_id == user_id
+    ).scalar() or 0
+    
+    # Get distinct active days in window
+    active_days = db.query(func.count(distinct(Expense.expense_date))).filter(
+        Expense.user_id == user_id,
+        Expense.expense_date >= window_start.date()
+    ).scalar() or 0
+    
+    # Prepare details for response
+    details = {
+        "recent_count": recent_count,
+        "total_count": total_count,
+        "active_days": active_days,
+        "window_days": window_days,
+        "thresholds": {
+            "recent_minimum": 3,
+            "total_minimum": 5,
+            "days_minimum": 3
+        }
+    }
+    
+    # Check thresholds in order of importance
+    if total_count < 5:
+        details["message"] = f"You need at least 5 total expenses to generate insights (you have {total_count})"
+        return (ValidationStatus.INSUFFICIENT_TOTAL, details)
+    
+    if recent_count < 3:
+        details["message"] = f"You need at least 3 expenses in the last {window_days} days for weekly insights (you have {recent_count})"
+        return (ValidationStatus.INSUFFICIENT_RECENT, details)
+    
+    if active_days < 3:
+        details["message"] = f"You need expenses on at least 3 different days in the last {window_days} days (you have {active_days})"
+        return (ValidationStatus.INSUFFICIENT_DAYS, details)
+    
+    # All validations passed
+    details["message"] = "Sufficient data for weekly insights"
+    return (ValidationStatus.OK, details)
+
+
+def get_validation_message(status: ValidationStatus, details: Dict[str, Any]) -> str:
+    """
+    Get user-friendly message based on validation status.
+    
+    Args:
+        status: ValidationStatus enum value
+        details: Details dict from validate_weekly_report
+    
+    Returns:
+        User-friendly message string
+    """
+    if status == ValidationStatus.OK:
+        return "Your weekly insights are ready!"
+    
+    # Use the message from details if available
+    if "message" in details:
+        return details["message"]
+    
+    # Fallback messages
+    if status == ValidationStatus.INSUFFICIENT_TOTAL:
+        return "Keep tracking expenses to unlock weekly insights. You need at least 5 expenses total."
+    elif status == ValidationStatus.INSUFFICIENT_RECENT:
+        return f"Add more recent expenses to get weekly insights. You need at least 3 in the last {details.get('window_days', 7)} days."
+    elif status == ValidationStatus.INSUFFICIENT_DAYS:
+        return f"Track expenses on more days to get insights. You need at least 3 active days in the last {details.get('window_days', 7)} days."
+    
+    return "Unable to generate weekly insights at this time."
+
+
 class WeeklyReportService:
-    """Service for generating and validating weekly insights reports"""
+    """Legacy service class for backward compatibility"""
     
     # Validation thresholds
     MIN_RECENT_EXPENSES = 3  # Minimum expenses in the window period

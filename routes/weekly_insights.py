@@ -15,7 +15,7 @@ import logging
 
 from models import get_db, User, Expense
 from dependencies.auth import get_current_user
-from services.weekly_report_service import WeeklyReportService, DataValidationReason
+from services.weekly_report_service import validate_weekly_report, ValidationStatus, get_validation_message, WeeklyReportService, DataValidationReason
 import logging
 logger = logging.getLogger("cora.weekly_insights")
 try:
@@ -60,24 +60,25 @@ async def generate_weekly_insights(
     """
     try:
         # Validate user has sufficient data
-        is_valid, reason, context = WeeklyReportService.meets_minimum_data(
+        window_days = int(window[:-1]) if window.endswith('d') else 7
+        status, details = validate_weekly_report(
             user_id=current_user.id,
             db=db,
-            window=window
+            window_days=window_days
         )
         
-        if not is_valid:
+        if status != ValidationStatus.OK:
             # Get user-friendly message
-            message = WeeklyReportService.get_validation_message(reason, context)
+            message = get_validation_message(status, details)
             
             # Return 400 with detailed validation failure
             raise HTTPException(
                 status_code=400,
                 detail={
                     "error": "insufficient_data",
-                    "reason": reason.value,
+                    "reason": status.value,
                     "message": message,
-                    "context": context
+                    "context": details
                 }
             )
         
@@ -121,7 +122,7 @@ async def generate_weekly_insights(
                 "categories_used": len(category_breakdown)
             },
             "category_breakdown": category_breakdown,
-            "validation_context": context
+            "validation_context": details
         }
         
         # Send email if requested (in background)
@@ -175,22 +176,23 @@ async def validate_weekly_insights_data(
     """
     try:
         # Check data sufficiency
-        is_valid, reason, context = WeeklyReportService.meets_minimum_data(
+        window_days = int(window[:-1]) if window.endswith('d') else 7
+        status, details = validate_weekly_report(
             user_id=current_user.id,
             db=db,
-            window=window
+            window_days=window_days
         )
         
         # Get appropriate message
-        message = WeeklyReportService.get_validation_message(reason, context)
+        message = get_validation_message(status, details)
         
         return JSONResponse(
             status_code=200,
             content={
-                "valid": is_valid,
-                "reason": reason.value,
+                "valid": status == ValidationStatus.OK,
+                "reason": status.value,
                 "message": message,
-                "context": context
+                "context": details
             }
         )
         
