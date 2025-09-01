@@ -222,18 +222,25 @@ TL;DR: Opus does 100% of the code work. You (through Cursor or another git clien
 
 ## PART B — SESSION CAPSULE (UPDATE EACH THREAD; NEWEST FIRST)
 
-### Session: 2025-08-31 (America/St_Johns)
-**North Star:** Money-path stability and deploy hygiene.
+### Session: 2025-09-01 (America/St_Johns)
+**North Star:** MVP quick wins, flow unblocked.
+
+**Shipped**
+- PR #36 merged: standardize CSV export filenames to `cora_{type}_{email}_{YYYYMMDD}.csv` (timezone-aware)
+- Files: `utils/filenames.py`, `web/static/js/export_manager.js`, `tests/test_export_filenames.py`
+- Deployed via batch window; smokes passed (health 200, api/status 200)
 
 **State**
-- PR #20 (Stripe CTA finalization) previously deployed; PR #21 (routes/pricing.py extraction) merged and deployed.
-- Service restarted on prod; /pricing returns 200 (origin); CTAs verified (data-testid anchors present; Stripe links active).
-- Local CTA suite: 6 passed.
-- Operational Awareness rule active: stash prod awareness edits before pulls.
+- Timezone selection fully implemented and verified (tests/test_filenames_tz.py)
+- Deploy procedure is one-command (.\deploy)
+- Awareness log updated
 
 **System Health:** GREEN
 
-**Next Action:** Execute MVP quick wins from the partials audit — start with **Timezone selection**, then **Skip buttons**, **Data validation**, **Filename standardization**.
+**Next Action (single):**
+Data validation quick win:
+- Add weekly checks service and minimal thresholds
+- Surface validation in UI; add minimal tests
 
 ### Session: 2025-08-30 (America/St_Johns)
 **North Star:** Ship money-path features from a clean, protected awareness baseline.

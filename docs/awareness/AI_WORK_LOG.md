@@ -4,6 +4,21 @@
 > Format: **Date — Model — Summary**
 > Newest entries first.
 
+## 2025-09-01 — Filename standardization shipped
+- ✅ Merged PR #36: standardize CSV export filenames to `cora_{type}_{email}_{YYYYMMDD}.csv` (timezone-aware)
+- ✅ Updated `utils/filenames.py`, `web/static/js/export_manager.js`, and `tests/test_export_filenames.py`
+- 🚀 Deployed in batch window; smokes passed (`/health` 200, `/api/status` 200)
+- 🟢 System health: GREEN
+
+## 2025-09-01 — Onboarding skip buttons shipped
+- ✅ Created UserOnboardingStep model for skip state persistence
+- ✅ Added /api/onboarding/skip-step endpoint with validation and warnings
+- ✅ Enhanced checklist endpoint to show skipped steps and count toward progress
+- ✅ Updated "I'll do this later" button to call skip API for relevant steps
+- ✅ Created OnboardingService for feature availability checks (no blocking)
+- ✅ Added comprehensive tests for skip functionality (test_onboarding_skip.py)
+- 🎯 UX improvement: Users can now skip blocking onboarding steps while preserving progress state
+
 ## 2025-09-01 — Timezone selection verified
 - Created throwaway user: test_landing3@example.com via signup UI
 - DB shows timezone=America/New_York (auto-detected from browser)
