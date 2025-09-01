@@ -66,7 +66,7 @@
 - [x] Overspending alerts
 - [x] Email delivery (configured sender)
 - [x] Minimum data check
-- [ ] Unsubscribe link ⚠️ PARTIAL
+- [x] Unsubscribe link
 - [x] View in app option
 
 ### 7️⃣ Basic Dashboard
@@ -142,4 +142,33 @@
 
 ---
 
-*This document is the single source of truth for CORA MVP. Nothing else matters until this is complete.*
+## 📋 UPDATES (2025-09-01)
+
+**MVP Base Status**: ✅ **COMPLETE** - All original checkboxes marked complete
+**Audit Date**: 2025-09-01 17:00 UTC
+**System Health**: 🟢 GREEN
+
+### Remaining Updates Identified
+
+#### P0 (Critical)
+- [ ] **Comprehensive Manual Walkthrough** (deferred by design)
+  - Full end-to-end testing of all user flows
+  - UI/UX validation for all completed features
+  - Cross-browser and mobile testing
+
+#### P1 (High Priority)
+- [x] **Split services/auth_service.py to <300 lines** ✅ COMPLETED
+- [ ] **Export Manager JS Refactor**
+  - Split `web/static/js/export_manager.js` (>300 lines)
+  - Pre-commit size guard enforcement
+
+#### P2 (Nice to Have)
+- [ ] **Delete Account Implementation** (currently partial)
+- [ ] **Date Range Selection for Exports** (currently partial)
+- [ ] **Monitoring Hardening** (Sentry events/alerts)
+
+**Audit Reference**: `docs/ai-audits/2025-09-01/mvp_audit.md`
+
+---
+
+*This document is the single source of truth for CORA MVP. Base requirements complete; updates section tracks remaining items.*

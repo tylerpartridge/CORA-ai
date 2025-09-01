@@ -1,3 +1,19 @@
+## 💾 CHECKPOINT: 2025-09-01 17:00 UTC
+**HEALTH:** GREEN
+**BLOCKERS:** none
+**NOTES:** MVP base complete; running audit to identify remaining updates.
+
+**Completed:** MVP baseline requirements (all checkboxes)
+**Status:** Core functionality implemented and auto-tested; comprehensive manual review pending
+
+## 💾 CHECKPOINT: 2025-09-01 16:45 UTC
+**HEALTH:** GREEN
+**BLOCKERS:** none
+**NOTES:** Unsubscribe link implemented; opt-in/opt-out functionality complete.
+
+**Completed:** Unsubscribe link feature
+**Status:** Weekly insights now include proper unsubscribe functionality
+
 ## 💾 CHECKPOINT: 2025-09-01 15:30 UTC
 **HEALTH:** GREEN
 **BLOCKERS:** none
@@ -5,6 +21,7 @@
 
 **Completed:** Filename standardization, Weekly Insights data validation
 **Status:** All systems operational; timezone-aware exports and 3/5/3 validation rules fully integrated
+**Manual Verification:** Deferred — no post-deploy spot checks yet; comprehensive review planned later.
 
 ## 💾 CHECKPOINT: 2025-09-01 12:18 UTC
 **HEALTH:** GREEN
