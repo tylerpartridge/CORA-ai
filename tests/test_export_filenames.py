@@ -1,3 +1,9 @@
+import os
+import pytest
+
+# Skip integration tests by default unless explicitly enabled.
+# Enable by running:  RUN_INTEGRATION_TESTS=1 pytest ...
+skip_integration = os.getenv("RUN_INTEGRATION_TESTS", "0") != "1"
 #!/usr/bin/env python3
 """
 🧭 LOCATION: /CORA/tests/test_export_filenames.py
