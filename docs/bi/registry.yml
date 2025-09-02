@@ -1,24 +1,76 @@
 competitors:
   - name: Contractor Foreman
-    urls: ["https://contractorforeman.com/"]
+    urls:
+      - https://contractorforeman.com/
+    selectors:
+      - ".pricing"
+      - ".price"
+      - ".plan"
+      - "section[id*=price]"
     tags: ["construction-mgmt","SMB","pricing"]
   - name: QuickBooks Online
-    urls: ["https://quickbooks.intuit.com/pricing/quickbooks-online/","https://help.intuit.com/s/article/quickbooks-online-proadvisor-pricing?language=en_US"]
+    urls:
+      - https://quickbooks.intuit.com/pricing/
+    alt_urls:
+      - https://quickbooks.intuit.com/online/compare/
+      - https://quickbooks.intuit.com/online/plus/
+    http:
+      timeout: 25
+      retries: 4
+      backoff: 0.8
+      headers:
+        Referer: "https://quickbooks.intuit.com/"
+        Accept-Language: "en-US,en;q=0.9"
+    selectors:
+      - main
+      - "[class*=pricing]"
+      - "[data-qa*=pricing]"
     tags: ["accounting","pricing"]
   - name: Zoho Expense
-    urls: ["https://www.zoho.com/expense/pricing/"]
+    urls:
+      - https://www.zoho.com/us/expense/pricing/
+    selectors:
+      - "#pricing"
+      - ".plan"
+      - ".pricing"
     tags: ["expense","pricing"]
   - name: Jobber
-    urls: ["https://www.getjobber.com/pricing/"]
+    urls:
+      - https://www.getjobber.com/pricing/
+    alt_urls:
+      - https://getjobber.com/pricing/
+      - https://www.getjobber.com/comparison/
+    http:
+      timeout: 20
+      retries: 3
+      backoff: 0.6
+      headers:
+        Referer: "https://www.getjobber.com/"
+        Accept-Language: "en-US,en;q=0.9"
+    selectors:
+      - ".pricing"
+      - "[class*=plan]"
+      - "main"
     tags: ["field-service","pricing"]
   - name: Buildertrend
-    urls: ["https://buildertrend.com/pricing/"]
+    urls:
+      - https://buildertrend.com/pricing/
+    selectors:
+      - "main"
+      - ".pricing"
+      - ".plan"
     tags: ["construction-mgmt","pricing"]
   - name: Procore
-    urls: ["https://www.procore.com/pricing"]
+    urls:
+      - https://www.procore.com/pricing
+    selectors:
+      - "main"
+      - ".pricing"
+      - ".plan"
     tags: ["construction-mgmt","enterprise","pricing"]
 
 regulations_watch:
   - name: IRS 1099-K thresholds
-    urls: ["https://www.irs.gov/newsroom/irs-announces-2024-1099-k-threshold-and-plans-for-2025"]
-    tags: ["tax","payments","contractors"]
+    urls:
+      - https://www.irs.gov/newsroom/irs-provides-transition-relief-for-third-party-settlement-organizations-form-1099-k-threshold-is-5000-for-calendar-year-2024
+    tags: ["regulation","1099-k"]
