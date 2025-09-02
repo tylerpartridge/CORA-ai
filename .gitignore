@@ -89,3 +89,7 @@ tests/*.bak
 cora.db
 cora.db-shm
 cora.db-wal
+
+# BI cache (do not commit)
+/docs/bi/cache/
+
