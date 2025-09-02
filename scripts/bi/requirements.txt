@@ -1,0 +1,6 @@
+# BI Snapshot Tool Dependencies
+# Minimal pinned versions for stability
+
+requests==2.31.0
+beautifulsoup4==4.12.2
+PyYAML==6.0.1
