@@ -11,7 +11,7 @@ from .base import Base
 class UserActivity(Base):
     __tablename__ = "user_activity"
     id = Column(Integer, primary_key=True, autoincrement=True)
-    user_id = Column(UUID(as_uuid=True), ForeignKey("users.id"), nullable=False, index=True)
+    user_id = Column(Integer, ForeignKey("users.id"), nullable=False, index=True)
     action = Column(String, nullable=False, index=True)
     category = Column(String, nullable=True, index=True)  # e.g., 'navigation', 'feature_usage', 'engagement'
     details = Column(String, nullable=True)
@@ -27,7 +27,7 @@ class UserActivity(Base):
 class UserEngagement(Base):
     __tablename__ = "user_engagement"
     id = Column(Integer, primary_key=True, autoincrement=True)
-    user_id = Column(UUID(as_uuid=True), ForeignKey("users.id"), nullable=False, index=True)
+    user_id = Column(Integer, ForeignKey("users.id"), nullable=False, index=True)
     date = Column(DateTime(timezone=True), nullable=False, index=True)
     session_count = Column(Integer, default=0)
     total_time_spent = Column(Float, default=0.0)  # in minutes
@@ -45,7 +45,7 @@ class UserEngagement(Base):
 class UserSession(Base):
     __tablename__ = "user_sessions"
     id = Column(Integer, primary_key=True, autoincrement=True)
-    user_id = Column(UUID(as_uuid=True), ForeignKey("users.id"), nullable=False, index=True)
+    user_id = Column(Integer, ForeignKey("users.id"), nullable=False, index=True)
     session_id = Column(String, nullable=False, unique=True, index=True)
     started_at = Column(DateTime(timezone=True), server_default=func.now())
     ended_at = Column(DateTime(timezone=True), nullable=True)
