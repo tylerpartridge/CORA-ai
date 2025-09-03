@@ -42,8 +42,7 @@ class User(Base):
     # Intelligence relationships
     intelligence_signals = relationship("IntelligenceSignal", back_populates="user", cascade="all, delete-orphan")
     emotional_profile = relationship("EmotionalProfile", back_populates="user", uselist=False, cascade="all, delete-orphan")
-    # Onboarding relationships
-    onboarding_steps = relationship("UserOnboardingStep", back_populates="user", cascade="all, delete-orphan")
+    # Onboarding relationship is attached conditionally below to avoid import-time errors
     
     def __repr__(self):
         return f"<User(email='{self.email}')>"
@@ -55,3 +54,17 @@ __table_args__ = (
     # Created date for user analytics
     Index('idx_users_created_at', 'created_at'),
 )
+
+# Optional onboarding relationship (guarded to avoid import errors when the model is absent)
+try:
+    # Importing registers the mapped class so the string-based relationship can resolve
+    from .user_onboarding_step import UserOnboardingStep as _UserOnboardingStep  # type: ignore # noqa: F401
+    # Attach relationship dynamically only if the dependency is available
+    User.onboarding_steps = relationship(  # type: ignore[attr-defined]
+        "UserOnboardingStep",
+        back_populates="user",
+        cascade="all, delete-orphan",
+    )
+except Exception:
+    # In minimal deployments where onboarding steps are not modeled, skip attaching the relationship
+    pass
