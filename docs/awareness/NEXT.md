@@ -228,3 +228,17 @@ cd /root/cora && git pull && pm2 restart cora
 **Next Milestone:** Begin beta user program and user acquisition
 
 - Deploy procedure is documented & scripted; use during batch windows. Later: replace services/auth_validation.py stubs with real checks (non-blocking).
+
+**DB Migration v3 — Status: COMPLETE (2025-09-03)**
+- [x] Phase 0: Service health verification
+- [x] Phase 0.5: DB reality check
+- [x] Phase 1: Dependencies + seeding utilities
+- [x] Phase 2: Rehearsal on copies
+- [x] Phase 3: Production cutover (Postgres)
+- [x] Phase 4: Post-cutover validation
+- [x] Phase R: Rollback plan validated (not triggered)
+
+**Follow-ups**
+- [ ] Patch validator to cast types in orphan checks; re-run introspect on PG
+- [ ] Remove temporary PDF/Email fallbacks via normal PR
+- [ ] Schedule weekly snapshot + add monitoring pulse card

@@ -1,3 +1,13 @@
+## Focus Capsule — 2025-09-03 (Post-Cutover)
+**CORA Prod Recovery & DB Stability**
+
+**Status:**
+- [x] Service GREEN (200/401)
+- [x] DB type confirmed (PostgreSQL in prod)
+- [x] Seeder merged & admin seeded
+- [x] Migration cutover completed
+
+**Notes:** Running on Postgres; validator has a benign type-cast warning to address next.
 ## 💾 CHECKPOINT: 2025-09-01 12:18 UTC
 **Status:** Quick wins deployed (Timezone, Skip Buttons, Filename standardization, Weekly validation) — HEALTH: GREEN
 **Last Action:** Pull + restart on prod; external smokes 200
@@ -118,3 +128,4 @@ The CORA system is now fully ready for beta launch with:
 **Next action:** Complete Git setup and begin beta user acquisition.
 
 - **Deploy (Production)**: see scripts/Invoke-CoraDeploy.ps1 + docs/runbooks/DEPLOY.md (batch windows 12:30 / 17:30 UTC). Smokes: /health, /api/status.
+

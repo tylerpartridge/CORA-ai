@@ -252,7 +252,11 @@ TL;DR: Opus does 100% of the code work. You (through Cursor or another git clien
 
 ---
 
-## PART B — SESSION CAPSULE (UPDATE EACH THREAD; NEWEST FIRST)
+
+### Session: 2025-09-03 (UTC)
+**State:** GREEN — prod running on **Postgres**; health 200; admin seeded; migration artifacts saved on prod.
+**What shipped:** Phase 3 cutover + Phase 4 validation; awareness updated.
+**Next Action (single):** Patch validator to cast types in orphan checks and re-run db_introspect.py against Postgres.
 
 ### GPT-5 Handoff → Opus
 
@@ -346,4 +350,5 @@ Data validation quick win:
 
 **Handoff Note**
 Carry this file forward next thread; update the Session Capsule only.
+
 

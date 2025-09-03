@@ -1,3 +1,8 @@
+## 2025-09-03 — GPT-5 — Prod cutover to Postgres
+Cut over CORA prod from SQLite → **PostgreSQL** with full backups, transactional migrate, health-gated DSN switch, and auto-rollback safety.
+**Probes:** initial 000 then 200.
+**Artifacts (prod):** /var/log/cora_migration/prod_src_counts_*.json, prod_tgt_counts_*.json, prod_migration_*.jsonl.
+**Notes:** Validator cast warning persists (benign); follow-up patch scheduled.
 # AI Work Log
 
 > Living document for tracking AI contributions. Each AI that contributes should add entries here.
@@ -81,4 +86,5 @@ BI snapshot hardened (tag `v0.1.0-bi-snapshot-hardened`) — QBO/Jobber using `m
 - Windows Task Scheduler @ 00:55 local with transcript logging
 - Interactive + scheduled backups verified with checksums
 - Restore drill succeeded to C:\CORA\restore_sandbox_20250903_092313
+
 
