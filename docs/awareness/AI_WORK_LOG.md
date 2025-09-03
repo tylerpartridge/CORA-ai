@@ -73,3 +73,9 @@ BI snapshot hardened (tag `v0.1.0-bi-snapshot-hardened`) — QBO/Jobber using `m
 - Merged PR #32: repo deploy script + team runbook + BOOTUP/NOW/NEXT pointers
 - First scripted deploy via Invoke-CoraDeploy.ps1 (batch window): /health 200 JSON, /api/status 200
 - Notes: service restart clean; nginx unchanged; no errors in journalctl
+
+## 2025-09-03 — Backup automation + restore drill
+- Windows Task Scheduler @ 00:55 local with transcript logging
+- Interactive + scheduled backups verified with checksums
+- Restore drill succeeded to C:\CORA\restore_sandbox_20250903_092313
+
