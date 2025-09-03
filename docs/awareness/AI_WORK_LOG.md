@@ -1,3 +1,8 @@
+### 2025-09-03 23:13:51 UTC — Decision — Defer off-site backups
+**Reason:** Launch focus; local nightly dumps + verified restore are sufficient pre-revenue.
+**Trigger to revisit:** After first paying customer **or** immediately post-launch.
+**Owner:** Tyler (approve when ready to enable S3 runbook).
+
 ## 2025-09-03 — GPT-5 — Prod cutover to Postgres
 Cut over CORA prod from SQLite → **PostgreSQL** with full backups, transactional migrate, health-gated DSN switch, and auto-rollback safety.
 **Probes:** initial 000 then 200.
@@ -86,5 +91,6 @@ BI snapshot hardened (tag `v0.1.0-bi-snapshot-hardened`) — QBO/Jobber using `m
 - Windows Task Scheduler @ 00:55 local with transcript logging
 - Interactive + scheduled backups verified with checksums
 - Restore drill succeeded to C:\CORA\restore_sandbox_20250903_092313
+
 
 
