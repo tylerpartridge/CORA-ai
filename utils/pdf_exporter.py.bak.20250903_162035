@@ -494,18 +494,4 @@ class ProfitIntelligencePDFExporter:
         return output_path
 
 # Global exporter instance
-pdf_exporter = ProfitIntelligencePDFExporter()
-
-# ---- Fallback stub (prod rescue): ensure PDFExporter import succeeds ----
-# This stub is safe to keep temporarily; real exporter can override by defining PDFExporter.
-try:
-    PDFExporter
-except NameError:
-    import logging
-    _log = logging.getLogger("cora.pdf_exporter")
-    _log.warning("Using fallback PDFExporter stub; real PDF export disabled.")
-    class PDFExporter:  # minimal no-op API
-        def __init__(self, *args, **kwargs): pass
-        def export(self, *args, **kwargs): return None
-        def render(self, *args, **kwargs): return None
-# ---- End stub ----
+pdf_exporter = ProfitIntelligencePDFExporter() 
