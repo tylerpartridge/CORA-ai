@@ -288,6 +288,16 @@ def main():
     else:
         source_engine = create_engine(f"sqlite:///{args.sqlite_path}", poolclass=NullPool)
     target_engine = create_engine(args.pg_dsn, poolclass=NullPool)
+
+    # Ensure target schema exists before migrating
+    try:
+        Base.metadata.create_all(bind=target_engine)
+    except Exception as e:
+        print(json.dumps({
+            'status': 'error',
+            'message': f'Failed to create target schema: {str(e)}'
+        }))
+        return 1
     
     # Create sessions
     SourceSession = sessionmaker(bind=source_engine)
