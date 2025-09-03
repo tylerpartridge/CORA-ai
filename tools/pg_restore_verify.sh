@@ -34,10 +34,10 @@ echo "{\"ts\":\"$(ts)\",\"event\":\"restore_verify_start\",\"dump\":\"${latest_d
 sudo -u postgres createdb "${verify_db}" -O postgres
 
 # Restore
-pg_restore --no-owner --no-privileges --clean --if-exists --dbname="postgresql://postgres@localhost:5432/${verify_db}" "${latest_dump}"
+sudo -u postgres pg_restore --no-owner --no-privileges --clean --if-exists --dbname="postgresql:///${verify_db}" "${latest_dump}"
 
 # Smoke queries
-users_count=$(psql "postgresql://postgres@localhost:5432/${verify_db}" -Atqc "SELECT COUNT(*) FROM users" 2>/dev/null || echo 0)
+users_count=$(sudo -u postgres psql "postgresql:///${verify_db}" -Atqc "SELECT COUNT(*) FROM users" 2>/dev/null || echo 0)
 ok_users=0
 if [[ "${users_count}" =~ ^[0-9]+$ ]] && [[ "${users_count}" -gt 0 ]]; then ok_users=1; fi
 
