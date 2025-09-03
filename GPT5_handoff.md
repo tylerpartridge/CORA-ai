@@ -254,6 +254,49 @@ TL;DR: Opus does 100% of the code work. You (through Cursor or another git clien
 
 ## PART B — SESSION CAPSULE (UPDATE EACH THREAD; NEWEST FIRST)
 
+### GPT-5 Handoff → Opus
+
+#### Context
+- Current work: stabilizing CORA prod FastAPI app (`cora.service` on Ubuntu 24.10).  
+- Location: `/var/www/cora/` on `root@cora-ai-prod`.  
+- Service is stuck in restart loops due to missing router imports.  
+- Recent blockers:  
+  - `weekly_insights_router` not defined → stub added at `routes/weekly_insights.py`.  
+  - `settings_router` not defined → stub added at `routes/settings.py`.  
+  - Even with stubs, `app.py` still references these routers before they're defined.  
+- Result: health probes return `000` (service down).  
+
+#### Goal
+Ensure `app.py` reliably imports **all routers** before calling `app.include_router(...)`, so that:
+- `cora.service` starts cleanly.
+- Health check (`curl 127.0.0.1:8000/`) returns **200** (OK) or **401** (unauthorized).  
+- Ready state achieved for next step: user seeding + DB migration.
+
+#### Tasks for Opus
+1. Inspect `app.py`:  
+   - Find all `app.include_router(...)` calls.  
+   - Confirm corresponding imports (`from routes.<file> import <router>`) exist *above*.  
+   - Add or reorder imports as needed.  
+   - Keep stub fallback imports at top if necessary.  
+2. Backup before editing:  
+   ```bash
+   cp app.py app.py.bak.$(date +%Y%m%d_%H%M%S)
+   ```
+3. Patch app.py incrementally (don't overwrite file wholesale).
+4. Restart and probe:
+   ```bash
+   systemctl restart cora.service
+   sleep 2
+   curl -s -o /dev/null -w "%{http_code}\n" http://127.0.0.1:8000/
+   ```
+5. Confirm service is active (no restart loop).
+
+#### Acceptance
+- cora.service stays running.
+- No NameError for settings_router or weekly_insights_router.
+- Health probe shows 200 or 401.
+- System ready to move to auth seeding + DB migration.
+
 ### Session: 2025-09-02 (UTC)
 **North Star:** Lock BI intelligence loop; keep awareness current.
 **State:** BI snapshot tool hardened + tagged (v0.1.0-bi-snapshot-hardened); first run captured 5 OK / 2 ERR (QBO timeouts, Jobber 403); error artifacts cached; awareness docs updated.

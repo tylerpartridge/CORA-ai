@@ -4,6 +4,9 @@
 > Format: **Date — Model — Summary**
 > Newest entries first.
 
+## 2025-09-03 — Opus — Codified durable workflow rules
+Codified three durable workflow rules into `docs/SYSTEM_RULES.md` (CI router guard, stub-first rescue, journalctl-first) from production debugging session. These rules emerged from resolving router import issues causing service restart loops. Updated file: `docs/SYSTEM_RULES.md` with new section "DURABLE WORKFLOW RULES (2025-09-03)".
+
 ## 2025-09-02 — BI placeholders wired
 BI snapshot hardened (tag `v0.1.0-bi-snapshot-hardened`) — QBO/Jobber using `manual_notes` **placeholders** only; human pricing confirmation pending. Final run: 5 OK / 2 ERR; IRS OK; cache + logs updated.
 

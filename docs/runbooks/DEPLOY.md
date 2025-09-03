@@ -208,6 +208,91 @@ nginx -s reload
 
 ---
 
+## Backup & Recovery Procedures
+
+### Pre-Deploy Backup (Recommended)
+
+Before deploying critical changes, create a backup:
+
+```bash
+# SSH to production
+ssh root@159.203.183.48
+
+# Run manual backup
+cd /var/www/cora
+./tools/backup/nightly_backup.sh
+
+# Verify backup created
+ls -la backups/$(date +%Y-%m-%d)*
+```
+
+### Automated Backup Schedule
+
+**Production (systemd):**
+```bash
+# Check if backups are scheduled
+systemctl status cora-backup.timer
+
+# If not enabled, set up:
+sudo cp /var/www/cora/tools/backup/systemd/* /etc/systemd/system/
+sudo systemctl daemon-reload
+sudo systemctl enable cora-backup.timer
+sudo systemctl start cora-backup.timer
+
+# Verify next run time
+systemctl list-timers | grep cora-backup
+```
+
+**Local Development (Windows):**
+```powershell
+# Setup scheduled backup
+.\tools\backup\windows\setup_task.ps1
+
+# Run backup manually
+.\tools\backup\nightly_backup.ps1
+```
+
+### Quick Restore from Backup
+
+If deployment fails and rollback needed:
+
+```bash
+# SSH to production
+ssh root@159.203.183.48
+cd /var/www/cora
+
+# Stop application
+systemctl stop cora.service
+
+# Find latest backup
+LATEST_BACKUP=$(ls -d backups/* | tail -1)
+
+# Restore from backup
+./tools/backup/restore.sh -f $LATEST_BACKUP
+
+# Restart application
+systemctl start cora.service
+
+# Verify health
+curl -f https://coraai.tech/health
+```
+
+### Backup Monitoring
+
+```bash
+# Check last backup
+ls -la /var/www/cora/backups/ | tail -2
+
+# Verify backup integrity
+cd /var/www/cora/backups/$(ls /var/www/cora/backups/ | tail -1)
+sha256sum -c SHA256SUMS.txt
+
+# Check backup logs
+journalctl -u cora-backup.service -n 20
+```
+
+---
+
 ## Health Monitoring
 
 ### Key Metrics to Watch

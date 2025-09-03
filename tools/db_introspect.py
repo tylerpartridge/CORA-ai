@@ -16,7 +16,9 @@ from datetime import datetime
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
 from models import SessionLocal, User, Job, Expense, ExpenseCategory, Customer, Payment, Subscription
-from sqlalchemy import text
+from sqlalchemy import text, create_engine
+from sqlalchemy.orm import sessionmaker
+from sqlalchemy.pool import NullPool
 
 
 def json_serializer(obj):
@@ -73,8 +75,8 @@ def get_recent_records(db, table_model, limit=5):
         return f"Error: {str(e)}"
 
 
-def check_integrity(db):
-    """Run basic integrity checks"""
+def check_integrity(db, source_counts=None):
+    """Run enhanced integrity checks"""
     integrity = {}
     
     try:
@@ -87,6 +89,16 @@ def check_integrity(db):
         """)
         result = db.execute(orphan_query).first()
         integrity['orphaned_expenses'] = result.count if result else 0
+        
+        # Check for orphaned jobs (jobs without valid users)
+        orphan_jobs_query = text("""
+            SELECT COUNT(*) as count
+            FROM jobs j
+            LEFT JOIN users u ON j.user_id = u.id
+            WHERE j.user_id IS NOT NULL AND u.id IS NULL
+        """)
+        result = db.execute(orphan_jobs_query).first()
+        integrity['orphaned_jobs'] = result.count if result else 0
         
         # Check for users without timezone
         no_tz_query = text("""
@@ -106,6 +118,34 @@ def check_integrity(db):
         result = db.execute(admin_query).first()
         integrity['admin_users'] = result.count if result else 0
         
+        # Check distinct user count in jobs vs users table
+        job_users_query = text("""
+            SELECT COUNT(DISTINCT user_id) as count
+            FROM jobs
+            WHERE user_id IS NOT NULL
+        """)
+        result = db.execute(job_users_query).first()
+        integrity['distinct_users_in_jobs'] = result.count if result else 0
+        
+        user_count_query = text("SELECT COUNT(*) as count FROM users")
+        result = db.execute(user_count_query).first()
+        integrity['total_users'] = result.count if result else 0
+        
+        # Row count parity check if source counts provided
+        if source_counts:
+            parity = {}
+            for table, source_count in source_counts.items():
+                if isinstance(source_count, int):
+                    target_query = text(f"SELECT COUNT(*) as count FROM {table}")
+                    result = db.execute(target_query).first()
+                    target_count = result.count if result else 0
+                    parity[table] = {
+                        'source': source_count,
+                        'target': target_count,
+                        'match': source_count == target_count
+                    }
+            integrity['row_count_parity'] = parity
+        
     except Exception as e:
         integrity['error'] = str(e)
     
@@ -117,15 +157,32 @@ def main():
     parser = argparse.ArgumentParser(description='Database introspection utility')
     parser.add_argument('--recent', type=int, help='Show N most recent records per table')
     parser.add_argument('--json', action='store_true', help='Output in JSON format')
+    parser.add_argument('--dsn', help='Database DSN (optional, uses app default if not provided)')
+    parser.add_argument('--source-counts', help='JSON file with source counts for parity check')
     args = parser.parse_args()
     
-    db = SessionLocal()
+    # Create database session
+    if args.dsn:
+        # Use provided DSN
+        engine = create_engine(args.dsn, poolclass=NullPool)
+        Session = sessionmaker(bind=engine)
+        db = Session()
+    else:
+        # Use app's default session
+        db = SessionLocal()
     
     try:
+        # Load source counts if provided
+        source_counts = None
+        if args.source_counts:
+            with open(args.source_counts, 'r') as f:
+                source_data = json.load(f)
+                source_counts = source_data.get('table_counts', {})
+        
         # Gather all data
         data = {
             'table_counts': get_table_counts(db),
-            'integrity_checks': check_integrity(db)
+            'integrity_checks': check_integrity(db, source_counts)
         }
         
         # Add recent records if requested
