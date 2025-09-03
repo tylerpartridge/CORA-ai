@@ -1,0 +1,11 @@
+[Unit]
+Description=Daily CORA Postgres Backup Timer
+
+[Timer]
+OnCalendar=*-*-* 03:10:00
+Persistent=true
+
+[Install]
+WantedBy=timers.target
+
+

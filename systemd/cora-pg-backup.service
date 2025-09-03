@@ -1,0 +1,15 @@
+[Unit]
+Description=CORA Postgres Backup
+Wants=cora-pg-backup.timer
+
+[Service]
+Type=oneshot
+WorkingDirectory=/var/www/cora
+ExecStart=/bin/bash -lc 'source /root/CORA_PROD_PG_DSN.env && CORA_PG_BACKUP_DIR=/var/backups/cora/pg /var/www/cora/tools/pg_backup.sh'
+User=root
+Group=root
+
+[Install]
+WantedBy=multi-user.target
+
+
