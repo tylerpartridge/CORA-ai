@@ -105,6 +105,24 @@ git push -u origin <branch>
 6) Merge PR (squash). Do **not** commit directly to `main` unless RED.
 7) Pull `main` locally (`git pull --prune`) after merges.
 
+### Workflow Reflection — 2025-09-01 Learnings
+
+This session showed the system at its best:
+- **Pure role boundaries:** Opus code, Sonnet docs, Cursor git, GPT-5 orchestration
+- **Strict single-path prompts:** No menus, no "now or later"  
+- **Add-on layering:** Refinements before execution
+- **Full awareness fidelity:** NOW/NEXT/STATUS + handoff updated at every milestone
+- **Deploy rhythm:** 12:30/17:30 UTC held consistently, ensuring production stayed GREEN
+
+Success factors to preserve:
+1. Never break role purity
+2. Never propose multiple paths  
+3. Always checkpoint before session handoff
+4. Awareness docs must lead, not lag
+5. Deploy only at batch windows unless RED
+
+BI Engine established (docs/bi/*); sweeps produce evidence cards + pulse summaries; findings promoted to NEXT after human review.
+
 ### End-of-Day Close
 - Append newest-on-top entry in `docs/awareness/AI_WORK_LOG.md` summarizing what landed and system health.
 - Update GPT5_handoff.md "Session Capsule" with:
@@ -235,6 +253,12 @@ TL;DR: Opus does 100% of the code work. You (through Cursor or another git clien
 ---
 
 ## PART B — SESSION CAPSULE (UPDATE EACH THREAD; NEWEST FIRST)
+
+### Session: 2025-09-02 (UTC)
+**North Star:** Lock BI intelligence loop; keep awareness current.
+**State:** BI snapshot tool hardened + tagged (v0.1.0-bi-snapshot-hardened); first run captured 5 OK / 2 ERR (QBO timeouts, Jobber 403); error artifacts cached; awareness docs updated.
+**System Health:** GREEN
+**Next Action (single):** AM — Comprehensive Manual Walkthrough; then add QBO/Jobber manual_notes placeholders and schedule weekly snapshot.
 
 ### Session: 2025-09-01 15:30 UTC
 **Shipped:**

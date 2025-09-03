@@ -25,6 +25,11 @@ competitors:
       - main
       - "[class*=pricing]"
       - "[data-qa*=pricing]"
+    manual_notes:
+      pricing_bullets:
+        - "[placeholder] to be confirmed during manual review"
+      updated: "TBD"
+      source_hint: "Add URL and date after human confirmation"
     tags: ["accounting","pricing"]
   - name: Zoho Expense
     urls:
@@ -51,6 +56,11 @@ competitors:
       - ".pricing"
       - "[class*=plan]"
       - "main"
+    manual_notes:
+      pricing_bullets:
+        - "[placeholder] to be confirmed during manual review"
+      updated: "TBD"
+      source_hint: "Add URL and date after human confirmation"
     tags: ["field-service","pricing"]
   - name: Buildertrend
     urls:

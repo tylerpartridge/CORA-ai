@@ -4,6 +4,9 @@
 > Format: **Date — Model — Summary**
 > Newest entries first.
 
+## 2025-09-02 — BI placeholders wired
+BI snapshot hardened (tag `v0.1.0-bi-snapshot-hardened`) — QBO/Jobber using `manual_notes` **placeholders** only; human pricing confirmation pending. Final run: 5 OK / 2 ERR; IRS OK; cache + logs updated.
+
 ## 2025-09-01 — Unsubscribe link implemented (opt-in/opt-out)
 - ✅ Merged PR #40: unsubscribe route + opt-in/opt-out for weekly insights emails
 - ✅ Files: `models/user.py`, `migrations/add_weekly_insights_opt_in.py`, `routes/weekly_insights.py`, `routes/settings.py`, `dependencies/auth.py`, `app.py`, `tests/test_unsubscribe.py`

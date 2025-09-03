@@ -1,4 +1,45 @@
-**Next Action:** Split `web/static/js/export_manager.js` into smaller modules (<300 lines) to satisfy guard.
+**Next Action (AM): Comprehensive Manual Walkthrough**
+- Note: Full end-to-end UI validation; Tyler will run fresh.
+
+**BI Follow-ups (light)**
+- Add `manual_notes` placeholders for QBO and Jobber in registry.yml (no invented prices; placeholders only) so fallback engages without fabricating values.
+- Schedule weekly snapshot (Windows Task Scheduler) with `PYTHONIOENCODING=utf-8`, run to `docs/bi/<YYYY-MM-DD>/snapshot.log`.
+- Evidence triage: review QBO/Jobber *_error.html for pricing cues; record any human-confirmed prices in `manual_notes` with date/source.
+
+---
+
+## 📊 Post-Walkthrough Audit Pipeline (2025-09-02)
+
+1. **Code Refactor Queue (P0)**
+   - Split oversized files (>300 lines) starting with:
+     - routes/expenses.py
+     - services/emotional_intelligence.py
+     - web/static/js/onboarding-ai-wizard.js
+   - Follow the export_manager.js pattern (modular splits, preserve API).
+
+2. **Infra P0 Fixes**
+   - Add rollback script for failed deploys.
+   - Integrate DB migrations into deploy flow.
+   - Schedule automated backups (daily, 7-day retention).
+
+3. **UX Copy Rewrite Sprint**
+   - Standardize "Skip for now" terminology.
+   - Remove intimidating "AI-powered" jargon.
+   - Fix CORA vs Cora inconsistency.
+   - Rewrite onboarding, dashboard, and email flows for contractor clarity.
+
+4. **Business Model Corrections**
+   - Restructure pricing tiers (Solo $29, Crew $69, Business $149).
+   - Extend trial to 60 days.
+   - Implement crew invitation loop.
+   - Tighten value prop messaging (voice entry, mobile-first, save every receipt).
+
+5. **AI Workflow Hardening**
+   - Implement session capsule rotation in GPT5_handoff.md.
+   - Protect awareness docs from deletion.
+   - Clarify save vs checkpoint criteria.
+
+---
 
 ## 💾 CHECKPOINT: 2025-09-01 12:18 UTC
 **Status:** Post-deploy
