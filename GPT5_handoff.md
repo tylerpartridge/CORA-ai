@@ -256,9 +256,9 @@ TL;DR: Opus does 100% of the code work. You (through Cursor or another git clien
 
 ### Session: 2025-09-02 (UTC)
 **North Star:** Lock BI intelligence loop; keep awareness current.
-**State:** BI snapshot tool hardened + tagged (v0.1.0-bi-snapshot-hardened); first run captured 5 OK / 2 ERR (QBO timeouts, Jobber 403); error artifacts cached; awareness docs updated.
+**State:** Backups seatbelt installed (comprehensive nightly backup system with 14-day retention, Windows scheduler ready). Export Manager modularized (P0 refactor complete: 945 → <300 lines each, backward-compatible). BI snapshot tool hardened + tagged (v0.1.0-bi-snapshot-hardened); first run captured 5 OK / 2 ERR (QBO timeouts, Jobber 403); error artifacts cached; awareness docs updated.
 **System Health:** GREEN
-**Next Action (single):** AM — Comprehensive Manual Walkthrough; then add QBO/Jobber manual_notes placeholders and schedule weekly snapshot.
+**Next Action (single):** Manual Windows Task Scheduler setup (`.\backup\setup_windows_schedule.ps1` from Windows), then AM Manual Walkthrough.
 
 ### Session: 2025-09-01 15:30 UTC
 **Shipped:**

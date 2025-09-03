@@ -1,3 +1,13 @@
+## 💾 CHECKPOINT: 2025-09-02 12:40 UTC
+**HEALTH:** GREEN
+**NOTES:** Backup seatbelt installation complete - comprehensive nightly backup system with Linux/Windows scripts, tested restore path, 14-day retention. Manual Windows scheduling required (run setup_windows_schedule.ps1 from Windows).
+**NEXT:** Manual Windows Task Scheduler setup, then AM comprehensive walkthrough.
+
+## 💾 CHECKPOINT: 2025-09-02 09:45 UTC
+**HEALTH:** GREEN
+**NOTES:** Export Manager modularized (945 → <300 lines each); CI guard alignment achieved; functionality preserved with backward-compatible shim. Technical debt reduced.
+**NEXT:** Comprehensive Manual Walkthrough (AM) covers both BI intelligence + core app flows.
+
 ## 💾 CHECKPOINT: 2025-09-02 08:32 UTC
 **HEALTH:** GREEN
 **NOTES:** BI tool hardened (ASCII logging, per-site overrides, parallel alt-URLs, error capture, manual fallback). Tag: v0.1.0-bi-snapshot-hardened.

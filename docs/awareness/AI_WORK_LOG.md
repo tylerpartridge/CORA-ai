@@ -4,6 +4,16 @@
 > Format: **Date — Model — Summary**
 > Newest entries first.
 
+## 2025-09-02 — Backup seatbelt installed (comprehensive nightly system)
+- Created complete backup system: Linux/Windows scripts, restore guide, 14-day retention
+- First successful run: backups/2025-09-02_123131 (21MB docs + 412KB DB + BI cache)
+- Windows Task Scheduler setup ready (03:25 UTC daily); production systemd timer prepared
+
+## 2025-09-02 — Export Manager modularized (945 lines → compliant)
+- Split export_manager.js into modular tree: all modules <300 lines, largest 211 (modal-styles.js)
+- Backward-compatible shim preserved for existing code
+- CI guard alignment achieved; technical debt reduced
+
 ## 2025-09-02 — BI placeholders wired
 BI snapshot hardened (tag `v0.1.0-bi-snapshot-hardened`) — QBO/Jobber using `manual_notes` **placeholders** only; human pricing confirmation pending. Final run: 5 OK / 2 ERR; IRS OK; cache + logs updated.
 

@@ -1,5 +1,9 @@
-**Next Action (AM): Comprehensive Manual Walkthrough**
-- Note: Full end-to-end UI validation; Tyler will run fresh.
+**Next Action (Immediate): Setup Windows Task Scheduler**
+- Run: `.\backup\setup_windows_schedule.ps1` to enable 03:25 UTC daily backups
+
+**Next Action (AM): Comprehensive Manual Walkthrough** 
+- Note: Full end-to-end UI validation covering BI intelligence + core app flows; Tyler will run fresh.
+- Run restore drill (10-min) after first successful nightly backup
 
 **BI Follow-ups (light)**
 - Add `manual_notes` placeholders for QBO and Jobber in registry.yml (no invented prices; placeholders only) so fallback engages without fabricating values.
