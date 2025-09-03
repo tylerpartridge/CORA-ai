@@ -82,9 +82,9 @@ def check_integrity(db, source_counts=None):
     try:
         # Check for orphaned expenses (expenses without valid jobs)
         orphan_query = text("""
-            SELECT COUNT(*) as count 
-            FROM expenses e 
-            LEFT JOIN jobs j ON e.job_id = j.id 
+            SELECT COUNT(*) AS count
+            FROM expenses e
+            LEFT JOIN jobs j ON CAST(e.job_id AS INTEGER) = j.id
             WHERE e.job_id IS NOT NULL AND j.id IS NULL
         """)
         result = db.execute(orphan_query).first()
@@ -92,9 +92,9 @@ def check_integrity(db, source_counts=None):
         
         # Check for orphaned jobs (jobs without valid users)
         orphan_jobs_query = text("""
-            SELECT COUNT(*) as count
+            SELECT COUNT(*) AS count
             FROM jobs j
-            LEFT JOIN users u ON j.user_id = u.id
+            LEFT JOIN users u ON CAST(j.user_id AS INTEGER) = u.id
             WHERE j.user_id IS NOT NULL AND u.id IS NULL
         """)
         result = db.execute(orphan_jobs_query).first()
