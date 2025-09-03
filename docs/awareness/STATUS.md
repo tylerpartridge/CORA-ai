@@ -1,3 +1,9 @@
+## 💾 CHECKPOINT: 2025-09-02 08:32 UTC
+**HEALTH:** GREEN
+**NOTES:** BI tool hardened (ASCII logging, per-site overrides, parallel alt-URLs, error capture, manual fallback). Tag: v0.1.0-bi-snapshot-hardened.
+Snapshot summary: success=5, failed=2; QBO timeouts, Jobber 403; error HTML/JSON cached.
+**NEXT:** Comprehensive Manual Walkthrough (AM) + small BI follow-ups listed in NEXT.md.
+
 ## 💾 CHECKPOINT: 2025-09-01 17:00 UTC
 **HEALTH:** GREEN
 **BLOCKERS:** none

@@ -51,8 +51,20 @@ python scripts/bi/snapshot.py --dry-run
 
 The tool will:
 - Read URLs from `docs/bi/registry.yml`
-- Fetch HTML content with 10-second timeout
-- Save raw HTML to `docs/bi/cache/YYYY-MM-DD/<slug>.html`
+- Try all URLs (including alt_urls) in parallel for better success rates
+- Save raw HTML to `docs/bi/cache/YYYY-MM-DD/<slug>.html` (even error pages)
 - Extract pricing snippets to `docs/bi/cache/YYYY-MM-DD/<slug>.json`
+- Use manual fallback data when scraping yields zero snippets
 - Handle errors gracefully with JSON error entries
-- Print a summary of all operations
+- Print a summary of all operations with success/fallback metrics
+
+## When Sites Block Us
+
+The BI Snapshot tool has multiple fallback strategies for difficult sites:
+
+1. **Parallel Alt URLs**: Tries primary and alternate URLs simultaneously, taking the best result
+2. **Error Page Capture**: Saves 403/404 pages which often contain useful information
+3. **Manual Fallback**: Uses curated pricing data from registry.yml when scraping fails
+4. **Per-Site Overrides**: Custom timeouts, headers, and retry settings per competitor
+
+This layered approach ensures we always have some competitive intelligence data, even when sites actively block scrapers. Manual fallback data can include last-known pricing, hypotheses based on competitor analysis, or information from sales calls.
