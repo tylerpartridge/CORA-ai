@@ -12,8 +12,9 @@ from sqlalchemy.orm import sessionmaker
 import os
 from dotenv import load_dotenv
 
-# Load environment variables
-load_dotenv()
+# Load environment variables unless explicitly bypassed (needed for non-root ops like postgres user)
+if os.getenv("CORA_SKIP_DOTENV") != "1":
+    load_dotenv()
 
 # Import centralized config
 from config import config
