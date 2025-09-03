@@ -129,3 +129,9 @@ The CORA system is now fully ready for beta launch with:
 
 - **Deploy (Production)**: see scripts/Invoke-CoraDeploy.ps1 + docs/runbooks/DEPLOY.md (batch windows 12:30 / 17:30 UTC). Smokes: /health, /api/status.
 
+
+### Decision Note — Off-site Backups
+- Status: **Deferred**
+- Rationale: Prioritize launch; current on-box backups + restore drill provide acceptable coverage pre-revenue.
+- Revisit Trigger: First paying customer **or** post-launch checkpoint.
+- Current Focus: **Manual Walkthrough (end-to-end money-path)**.

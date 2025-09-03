@@ -242,3 +242,7 @@ cd /root/cora && git pull && pm2 restart cora
 - [ ] Patch validator to cast types in orphan checks; re-run introspect on PG
 - [ ] Remove temporary PDF/Email fallbacks via normal PR
 - [ ] Schedule weekly snapshot + add monitoring pulse card
+
+### Post-Launch / Ops (deferred items)
+- [ ] Enable off-site backup to S3 (KMS + CRR); use prepared runbook
+- [ ] Evaluate PITR (WAL archiving) targets after user traffic stabilizes

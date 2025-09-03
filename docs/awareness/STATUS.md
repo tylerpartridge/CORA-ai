@@ -166,3 +166,4 @@ Snapshot summary: success=5, failed=2; QBO timeouts, Jobber 403; error HTML/JSON
 - **Health:** GREEN (local probes 200; initial 000 then 200 during restart).
 - **Artifacts:** see /var/log/cora_migration/ on prod (prod_src_counts_*.json, prod_tgt_counts_*.json, prod_migration_*.jsonl).
 - **DSN path:** /root/CORA_PROD_PG_DSN.env (secrets not committed).
+- 2025-09-03 23:13:51 UTC — Decision: Off-site backups deferred until post-launch/first customer.
