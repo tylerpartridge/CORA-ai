@@ -26,18 +26,7 @@ except Exception as e:
         @staticmethod
         def send_report(*args, **kwargs):
             return None
-# Safe import: PDFExporter optional in prod; fall back to no-op so app can start.
-try:
-    from utils.pdf_exporter import PDFExporter  # type: ignore
-except Exception as e:  # pragma: no cover
-    import logging
-    _log = logging.getLogger("cora.weekly_insights")
-    _log.warning("PDFExporter unavailable (%s); using no-op stub. Weekly PDF generation disabled.", e)
-    class PDFExporter:  # minimal shim to avoid crashes; methods are no-ops
-        def __init__(self, *args, **kwargs): pass
-        def export(self, *args, **kwargs): return None
-        def render(self, *args, **kwargs): return None
-
+from utils.pdf_exporter import PDFExporter
 
 logger = logging.getLogger(__name__)
 
