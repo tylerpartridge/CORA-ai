@@ -18,7 +18,7 @@ class Payment(Base):
     
     # PostgreSQL schema with UUID FK
     id = Column(Integer, primary_key=True, index=True)
-    user_id = Column(UUID(as_uuid=True), ForeignKey("users.id"), nullable=False)
+    user_id = Column(Integer, ForeignKey("users.id"), nullable=False)
     stripe_payment_intent_id = Column(String)
     amount = Column(Numeric(12,2))
     currency = Column(String(10))

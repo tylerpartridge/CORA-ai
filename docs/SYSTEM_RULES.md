@@ -64,5 +64,14 @@
 - Create utils/helpers/common files
 - Skip headers "to save time"
 
+## 🚨 DURABLE WORKFLOW RULES (2025-09-03)
+
+### Production Debugging & CI Guards
+1. **CI guard for orphaned router imports** - CI should fail if `app.include_router(<name>)` is called without a corresponding import or defined symbol. This prevents production startup failures from missing routers.
+
+2. **Stub-first rescue pattern** - In production incidents where a router is missing, create a minimal stub in `/routes/<name>.py` exporting both `router` and `<name>_router`, rather than patching `app.py` directly. This maintains clean separation and allows proper implementation later.
+
+3. **Always journalctl before health probes** - On production debugging, check logs with `journalctl -u cora.service -n 80` before running curl probes. This avoids chasing misleading 000/timeout results when the real issue is visible in logs.
+
 ---
 **CHECK THIS BEFORE EVERY: File creation, Edit, Move, or Delete**
