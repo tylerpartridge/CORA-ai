@@ -264,6 +264,8 @@ def main():
                        help='Comma-separated list of tables to migrate')
     parser.add_argument('--truncate-target', action='store_true',
                        help='Truncate target tables before migration (REHEARSAL ONLY)')
+    parser.add_argument('--sqlite-readonly', action='store_true',
+                       help='Open SQLite source in read-only mode (prevents journal writes)')
     
     args = parser.parse_args()
     
@@ -278,7 +280,13 @@ def main():
     logger = MigrationLogger(args.log_path)
     
     # Create engines
-    source_engine = create_engine(f"sqlite:///{args.sqlite_path}", poolclass=NullPool)
+    if args.sqlite_readonly:
+        # Use URI mode to force read-only access to the SQLite file
+        # file:/absolute/path?mode=ro&uri=true
+        sqlite_url = f"sqlite+pysqlite:///file:{args.sqlite_path}?mode=ro&uri=true"
+        source_engine = create_engine(sqlite_url, poolclass=NullPool)
+    else:
+        source_engine = create_engine(f"sqlite:///{args.sqlite_path}", poolclass=NullPool)
     target_engine = create_engine(args.pg_dsn, poolclass=NullPool)
     
     # Create sessions
