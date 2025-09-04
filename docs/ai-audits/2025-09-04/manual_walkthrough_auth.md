@@ -482,6 +482,7 @@ Acceptance Criteria:
 | | | | | | | |
 | | | | | | | |
 | | | | | | | |
+| A-RESET-500 | Major | Auth / Forgot Password | Go to /login → “Forgot password?” → submit `contact.cora.ai@gmail.com` | “Email sent” confirmation (200) | 500 Internal Server Error; body: {"error":"Internal server error","path":"/api/auth/forgot-password"} | DevTools screenshots + request headers/payload |
 
 ## Verdict
 
