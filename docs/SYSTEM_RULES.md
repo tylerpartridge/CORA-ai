@@ -1,6 +1,33 @@
 # ⚡ SYSTEM RULES - CHECK BEFORE EVERY ACTION
 
+## TL;DR — Non‑negotiables
+- **PRs‑only**: No direct commits to `main` unless RED; always PR → squash merge
+- **Edit > Create**: Default to editing existing files; creation needs strong justification
+- **Batch deploy windows**: 12:30 and 17:30 UTC only, unless RED
+- **Prompt labeling**: Use SONNET / OPUS / CURSOR / TYLER blocks
+- **Run `PREFLIGHT_CHECKLIST.md`** before any file operation
+
 ## 🚨 MANDATORY: Use PREFLIGHT_CHECKLIST.md before ANY file operation!
+
+## Quick Commands (merge + sync + smokes)
+```powershell
+# Merge PR (admin), sync main
+cd C:\CORA; gh pr merge <#> --squash --delete-branch --admin; git checkout main; git pull --prune
+
+# Run PROD smokes (on server)
+ssh -o BatchMode=yes root@159.203.183.48 "cd /var/www/cora && ./tools/smoke.sh --base-url http://127.0.0.1:8000 --retries 3 --timeout 5 && python3 tools/smoke.py --base-url http://127.0.0.1:8000 --retries 3 --timeout 5 --json"
+```
+
+## Canonical Smokes (must pass)
+- `/health` → 200
+- `/api/status` → 200
+- `/api/feature-flags` (unauth) → 401
+- Scripts: `tools/smoke.sh` and `tools/smoke.py` (see `docs/runbooks/SMOKES.md`)
+
+## Targets
+- **PROD SSH**: `root@159.203.183.48` (alt: `root@coraai.tech`)
+- **App path**: `/var/www/cora`
+- **Postgres DSN file**: `/root/CORA_PROD_PG_DSN.env` (not in repo)
 
 ## 📋 FILE CREATION GUIDELINES
 - **Root dir:** Target 10 files (currently at limit!)
@@ -75,3 +102,5 @@
 
 ---
 **CHECK THIS BEFORE EVERY: File creation, Edit, Move, or Delete**
+
+Durable rules — last updated: 2025-09-03. Keep Part A stable; session-specific guidance belongs in `GPT5_handoff.md` Part B and `docs/awareness/NOW.md`/`NEXT.md`.
