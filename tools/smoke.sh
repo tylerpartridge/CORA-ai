@@ -34,7 +34,7 @@ overall=0
 try_curl "/health" 200 "health" || overall=1
 try_curl "/api/status" 200 "status" || overall=1
 # Protected route should be unauthorized when no auth (expect 401)
-try_curl "/api/admin" 401 "protected" || overall=1 || true
+try_curl "/api/feature-flags" 401 "protected" || overall=1
 
 if [[ $overall -eq 0 ]]; then
   echo "SMOKES: PASS"
