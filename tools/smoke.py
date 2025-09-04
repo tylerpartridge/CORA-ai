@@ -54,7 +54,7 @@ def main() -> None:
         ('/health', 200, 'health'),
         ('/api/status', 200, 'status'),
         # Protected route should be unauthorized when unauthenticated
-        ('/api/admin', 401, 'protected'),
+        ('/api/expenses', 401, 'protected'),
     ]
 
     results: List[Dict] = []
