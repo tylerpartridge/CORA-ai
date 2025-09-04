@@ -85,17 +85,14 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Initialize error handler
-error_handler = ErrorHandler(app)
-
 # Exception handlers
 @app.exception_handler(CORAException)
 async def cora_exception_handler(request: Request, exc: CORAException):
-    return await error_handler.handle_cora_exception(request, exc)
+    return ErrorHandler.handle_exception(exc, request)
 
 @app.exception_handler(Exception)
 async def global_exception_handler(request: Request, exc: Exception):
-    return await error_handler.handle_exception(request, exc)
+    return ErrorHandler.handle_exception(exc, request)
 
 # Middleware for trusted host and security headers
 @app.middleware("http")
