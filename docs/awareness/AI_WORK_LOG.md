@@ -1,3 +1,10 @@
+### 2025-09-03 EOD (UTC) — Prod cutover to Postgres + smokes + backups (GREEN)
+**Action:** Completed SQLite→Postgres production cutover using transactional migrator with auto-rollback guard (unused). Patched validator to cast FK-like columns; added canonical smoke harness (bash+python) and runbook; scaffolded manual walkthrough doc.
+**Evidence:** /api/status → 200; smokes GREEN (200/200/401); DSN stored at `/root/CORA_PROD_PG_DSN.env`; migration artifacts in `/var/log/cora_migration/` (SRC/TGT/JSONL); nightly pg_dump timer installed; first dump + restore verify passed.
+**Shipped:** `tools/migrate_sqlite_to_postgres.py`, `tools/db_introspect.py` (cast fix), `tools/smoke.sh`, `tools/smoke.py`, `docs/runbooks/SMOKES.md`, manual walkthrough scaffold.
+**State:** GREEN on Postgres.
+**Next:** Manual Walkthrough Section 1 (Auth & Session) tomorrow; capture notes/evidence, then proceed to Section 2 (Profile & Timezone).
+
 ### 2025-09-03 23:13:51 UTC — Decision — Defer off-site backups
 **Reason:** Launch focus; local nightly dumps + verified restore are sufficient pre-revenue.
 **Trigger to revisit:** After first paying customer **or** immediately post-launch.

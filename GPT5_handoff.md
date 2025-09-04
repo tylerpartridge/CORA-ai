@@ -136,6 +136,19 @@ BI Engine established (docs/bi/*); sweeps produce evidence cards + pulse summari
 - Create a fresh feature branch from `main` for the **one** top priority.
 - Proceed with the Development Workflow steps above.
 
+## PART B — SESSION CAPSULE
+
+### Session: 2025-09-03 (UTC)
+**State:** GREEN (Postgres)
+**Shipped Today:**
+- Prod DB cutover SQLite→Postgres (transactional), parity verified
+- Validator cast hardening (orphan checks clean)
+- Canonical smoke harness + runbook
+- Manual walkthrough scaffold
+- Nightly Postgres backups + restore verify
+**Acceptance:** `/api/status` 200; smokes GREEN; DSN in `/root/CORA_PROD_PG_DSN.env`; artifacts in `/var/log/cora_migration/`
+**Next Action (single):** Manual Walkthrough — Section 1 (Auth & Session): run steps, capture evidence; then queue Section 2.
+
 ### Prompt Labeling (Reminder)
 All prompts MUST start with a header naming the actor (SONNET / OPUS / TYLER / CURSOR) and be in their own code block. No mixed-actor blocks.
 
