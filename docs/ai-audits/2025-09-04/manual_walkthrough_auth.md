@@ -413,6 +413,13 @@ Acceptance Criteria:
   [/api/status still returns 200]
   ```
 
+Bad-login rate limit:
+- Request: POST https://coraai.tech/api/auth/login
+- Status: 429 Too Many Requests
+- Body: {"error":"Rate limit exceeded","message":"Rate limit exceeded. Try again in 483 seconds.","retry_after":60}
+- Timing Total: ~135.87 ms
+- Note: first two bad-login attempts were ~60s each before rate limit engaged
+
 ## 8) Preference Persistence (Timezone & Currency)
 
 - **Purpose**: Confirm user settings persist through session
@@ -483,6 +490,9 @@ Acceptance Criteria:
 | | | | | | | |
 | | | | | | | |
 | A-RESET-500 | Major | Auth / Forgot Password | Go to /login → “Forgot password?” → submit `contact.cora.ai@gmail.com` | “Email sent” confirmation (200) | 500 Internal Server Error; body: {"error":"Internal server error","path":"/api/auth/forgot-password"} | DevTools screenshots + request headers/payload |
+| A-LOGIN-SLOW-60S | Minor | Auth / Login | Submit wrong password twice | Fast failure (<1s) | First two attempts took ~60s each before rate limit engaged | Network timings captured |
+| A-LOGIN-RETRY-MISMATCH | Minor | Auth / Login | Trigger rate limit on bad-login | Consistent retry hint | Message says "483 seconds" but `retry_after`=60 | JSON response attached |
+| A-LOGIN-RATELIMIT-OK | Pass | Auth / Login | Repeated bad-login attempts | 429 with friendly copy | 429 with message + retry hint returned in ~136ms | Screenshot + headers |
 
 ## Verdict
 
