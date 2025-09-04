@@ -63,6 +63,7 @@ class RegisterRequest(ValidatedBaseModel):
     password: str
     confirm_password: str
     timezone: Optional[str] = "America/New_York"
+    currency: Optional[str] = "USD"
     
     @validator('email')
     def validate_email(cls, v):
@@ -287,8 +288,8 @@ async def register(request: RegisterRequest, db: Session = Depends(get_db)):
         # Validate input
         validate_user_input(request.email, request.password, request.confirm_password)
         
-        # Create user with timezone
-        user = create_user(db, request.email, request.password, request.timezone)
+        # Create user with timezone and currency
+        user = create_user(db, request.email, request.password, request.timezone, request.currency)
         
         # Link to ContractorWaitlist if they came through lead capture
         try:
