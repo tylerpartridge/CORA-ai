@@ -25,6 +25,7 @@ class User(Base):
     email_verified = Column(String(10), default="false")  # SQLite boolean as string
     email_verified_at = Column(DateTime, nullable=True)
     timezone = Column(String(50), nullable=True, default="America/New_York")  # User's timezone
+    currency = Column(String(8), nullable=True, default="USD")  # User's currency preference
     weekly_insights_opt_in = Column(String(10), default="true")  # SQLite boolean as string for email preferences
     # stripe_customer_id = Column(String, nullable=True)  # TODO: Add this column to database
     

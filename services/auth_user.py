@@ -52,7 +52,7 @@ def get_password_hash(password: str) -> str:
     return pwd_context.hash(password)
 
 
-def create_user(db: Session, email: str, password: str, timezone: Optional[str] = "America/New_York") -> User:
+def create_user(db: Session, email: str, password: str, timezone: Optional[str] = "America/New_York", currency: Optional[str] = "USD") -> User:
     """Create new user with comprehensive error handling"""
     try:
         # Import validation here to avoid circular dependency
@@ -98,7 +98,8 @@ def create_user(db: Session, email: str, password: str, timezone: Optional[str] 
             hashed_password=hashed_password,
             is_active=is_active,
             email_verified=email_verified,
-            timezone=timezone
+            timezone=timezone,
+            currency=currency
         )
         db.add(db_user)
         db.commit()
