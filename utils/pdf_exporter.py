@@ -495,3 +495,6 @@ class ProfitIntelligencePDFExporter:
 
 # Global exporter instance
 pdf_exporter = ProfitIntelligencePDFExporter() 
+
+# Backwards-compat
+PDFExporter = ProfitIntelligencePDFExporter

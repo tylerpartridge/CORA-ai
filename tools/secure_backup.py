@@ -41,9 +41,10 @@ class SecureBackup:
             if env_key:
                 self.encryption_key = self._derive_key(env_key)
             else:
-                # Generate new key and save to environment
+                # No env key set; operate without logging sensitive material
+                # Prefer a non-persistent ephemeral key without exposing value
                 new_key = Fernet.generate_key()
-                logger.warning(f"Generated new backup encryption key. Save this securely: {new_key.decode()}")
+                logger.info("Backup encryption key loaded from env or not set; using ephemeral in-memory key")
                 self.encryption_key = new_key
         
         self.cipher = Fernet(self.encryption_key)

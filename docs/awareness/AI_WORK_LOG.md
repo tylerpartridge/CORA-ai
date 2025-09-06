@@ -1,3 +1,24 @@
+## 2025-09-04 (UTC) — Policy Update
+- Collaboration roles updated: **Cursor = primary executor (code/git/deploy)**; **Sonnet = audits/intel/codebase search only**; **Opus removed**.
+- Prompt Labeling enforced; explicit Tyler-required steps will be called out.
+
+## 2025-09-04 (UTC) — RED (prod 502)
+
+- Manual Walkthrough S1 progress: Steps 1–7 executed; evidence captured in `docs/ai-audits/2025-09-04/manual_walkthrough_auth.md`.
+- Defects logged: **A-RESET-500** (`POST /api/auth/forgot-password` → 500), **A-LOGIN-TIMEOUT** (CLI `POST /api/auth/login` stalls), **A-LOGIN-SLOW-60S** (first two bad-login attempts ~60s), **A-LOGIN-RATELIMIT-OK** (429 with retry hint), **A-LOGIN-RETRY-MISMATCH** (message “483s” vs `retry_after=60`).
+- Shipped: **PR #70** (prefs: `/api/user/settings` GET/PATCH, currency field, tz-aware exports). CI green; merged (squash). Deploy attempted.
+- Incident: PROD startup failed (TypeError `ErrorHandler()` ctor; then ImportError `PDFExporter`). On-box mitigations applied (`ErrorHandler()` no-arg; `PDFExporter` alias), still 502. Disk `/` at ~98%.
+- Next: **Morning 3-step recover** (vacuum logs, reproduce traceback, minimal import fix), then run Step 8 smokes (unauth 401, auth GET/PATCH, re-GET).
+
+## 2025-09-04 (UTC) — RED (prod 502)
+
+- Manual Walkthrough S1 progress: Steps 1–7 executed; evidence captured in `docs/ai-audits/2025-09-04/manual_walkthrough_auth.md`.
+- Defects logged: **A-RESET-500** (`POST /api/auth/forgot-password` → 500), **A-LOGIN-TIMEOUT** (CLI `POST /api/auth/login` stalls), **A-LOGIN-SLOW-60S** (first two bad-login attempts ~60s), **A-LOGIN-RATELIMIT-OK** (429 with retry hint), **A-LOGIN-RETRY-MISMATCH** (message “483s” vs `retry_after=60`).
+- Shipped: **PR #70** (prefs: `/api/user/settings` GET/PATCH, currency field, tz-aware exports). CI green; merged (squash). Deploy attempted.
+- Incident: PROD startup failed (TypeError `ErrorHandler()` ctor; then ImportError `PDFExporter`). On-box mitigations applied (`ErrorHandler()` no-arg; `PDFExporter` alias), still 502. Disk `/` at ~98%.
+- Next: **Morning 3-step recover** (vacuum logs, reproduce traceback, minimal import fix), then run Step 8 smokes (unauth 401, auth GET/PATCH, re-GET).
+
+
 ### 2025-09-03 EOD (UTC) — Prod cutover to Postgres + smokes + backups (GREEN)
 **Action:** Completed SQLite→Postgres production cutover using transactional migrator with auto-rollback guard (unused). Patched validator to cast FK-like columns; added canonical smoke harness (bash+python) and runbook; scaffolded manual walkthrough doc.
 **Evidence:** /api/status → 200; smokes GREEN (200/200/401); DSN stored at `/root/CORA_PROD_PG_DSN.env`; migration artifacts in `/var/log/cora_migration/` (SRC/TGT/JSONL); nightly pg_dump timer installed; first dump + restore verify passed.
