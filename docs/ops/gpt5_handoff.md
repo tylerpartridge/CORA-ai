@@ -85,3 +85,29 @@ curl -s -o /dev/null -w "%{http_code}\n" http://127.0.0.1:8000/health
 - Post-deploy smokes (bullets above) all green.
 - Credentials rotated.
 - Backup retention confirmed.
+
+### Operational notes & one-offs (2025-09-06)
+
+- **DB drift fix applied on PROD:** Added `users.currency VARCHAR(3) NOT NULL DEFAULT 'USD'` manually. Repo contains idempotent migration `schema/migrations/2025-09-06_add_user_currency.sql`; safe to run on all envs.
+- **Auth hotfix on PROD (mirrors PR #73):**
+  - `ErrorHandler.log_error(request, exception)` arg order fixed.
+  - `routes/auth_coordinator.py` now guards `if not user: raise InvalidCredentialsError`.
+  - JSON login contract is strict: `{"email","password","remember_me"}`; returns `Set-Cookie: access_token` (HttpOnly, SameSite=Lax, Secure; 30d when `remember_me=true`).
+- **Exporter alias:** `PDFExporter = ProfitIntelligencePDFExporter` added for backward compatibility; keep both names until all imports are reconciled.
+- **Trusted-host middleware:** 400s will be logged for direct IP probes (Host not in allow-list). Expected noise from scanners; no action needed.
+- **Rate-limiter behavior:** 429s on repeated login attempts; Cloudflare + app limiter. Tests should space attempts or vary IPs.
+- **Disk pressure resolved:** Removed old `/var/backups/cora/system/backup-*.tgz` archives; root FS from 100% → ~43%. Action item: implement retention (keep 2 most recent; nightly prune).
+- **Secrets & telemetry:**
+  - **Sentry** DSN not set → startup logs “skipping initialization”.
+  - SendGrid/Twilio not installed in PROD → warnings only; email/SMS will no-op.
+  - Backup key logging changed to **not** print raw key (PR #73). Ensure key provided via env in deploy.
+- **Credential hygiene:** A temporary password set for the PROD test account purely to validate login. After PR #73 deploy, **rotate** to the normal secret via standard process and invalidate old cookies.
+- **Post-deploy smoke pack (recap):**
+  - `GET /api/status` → 200; `GET /health` → 200
+  - Unauth `GET /api/user/settings` → 401
+  - Auth flow: login (200 + cookie) → GET settings (200) → PATCH timezone/currency (200) → re-GET reflects changes.
+
+### Follow-ups
+- Merge **PR #73** (hotfix) then verify no server/repo drift.
+- Add cron/script to prune `/var/backups/cora/system` to the last 1–2 archives.
+- Optional: Document JSON vs form login endpoints in `/docs` once we re-expose API docs (currently 404 at `/docs`).
