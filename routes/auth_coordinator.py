@@ -170,6 +170,8 @@ async def login_json(
         
         # Authenticate user using existing auth service
         user = authenticate_user(db, request.email, request.password)
+        if not user:
+            raise InvalidCredentialsError("Invalid email or password")
         
         # Check if account is active and email verified
         if user.is_active != "true":
@@ -217,26 +219,12 @@ async def login_json(
         )
         return response
         
-    except InvalidCredentialsError:
-        raise HTTPException(
-            status_code=401,
-            detail="Invalid email or password"
-        )
-    except AuthenticationError as e:
-        raise HTTPException(
-            status_code=401,
-            detail="Invalid email or password"
-        )
-    except ValidationError as e:
-        raise HTTPException(
-            status_code=400,
-            detail="Invalid input data"
-        )
-    except Exception as e:
-        raise HTTPException(
-            status_code=500,
-            detail="Login failed"
-        )
+    except ValidationError:
+        raise HTTPException(status_code=400, detail="Invalid input data")
+    except (InvalidCredentialsError, AuthenticationError):
+        raise HTTPException(status_code=401, detail="Invalid email or password")
+    except Exception:
+        raise HTTPException(status_code=500, detail="Login failed")
 
 @auth_router.post("/login-form")
 async def login_form(

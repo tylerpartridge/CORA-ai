@@ -85,6 +85,9 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+# Initialize error handler (no-arg constructor per production behavior)
+error_handler = ErrorHandler()
+
 # Exception handlers
 @app.exception_handler(CORAException)
 async def cora_exception_handler(request: Request, exc: CORAException):
@@ -92,6 +95,8 @@ async def cora_exception_handler(request: Request, exc: CORAException):
 
 @app.exception_handler(Exception)
 async def global_exception_handler(request: Request, exc: Exception):
+    # Note: calling with (request, exception) to match production behavior
+    ErrorHandler.log_error(request, exc)
     return ErrorHandler.handle_exception(exc, request)
 
 # Middleware for trusted host and security headers

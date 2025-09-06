@@ -138,6 +138,12 @@ BI Engine established (docs/bi/*); sweeps produce evidence cards + pulse summari
 
 ## PART B — SESSION CAPSULE
 
+### Session: 2025-09-04 (UTC)
+**State:** RED — prod returning 502 (service not starting); ErrorHandler ctor + PDF exporter import issues; disk ~98% full.
+**What shipped:** PR #70 merged (prefs: `/api/user/settings` GET/PATCH, currency field, tz-aware exports) + router refactor passes guards; CI green.
+**Evidence:** Walkthrough S1 Steps 1–7 captured; defects A-RESET-500, A-LOGIN-TIMEOUT, A-LOGIN-SLOW-60S, A-LOGIN-RATELIMIT-OK, A-LOGIN-RETRY-MISMATCH logged in audit doc.
+**Next Action (single):** Morning 3-step recover (vacuum logs; print traceback via `journalctl` or direct `import app`; apply minimal import fix), then run Step 8 smokes (401, auth GET/PATCH, re-GET).
+
 ### Session: 2025-09-03 (UTC)
 **State:** GREEN (Postgres)
 **Shipped Today:**
@@ -162,17 +168,14 @@ All prompts MUST start with a header naming the actor (SONNET / OPUS / TYLER / C
 
 ### Roles & Rules
 - **Tyler**: intent, runs labeled commands, merges PRs.
-- **GPT-5 (orchestrator)**: plan, delegate, prompts, scope guard. **As orchestrator you must always be clear in prompts which collaborator (Sonnet, Opus, Cursor, Tyler) is intended to act. Each prompt must be a single copy-paste code block.**
-  - **Prompt Labeling Standard:** Every prompt MUST begin with a clear header naming the target (e.g., "SONNET — …", "OPUS — …", "TYLER — …", "CURSOR — …"). Each prompt must be in its own code block, with no extra commentary inside the block.
-  - When providing next actions, GPT-5 MUST give a single recommended path forward (no multiple-choice). Always choose one direction based on best judgment and evidence.
-- **Sonnet (READ-ONLY)**: audits, docs, JSON gap inventories, copy.
-- **Opus (CODE-ONLY)**: FastAPI features, routes, tests, minimal diffs.
-- **Cursor**: Git operations (init, add, commit, push), can push to GitHub repo.
+- **GPT-5 (orchestrator)**: plan, delegate, prompts, scope guard. Prompts clearly labeled per standard. One path only.
+- **Sonnet (AUDITS/INTEL-ONLY)**: audits, docs, JSON gap inventories, codebase search & file finding. No code changes.
+- **Cursor (PRIMARY EXECUTOR)**: code changes, refactors, tests, migrations, git/PR/deploy orchestration.
 
-**Golden rules:**  
-1) Delegate-first, concurrency OK if scopes don't overlap.  
-2) Money-path first: Payment → Upload → Generate → View → Outreach.  
-3) Awareness is append-only; newest on top.  
+**Golden rules:**
+1) Delegate-first, concurrency OK if scopes don't overlap.
+2) Money-path first.
+3) Awareness is append-only; newest on top.
 4) Everything via PRs (even docs). No prod edits unless RED.
 5) No decision trees for routine ops. If protocol defines a path, follow it without asking.
 
