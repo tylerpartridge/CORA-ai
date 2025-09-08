@@ -7,13 +7,14 @@ import requests
 import json
 from datetime import datetime, timedelta
 import time
+import os, secrets
 
 BASE_URL = "http://localhost:8000"
 
-# Demo contractor credentials
+# Demo contractor credentials (env-driven; do not print password)
 DEMO_USER = {
-    "email": "tyler@contractordemo.com",
-    "password": "demo123"
+    "email": os.getenv("DEMO_EMAIL", "tyler@contractordemo.com"),
+    "password": os.getenv("DEMO_PASSWORD") or secrets.token_urlsafe(16)
 }
 
 def setup_demo():
@@ -41,7 +42,7 @@ def setup_demo():
         return
     
     cookies = login_response.cookies
-    print("✅ Demo user ready\n")
+    print("✅ Demo user ready (password set via DEMO_PASSWORD or randomized; not printed)\n")
     
     # 3. Create realistic jobs
     jobs = [
@@ -158,7 +159,7 @@ def setup_demo():
     print("4. Dashboard shows instant updates and alerts")
     print("\n✅ Login at http://localhost:8000")
     print(f"   Email: {DEMO_USER['email']}")
-    print(f"   Password: {DEMO_USER['password']}")
+    print("   Password: (set via DEMO_PASSWORD or randomized; not printed)")
 
 if __name__ == "__main__":
     setup_demo()
