@@ -93,3 +93,9 @@ cora.db-wal
 # BI cache (do not commit)
 /docs/bi/cache/
 
+# Editor/backup artifacts (routes)
+routes/**/*.bak
+routes/**/*.save
+routes/**/*~
+routes/**/*.orig
+

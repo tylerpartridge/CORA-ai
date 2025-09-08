@@ -1,8 +1,11 @@
-## 💾 CHECKPOINT: 2025-09-02 08:32 UTC
+## 💾 CHECKPOINT: 2025-09-08 12:30 UTC
 **HEALTH:** GREEN
-**NOTES:** BI tool hardened (ASCII logging, per-site overrides, parallel alt-URLs, error capture, manual fallback). Tag: v0.1.0-bi-snapshot-hardened.
-Snapshot summary: success=5, failed=2; QBO timeouts, Jobber 403; error HTML/JSON cached.
-**NEXT:** Comprehensive Manual Walkthrough (AM) + small BI follow-ups listed in NEXT.md.
+**Post-incident notes:** Ops Hardening complete; TLS renewal pending (due 2025-09-19).
+- Root cause: full disk (old backup archives under /var/backups/cora/system)
+- Root cause: full disk (old backup archives under /var/backups/cora/system)
+- Action: freed ~19G; usage now ~72%
+- Result: service up; smokes pass (health 200, status 200, protected 401)
+- Follow-ups: see NEXT.md
 
 ## 💾 CHECKPOINT: 2025-09-01 17:00 UTC
 **HEALTH:** GREEN
