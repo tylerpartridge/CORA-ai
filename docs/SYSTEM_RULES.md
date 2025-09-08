@@ -95,6 +95,27 @@ git log -1 --oneline
 - Update status every 5-10 mins
 - All GPT5_handoff.md session capsules must use UTC ISO-8601 timestamps (YYYY-MM-DDTHH:MMZ).
 
+## Secrets Handling (2025-09-09)
+
+**Non-negotiables**
+- No real secrets in VCS. `.env` files are untracked; only `.env.example` lives in repo.
+- All credentials come from environment or secret stores (never literals in code/tests/scripts).
+- If a secret leaks, rotate immediately and document in AI_WORK_LOG.md (no code references to old values).
+
+**Required practices**
+- Scripts/tools must read `DEMO_PASSWORD`, `DATABASE_*`, etc. from env; fail fast if missing; never print secrets.
+- Pre-commit & CI run secret scanners (e.g., `detect-secrets`) and fail on findings.
+- Logs must not contain Authorization headers, tokens, passwords, emails, or PII; apply redaction filters.
+
+**Rotation & incident**
+- Rotate exposed secrets at once; note when, who, which systems in AI_WORK_LOG.md.
+- Consider history rewrite (BFG/filter-repo) only after rotation and with approval; record the plan in docs/ai-audits.
+- For JWT keys, rotate + invalidate old tokens per policy.
+
+**References**
+- `docs/ai-audits/2025-09-09/SECRETS_AUDIT.md`
+- `.env.example` for required variables
+
 ## ❌ NEVER DO THIS
 - Create "test.py" or "temp.py" 
 - Add files to root directory
