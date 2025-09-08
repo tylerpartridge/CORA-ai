@@ -11,7 +11,7 @@ I'm starting a new CORA session. Please:
 1. Read BOOTUP.md for session context
 2. **READ MVP_REQUIREMENTS.md FIRST** - This is the ONLY priority until launch
 3. Read state files: docs/awareness/NOW.md, docs/awareness/STATUS.md, docs/awareness/NEXT.md, docs/HANDOVER_ACTIVE.md
-4. Then read enforcement docs: docs/SYSTEM_RULES.md, docs/PREFLIGHT_CHECKLIST.md, docs/FILE_OPERATION_WORKFLOW.md
+4. Then read enforcement docs: docs/SYSTEM_RULES.md, docs/PREFLIGHT_CHECKLIST.md, docs/FILE_OPERATION_WORKFLOW.md, docs/OPERATIONS.md (if present)
 4. Skip - session tracking not yet implemented
 5. **Before major ops: run checkpoint** - Update awareness files before risky operations
 6. Give me a summary using this format:
