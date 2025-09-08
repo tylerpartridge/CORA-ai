@@ -1,5 +1,7 @@
 # ⚡ SYSTEM RULES - CHECK BEFORE EVERY ACTION
 
+**Collaboration Policy (2025-09-04):** Cursor is primary executor (code/git/deploy); Sonnet limited to audits/intel/codebase search; Opus removed. Prompts label target and call out Tyler-required steps.
+
 ## TL;DR — Non‑negotiables
 - **PRs‑only**: No direct commits to `main` unless RED; always PR → squash merge
 - **Edit > Create**: Default to editing existing files; creation needs strong justification
@@ -16,6 +18,14 @@ cd C:\CORA; gh pr merge <#> --squash --delete-branch --admin; git checkout main;
 
 # Run PROD smokes (on server)
 ssh -o BatchMode=yes root@159.203.183.48 "cd /var/www/cora && ./tools/smoke.sh --base-url http://127.0.0.1:8000 --retries 3 --timeout 5 && python3 tools/smoke.py --base-url http://127.0.0.1:8000 --retries 3 --timeout 5 --json"
+```
+
+## Verify PRs/Branches (post-automation sanity)
+```bash
+git fetch --all --prune
+git branch -r | grep -E "(feature|fix|chore)/2025-09-08" || true
+gh pr list -L 10 -s open
+git log -1 --oneline
 ```
 
 ## Canonical Smokes (must pass)
@@ -83,6 +93,7 @@ ssh -o BatchMode=yes root@159.203.183.48 "cd /var/www/cora && ./tools/smoke.sh -
 - Check HANDOVER_ACTIVE.md before editing
 - Never edit same file as partner
 - Update status every 5-10 mins
+- All GPT5_handoff.md session capsules must use UTC ISO-8601 timestamps (YYYY-MM-DDTHH:MMZ).
 
 ## ❌ NEVER DO THIS
 - Create "test.py" or "temp.py" 

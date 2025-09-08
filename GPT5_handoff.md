@@ -94,6 +94,8 @@ git commit -m "<conventional message>"
 git push -u origin <branch>
 ```
 
+> **Post-automation sanity:** After any automated commit/PR, run the **Verify PRs/Branches** checklist in `docs/SYSTEM_RULES.md`.
+
 ## Development Workflow (Required)
 
 1) New work always starts from a clean `main`.
@@ -138,13 +140,45 @@ BI Engine established (docs/bi/*); sweeps produce evidence cards + pulse summari
 
 ## PART B — SESSION CAPSULE
 
-### Session: 2025-09-04 (UTC)
+**Timestamp Standard (Part B):** Use **UTC ISO-8601** for all session headers, checkpoints, and capsules, e.g. `2025-09-08T12:30Z`.  
+If you need to reference local time in prose, append in parentheses (America/St_Johns), but capsule keys stay UTC.
+
+### RED Incident Mini-Template
+For any **RED** capsule, append this 5-line block:
+
+- **Root cause:**  
+- **Impact:**  
+- **Mitigation:**  
+- **Evidence:**  
+- **Next Action (single):**  
+
+(Keep it to one screen; link to logs/PRs in Evidence.)
+
+### Session: 2025-09-09T00:00Z
+**State:** YELLOW — Section 2 auth not executed (API-only policy today).
+**What simulated:** Unauth probe + local smokes; no login/PATCH.
+**Evidence:** AI_WORK_LOG.md entry (probe result + smokes note).
+**Next Action (single):** Seed a test user via scripted path in next GREEN session, then re-run Section 2.
+
+### Session: 2025-09-08T12:30Z
+**State:** GREEN — prod healthy; smokes pass
+**What shipped:** No app code; ops cleanup restored service (freed ~19G under /var/backups/cora/system)
+**Evidence:** /health 200, /api/status 200, /api/feature-flags 401
+**Next Action (single):** Renew TLS (install certbot or run manual renew) before 2025-09-19
+
+### Session: 2025-09-06T00:00Z
+**State:** GREEN — prod healthy; status/health 200
+**What shipped:** Hotfixes applied: `ErrorHandler()` no-arg init; corrected `ErrorHandler.log_error(request, exception)` call; auth guard after `authenticate_user`; compatibility alias `PDFExporter = ProfitIntelligencePDFExporter`; added `users.currency` (idempotent) migration; removed large old `/var/backups/cora/system` tars to resolve disk-full
+**Evidence:** Front-door `/api/status` 200 and `/health` 200; unauth `/api/user/settings` → 401; login sets cookie and allows settings GET/PATCH (values persist)
+**Next Action (single):** Merge and deploy PR #73 (hotfix), then confirm no repo/server drift
+
+### Session: 2025-09-04T00:00Z
 **State:** RED — prod returning 502 (service not starting); ErrorHandler ctor + PDF exporter import issues; disk ~98% full.
 **What shipped:** PR #70 merged (prefs: `/api/user/settings` GET/PATCH, currency field, tz-aware exports) + router refactor passes guards; CI green.
 **Evidence:** Walkthrough S1 Steps 1–7 captured; defects A-RESET-500, A-LOGIN-TIMEOUT, A-LOGIN-SLOW-60S, A-LOGIN-RATELIMIT-OK, A-LOGIN-RETRY-MISMATCH logged in audit doc.
 **Next Action (single):** Morning 3-step recover (vacuum logs; print traceback via `journalctl` or direct `import app`; apply minimal import fix), then run Step 8 smokes (401, auth GET/PATCH, re-GET).
 
-### Session: 2025-09-03 (UTC)
+### Session: 2025-09-03T00:00Z
 **State:** GREEN (Postgres)
 **Shipped Today:**
 - Prod DB cutover SQLite→Postgres (transactional), parity verified
@@ -165,6 +199,10 @@ All prompts MUST start with a header naming the actor (SONNET / OPUS / TYLER / C
 - Open PR: `gh pr create --fill --base main --head $(git rev-parse --abbrev-ref HEAD)`
 - Merge PR: `gh pr merge <#> --squash --delete-branch` (or `--admin` if policy allows)
 - Sync main: `git checkout main && git pull --prune`
+
+---
+**Runbooks:** See `docs/runbooks/DEPLOY.md` for deploy steps and `docs/runbooks/SMOKES.md` for canonical smokes.
+---
 
 ### Roles & Rules
 - **Tyler**: intent, runs labeled commands, merges PRs.

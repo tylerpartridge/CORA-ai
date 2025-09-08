@@ -1,3 +1,12 @@
+**2025-09-09T00:00Z — Cursor — Section 2 (API-only) probe**
+- Unauth GET /api/user/profile → expected 401
+- Local smokes: ran (see server logs)
+- Auth/login not executed by policy (API-only today) → Section 2 marked **YELLOW**
+- Follow-up: seed a test user via scripted path next GREEN session, then re-run Section 2
+## 2025-09-08 — Cursor — Ops Hardening complete: disk retention policy enforced, journald capped at 200M, smoke.sh executable. TLS renewal pending (certbot not installed).
+
+## 2025-09-08 — GPT-5 + Cursor — PROD recovery (disk full). Freed ~19G under /var/backups/cora/system; service healthy; smokes green (health 200, status 200, protected 401). No code changes.
+
 ## 2025-09-04 (UTC) — Policy Update
 - Collaboration roles updated: **Cursor = primary executor (code/git/deploy)**; **Sonnet = audits/intel/codebase search only**; **Opus removed**.
 - Prompt Labeling enforced; explicit Tyler-required steps will be called out.
