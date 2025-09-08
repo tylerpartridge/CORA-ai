@@ -24,10 +24,14 @@ def create_demo_user():
             print("Demo user already exists!")
             return
         
-        # Create demo user
+        # Create demo user (env-driven password)
+        demo_password = os.getenv("DEMO_PASSWORD")
+        if not demo_password:
+            raise SystemExit("Set DEMO_PASSWORD in your environment before running this script.")
+        hashed = get_password_hash(demo_password)
         demo_user = User(
             email="demo@cora.ai",
-            hashed_password=get_password_hash("demo123"),
+            hashed_password=hashed,
             is_active=True,
             is_demo=True,  # If this field exists
             name="Demo Contractor",
@@ -39,7 +43,7 @@ def create_demo_user():
         
         print("✅ Demo user created successfully!")
         print("Email: demo@cora.ai")
-        print("Password: demo123")
+        print("Password: (read from DEMO_PASSWORD; not printed)")
         
     except Exception as e:
         print(f"❌ Error creating demo user: {e}")

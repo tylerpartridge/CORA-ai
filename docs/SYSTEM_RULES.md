@@ -1,5 +1,7 @@
 # ⚡ SYSTEM RULES - CHECK BEFORE EVERY ACTION
 
+**Collaboration Policy (2025-09-04):** Cursor is primary executor (code/git/deploy); Sonnet limited to audits/intel/codebase search; Opus removed. Prompts label target and call out Tyler-required steps.
+
 ## TL;DR — Non‑negotiables
 - **PRs‑only**: No direct commits to `main` unless RED; always PR → squash merge
 - **Edit > Create**: Default to editing existing files; creation needs strong justification
@@ -16,6 +18,14 @@ cd C:\CORA; gh pr merge <#> --squash --delete-branch --admin; git checkout main;
 
 # Run PROD smokes (on server)
 ssh -o BatchMode=yes root@159.203.183.48 "cd /var/www/cora && ./tools/smoke.sh --base-url http://127.0.0.1:8000 --retries 3 --timeout 5 && python3 tools/smoke.py --base-url http://127.0.0.1:8000 --retries 3 --timeout 5 --json"
+```
+
+## Verify PRs/Branches (post-automation sanity)
+```bash
+git fetch --all --prune
+git branch -r | grep -E "(feature|fix|chore)/2025-09-08" || true
+gh pr list -L 10 -s open
+git log -1 --oneline
 ```
 
 ## Canonical Smokes (must pass)
@@ -83,6 +93,28 @@ ssh -o BatchMode=yes root@159.203.183.48 "cd /var/www/cora && ./tools/smoke.sh -
 - Check HANDOVER_ACTIVE.md before editing
 - Never edit same file as partner
 - Update status every 5-10 mins
+- All GPT5_handoff.md session capsules must use UTC ISO-8601 timestamps (YYYY-MM-DDTHH:MMZ).
+
+## Secrets Handling (2025-09-09)
+
+**Non-negotiables**
+- No real secrets in VCS. `.env` files are untracked; only `.env.example` lives in repo.
+- All credentials come from environment or secret stores (never literals in code/tests/scripts).
+- If a secret leaks, rotate immediately and document in AI_WORK_LOG.md (no code references to old values).
+
+**Required practices**
+- Scripts/tools must read `DEMO_PASSWORD`, `DATABASE_*`, etc. from env; fail fast if missing; never print secrets.
+- Pre-commit & CI run secret scanners (e.g., `detect-secrets`) and fail on findings.
+- Logs must not contain Authorization headers, tokens, passwords, emails, or PII; apply redaction filters.
+
+**Rotation & incident**
+- Rotate exposed secrets at once; note when, who, which systems in AI_WORK_LOG.md.
+- Consider history rewrite (BFG/filter-repo) only after rotation and with approval; record the plan in docs/ai-audits.
+- For JWT keys, rotate + invalidate old tokens per policy.
+
+**References**
+- `docs/ai-audits/2025-09-09/SECRETS_AUDIT.md`
+- `.env.example` for required variables
 
 ## ❌ NEVER DO THIS
 - Create "test.py" or "temp.py" 

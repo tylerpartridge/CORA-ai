@@ -14,6 +14,16 @@ YELLOW='\033[1;33m'
 RED='\033[0;31m'
 NC='\033[0m' # No Color
 
+# Secret-safe DATABASE_URL assembly (env-driven)
+# Developers: export DATABASE_PASSWORD in your shell or .env before running
+: "${DATABASE_USER:=cora_user}"
+: "${DATABASE_PASSWORD:?Set DATABASE_PASSWORD (export in your shell or .env)}"
+: "${DATABASE_HOST:=localhost}"
+: "${DATABASE_PORT:=5432}"
+: "${DATABASE_NAME:=cora_db}"
+DATABASE_URL="postgresql://${DATABASE_USER}:${DATABASE_PASSWORD}@${DATABASE_HOST}:${DATABASE_PORT}/${DATABASE_NAME}"
+export DATABASE_URL
+
 # Function to print colored output
 print_status() {
     echo -e "${GREEN}✓${NC} $1"
@@ -81,7 +91,7 @@ services:
     environment:
       POSTGRES_DB: cora_db
       POSTGRES_USER: cora_user
-      POSTGRES_PASSWORD: cora_secure_password_2025
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
     ports:
       - "5432:5432"
     volumes:
@@ -106,8 +116,7 @@ EOF
         echo "Waiting for PostgreSQL to start..."
         sleep 10
         
-        DATABASE_URL="postgresql://cora_user:cora_secure_password_2025@localhost:5432/cora_db?sslmode=disable"
-        export DATABASE_URL
+        # DATABASE_URL already assembled from environment above
         print_status "Local PostgreSQL started"
         ;;
         
@@ -168,24 +177,17 @@ echo ""
 echo "Row counts:"
 psql "$DATABASE_URL" -c "SELECT 'users' as table_name, COUNT(*) as count FROM users UNION ALL SELECT 'expenses', COUNT(*) FROM expenses UNION ALL SELECT 'expense_categories', COUNT(*) FROM expense_categories;"
 
-# Update environment configuration
+# Update environment configuration (do not print secrets)
 echo ""
-echo "🔧 Updating environment configuration..."
-echo ""
-echo "Add these to your .env file:"
-echo "=============================="
-echo "DATABASE_URL=$DATABASE_URL"
-echo "DATABASE_POOL_SIZE=20"
-echo "DATABASE_MAX_OVERFLOW=30"
-echo "DATABASE_POOL_TIMEOUT=30"
-echo "DATABASE_POOL_RECYCLE=3600"
-echo "=============================="
+echo "🔧 Environment configuration prepared (secrets not printed)."
+echo "Add the following keys to your .env with your values: DATABASE_URL, DATABASE_POOL_SIZE, DATABASE_MAX_OVERFLOW, DATABASE_POOL_TIMEOUT, DATABASE_POOL_RECYCLE."
 echo ""
 
 # Create .env.postgres template
 cat > .env.postgres << EOF
-# PostgreSQL Configuration
-DATABASE_URL=$DATABASE_URL
+# PostgreSQL Configuration (template)
+# Fill in secure values in your local .env; do not commit real secrets
+DATABASE_URL=postgresql://
 DATABASE_POOL_SIZE=20
 DATABASE_MAX_OVERFLOW=30
 DATABASE_POOL_TIMEOUT=30
@@ -215,7 +217,8 @@ read -p "Would you like to test the application now? (y/n): " TEST_NOW
 if [ "$TEST_NOW" = "y" ]; then
     echo ""
     echo "Starting CORA with PostgreSQL..."
-    export $(cat .env.postgres | xargs)
+    # Use the assembled DATABASE_URL from environment without printing secrets
+    export DATABASE_URL
     python -m uvicorn app:app --reload --port 8000 &
     APP_PID=$!
     

@@ -117,6 +117,7 @@ def main():
     
     # Get all SQL files in migrations directory
     migration_files = sorted([f for f in os.listdir(migrations_dir) if f.endswith('.sql')])
+    # Include new currency migration if present
     
     if not migration_files:
         print("No migration files found")
