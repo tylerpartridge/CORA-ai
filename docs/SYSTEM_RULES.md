@@ -116,6 +116,8 @@ git log -1 --oneline
 - `docs/ai-audits/2025-09-09/SECRETS_AUDIT.md`
 - `.env.example` for required variables
 
+- CI enforces `detect-secrets` on PRs; update `.secrets/.secrets.baseline` only via reviewed PRs.
+
 ## ❌ NEVER DO THIS
 - Create "test.py" or "temp.py" 
 - Add files to root directory
