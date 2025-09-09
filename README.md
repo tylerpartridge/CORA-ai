@@ -19,6 +19,10 @@ pip install -r data/requirements.txt
 
 # Start CORA
 python app.py
+## CI Actions Links
+- Smoke: https://github.com/tylerpartridge/CORA-ai/actions/workflows/smoke.yml
+- Uptime Sync: https://github.com/tylerpartridge/CORA-ai/actions/workflows/uptime-sync.yml
+- Monitoring Postcheck: https://github.com/tylerpartridge/CORA-ai/actions/workflows/monitoring-postcheck.yml
 ```
 
 ### Quick Start (Local)
