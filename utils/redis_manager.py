@@ -1,92 +1,159 @@
 
-import redis
 import os
 import json
 import logging
 from pathlib import Path
-from typing import Optional
+from typing import Optional, Any, Iterable
+
+try:
+    import redis  # type: ignore
+except Exception:  # pragma: no cover - optional in dev
+    redis = None  # allow dev mode without redis installed
 
 # Configure logger
 logger = logging.getLogger(__name__)
 
+
+class NullRedis:
+    """No-op Redis shim for local/dev without a server."""
+
+    def get(self, key: str) -> Optional[str]:
+        return None
+
+    def set(self, key: str, value: str, expire: int = 3600) -> bool:
+        return True
+
+    def delete(self, key: str) -> bool:
+        return False
+
+    def exists(self, key: str) -> bool:
+        return False
+
+    def ping(self) -> bool:
+        return False
+
+    async def close(self) -> None:  # to support "await redis_manager.close()"
+        return None
+
+    def publish(self, channel: str, message: str) -> int:
+        return 0
+
+    def subscribe(self, channel: str) -> Iterable[Any]:
+        return []
+
+
 class RedisManager:
     def __init__(self):
-        self.redis_client = None
+        self.redis_client: Any = None
+        self.client: Any = None  # compatibility alias used elsewhere
         self._connect()
-    
-    def _connect(self):
-        """Connect to Redis"""
+
+    def _redact_url(self, url: str) -> str:
         try:
-            config_file = Path("config/redis_config.json")
-            if config_file.exists():
-                with open(config_file, 'r') as f:
-                    config = json.load(f)['redis']
-            else:
-                config = {
-                    'host': os.getenv('REDIS_HOST', 'localhost'),
-                    'port': int(os.getenv('REDIS_PORT', 6379)),
-                    'password': os.getenv('REDIS_PASSWORD'),
-                    'db': int(os.getenv('REDIS_DB', 0))
-                }
-            
-            self.redis_client = redis.Redis(
-                host=config['host'],
-                port=config['port'],
-                password=config['password'],
-                db=config['db'],
+            # redact credentials if present
+            if "@" in url and "://" in url:
+                scheme, rest = url.split("://", 1)
+                if "@" in rest:
+                    auth, host = rest.split("@", 1)
+                    return f"{scheme}://***:***@{host}"
+        except Exception:
+            pass
+        return url
+
+    def _connect(self) -> None:
+        """Connect to Redis if configured; otherwise use NullRedis."""
+        url = os.getenv("REDIS_URL") or os.getenv("CORA_REDIS_URL")
+        if not url or redis is None:
+            # Dev mode: no Redis
+            self.redis_client = NullRedis()
+            self.client = self.redis_client
+            logger.info("Redis disabled (dev mode)")
+            return
+
+        try:
+            # Prefer URL-based configuration when provided
+            self.redis_client = redis.from_url(  # type: ignore[attr-defined]
+                url,
                 decode_responses=True,
                 socket_connect_timeout=5,
                 socket_timeout=5,
-                retry_on_timeout=True
+                retry_on_timeout=True,
             )
-            
-            # Test connection
-            self.redis_client.ping()
-            logger.info("Redis connection established")
-            
-        except Exception as e:
-            logger.error(f"Redis connection failed: {str(e)}")
-            self.redis_client = None
-    
+            # Test connection quietly
+            try:
+                self.redis_client.ping()
+                logger.info(f"Redis enabled: {self._redact_url(url)}")
+            except Exception:
+                # If ping fails, fall back to NullRedis for dev stability
+                self.redis_client = NullRedis()
+                logger.info("Redis disabled (dev mode)")
+            self.client = self.redis_client
+        except Exception:
+            self.redis_client = NullRedis()
+            self.client = self.redis_client
+            logger.info("Redis disabled (dev mode)")
+
+    # Public API passthroughs (preserve existing interface)
     def get(self, key: str) -> Optional[str]:
-        """Get value from Redis"""
-        if self.redis_client:
-            try:
-                return self.redis_client.get(key)
-            except Exception as e:
-                logger.error(f"Redis get error: {str(e)}")
-        return None
-    
+        try:
+            return self.redis_client.get(key)
+        except Exception:
+            return None
+
     def set(self, key: str, value: str, expire: int = 3600) -> bool:
-        """Set value in Redis with expiration"""
-        if self.redis_client:
-            try:
-                return self.redis_client.setex(key, expire, value)
-            except Exception as e:
-                logger.error(f"Redis set error: {str(e)}")
-        return False
-    
+        try:
+            # Use setex when available
+            if hasattr(self.redis_client, "setex"):
+                return bool(self.redis_client.setex(key, expire, value))
+            return bool(self.redis_client.set(key, value))
+        except Exception:
+            return False
+
     def delete(self, key: str) -> bool:
-        """Delete key from Redis"""
-        if self.redis_client:
-            try:
-                return bool(self.redis_client.delete(key))
-            except Exception as e:
-                logger.error(f"Redis delete error: {str(e)}")
-        return False
-    
+        try:
+            return bool(self.redis_client.delete(key))
+        except Exception:
+            return False
+
     def exists(self, key: str) -> bool:
-        """Check if key exists in Redis"""
-        if self.redis_client:
-            try:
-                return bool(self.redis_client.exists(key))
-            except Exception as e:
-                logger.error(f"Redis exists error: {str(e)}")
-        return False
+        try:
+            return bool(self.redis_client.exists(key))
+        except Exception:
+            return False
+
+    def ping(self) -> bool:
+        try:
+            return bool(self.redis_client.ping())
+        except Exception:
+            return False
+
+    async def close(self) -> None:
+        try:
+            close_fn = getattr(self.redis_client, "close", None)
+            if callable(close_fn):
+                close_fn()
+        except Exception:
+            # swallow to keep shutdown quiet
+            pass
+
+    # Additional passthroughs used elsewhere occasionally
+    def publish(self, channel: str, message: str) -> int:
+        try:
+            return int(self.redis_client.publish(channel, message))
+        except Exception:
+            return 0
+
+    def subscribe(self, channel: str) -> Iterable[Any]:
+        try:
+            return self.redis_client.subscribe(channel)
+        except Exception:
+            return []
+
 
 # Global Redis instance
 redis_manager = RedisManager()
 
+
 def get_redis_client():
-    """Get Redis client instance for direct access"""
+    """Get Redis client instance for direct access."""
     return redis_manager.redis_client

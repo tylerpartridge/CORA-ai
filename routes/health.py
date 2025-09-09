@@ -1,18 +1,34 @@
 
-from fastapi import APIRouter, HTTPException, Response
+from fastapi import APIRouter, HTTPException, Response, Request
+from fastapi.responses import JSONResponse
 from middleware.monitoring import get_system_health, get_metrics
+from prometheus_client import generate_latest, CONTENT_TYPE_LATEST
 from utils.redis_manager import redis_manager
-from datetime import datetime
+from datetime import datetime, timezone
+import time
+from sqlalchemy import text  # lightweight ping query
+from core.version import __version__
+from services.email_service import EmailService
+from core.request_id import get_request_id
+from middleware.rate_limit import limiter
 import sqlite3
 import os
 
 health_router = APIRouter()
 
+@limiter.exempt
 @health_router.get("/health")
 async def health_check():
     """Basic health check"""
     return {"status": "healthy", "timestamp": datetime.utcnow().isoformat()}
 
+@limiter.exempt
+@health_router.get("/ping", operation_id="pingHealth", summary="Simple liveness check")
+async def ping_health():
+    """Simple liveness check"""
+    return {"ok": True}
+
+@limiter.exempt
 @health_router.get("/health/detailed")
 async def detailed_health_check():
     """Detailed health check with all components"""
@@ -55,11 +71,14 @@ async def detailed_health_check():
     
     return health_status
 
-@health_router.get("/metrics")
+@limiter.exempt
+@health_router.get("/metrics", operation_id="getMetrics", summary="Prometheus metrics")
 async def metrics():
     """Prometheus metrics endpoint"""
-    return Response(content=get_metrics(), media_type="text/plain")
+    data = generate_latest()
+    return Response(content=data, media_type=CONTENT_TYPE_LATEST)
 
+@limiter.exempt
 @health_router.get("/health/ready")
 async def readiness_check():
     """Readiness check for load balancers"""
@@ -78,3 +97,78 @@ async def readiness_check():
         
     except Exception as e:
         raise HTTPException(status_code=503, detail=f"Service not ready: {str(e)}")
+
+
+@limiter.exempt
+@health_router.get("/smoke", operation_id="getSmoke", summary="Admin smoke check")
+async def smoke(request: Request):
+    """Lightweight admin diagnostics; protected via admin token or localhost-only."""
+    import os
+    from models import engine  # exported in models.__init__
+
+    admin_token = os.getenv("ADMIN_TOKEN") or os.getenv("CORA_ADMIN_TOKEN")
+    if admin_token:
+        if request.headers.get("X-Admin-Token") != admin_token:
+            raise HTTPException(status_code=403, detail="Forbidden")
+    else:
+        client_host = (request.client.host if request.client else "")
+        if client_host not in {"127.0.0.1", "::1", "localhost"}:
+            raise HTTPException(status_code=403, detail="Forbidden")
+
+    # Checks
+    time_utc = (
+        datetime.now(timezone.utc).replace(microsecond=0).isoformat().replace("+00:00", "Z")
+    )
+
+    # DB check (best-effort SELECT 1)
+    t = time.perf_counter()
+    db_ok = False
+    try:
+        with engine.connect() as conn:
+            conn.execute(text("SELECT 1"))
+        db_ok = True
+    except Exception:
+        db_ok = False
+    db_ms = int(round((time.perf_counter() - t) / 0.001))
+    db = {"ok": db_ok, "ms": db_ms}
+
+    # Redis check via tolerant manager
+    t = time.perf_counter()
+    try:
+        r_ok = bool(redis_manager.ping())
+    except Exception:
+        r_ok = False
+    redis = {"ok": r_ok, "ms": int(round((time.perf_counter() - t) / 0.001))}
+
+    # Email check via facade
+    t = time.perf_counter()
+    try:
+        e_ok = bool(EmailService().health())
+        email = {"ok": e_ok, "ms": int(round((time.perf_counter() - t) / 0.001))}
+    except Exception:
+        email = {"ok": False, "skipped": True, "ms": int(round((time.perf_counter() - t) / 0.001))}
+
+    routes_count = len(request.app.routes)
+
+    # Aggregate status
+    if not db["ok"]:
+        overall = "red"
+    elif (not redis["ok"]) or (not email.get("ok", True) and not email.get("skipped")):
+        overall = "yellow"
+    else:
+        overall = "green"
+
+    payload = {
+        "status": overall,
+        "checks": {
+            "time_utc": time_utc,
+            "version": __version__,
+            "request_id": get_request_id(),
+            "db": db,
+            "redis": redis,
+            "email": email,
+            "routes_count": routes_count,
+        },
+    }
+
+    return JSONResponse(payload, headers={"Cache-Control": "no-store"})
