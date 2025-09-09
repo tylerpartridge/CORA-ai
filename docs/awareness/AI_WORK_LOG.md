@@ -1,3 +1,10 @@
+## 2025-09-09T15:25Z — Monitoring Minimal Set rescheduled
+- Missed 15:00Z batch; rescheduled Monitoring Minimal Set to 17:30Z UTC today. Prep one‑shot scripts to execute at window; no manual testing.
+**2025-09-09T13:30Z — Cursor — Secrets/ops milestone checkpoint:**
+- PRs merged/open: #75 routes hygiene, #76 secrets audit + untrack .env, #77 secretless scripts, #78 SYSTEM_RULES secrets policy, #79 CI secrets scanning
+- Root backup hooks cleaned; pre-push guard installed
+- Service GREEN; ops hardened; monitoring minimal set queued for 15:00 UTC
+
 **2025-09-09T00:00Z — Cursor — Section 2 (API-only) probe**
 - Unauth GET /api/user/profile → expected 401
 - Local smokes: ran (see server logs)

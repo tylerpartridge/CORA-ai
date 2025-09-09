@@ -1,3 +1,4 @@
+- Queue: External uptime checks (Pingdom/UptimeRobot) after internal probe stable for 24h (added 2025-09-09T15:25Z)
 ## Next — Single Actions
 
 - TLS renewal (due 2025-09-19)
