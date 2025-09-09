@@ -27,11 +27,13 @@ import json
 # Import core dependencies
 from models import get_db
 from utils.redis_manager import redis_manager
-from utils.logging_config import setup_logging, get_logger
+from utils.logging_config import setup_logging as setup_legacy_logging, get_logger
+from core.logging_json import setup_logging as setup_structured_logging
 from utils.error_handler import ErrorHandler, CORAException
 
-# Setup centralized logging
-setup_logging()
+# Setup centralized logging (legacy first, optional JSON override)
+setup_legacy_logging()
+setup_structured_logging()
 logger = get_logger(__name__)
 
 # Import services needed for startup
@@ -67,23 +69,75 @@ except (ImportError, ValueError) as e:
     sentry_sdk = None
     print(f"[CORA] Failed to initialize Sentry: {e}")
 
+from core.version import __version__
+
 # Create FastAPI app
 app = FastAPI(
     title="CORA AI - Contractor Business Intelligence",
     description="AI-powered expense tracking and profit intelligence for contractors",
-    version="4.0.0",
+    version=__version__,
     docs_url="/api/docs",
     redoc_url="/api/redoc"
 )
 
-# Configure CORS
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["*"],  # Configure appropriately for production
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
+from core.security import (
+    build_cors_config_from_env,
+    build_trusted_hosts_from_env,
+    security_headers_middleware,
 )
+from core.request_id import install_request_id_middleware
+from core.logging_ext import attach_request_id_filter
+from core.access_log import install_access_log_middleware
+
+# CORS (env-driven)
+cors_conf = build_cors_config_from_env()
+if cors_conf:
+    app.add_middleware(
+        CORSMiddleware,
+        allow_origins=cors_conf["origins"],
+        allow_methods=cors_conf["methods"],
+        allow_headers=cors_conf["headers"],
+        allow_credentials=cors_conf["credentials"],
+    )
+
+# Trusted hosts and HTTPS redirect (prod)
+try:
+    trusted_hosts = build_trusted_hosts_from_env()
+    if trusted_hosts:
+        from starlette.middleware.trustedhost import TrustedHostMiddleware
+
+        app.add_middleware(TrustedHostMiddleware, allowed_hosts=trusted_hosts)
+    env_name = (os.getenv("ENV") or os.getenv("CORA_ENV") or "").lower()
+    if env_name == "prod":
+        from starlette.middleware.httpsredirect import HTTPSRedirectMiddleware
+
+        app.add_middleware(HTTPSRedirectMiddleware)
+except Exception as e:
+    logger.warning(f"Security middleware setup issue: {e}")
+
+# Rate limiting
+try:
+    # Prefer internal rate limiting middleware to avoid handler coupling issues
+    from middleware.rate_limiting import setup_rate_limiting
+    setup_rate_limiting(app)
+except Exception as e:
+    logger.warning(f"Rate limiting not enabled: {e}")
+
+# Minimal security headers (last)
+security_headers_middleware(app)
+
+# Request-ID middleware and logging filter (after other middlewares)
+install_request_id_middleware(app)
+try:
+    attach_request_id_filter()
+except Exception as e:
+    logger.warning(f"Request-ID logging filter not attached: {e}")
+
+# Access log middleware (after request-id so rid is available)
+try:
+    install_access_log_middleware(app)
+except Exception as e:
+    logger.warning(f"Access log middleware not installed: {e}")
 
 # Initialize error handler (no-arg constructor per production behavior)
 error_handler = ErrorHandler()
@@ -95,8 +149,8 @@ async def cora_exception_handler(request: Request, exc: CORAException):
 
 @app.exception_handler(Exception)
 async def global_exception_handler(request: Request, exc: Exception):
-    # Note: calling with (request, exception) to match production behavior
-    ErrorHandler.log_error(request, exc)
+    # Log with correct argument order (exception, request)
+    ErrorHandler.log_error(exc, request)
     return ErrorHandler.handle_exception(exc, request)
 
 # Middleware for trusted host and security headers
@@ -169,12 +223,11 @@ async def startup_event():
     """Initialize services on startup"""
     logger.info("CORA AI starting up...")
     
-    # Initialize Redis connection
+    # Initialize Redis connection (quiet in dev)
     try:
-        if redis_manager.ping():
-            logger.info("Redis connection established")
-    except Exception as e:
-        logger.warning(f"Redis not available: {e}")
+        logger.info("Redis enabled" if redis_manager.ping() else "Redis disabled (dev mode)")
+    except Exception:
+        logger.info("Redis disabled (dev mode)")
     
     # Log startup info
     logger.info(f"Server started at {server_start_time}")
@@ -192,11 +245,11 @@ async def shutdown_event():
     except Exception as e:
         logger.warning(f"Error stopping task scheduler: {e}")
     
-    # Close Redis connection
+    # Close Redis connection (no-op in dev)
     try:
         await redis_manager.close()
-    except Exception as e:
-        logger.warning(f"Error closing Redis: {e}")
+    except Exception:
+        pass
     
     logger.info("Shutdown complete")
 

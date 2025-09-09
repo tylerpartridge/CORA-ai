@@ -8,15 +8,63 @@
 
 import requests
 import os
-from typing import Optional
+import asyncio
+import logging
+from typing import Optional, Iterable, List
 from dotenv import load_dotenv
 
 # Load environment variables
 load_dotenv()
 
+logger = logging.getLogger(__name__)
+
 # SendGrid API key - Get from environment variable
 SENDGRID_API_KEY = os.getenv("SENDGRID_API_KEY", "")
 FROM_EMAIL = os.getenv("FROM_EMAIL", "noreply@coraai.tech")
+
+
+class NullEmailService:
+    """No-op email service for local/dev without credentials."""
+
+    async def send_email(self, *, to_email: str, subject: str, html_content: str = "", body: Optional[str] = None, attachment_path: Optional[str] = None) -> bool:
+        return False
+
+    async def send_bulk(self, messages: Iterable[dict]) -> List[bool]:
+        return [False for _ in messages]
+
+    def health(self) -> bool:
+        return False
+
+
+class RealEmailService:
+    """SendGrid-backed email service using existing send_email() helper."""
+
+    def __init__(self) -> None:
+        self.api_key = SENDGRID_API_KEY
+
+    def health(self) -> bool:
+        return bool(self.api_key)
+
+    async def send_email(self, *, to_email: str, subject: str, html_content: str = "", body: Optional[str] = None, attachment_path: Optional[str] = None) -> bool:
+        loop = asyncio.get_running_loop()
+        # Reuse module function to preserve current behavior
+        return await loop.run_in_executor(
+            None,
+            lambda: send_email(to_email, subject, body or "", html_body=html_content, attachment_path=attachment_path),
+        )
+
+    async def send_bulk(self, messages: Iterable[dict]) -> List[bool]:
+        results: List[bool] = []
+        for m in messages:
+            ok = await self.send_email(
+                to_email=m.get("to_email", ""),
+                subject=m.get("subject", ""),
+                html_content=m.get("html_content", ""),
+                body=m.get("body"),
+                attachment_path=m.get("attachment_path"),
+            )
+            results.append(ok)
+        return results
 
 def send_email(to_email: str, subject: str, body: str, html_body: Optional[str] = None, attachment_path: Optional[str] = None) -> bool:
     """Send email using SendGrid API with optional PDF attachment"""
@@ -24,7 +72,7 @@ def send_email(to_email: str, subject: str, body: str, html_body: Optional[str] 
     try:
         # Check if API key is configured
         if not SENDGRID_API_KEY:
-            print("[SEND_EMAIL] ERROR: SendGrid API key not configured")
+            # Quiet failure in dev when creds missing; real service gated below
             return False
         print(f"[SEND_EMAIL] API key present: {SENDGRID_API_KEY[:10]}...")
             
@@ -360,3 +408,12 @@ CORA System
     admin_email = os.getenv("ADMIN_EMAIL", "admin@coraai.tech")
     
     return send_email(admin_email, subject, body) 
+
+
+# Export a single class name for callers
+if SENDGRID_API_KEY:
+    EmailService = RealEmailService  # type: ignore[assignment]
+    logger.info("Email service enabled (SendGrid)")
+else:
+    EmailService = NullEmailService  # type: ignore[assignment]
+    logger.info("Email service disabled (dev mode)")
