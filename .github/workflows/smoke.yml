@@ -1,0 +1,68 @@
+name: Smoke
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: 'pip'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Start app
+        run: |
+          nohup python -m uvicorn app:app --host 127.0.0.1 --port 8001 > uvicorn.log 2>&1 &
+
+      - name: Wait for app
+        run: |
+          for i in {1..30}; do
+            if curl -sf http://127.0.0.1:8001/ping >/dev/null; then
+              echo "App is up"
+              break
+            fi
+            sleep 1
+          done
+          curl -sf http://127.0.0.1:8001/ping >/dev/null || (echo "App did not start" && tail -n 200 uvicorn.log && exit 1)
+
+      - name: Run HTTP smoke
+        env:
+          BASE: http://127.0.0.1:8001
+          ADMIN_TOKEN: ${{ secrets.ADMIN_TOKEN }}
+        run: |
+          set -o pipefail
+          python tools/smoke_http.py | tee smoke.out
+
+      - name: Job summary
+        if: always()
+        run: |
+          echo "### Smoke Output" >> $GITHUB_STEP_SUMMARY
+          sed 's/^/    /' smoke.out >> $GITHUB_STEP_SUMMARY || true
+
+      - name: Upload uvicorn log on failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: uvicorn-log
+          path: uvicorn.log
+
+      - name: Print logs on failure
+        if: failure()
+        run: |
+          echo "=== Last 200 lines of uvicorn.log ==="
+          tail -n 200 uvicorn.log || true
+          exit 1

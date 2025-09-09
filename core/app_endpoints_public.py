@@ -18,6 +18,7 @@ from sqlalchemy.orm import Session
 
 from models import get_db as models_get_db, User
 from utils.redis_manager import redis_manager
+from core.version import __version__
 
 
 def register_public_endpoints(app: FastAPI, server_start_time: datetime) -> None:
@@ -45,11 +46,22 @@ def register_public_endpoints(app: FastAPI, server_start_time: datetime) -> None
 
     @app.get("/health")
     async def health_check():
-        return {"status": "healthy", "version": "4.0.0"}
+        return {"status": "healthy", "version": __version__}
 
     @app.get("/api/health")
     async def api_health_check():
-        return {"status": "healthy", "version": "4.0.0"}
+        return {"status": "healthy", "version": __version__}
+
+    @app.get("/version", operation_id="getVersion", summary="Service version")
+    async def get_version():
+        # Source from FastAPI metadata to avoid any import/reload edge cases
+        try:
+            v = getattr(app, "version", None) or "0.0.0"
+        except Exception:
+            v = "0.0.0"
+        return {"version": v}
+
+    # /ping defined in routes/health.py via health_router
 
     @app.get("/api/health/detailed")
     async def detailed_health_check(db: Session = Depends(models_get_db)):
@@ -152,5 +164,3 @@ def register_public_endpoints(app: FastAPI, server_start_time: datetime) -> None
                 },
                 status_code=200,
             )
-
-
