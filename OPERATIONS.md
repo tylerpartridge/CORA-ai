@@ -124,10 +124,30 @@ GitHub Actions runs a lightweight HTTP smoke on push/PR to `main`.
 Badge:
 
 ```
-![Smoke](https://github.com/OWNER/REPO/actions/workflows/smoke.yml/badge.svg)
+![Smoke](https://github.com/tylerpartridge/CORA-ai/actions/workflows/smoke.yml/badge.svg)
 ```
 
 Notes:
 - The workflow boots the app with uvicorn on port 8001 and runs `tools/smoke_http.py` against it.
 - If `ADMIN_TOKEN` is set in repo/org secrets, it is passed to the smoke; otherwise /smoke is allowed only for localhost.
 - On failures, the last ~200 lines of the app log are printed in the job output; the job must pass for merges.
+
+Secrets:
+- `ADMIN_TOKEN` is optional. When set, the smoke will authenticate to `/smoke`; when not set, the smoke still passes (it exercises `/smoke` in localhost-only mode).
+
+Workflow link:
+- https://github.com/tylerpartridge/CORA-ai/actions/workflows/smoke.yml
+
+### Fetch last Smoke logs (gh)
+
+PowerShell example using GitHub CLI:
+
+```
+$wfId = gh api repos/tylerpartridge/CORA-ai/actions/workflows --jq '.workflows[] | select(.path==".github/workflows/smoke.yml") | .id'
+$runId = gh api repos/tylerpartridge/CORA-ai/actions/workflows/$wfId/runs --jq '.workflow_runs[0].id'
+gh run view $runId --web
+# Or list jobs and tail the first job logs:
+gh api repos/tylerpartridge/CORA-ai/actions/runs/$runId/jobs --jq '.jobs[] | {id,name,status,conclusion}'
+$jobId = gh api repos/tylerpartridge/CORA-ai/actions/runs/$runId/jobs --jq '.jobs[0].id'
+gh run view --job $jobId --log
+```

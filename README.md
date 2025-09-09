@@ -1,3 +1,6 @@
+<!-- CI: Smoke workflow badge -->
+[![Smoke](https://github.com/tylerpartridge/CORA-ai/actions/workflows/smoke.yml/badge.svg)](https://github.com/tylerpartridge/CORA-ai/actions/workflows/smoke.yml)
+
 # CORA - Your AI Business Brain
 
 CORA is more than bookkeeping. She's your complete AI business advisor - handling everything from financial planning to legal compliance, built natively for the AI-to-AI economy.
@@ -16,6 +19,13 @@ pip install -r data/requirements.txt
 
 # Start CORA
 python app.py
+```
+
+### Quick Start (Local)
+
+```bash
+python -m uvicorn app:app --reload
+BASE=http://127.0.0.1:8000 python tools/smoke_http.py
 ```
 
 ## 🧠 What CORA Does
