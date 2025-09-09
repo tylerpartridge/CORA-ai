@@ -169,12 +169,11 @@ async def startup_event():
     """Initialize services on startup"""
     logger.info("CORA AI starting up...")
     
-    # Initialize Redis connection
+    # Initialize Redis connection (quiet in dev)
     try:
-        if redis_manager.ping():
-            logger.info("Redis connection established")
-    except Exception as e:
-        logger.warning(f"Redis not available: {e}")
+        logger.info("Redis enabled" if redis_manager.ping() else "Redis disabled (dev mode)")
+    except Exception:
+        logger.info("Redis disabled (dev mode)")
     
     # Log startup info
     logger.info(f"Server started at {server_start_time}")
@@ -192,11 +191,11 @@ async def shutdown_event():
     except Exception as e:
         logger.warning(f"Error stopping task scheduler: {e}")
     
-    # Close Redis connection
+    # Close Redis connection (no-op in dev)
     try:
         await redis_manager.close()
-    except Exception as e:
-        logger.warning(f"Error closing Redis: {e}")
+    except Exception:
+        pass
     
     logger.info("Shutdown complete")
 
