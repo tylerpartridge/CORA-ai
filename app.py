@@ -21,6 +21,7 @@ from fastapi.responses import JSONResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from fastapi.middleware.cors import CORSMiddleware
+from starlette.middleware.trustedhost import TrustedHostMiddleware
 from datetime import datetime
 import json
 
@@ -102,13 +103,27 @@ if cors_conf:
 
 # Trusted hosts and HTTPS redirect (prod)
 try:
-    trusted_hosts = build_trusted_hosts_from_env()
-    if trusted_hosts:
-        from starlette.middleware.trustedhost import TrustedHostMiddleware
+    # Env-driven allowed hosts with test-friendly defaults
+    env = (os.getenv("ENV") or os.getenv("CORA_ENV") or os.getenv("ENVIRONMENT") or "development").lower()
+    hosts_env = (
+        os.getenv("ALLOWED_HOSTS")
+        or os.getenv("TRUSTED_HOSTS")
+        or os.getenv("FASTAPI_ALLOWED_HOSTS")
+        or os.getenv("STARLETTE_ALLOWED_HOSTS")
+    )
 
-        app.add_middleware(TrustedHostMiddleware, allowed_hosts=trusted_hosts)
-    env_name = (os.getenv("ENV") or os.getenv("CORA_ENV") or "").lower()
-    if env_name == "prod":
+    if hosts_env:
+        allowed_hosts = [h.strip() for h in hosts_env.split(",") if h.strip()]
+    else:
+        if env in {"testing", "test"}:
+            allowed_hosts = ["testserver", "localhost", "127.0.0.1", "[::1]"]
+        else:
+            allowed_hosts = ["localhost", "127.0.0.1", "[::1]"]
+
+    app.add_middleware(TrustedHostMiddleware, allowed_hosts=allowed_hosts)
+    logger.info(f"Trusted hosts configured: {allowed_hosts}")
+
+    if env == "prod":
         from starlette.middleware.httpsredirect import HTTPSRedirectMiddleware
 
         app.add_middleware(HTTPSRedirectMiddleware)
@@ -153,37 +168,7 @@ async def global_exception_handler(request: Request, exc: Exception):
     ErrorHandler.log_error(exc, request)
     return ErrorHandler.handle_exception(exc, request)
 
-# Middleware for trusted host and security headers
-@app.middleware("http")
-async def trusted_host_middleware(request: Request, call_next):
-    """Enforce trusted host header for security"""
-    allowed_hosts = {
-        "localhost",
-        "127.0.0.1",
-        "0.0.0.0",
-        "coraai.tech",
-        "www.coraai.tech",
-        "cora-ai.com",
-        "www.cora-ai.com"
-    }
-    
-    host = request.headers.get("host", "").split(":")[0].lower()
-    if host and host not in allowed_hosts:
-        logger.warning(f"Rejected request from untrusted host: {host}")
-        return JSONResponse(
-            status_code=400,
-            content={"detail": "Invalid host header"}
-        )
-    
-    response = await call_next(request)
-    
-    # Add security headers
-    response.headers["X-Content-Type-Options"] = "nosniff"
-    response.headers["X-Frame-Options"] = "DENY"
-    response.headers["X-XSS-Protection"] = "1; mode=block"
-    response.headers["Referrer-Policy"] = "strict-origin-when-cross-origin"
-    
-    return response
+# Removed custom host validation; relying on TrustedHostMiddleware and security headers middleware
 
 # Static files and templates
 static_dir = Path(__file__).parent / "web" / "static"
