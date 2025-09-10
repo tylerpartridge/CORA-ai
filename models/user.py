@@ -6,7 +6,7 @@
 📤 EXPORTS: User model
 """
 
-from sqlalchemy import Column, String, DateTime, Integer, Index
+from sqlalchemy import Column, String, DateTime, Integer, Index, JSON
 from sqlalchemy.orm import relationship
 from sqlalchemy.sql import func
 from .base import Base
@@ -27,6 +27,8 @@ class User(Base):
     timezone = Column(String(50), nullable=True, default="America/New_York")  # User's timezone
     currency = Column(String(8), nullable=True, default="USD")  # User's currency preference
     weekly_insights_opt_in = Column(String(10), default="true")  # SQLite boolean as string for email preferences
+    # Onboarding progress (JSON blob) for save/resume; minimal schema, app-managed
+    onboarding_progress = Column(JSON, nullable=True, default=dict)
     # stripe_customer_id = Column(String, nullable=True)  # TODO: Add this column to database
     
     # Relationships

@@ -1,6 +1,7 @@
-## 💾 CHECKPOINT: 2025-09-09 13:30 UTC
-**HEALTH:** GREEN
-**Notes:** Secrets hygiene locked down (audit, untrack, env-driven, CI scan). Monitoring minimal set queued for 2025-09-09T15:00Z.
+## 💾 CHECKPOINT: 2025-09-10T22:30Z  
+**HEALTH:** GREEN  
+**COMPLETION:** MVP 56/65 (86.2%)  
+**PR STATUS:** Five PRs open (PR1-PR3 + Wave 4 specs); TLS due 2025-09-19
 
 <!-- Evidence Links (template)
 - Latest Smoke run: <paste URL to latest Smoke run>
@@ -180,3 +181,5 @@
 - [Uptime Sync Run](https://github.com/tylerpartridge/CORA-ai/actions/runs/17601045492)
 - [Monitoring Postcheck Run](https://github.com/tylerpartridge/CORA-ai/actions/runs/17601045741)
 - Outstanding: set UPTIME_API_KEY_ROBOT (present) and optional SLACK_WEBHOOK_URL.
+
+- Backups: daily @03:20Z; retention: 3 days; auto-prune enabled

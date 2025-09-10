@@ -15,13 +15,15 @@ logger = logging.getLogger(__name__)
 
 
 def generate_filename(
-    export_type: str, 
-    user_email: str, 
+    export_type: str,
+    user_email: str,
     user_timezone: Optional[str] = None,
-    when: Optional[datetime] = None
+    when: Optional[datetime] = None,
+    date_start: Optional[str] = None,
+    date_end: Optional[str] = None,
 ) -> str:
     """
-    Generate standardized CSV filename with timezone-aware date.
+    Generate standardized CSV filename with timezone-aware date or an explicit range.
     
     Format: cora_{type}_{email}_{YYYYMMDD}.csv
     
@@ -29,7 +31,11 @@ def generate_filename(
         export_type: Type of export (e.g., 'expenses', 'dashboard', 'report')
         user_email: User's email address (will be sanitized)
         user_timezone: User's timezone string (e.g., 'America/New_York')
-        when: Optional datetime to use instead of now()
+        when: Optional datetime to use instead of now() (when no explicit range)
+        date_start: Optional start date (YYYY-MM-DD); when provided, filename uses
+            range form instead of `when`
+        date_end: Optional end date (YYYY-MM-DD); when provided, filename uses
+            range form instead of `when`
     
     Returns:
         Standardized filename string
@@ -57,10 +63,35 @@ def generate_filename(
         # Fallback if email is completely invalid
         sanitized_email = 'user'
     
-    # Get timezone-aware date
+    # If an explicit date range is provided, prefer that in the filename
+    if date_start or date_end:
+        def _compact(d: Optional[str]) -> Optional[str]:
+            if not d:
+                return None
+            # Expecting YYYY-MM-DD; fallback: strip non-digits and take first 8
+            parts = re.findall(r"\d+", d)
+            joined = "".join(parts)
+            if len(joined) >= 8:
+                return joined[:8]
+            return joined or None
+
+        start_comp = _compact(date_start)
+        end_comp = _compact(date_end)
+
+        # Auto-correct inverted ranges when both present
+        if start_comp and end_comp and start_comp > end_comp:
+            start_comp, end_comp = end_comp, start_comp
+
+        if start_comp and end_comp:
+            range_part = f"{start_comp}-{end_comp}"
+        else:
+            range_part = start_comp or end_comp or get_timezone_aware_date(user_timezone, when)
+
+        filename = f"cora_{export_type}_{sanitized_email}_{range_part}.csv"
+        return filename
+
+    # Default: timezone-aware current date
     date_str = get_timezone_aware_date(user_timezone, when)
-    
-    # Construct filename
     filename = f"cora_{export_type}_{sanitized_email}_{date_str}.csv"
     
     return filename

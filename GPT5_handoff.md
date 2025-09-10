@@ -179,6 +179,7 @@ BI Engine established (docs/bi/*); sweeps produce evidence cards + pulse summari
 **Evidence:** Awareness updated; AI_WORK_LOG, STATUS, NOW, NEXT synchronized; handoff capsule logged.
 **Next Action (single):** Run monitoring minimal set at 2025-09-09T15:00Z.
 
+- PR #95 opened — BACKUPS runbook aligned with PR7 (3d system/progress, 14d ai-awareness). Merge with squash at next window.
 
 **Timestamp Standard (Part B):** Use **UTC ISO-8601** for all session headers, checkpoints, and capsules, e.g. `2025-09-08T12:30Z`.  
 If you need to reference local time in prose, append in parentheses (America/St_Johns), but capsule keys stay UTC.
@@ -372,76 +373,4 @@ Ensure `app.py` reliably imports **all routers** before calling `app.include_rou
 
 #### Tasks for Opus
 1. Inspect `app.py`:  
-   - Find all `app.include_router(...)` calls.  
-   - Confirm corresponding imports (`from routes.<file> import <router>`) exist *above*.  
-   - Add or reorder imports as needed.  
-   - Keep stub fallback imports at top if necessary.  
-2. Backup before editing:  
-   ```bash
-   cp app.py app.py.bak.$(date +%Y%m%d_%H%M%S)
-   ```
-3. Patch app.py incrementally (don't overwrite file wholesale).
-4. Restart and probe:
-   ```bash
-   systemctl restart cora.service
-   sleep 2
-   curl -s -o /dev/null -w "%{http_code}\n" http://127.0.0.1:8000/
-   ```
-5. Confirm service is active (no restart loop).
-
-#### Acceptance
-- cora.service stays running.
-- No NameError for settings_router or weekly_insights_router.
-- Health probe shows 200 or 401.
-- System ready to move to auth seeding + DB migration.
-
-### Session: 2025-09-02 (UTC)
-**North Star:** Lock BI intelligence loop; keep awareness current.
-**State:** BI snapshot tool hardened + tagged (v0.1.0-bi-snapshot-hardened); first run captured 5 OK / 2 ERR (QBO timeouts, Jobber 403); error artifacts cached; awareness docs updated.
-**System Health:** GREEN
-**Next Action (single):** AM — Comprehensive Manual Walkthrough; then add QBO/Jobber manual_notes placeholders and schedule weekly snapshot.
-
-### Session: 2025-09-01 15:30 UTC
-**Shipped:**
-- Weekly Insights 3/5/3 validation (PR #38)
-- Unsubscribe link + opt-in/opt-out for weekly insights emails (PR #40)
-- Deploy: GREEN; smokes 200/200
-**System Health:** GREEN
-**Notes:** Manual checklist walkthroughs skipped by intent; full review will happen once core MVP tasks are done.
-**Next Action (single):** Split `export_manager.js` (<300 lines) to satisfy pre-commit guard.
-
-### Session: 2025-09-01 (America/St_Johns)
-**North Star:** MVP quick wins, flow unblocked.
-
-**Shipped**
-- PR #36 merged: standardize CSV export filenames to `cora_{type}_{email}_{YYYYMMDD}.csv` (timezone-aware)
-- Files: `utils/filenames.py`, `web/static/js/export_manager.js`, `tests/test_export_filenames.py`
-- Deployed via batch window; smokes passed (health 200, api/status 200)
-
-**State**
-- Timezone selection fully implemented and verified (tests/test_filenames_tz.py)
-- Deploy procedure is one-command (.\deploy)
-- Awareness log updated
-
-**System Health:** GREEN
-
-**Next Action (single):**
-Data validation quick win:
-- Add weekly checks service and minimal thresholds
-- Surface validation in UI; add minimal tests
-
-### Session: 2025-08-30 (America/St_Johns)
-**North Star:** Ship money-path features from a clean, protected awareness baseline.
-
-**State**
-- Main is clean; PR #19 merged (squash). Guards active and passing.
-- Checkpoint logs redirected → `docs/awareness/CHECKPOINT_LOG.md`.
-- Awareness corpus stable; `AI_WORK_LOG.md` carries human work entries only.
-
-**System Health:** GREEN
-
-**Next Action:** Create fresh branch from `main` for today's focus per MVP priorities.
-
-**Handoff Note**
-Carry this file forward next thread; update the Session Capsule only.
-
+   - Find all `app.include_router(...)`
