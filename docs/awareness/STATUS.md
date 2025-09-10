@@ -175,3 +175,7 @@
 - Service health: GREEN
 - Monitoring: baseline in place (internal probe, Windows scheduled tasks, CI smoke JSON, external uptime workflow gated, postcheck)
 - Outstanding: set UPTIME_API_KEY_ROBOT (and optional SLACK_WEBHOOK_URL), confirm first postcheck pass, consider 60s interval after plan upgrade
+<!-- Evidence Links -->
+- Latest Smoke run: https://github.com/tylerpartridge/CORA-ai/actions/workflows/smoke.yml
+- Last uptime-sync dispatch: {   "message": "Not Found",   "documentation_url": "https://docs.github.com/rest",   "status": "404" }
+- Last monitoring-postcheck success: {   "message": "Not Found",   "documentation_url": "https://docs.github.com/rest",   "status": "404" }
