@@ -29,3 +29,4 @@ Notes: use only one install method; dry-run first; production renew can be done 
  - Keep UPTIME_INTERVAL=300 on free tier; switch to 60 on paid by setting repo/org variable UPTIME_INTERVAL=60 (no code changes).
  - Ensure monitoring-postcheck secrets (PROD_HOST/PROD_SSH_USER/PROD_SSH_KEY) are present so 18:00Z verification can run.
  - Optional: add SLACK_WEBHOOK_URL to uptime-sync and postcheck for failure alerts.
+- After 24h internal probe stability, re-dispatch uptime-sync and monitoring-postcheck.

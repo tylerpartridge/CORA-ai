@@ -139,3 +139,4 @@ BI snapshot hardened (tag `v0.1.0-bi-snapshot-hardened`) — QBO/Jobber using `m
 - Restore drill succeeded to C:\CORA\restore_sandbox_20250903_092313
 
 
+2025-09-10T02:52Z — Shipped CI trigger gating (Smoke manual; Deploy/Release manual+tags). Baseline push sanity OK; Smoke on-demand OK.

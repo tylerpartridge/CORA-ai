@@ -179,3 +179,4 @@
 ### Evidence Links
 - [Uptime Sync Run](https://github.com/tylerpartridge/CORA-ai/actions/runs/17601045492)
 - [Monitoring Postcheck Run](https://github.com/tylerpartridge/CORA-ai/actions/runs/17601045741)
+- Outstanding: set UPTIME_API_KEY_ROBOT (present) and optional SLACK_WEBHOOK_URL.

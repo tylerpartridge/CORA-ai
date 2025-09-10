@@ -134,3 +134,4 @@ The CORA system is now fully ready for beta launch with:
 - Rationale: Prioritize launch; current on-box backups + restore drill provide acceptable coverage pre-revenue.
 - Revisit Trigger: First paying customer **or** post-launch checkpoint.
 - Current Focus: **Manual Walkthrough (end-to-end money-path)**.
+## 2025-09-10T02:52Z — Monitoring GREEN; CI trigger gating merged (Smoke=manual; Deploy/Release=manual+tags).
