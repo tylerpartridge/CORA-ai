@@ -5,3 +5,5 @@ PR5 Acceptance — Onboarding Progress Save/Resume
 
 Tests: tests/test_onboarding_progress.py → SKIPPED (RUN_ONBOARDING_IT not detected). Token minted; re-run pending.
 
+
+Tests: tests/test_onboarding_progress.py → PASS at 2025-09-10T12:54:06Z
