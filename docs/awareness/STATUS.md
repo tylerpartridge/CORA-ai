@@ -179,3 +179,7 @@
 - Latest Smoke run: https://github.com/tylerpartridge/CORA-ai/actions/workflows/smoke.yml
 - Last uptime-sync dispatch: {   "message": "Not Found",   "documentation_url": "https://docs.github.com/rest",   "status": "404" }
 - Last monitoring-postcheck success: {   "message": "Not Found",   "documentation_url": "https://docs.github.com/rest",   "status": "404" }
+
+### Evidence Links
+- [Uptime Sync Run](https://github.com/tylerpartridge/CORA-ai/actions/runs/17599084439)
+- [Monitoring Postcheck Run](https://github.com/tylerpartridge/CORA-ai/actions/runs/17599541662)
