@@ -40,6 +40,10 @@ class OnboardingProgress(BaseModel):
     progress_percentage: float
     is_complete: bool
 
+
+class OnboardingProgressPayload(BaseModel):
+    data: dict
+
 class CompleteStepRequest(BaseModel):
     step_id: str
 
@@ -62,6 +66,47 @@ class FeedbackResponse(BaseModel):
     
     class Config:
         from_attributes = True
+
+
+@onboarding_router.get("/progress")
+async def get_onboarding_progress(
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    """Return user's onboarding_progress JSON (empty dict if none)."""
+    try:
+        # SQLAlchemy JSON returns dict or None
+        data = getattr(current_user, 'onboarding_progress', None) or {}
+        # Ensure dict
+        if not isinstance(data, dict):
+            try:
+                data = json.loads(data)
+            except Exception:
+                data = {}
+        return {"user": current_user.email, "data": data}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail="Failed to fetch onboarding progress")
+
+
+@onboarding_router.put("/progress")
+async def put_onboarding_progress(
+    payload: OnboardingProgressPayload,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    """Persist user's onboarding_progress JSON (overwrite)."""
+    try:
+        data = payload.data or {}
+        if not isinstance(data, dict):
+            raise HTTPException(status_code=400, detail="data must be an object")
+        current_user.onboarding_progress = data
+        db.commit()
+        return {"ok": True}
+    except HTTPException:
+        raise
+    except Exception:
+        db.rollback()
+        raise HTTPException(status_code=500, detail="Failed to save onboarding progress")
 
 # Onboarding steps definition
 ONBOARDING_STEPS = [
@@ -500,3 +545,108 @@ async def create_business_profile_onboarding(
     except Exception as e:
         print(f"[ONBOARDING BUSINESS PROFILE ERROR] Failed to create: {str(e)}")
         raise HTTPException(status_code=500, detail=f"Failed to create business profile: {str(e)}")
+
+# ---------------------------------------------------------------------------
+# Save/Resume: Onboarding Progress (server-side JSON)
+# ---------------------------------------------------------------------------
+
+class ProgressPayload(BaseModel):
+    progress: dict
+
+
+@onboarding_router.get("/progress")
+async def get_onboarding_progress(
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    try:
+        progress = getattr(current_user, 'onboarding_progress', None) or {}
+        if not isinstance(progress, dict):
+            progress = {}
+        return {"progress": progress}
+    except Exception:
+        return {"progress": {}}
+
+
+@onboarding_router.put("/progress")
+async def put_onboarding_progress(
+    payload: ProgressPayload,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    try:
+        data = payload.progress or {}
+        if not isinstance(data, dict):
+            raise HTTPException(status_code=400, detail="progress must be an object")
+        user = db.query(User).filter(User.id == current_user.id).first()
+        if not user:
+            raise HTTPException(status_code=404, detail="User not found")
+        user.onboarding_progress = data
+        db.commit()
+        return {"success": True}
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Failed to save progress: {str(e)}")
+
+# ---------------------------------------------------------------------------
+# Typical Job Types: list + custom + selection (store in onboarding_progress)
+# ---------------------------------------------------------------------------
+
+class JobTypeCreate(BaseModel):
+    name: str
+
+
+@onboarding_router.get("/job-types")
+async def list_job_types(
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    from models import JobType
+    # Global (user_id is null) + user custom
+    types = db.query(JobType).filter((JobType.user_id == None) | (JobType.user_id == current_user.id)).all()  # noqa: E711
+    return {"items": [{"id": t.id, "name": t.name, "custom": bool(t.user_id)} for t in types]}
+
+
+@onboarding_router.post("/job-types/custom")
+async def create_custom_job_type(
+    payload: JobTypeCreate,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    from models import JobType
+    name = (payload.name or "").strip()
+    if not name:
+        raise HTTPException(status_code=400, detail="name is required")
+    # Upsert-like behavior: return existing if present
+    existing = db.query(JobType).filter(JobType.name == name, JobType.user_id == current_user.id).first()
+    if existing:
+        return {"id": existing.id, "name": existing.name, "custom": True}
+    jt = JobType(name=name, user_id=current_user.id)
+    db.add(jt)
+    db.commit()
+    db.refresh(jt)
+    return {"id": jt.id, "name": jt.name, "custom": True}
+
+
+class JobTypeSelect(BaseModel):
+    selected: list[str]
+
+
+@onboarding_router.put("/job-types/select")
+async def select_job_types(
+    payload: JobTypeSelect,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    # Store selection in onboarding_progress
+    user = db.query(User).filter(User.id == current_user.id).first()
+    if not user:
+        raise HTTPException(status_code=404, detail="User not found")
+    progress = getattr(user, 'onboarding_progress', None) or {}
+    if not isinstance(progress, dict):
+        progress = {}
+    progress['job_types'] = list(payload.selected or [])
+    user.onboarding_progress = progress
+    db.commit()
+    return {"success": True, "selected": progress['job_types']}
