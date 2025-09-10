@@ -175,3 +175,7 @@
 - Service health: GREEN
 - Monitoring: baseline in place (internal probe, Windows scheduled tasks, CI smoke JSON, external uptime workflow gated, postcheck)
 - Outstanding: set UPTIME_API_KEY_ROBOT (and optional SLACK_WEBHOOK_URL), confirm first postcheck pass, consider 60s interval after plan upgrade
+
+### Evidence Links
+- [Uptime Sync Run](https://github.com/tylerpartridge/CORA-ai/actions/runs/17601045492)
+- [Monitoring Postcheck Run](https://github.com/tylerpartridge/CORA-ai/actions/runs/17601045741)
