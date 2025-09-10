@@ -94,7 +94,6 @@ def verify_token(token: str) -> Optional[str]:
                 audience=audience if verify_aud and audience else None,
                 issuer=issuer if issuer else None,
                 options={"verify_aud": verify_aud},
-                leeway=30,
             )
         except JWTError as e:
             logger.warning(f"Invalid token: {str(e)}")
