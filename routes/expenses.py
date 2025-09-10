@@ -687,15 +687,69 @@ async def delete_expense(
     
     return {"message": "Expense deleted successfully"}
 
+def _parse_date_range_spec(start_date: Optional[str], end_date: Optional[str], tz_name: str):
+    """Parse date range per spec, return (start_local, end_local) as tz-aware datetimes.
+
+    start_local = YYYY-MM-DD 00:00:00 in tz
+    end_local = YYYY-MM-DD 23:59:59.999999 in tz
+    Raises ValueError on invalid input or invalid order.
+    """
+    from datetime import datetime, time
+    try:
+        import zoneinfo
+        tz = zoneinfo.ZoneInfo(tz_name)
+    except Exception:
+        raise ValueError("Invalid timezone identifier. Use IANA format (e.g., America/New_York)")
+
+    start_local = None
+    end_local = None
+    try:
+        if start_date:
+            d = datetime.strptime(start_date, '%Y-%m-%d').date()
+            start_local = datetime.combine(d, time.min).replace(tzinfo=tz)
+        if end_date:
+            d2 = datetime.strptime(end_date, '%Y-%m-%d').date()
+            end_local = datetime.combine(d2, time.max).replace(tzinfo=tz)
+    except Exception:
+        raise ValueError("Invalid date format. Use YYYY-MM-DD format.")
+
+    if start_local and end_local and start_local > end_local:
+        start_local, end_local = end_local, start_local
+
+    return start_local, end_local, tz
+
+
 @expense_router.get("/export/csv")
 async def export_expenses_csv(
+    start: Optional[str] = Query(None, description="Start date (YYYY-MM-DD)"),
+    end: Optional[str] = Query(None, description="End date (YYYY-MM-DD)"),
+    timezone: Optional[str] = Query(None, description="Timezone (IANA format)"),
     current_user: User = Depends(get_current_user),
-    db: Session = Depends(get_db)
+    db: Session = Depends(get_db),
 ):
     """Export user's expenses as CSV file"""
-    expenses = db.query(Expense).filter(
-        Expense.user_id == current_user.id
-    ).order_by(Expense.expense_date.desc()).all()
+    user_tz = timezone or getattr(current_user, 'timezone', None) or 'UTC'
+    try:
+        start_local, end_local, tz = _parse_date_range_spec(start, end, user_tz)
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail=str(e))
+
+    from datetime import timezone as dt_tz
+    # Normalize to UTC-naive boundaries for DB comparison (assumes DB stores naive UTC or naive local)
+    def to_utc_naive(dt):
+        if not dt:
+            return None
+        return dt.astimezone(dt_tz.utc).replace(tzinfo=None)
+
+    start_bound = to_utc_naive(start_local)
+    end_bound = to_utc_naive(end_local)
+
+    qry = db.query(Expense).filter(Expense.user_id == current_user.id)
+    if start_bound:
+        qry = qry.filter(Expense.expense_date >= start_bound)
+    if end_bound:
+        qry = qry.filter(Expense.expense_date <= end_bound)
+    expenses = qry.order_by(Expense.expense_date.desc()).all()
     
     # Get category names for display
     categories = {cat.id: cat.name for cat in db.query(ExpenseCategory).all()}
@@ -714,8 +768,14 @@ async def export_expenses_csv(
         csv_content += f"{expense.expense_date.strftime('%Y-%m-%d')},{description},{amount_formatted},{expense.currency},{vendor},{category_name},{expense.payment_method or ''},{expense.receipt_url or ''}\n"
     
     # Generate standardized filename with user's timezone
-    user_timezone = getattr(current_user, 'timezone', 'UTC')
-    filename = generate_filename('expenses', current_user.email, user_timezone)
+    user_timezone = user_tz
+    filename = generate_filename(
+        'expenses',
+        current_user.email,
+        user_timezone,
+        date_start=start_local.strftime('%Y-%m-%d') if start_local else None,
+        date_end=end_local.strftime('%Y-%m-%d') if end_local else None,
+    )
     
     return Response(
         content=csv_content,
