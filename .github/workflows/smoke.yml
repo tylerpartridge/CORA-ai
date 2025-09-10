@@ -1,11 +1,6 @@
 name: Smoke
-
 on:
-  push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
-
+  workflow_dispatch:
 jobs:
   smoke:
     runs-on: ubuntu-latest
@@ -66,3 +61,4 @@ jobs:
           echo "=== Last 200 lines of uvicorn.log ==="
           tail -n 200 uvicorn.log || true
           exit 1
+

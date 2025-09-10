@@ -1,10 +1,9 @@
 name: Deploy CORA to Production
-
 on:
+  workflow_dispatch:
   push:
-    branches: [ main ]
-  workflow_dispatch: # Allow manual deployment
-
+    tags:
+      - 'v*'
 jobs:
   deploy:
     runs-on: ubuntu-latest
