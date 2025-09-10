@@ -8,6 +8,7 @@ os.environ.setdefault("DATABASE_URL", f"sqlite:///{cache / 'test.db'}")
 os.environ.setdefault("OPENAI_API_KEY", "")
 os.environ.setdefault("SENTRY_DSN", "")
 os.environ.setdefault("SECRET_KEY", "dev-test-key")
+os.environ.setdefault("ALLOWED_HOSTS", "*")
 
 @pytest.fixture(scope="session", autouse=True)
 def _session_setup():

@@ -6,7 +6,7 @@
 📤 EXPORTS: dashboard_router with summary, metrics, insights endpoints
 """
 
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, Query
 from fastapi.responses import StreamingResponse
 from sqlalchemy import func, or_
 from sqlalchemy.orm import Session
@@ -677,14 +677,34 @@ def calculate_tracking_streak(db: Session, user_id: str) -> int:
 async def export_dashboard_data(
     format: str = "csv",
     db: Session = Depends(get_db),
-    current_user: User = Depends(get_current_user)
+    current_user: User = Depends(get_current_user),
+    start: str | None = Query(None, description="Start date (YYYY-MM-DD)"),
+    end: str | None = Query(None, description="End date (YYYY-MM-DD)"),
 ):
     """Export dashboard data for the current user.
 
     Currently supports CSV export of expenses with basic fields.
     """
-    # Fetch user's expenses
-    expenses = db.query(Expense).filter(Expense.user_id == current_user.id).order_by(Expense.expense_date.desc()).all()
+    # Fetch user's expenses with optional date range
+    qry = db.query(Expense).filter(Expense.user_id == current_user.id)
+    from datetime import datetime
+    start_date = None
+    end_date = None
+    try:
+        if start:
+            start_date = datetime.strptime(start, "%Y-%m-%d").date()
+        if end:
+            end_date = datetime.strptime(end, "%Y-%m-%d").date()
+    except Exception:
+        start_date = None
+        end_date = None
+    if start_date and end_date and start_date > end_date:
+        start_date, end_date = end_date, start_date
+    if start_date:
+        qry = qry.filter(Expense.expense_date >= start_date)
+    if end_date:
+        qry = qry.filter(Expense.expense_date <= end_date)
+    expenses = qry.order_by(Expense.expense_date.desc()).all()
 
     if format.lower() == "csv":
         output = io.StringIO()
@@ -710,7 +730,13 @@ async def export_dashboard_data(
         
         # Generate standardized filename with user's timezone
         user_timezone = getattr(current_user, 'timezone', 'UTC')
-        filename = generate_filename('dashboard', current_user.email, user_timezone)
+        filename = generate_filename(
+            'dashboard',
+            current_user.email,
+            user_timezone,
+            date_start=start if start_date else None,
+            date_end=end if end_date else None,
+        )
         
         return StreamingResponse(
             io.BytesIO(output.getvalue().encode("utf-8")),
