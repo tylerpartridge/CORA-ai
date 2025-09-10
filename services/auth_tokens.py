@@ -68,7 +68,8 @@ def create_access_token(data: dict, expires_delta: Optional[timedelta] = None):
 
 def verify_token(token: str) -> Optional[str]:
     """Verify JWT token and return user email if valid.
-    In testing/dev (or when ALLOW_JWT_NO_AUD=1), tolerate missing/invalid audience by retrying without aud.
+    - Use jose for UTC exp validation with small leeway
+    - In testing/dev (or when ALLOW_JWT_NO_AUD=1), do not enforce audience
     """
     try:
         if not token:
@@ -83,43 +84,26 @@ def verify_token(token: str) -> Optional[str]:
         env = (os.getenv("ENV") or os.getenv("CORA_ENV") or os.getenv("ENVIRONMENT") or "").lower()
         allow_fallback = os.getenv("ALLOW_JWT_NO_AUD") == "1" or env in ("testing", "development")
 
-        # Strict attempt first
+        # Decode with jose (UTC, leeway). In testing, disable audience verification entirely.
+        verify_aud = False if allow_fallback else bool(audience)
         try:
             payload = jwt.decode(
                 token,
                 SECRET_KEY,
                 algorithms=[ALGORITHM],
-                audience=audience if audience else None,
+                audience=audience if verify_aud and audience else None,
                 issuer=issuer if issuer else None,
-                options={"verify_aud": bool(audience)},
+                options={"verify_aud": verify_aud},
+                leeway=30,
             )
         except JWTError as e:
-            # If audience is the only issue and fallback allowed, retry without aud verification
-            if allow_fallback and audience:
-                try:
-                    payload = jwt.decode(
-                        token,
-                        SECRET_KEY,
-                        algorithms=[ALGORITHM],
-                        issuer=issuer if issuer else None,
-                        options={"verify_aud": False},
-                    )
-                except JWTError:
-                    logger.warning(f"Invalid token after fallback: {str(e)}")
-                    raise TokenValidationError("Invalid authentication token")
-            else:
-                logger.warning(f"Invalid token: {str(e)}")
-                raise TokenValidationError("Invalid authentication token")
+            logger.warning(f"Invalid token: {str(e)}")
+            raise TokenValidationError("Invalid authentication token")
 
         # Extract email from token
         email: str = payload.get("sub") or payload.get("email")
         if email is None:
             raise TokenValidationError("Invalid token payload")
-
-        # jose already checks exp; keep custom guard
-        exp = payload.get("exp")
-        if exp and datetime.fromtimestamp(exp) < datetime.utcnow():
-            raise TokenValidationError("Token has expired")
 
         return email
 
