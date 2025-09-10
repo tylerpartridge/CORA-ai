@@ -14,16 +14,15 @@ from models import User, get_db
 from services.auth_service import verify_token, get_user_by_email
 from config import config
 
-def get_token_from_cookie(request: Request) -> str:
-    """Extract JWT token from access_token cookie"""
-    token = request.cookies.get("access_token")
-    if not token:
-        raise HTTPException(
-            status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="No authentication token found",
-            headers={"WWW-Authenticate": "Bearer"},
-        )
-    return token
+def _get_bearer_token(request: Request) -> str | None:
+    """Return token from Authorization header or access_token cookie (fallback)."""
+    h = request.headers.get("Authorization")
+    if h and h.lower().startswith("bearer "):
+        return h.split(" ", 1)[1].strip()
+    c = request.cookies.get("access_token")
+    if c:
+        return c.strip()
+    return None
 
 # JWT settings
 SECRET_KEY = config.SECRET_KEY or config.get_secure_fallback("SECRET_KEY")
@@ -51,8 +50,10 @@ async def get_current_user(
         headers={"WWW-Authenticate": "Bearer"},
     )
     
-    # Get token from cookie
-    token = get_token_from_cookie(request)
+    # Get token from header or cookie
+    token = _get_bearer_token(request)
+    if not token:
+        raise credentials_exception
     
     # Verify token and get email
     email = verify_token(token)
