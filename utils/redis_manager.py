@@ -32,7 +32,7 @@ class NullRedis:
     def ping(self) -> bool:
         return False
 
-    async def close(self) -> None:  # to support "await redis_manager.close()"
+    def close(self) -> None:  # synchronous no-op close
         return None
 
     def publish(self, channel: str, message: str) -> int:
@@ -64,10 +64,10 @@ class RedisManager:
         """Connect to Redis if configured; otherwise use NullRedis."""
         url = os.getenv("REDIS_URL") or os.getenv("CORA_REDIS_URL")
         if not url or redis is None:
-            # Dev mode: no Redis
+            # No configuration: use no-op client
             self.redis_client = NullRedis()
             self.client = self.redis_client
-            logger.info("Redis disabled (dev mode)")
+            logger.info("Redis disabled (no REDIS_URL)")
             return
 
         try:
@@ -86,12 +86,12 @@ class RedisManager:
             except Exception:
                 # If ping fails, fall back to NullRedis for dev stability
                 self.redis_client = NullRedis()
-                logger.info("Redis disabled (dev mode)")
+                logger.info("Redis disabled (unavailable)")
             self.client = self.redis_client
         except Exception:
             self.redis_client = NullRedis()
             self.client = self.redis_client
-            logger.info("Redis disabled (dev mode)")
+            logger.info("Redis disabled (unavailable)")
 
     # Public API passthroughs (preserve existing interface)
     def get(self, key: str) -> Optional[str]:
@@ -131,7 +131,12 @@ class RedisManager:
         try:
             close_fn = getattr(self.redis_client, "close", None)
             if callable(close_fn):
-                close_fn()
+                res = close_fn()
+                # Await if the client returns an awaitable
+                try:
+                    await res  # type: ignore[misc]
+                except TypeError:
+                    pass
         except Exception:
             # swallow to keep shutdown quiet
             pass

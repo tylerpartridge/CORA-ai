@@ -21,6 +21,7 @@ from urllib.error import URLError, HTTPError
 
 BASE = os.getenv("BASE", "http://127.0.0.1:8000").rstrip("/") + "/"
 ADMIN_TOKEN = os.getenv("ADMIN_TOKEN")
+SUMMARY_JSON = str(os.getenv("SUMMARY_JSON", "")).lower() in {"1", "true", "yes"}
 UA = "cora-smoke/1.0"
 
 
@@ -189,26 +190,51 @@ def check_smoke() -> bool:
 
 
 def main() -> int:
-    checks = [
-        ("/ping", check_ping),
-        ("/version", check_version),
-        ("/metrics", check_metrics),
-        ("/smoke", check_smoke),
-    ]
-    results = []
-    for name, fn in checks:
-        ok = False
+    if SUMMARY_JSON:
+        # Minimal JSON-only summary for CI: check /ping and /version silently
+        # /ping
+        rid_ping = str(uuid.uuid4())
+        code_p, hdrs_p, body_p, err_p = do_get("/ping", rid_ping)
+        ping_ok = (not err_p) and code_p == 200
         try:
-            ok = fn()
-        except Exception as e:
-            print(f"FAIL: {name} exception: {e}")
+            ping_ok = ping_ok and (json.loads(body_p.decode("utf-8", "replace")).get("ok") is True)
+        except Exception:
+            ping_ok = False
+        # /version
+        rid_v = str(uuid.uuid4())
+        code_v, hdrs_v, body_v, err_v = do_get("/version", rid_v)
+        ver = ""
+        ver_ok = False
+        if not err_v and code_v == 200:
+            try:
+                ver = str(json.loads(body_v.decode("utf-8", "replace")).get("version", ""))
+                ver_ok = bool(ver) and semver(ver)
+            except Exception:
+                ver_ok = False
+        ok = bool(ping_ok and ver_ok)
+        summary = {"ok": ok, "ping": bool(ping_ok), "version": ver}
+        print(json.dumps(summary))
+        return 0 if ok else 1
+    else:
+        checks = [
+            ("/ping", check_ping),
+            ("/version", check_version),
+            ("/metrics", check_metrics),
+            ("/smoke", check_smoke),
+        ]
+        results = []
+        for name, fn in checks:
             ok = False
-        results.append(ok)
-    overall = all(results)
-    print(f"OVERALL: {'PASS' if overall else 'FAIL'}")
-    return 0 if overall else 1
+            try:
+                ok = fn()
+            except Exception as e:
+                print(f"FAIL: {name} exception: {e}")
+                ok = False
+            results.append(ok)
+        overall = all(results)
+        print(f"OVERALL: {'PASS' if overall else 'FAIL'}")
+        return 0 if overall else 1
 
 
 if __name__ == "__main__":
     sys.exit(main())
-

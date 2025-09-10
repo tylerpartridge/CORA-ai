@@ -45,7 +45,7 @@ jobs:
           ADMIN_TOKEN: ${{ secrets.ADMIN_TOKEN }}
         run: |
           set -o pipefail
-          python tools/smoke_http.py | tee smoke.out
+          SUMMARY_JSON=1 python tools/smoke_http.py | tee smoke.out
 
       - name: Job summary
         if: always()

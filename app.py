@@ -223,11 +223,11 @@ async def startup_event():
     """Initialize services on startup"""
     logger.info("CORA AI starting up...")
     
-    # Initialize Redis connection (quiet in dev)
+    # Initialize Redis connection (no-op in dev)
     try:
-        logger.info("Redis enabled" if redis_manager.ping() else "Redis disabled (dev mode)")
+        _ = redis_manager.ping()
     except Exception:
-        logger.info("Redis disabled (dev mode)")
+        pass
     
     # Log startup info
     logger.info(f"Server started at {server_start_time}")

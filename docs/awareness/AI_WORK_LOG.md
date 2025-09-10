@@ -58,6 +58,8 @@ Cut over CORA prod from SQLite → **PostgreSQL** with full backups, transaction
 > Format: **Date — Model — Summary**
 > Newest entries first.
 
+2025-09-09T19:44:35Z — Milestone checkpoint: monitoring baseline established (internal probe, Windows tasks, smoke CI JSON, uptime-sync param, postcheck).
+
 ## 2025-09-03 — Opus — Codified durable workflow rules
 Codified three durable workflow rules into `docs/SYSTEM_RULES.md` (CI router guard, stub-first rescue, journalctl-first) from production debugging session. These rules emerged from resolving router import issues causing service restart loops. Updated file: `docs/SYSTEM_RULES.md` with new section "DURABLE WORKFLOW RULES (2025-09-03)".
 
@@ -135,6 +137,5 @@ BI snapshot hardened (tag `v0.1.0-bi-snapshot-hardened`) — QBO/Jobber using `m
 - Windows Task Scheduler @ 00:55 local with transcript logging
 - Interactive + scheduled backups verified with checksums
 - Restore drill succeeded to C:\CORA\restore_sandbox_20250903_092313
-
 
 

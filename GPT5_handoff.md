@@ -80,6 +80,40 @@ TYLER — [task description]
 [detailed prompt text with no extra commentary]
 ```
 
+---
+
+## PART B — SESSION CAPSULE
+
+GPT-5 Handoff Capsule (to migrate threads)
+Session: 2025-09-09T19:44:35Z
+
+State: GREEN — monitoring baseline established; internal probe active; Windows scheduled tasks verified (daily 15:00 + 15:05 local); CI smoke JSON mode; uptime-sync workflow (interval param, default 300s) + docs; monitoring-postcheck (18:00Z) added.
+
+What shipped:
+- PR #81: monitoring minimal set reschedule + one-shot scripts (prod Sentry drop-in/test event; internal uptime probe cron; smokes).
+- Windows Scheduled Tasks: “CORA Monitoring Minimal Set” (15:00 local) + “CORA Monitoring Verify” (15:05 local), both SYSTEM.
+- Smoke: compact JSON summary (checks /ping and /version) and CI gate.
+- External uptime: `.github/workflows/uptime-sync.yml` with `UPTIME_INTERVAL` (defaults 300s via repo/org var), docs updated (maintenance mode, interval policy).
+- Postcheck: `.github/workflows/monitoring-postcheck.yml` to verify one-shot + probe log freshness at 18:00Z, artifacts uploaded.
+
+Evidence:
+- `C:\CORA\monitoring_minimal_set.log` contains “— scheduled-task verified” stamps.
+- Task exports present: `C:\CORA\scheduled_task_query.txt`, `C:\CORA\scheduled_task_export.xml`.
+- `docs/awareness/NOW.md`, `STATUS.md`, `AI_WORK_LOG.md`, `NEXT.md` updated with checkpoint.
+- CI Smoke green; uptime-sync param set; maintenance mode block in OPERATIONS.md.
+
+Next Action (single):
+After ~24h of internal probe stability, **set `UPTIME_API_KEY_ROBOT`** and trigger `uptime-sync.yml` (workflow_dispatch) to create external monitors. Keep `UPTIME_INTERVAL=300` on free tier; switch to `60` on paid plans by setting the repo/org variable (no code changes). Ensure postcheck SSH secrets present (PROD_HOST/PROD_SSH_USER/PROD_SSH_KEY).
+
+Operator shortcuts:
+- Windows run once (manual): `schtasks /Run /TN "CORA Monitoring Minimal Set"`
+- View next runs: `Get-ScheduledTaskInfo -TaskName "CORA Monitoring Minimal Set"` and `"CORA Monitoring Verify"`
+- CI Smoke logs: see README badge or `gh run view --web` for the latest “Smoke” run
+- External maintenance mode (UptimeRobot): see OPERATIONS.md “External Uptime – Maintenance Mode”
+
+New-thread bootstrap (paste as first message):
+> Context loaded from GPT5_handoff.md. Goal: activate external uptime after stability window and wire Slack alerts. Please confirm secrets present (UPTIME_API_KEY_ROBOT, optional SLACK_WEBHOOK_URL; PROD_* for postcheck). Then: run `uptime-sync.yml` (workflow_dispatch). After first 17:30Z window, ensure `monitoring-postcheck` passes at 18:00Z.
+
 ### Commit Protocol (Non-Negotiable)
 - Every change produced by Opus/Sonnet must be committed immediately.
 - GPT-5 MUST output the exact `git add/commit/push` block whenever an edit is proposed.
@@ -139,6 +173,12 @@ BI Engine established (docs/bi/*); sweeps produce evidence cards + pulse summari
 - Proceed with the Development Workflow steps above.
 
 ## PART B — SESSION CAPSULE
+### Session: 2025-09-09T13:30Z
+**State:** GREEN — service healthy, ops hardened, secrets audit complete; monitoring minimal set queued.
+**What shipped:** PRs #75–79 (routes hygiene, secrets audit + untrack .env, secretless scripts, SYSTEM_RULES secrets policy, CI secrets scanning).
+**Evidence:** Awareness updated; AI_WORK_LOG, STATUS, NOW, NEXT synchronized; handoff capsule logged.
+**Next Action (single):** Run monitoring minimal set at 2025-09-09T15:00Z.
+
 
 **Timestamp Standard (Part B):** Use **UTC ISO-8601** for all session headers, checkpoints, and capsules, e.g. `2025-09-08T12:30Z`.  
 If you need to reference local time in prose, append in parentheses (America/St_Johns), but capsule keys stay UTC.
@@ -404,5 +444,4 @@ Data validation quick win:
 
 **Handoff Note**
 Carry this file forward next thread; update the Session Capsule only.
-
 

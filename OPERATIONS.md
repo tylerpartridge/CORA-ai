@@ -59,6 +59,23 @@ Notes:
 - For systemd timers, set `Environment=BASE=...` and `ExecStart=/usr/bin/python3 /var/www/cora/tools/uptime_probe.py`.
 - Sentry test prints "Sentry DSN not set; skipping" when DSN is absent and exits 0.
 
+## Monitoring – Batch Windows
+
+- Windows Scheduled Task: "CORA Monitoring Minimal Set" runs daily at 17:30Z (local next run: 2025-09-09 15:00)
+- Command used (run in elevated PowerShell):
+  - schtasks /Create /TN "CORA Monitoring Minimal Set" /TR "powershell -ExecutionPolicy Bypass -NoProfile -NonInteractive -File \"C:\CORA\scripts\run_monitoring.ps1\"" /SC DAILY /ST 15:00 /RU SYSTEM /RL HIGHEST /F
+
+- Exported XML: C:\CORA\scheduled_task_export.xml
+- Check next run:
+  - schtasks /Query /TN "CORA Monitoring Minimal Set" /FO LIST | sls "Next Run Time"
+
+### Verification (Windows)
+- Daily assertion task to re-check and log:
+  - Script: C:\CORA\scripts\verify_monitoring_task.ps1
+  - Schedule suggestion: 15:05 local, SYSTEM
+  - Create (elevated PowerShell):
+    - schtasks /Create /TN "CORA Monitoring Verify" /TR "powershell -ExecutionPolicy Bypass -NoProfile -NonInteractive -File \"C:\CORA\scripts\verify_monitoring_task.ps1\"" /SC DAILY /ST 15:05 /RU SYSTEM /RL HIGHEST /F
+
 ## CORS & Security
 
 Configure production hardening with environment variables:
@@ -138,6 +155,41 @@ Secrets:
 Workflow link:
 - https://github.com/tylerpartridge/CORA-ai/actions/workflows/smoke.yml
 
+## External Uptime Monitoring
+
+Keep external uptime checks in sync with UptimeRobot.
+
+- Secret: `UPTIME_API_KEY_ROBOT` (UptimeRobot Main API Key)
+- Trigger: `gh workflow run uptime-sync.yml` or push to `main` touching `.github/workflows/uptime-sync.yml` or `docs/OPERATIONS.md`
+- No-op when the secret is absent; safely idempotent when present.
+ - Interval: defaults to `300` seconds (free tier). On paid plans, set a repo/org variable `UPTIME_INTERVAL=60` to use 60-second checks (no code changes required).
+
+Workflow:
+- `.github/workflows/uptime-sync.yml` creates (if missing) and validates monitors:
+  - `https://coraai.tech/health` (CORA Health Check)
+  - `https://coraai.tech/api/status` (CORA API Status)
+- Fails CI if any monitor is DOWN for >5 minutes at check time.
+
+### External Uptime – Maintenance Mode
+
+**Pause monitors before deploy:**
+```bash
+IDS=$(curl -s -X POST -H "Content-Type: application/x-www-form-urlencoded" -d "api_key=$UPTIME_API_KEY&format=json" "https://api.uptimerobot.com/v2/getMonitors" \
+ | jq -r '.monitors[]? | select(.friendly_name=="CORA Health Check" or .friendly_name=="CORA API Status") | .id'); \
+for ID in $IDS; do curl -s -X POST -H "Content-Type: application/x-www-form-urlencoded" -d "api_key=$UPTIME_API_KEY&format=json&id=$ID&status=0" "https://api.uptimerobot.com/v2/editMonitor"; done
+```
+
+**Resume monitors after deploy:**
+```bash
+for ID in $IDS; do curl -s -X POST -H "Content-Type: application/x-www-form-urlencoded" -d "api_key=$UPTIME_API_KEY&format=json&id=$ID&status=1" "https://api.uptimerobot.com/v2/editMonitor"; done
+```
+
+**Check status:**
+```bash
+curl -s -X POST -H "Content-Type: application/x-www-form-urlencoded" -d "api_key=$UPTIME_API_KEY&format=json" "https://api.uptimerobot.com/v2/getMonitors" \
+ | jq '.monitors[]? | {name: .friendly_name, status: .status}'
+```
+
 ### Fetch last Smoke logs (gh)
 
 PowerShell example using GitHub CLI:
@@ -151,3 +203,4 @@ gh api repos/tylerpartridge/CORA-ai/actions/runs/$runId/jobs --jq '.jobs[] | {id
 $jobId = gh api repos/tylerpartridge/CORA-ai/actions/runs/$runId/jobs --jq '.jobs[0].id'
 gh run view --job $jobId --log
 ```
+- Next run (local): 2025-09-10 3:05:00 PM

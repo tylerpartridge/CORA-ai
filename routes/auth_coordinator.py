@@ -6,7 +6,7 @@
 📤 EXPORTS: auth_router
 """
 
-from fastapi import APIRouter, HTTPException, Depends
+from fastapi import APIRouter, HTTPException, Depends, Request
 from fastapi.responses import JSONResponse
 from fastapi.security import OAuth2PasswordRequestForm
 from pydantic import BaseModel, validator, EmailStr
@@ -32,6 +32,7 @@ from services.email_service import send_password_reset_email, send_welcome_email
 from typing import List, Optional
 from dependencies.auth import get_current_user
 from config import config
+from middleware.rate_limit import limiter
 
 # Create router
 auth_router = APIRouter(
@@ -160,16 +161,18 @@ class PreferenceResponse(BaseModel):
 class PreferenceBulkUpdate(BaseModel):
     preferences: List[PreferenceRequest]
 
+@limiter.limit("10/minute")
 @auth_router.post("/login")
 async def login_json(
-    request: LoginRequest,
+    payload: LoginRequest,
+    request: Request,
     db: Session = Depends(get_db)
 ):
     """JSON Login endpoint for frontend"""
     try:
         
         # Authenticate user using existing auth service
-        user = authenticate_user(db, request.email, request.password)
+        user = authenticate_user(db, payload.email, payload.password)
         if not user:
             raise InvalidCredentialsError("Invalid email or password")
         
@@ -187,7 +190,7 @@ async def login_json(
             )
         
         # Create access token with conditional expiry
-        if request.remember_me:
+        if payload.remember_me:
             access_token_expires = timedelta(days=30)
         else:
             access_token_expires = timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
@@ -226,8 +229,10 @@ async def login_json(
     except Exception:
         raise HTTPException(status_code=500, detail="Login failed")
 
+@limiter.limit("10/minute")
 @auth_router.post("/login-form")
 async def login_form(
+    request: Request,
     form_data: OAuth2PasswordRequestForm = Depends(),
     db: Session = Depends(get_db)
 ):

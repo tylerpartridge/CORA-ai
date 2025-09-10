@@ -60,6 +60,11 @@ Recent Completions:
 
 **The CORA system is now fully operational both locally and in production, ready for beta user acquisition and launch.**
 
+## 💾 CHECKPOINT: 2025-09-09T19:44:35Z
+**Status:** Monitoring milestone complete (baseline in place).
+**Last Action:** Internal probe cron enabled; Windows tasks verified (15:00/15:05 local); uptime-sync workflow (interval param) + docs merged; postcheck workflow added (18:00Z).
+**Next:** 24h stability watch; activate external uptime monitors when secrets are set.
+
 ## 📋 IMMEDIATE NEXT STEPS
 
 ### 1. Git Repository Setup (IN PROGRESS)
