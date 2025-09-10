@@ -7,22 +7,39 @@
 """
 
 from slowapi import Limiter, _rate_limit_exceeded_handler
-from slowapi.util import get_remote_address
 from slowapi.errors import RateLimitExceeded
 from slowapi.middleware import SlowAPIMiddleware
-from fastapi import Request, HTTPException
+from fastapi import Request
 from fastapi.responses import JSONResponse
 import os
 
-# Get rate limit from environment or use defaults
-RATE_LIMIT = os.getenv("RATE_LIMIT_REQUESTS_PER_MINUTE", "100/minute")
 
-# Create limiter instance
+def client_ip(request: Request) -> str:
+    """Best-effort client IP extraction honoring X-Forwarded-For."""
+    xff = request.headers.get("x-forwarded-for", "").split(",")[0].strip()
+    if xff:
+        return xff
+    xr = request.headers.get("x-real-ip")
+    if xr:
+        return xr
+    return request.client.host if request.client else "unknown"
+
+
+DEFAULT_LIMIT = (
+    os.getenv("RATE_LIMIT_DEFAULT")
+    or os.getenv("RATE_LIMIT_REQUESTS_PER_MINUTE")
+    or "200/minute"
+)
+
+_redis_url = os.getenv("REDIS_URL") or os.getenv("CORA_REDIS_URL")
+_storage_uri = _redis_url if _redis_url else "memory://"
+
+# Create limiter instance (falls back to memory when Redis not configured)
 limiter = Limiter(
-    key_func=get_remote_address,
-    default_limits=[RATE_LIMIT],
-    storage_uri="memory://",
-    headers_enabled=True  # Include rate limit headers in responses
+    key_func=client_ip,
+    default_limits=[DEFAULT_LIMIT],
+    storage_uri=_storage_uri,
+    headers_enabled=True,
 )
 
 def custom_rate_limit_handler(request: Request, exc: Exception):
@@ -48,8 +65,8 @@ def setup_rate_limiting(app):
     """Setup rate limiting for the FastAPI app"""
     # Add SlowAPI middleware
     app.state.limiter = limiter
+    # Use robust custom handler (avoids assuming exc.detail exists on all exceptions)
     app.add_exception_handler(RateLimitExceeded, custom_rate_limit_handler)
-    app.add_exception_handler(ValueError, custom_rate_limit_handler)
     app.add_middleware(SlowAPIMiddleware)
     
     return limiter
