@@ -1,0 +1,70 @@
+name: Uptime Sync
+on:
+  workflow_dispatch:
+    inputs:
+      interval:
+        description: "Check interval seconds (300 free tier, 60 paid)"
+        required: false
+        default: "300"
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    env:
+      UPTIME_API_KEY_ROBOT: ${{ secrets.UPTIME_API_KEY_ROBOT }}
+      UPTIME_INTERVAL: ${{ vars.UPTIME_INTERVAL }}
+    steps:
+      - name: Resolve interval (input > var > default 300)
+        id: resolve
+        shell: bash
+        run: |
+          if [ -n "${{ github.event.inputs.interval }}" ]; then I="${{ github.event.inputs.interval }}";
+          elif [ -n "${UPTIME_INTERVAL}" ]; then I="${UPTIME_INTERVAL}";
+          else I="300"; fi
+          echo "interval=$I" >> "$GITHUB_OUTPUT"
+
+      - name: Validate secrets
+        shell: bash
+        run: |
+          test -n "$UPTIME_API_KEY_ROBOT" || (echo "UPTIME_API_KEY_ROBOT missing" && exit 1)
+
+      - name: Ensure jq & curl
+        shell: bash
+        run: |
+          sudo apt-get update -y >/dev/null 2>&1 || true
+          sudo apt-get install -y jq curl >/dev/null 2>&1 || true
+
+      - name: Create/Update monitors (UptimeRobot)
+        shell: bash
+        run: |
+          set -euo pipefail
+          BASE="https://api.uptimerobot.com/v2"
+          INT="${{ steps.resolve.outputs.interval }}"
+          MONITORS='[
+            {"friendly":"CORA Health","url":"https://coraai.tech/health","type":1},
+            {"friendly":"CORA API Status","url":"https://coraai.tech/api/status","type":1}
+          ]'
+          echo "$MONITORS" | jq -c '.[]' | while read -r row; do
+            FRIENDLY=$(echo "$row" | jq -r '.friendly')
+            URL=$(echo "$row" | jq -r '.url')
+            TYPE=$(echo "$row" | jq -r '.type')
+            echo "Ensuring monitor: $FRIENDLY ($URL)"
+            LIST=$(curl -s -X POST "$BASE/getMonitors" \
+              -H "Content-Type: application/x-www-form-urlencoded" \
+              --data "api_key=$UPTIME_API_KEY_ROBOT&format=json&logs=0&search=$URL")
+            ID=$(echo "$LIST" | jq -r '.monitors[]? | select(.url=="'"$URL"'") | .id' | head -n1)
+            if [ -n "${ID:-}" ]; then
+              echo "Updating monitor $ID interval=$INT"
+              curl -s -X POST "$BASE/editMonitor" \
+                -H "Content-Type: application/x-www-form-urlencoded" \
+                --data "api_key=$UPTIME_API_KEY_ROBOT&id=$ID&interval=$INT" >/dev/null
+            else
+              echo "Creating monitor interval=$INT"
+              curl -s -X POST "$BASE/newMonitor" \
+                -H "Content-Type: application/x-www-form-urlencoded" \
+                --data "api_key=$UPTIME_API_KEY_ROBOT&friendly_name=$FRIENDLY&url=$URL&type=$TYPE&interval=$INT" >/dev/null
+            fi
+          done
+
+      - name: Done
+        run: echo "Uptime sync complete."

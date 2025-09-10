@@ -49,8 +49,11 @@ class RateLimiter:
     
     def get_reset_time(self, key: str) -> float:
         redis_key = self._redis_key(key)
-        # Redis TTL returns seconds until expiry
-        ttl = redis_manager.redis_client.ttl(redis_key) if redis_manager.redis_client else self.window_seconds
+        # Redis TTL returns seconds until expiry; NullRedis has no ttl
+        client = getattr(redis_manager, "redis_client", None)
+        if client is None or not hasattr(client, "ttl"):
+            return time.time() + self.window_seconds
+        ttl = client.ttl(redis_key)
         if ttl is None or ttl < 0:
             return time.time() + self.window_seconds
         return time.time() + ttl
@@ -131,10 +134,12 @@ def get_rate_limit_key(request: Request) -> Tuple[str, str]:
 async def rate_limiting_middleware(request: Request, call_next):
     """Rate limiting middleware"""
     
-    # Skip rate limiting for static files and health checks
-    if (request.url.path.startswith("/static/") or 
-        request.url.path == "/health" or 
-        request.url.path == "/api/health"):
+    # Skip rate limiting for static files and core health/ops endpoints
+    if (
+        request.url.path.startswith("/static/")
+        or request.url.path in {"/health", "/api/health", "/ping", "/metrics", "/smoke"}
+        or request.url.path.startswith("/health/")
+    ):
         response = await call_next(request)
         return response
     

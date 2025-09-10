@@ -108,6 +108,7 @@ class ErrorHandler:
             method = request.method
         
         # Create error response
+        # Ensure datetime fields are ISO strings for JSON serialization
         error_response = ErrorResponse(
             error=exception.__class__.__name__,
             code=exception.code,
@@ -129,9 +130,10 @@ class ErrorHandler:
                   context: Optional[Dict[str, Any]] = None):
         """Log error with context"""
         
+        # Avoid reserved LogRecord fields like 'message' in extra
         log_data = {
             "exception_type": exception.__class__.__name__,
-            "message": str(exception),
+            "error_message": str(exception),
             "context": context or {}
         }
         
@@ -183,10 +185,11 @@ class ErrorHandler:
             include_traceback=False  # Don't expose traceback in production
         )
         
-        return JSONResponse(
-            status_code=cora_exception.status_code,
-            content=error_response.dict()
-        )
+        payload = error_response.dict()
+        # Convert datetime in payload to ISO string if present
+        if isinstance(payload.get("timestamp"), datetime):
+            payload["timestamp"] = payload["timestamp"].isoformat()
+        return JSONResponse(status_code=cora_exception.status_code, content=payload)
 
 # Convenience functions for common error scenarios
 def raise_validation_error(message: str, field: str = None, details: Optional[Dict[str, Any]] = None):

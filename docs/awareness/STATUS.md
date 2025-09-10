@@ -1,11 +1,12 @@
-## 💾 CHECKPOINT: 2025-09-08 12:30 UTC
+## 💾 CHECKPOINT: 2025-09-09 13:30 UTC
 **HEALTH:** GREEN
-**Post-incident notes:** Ops Hardening complete; TLS renewal pending (due 2025-09-19).
-- Root cause: full disk (old backup archives under /var/backups/cora/system)
-- Root cause: full disk (old backup archives under /var/backups/cora/system)
-- Action: freed ~19G; usage now ~72%
-- Result: service up; smokes pass (health 200, status 200, protected 401)
-- Follow-ups: see NEXT.md
+**Notes:** Secrets hygiene locked down (audit, untrack, env-driven, CI scan). Monitoring minimal set queued for 2025-09-09T15:00Z.
+
+<!-- Evidence Links (template)
+- Latest Smoke run: <paste URL to latest Smoke run>
+- Last uptime-sync dispatch: <paste URL to workflow dispatch or run>
+- Last monitoring-postcheck success: <paste URL to last green run>
+-->
 
 ## 💾 CHECKPOINT: 2025-09-01 17:00 UTC
 **HEALTH:** GREEN
@@ -170,3 +171,7 @@
 - **Artifacts:** see /var/log/cora_migration/ on prod (prod_src_counts_*.json, prod_tgt_counts_*.json, prod_migration_*.jsonl).
 - **DSN path:** /root/CORA_PROD_PG_DSN.env (secrets not committed).
 - 2025-09-03 23:13:51 UTC — Decision: Off-site backups deferred until post-launch/first customer.
+## 📊 STATUS — 2025-09-09T19:44:35Z
+- Service health: GREEN
+- Monitoring: baseline in place (internal probe, Windows scheduled tasks, CI smoke JSON, external uptime workflow gated, postcheck)
+- Outstanding: set UPTIME_API_KEY_ROBOT (and optional SLACK_WEBHOOK_URL), confirm first postcheck pass, consider 60s interval after plan upgrade

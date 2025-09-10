@@ -1,0 +1,51 @@
+name: Monitoring Postcheck
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 18 * * *"  # 18:00Z daily
+
+jobs:
+  postcheck:
+    runs-on: ubuntu-latest
+    env:
+      PROD_HOST: ${{ secrets.PROD_HOST }}
+      PROD_SSH_USER: ${{ secrets.PROD_SSH_USER }}
+      PROD_SSH_KEY: ${{ secrets.PROD_SSH_KEY }}
+    steps:
+      - name: Validate secrets
+        shell: bash
+        run: |
+          test -n "$PROD_HOST" || (echo "PROD_HOST missing" && exit 1)
+          test -n "$PROD_SSH_USER" || (echo "PROD_SSH_USER missing" && exit 1)
+          test -n "$PROD_SSH_KEY" || (echo "PROD_SSH_KEY missing" && exit 1)
+
+      - name: SSH → freshness checks
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.PROD_HOST }}
+          username: ${{ secrets.PROD_SSH_USER }}
+          key: ${{ secrets.PROD_SSH_KEY }}
+          script: |
+            set -euo pipefail
+            ONE_SHOT="/CORA/monitoring_minimal_set.log"
+            PROBE="/CORA/internal_probe.log"
+            NOW=$(date -u +%s)
+            # one-shot within 90 minutes
+            if [ -f "$ONE_SHOT" ]; then
+              TS=$(date -u -r "$ONE_SHOT" +%s 2>/dev/null || stat -c %Y "$ONE_SHOT")
+              AGE=$((NOW-TS))
+              echo "one-shot age: $AGE sec"
+              [ $AGE -le 5400 ] || (echo "one-shot log stale (>90m)"; exit 2)
+            else
+              echo "one-shot log missing"; exit 2
+            fi
+            # probe within 10 minutes
+            if [ -f "$PROBE" ]; then
+              TS=$(date -u -r "$PROBE" +%s 2>/dev/null || stat -c %Y "$PROBE")
+              AGE=$((NOW-TS))
+              echo "probe age: $AGE sec"
+              [ $AGE -le 600 ] || (echo "probe log stale (>10m)"; exit 3)
+            else
+              echo "probe log missing"; exit 3
+            fi
+            echo "Postcheck freshness OK"

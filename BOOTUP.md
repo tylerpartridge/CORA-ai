@@ -27,6 +27,13 @@ I'm starting a new CORA session. Please:
 
 **Note:** Checkpoints appear in session logs when awareness files are updated.
 
+### Durable Rules (pre-patch)
+- CI Router Guard: import routers before include_router(...) to avoid 500s.
+- Stub-first rescue for blocked startups (export router symbols; don’t inline in app.py).
+- Journalctl-first when RED: examine logs before code edits.
+- No new root files; keep ≤10; prefer editing existing files over creating new ones.
+- Batch deploy windows only: 12:30 and 17:30 UTC (unless RED).
+
 ## 🔄 Quick Refresh (Use Often!)
 
 "Check SYSTEM_RULES" - Before any file operation
