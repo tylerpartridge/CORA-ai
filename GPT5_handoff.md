@@ -395,24 +395,12 @@ Evidence:
 Next Action (single):
 - Merge order: (#107 first), then PR #109; then run full suite post-merge to confirm no drift.
 
-### Session: 2025-09-11T12:22Z
-State: GREEN — full local run no longer blocked by account purge import; test gated.
+### Session: 2025-09-11T12:33Z
+State: GREEN — account purge test gated; pending merge.
 What changed:
-- tests/test_account_purge.py gated behind RUN_ACCOUNT_PURGE_IT (module-level skip)
+- tests/test_account_purge.py gated behind RUN_ACCOUNT_PURGE_IT
 Evidence:
-- Targeted onboarding test file: 4/4 PASSED earlier; account_purge module now SKIPPED when not enabled.
-- Baseline CI remains green; local stray import no longer errors.
+- Local: module-level skip prevents stray import errors
+- CI: baseline unaffected
 Next Action (single):
-- Merge order: PR #107 → PR #109 → PR #110; then consider enabling RUN_ACCOUNT_PURGE_IT on a follow-up branch if we want to exercise purge flows.
-
-### Session: 2025-09-11T12:29Z
-State: YELLOW → GREEN on merge — #107 merged; #109/#110 rebased and ready (checks pending, reviewers requested).
-What shipped:
-- PR #107 already merged (onboarding auth dependency ref)
-- PR #109 updated and mergeable (IT seed + auth fixture; onboarding progress route shape)
-- PR #110 updated and mergeable (gate account purge test)
-Evidence:
-- CI main latest: https://github.com/tylerpartridge/CORA-ai/actions/runs/17644524713 (in_progress or green expected)
-- PR checks: #109 and #110 show Awareness Namespace Guard pending; E2E skipped
-Next Action (single):
-- Approve and squash-merge #109 then #110; confirm CI green on main.
+- Approve and squash-merge PR #110; confirm main CI green
