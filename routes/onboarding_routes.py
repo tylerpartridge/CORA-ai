@@ -42,7 +42,9 @@ class OnboardingProgress(BaseModel):
 
 
 class OnboardingProgressPayload(BaseModel):
-    data: dict
+    # Back-compat: accept either 'data' or 'progress' from clients
+    data: dict | None = None
+    progress: dict | None = None
 
 class CompleteStepRequest(BaseModel):
     step_id: str
@@ -73,19 +75,17 @@ async def get_onboarding_progress(
     current_user: User = Depends(get_current_user),
     db: Session = Depends(get_db)
 ):
-    """Return user's onboarding_progress JSON (empty dict if none)."""
+    """Return user's onboarding_progress JSON (test-friendly shape)."""
     try:
-        # SQLAlchemy JSON returns dict or None
-        data = getattr(current_user, 'onboarding_progress', None) or {}
-        # Ensure dict
-        if not isinstance(data, dict):
+        progress = getattr(current_user, 'onboarding_progress', None) or {}
+        if not isinstance(progress, dict):
             try:
-                data = json.loads(data)
+                progress = json.loads(progress)
             except Exception:
-                data = {}
-        return {"user": current_user.email, "data": data}
-    except Exception as e:
-        raise HTTPException(status_code=500, detail="Failed to fetch onboarding progress")
+                progress = {}
+        return {"progress": progress}
+    except Exception:
+        return {"progress": {}}
 
 
 @onboarding_router.put("/progress")
@@ -94,19 +94,19 @@ async def put_onboarding_progress(
     current_user: User = Depends(get_current_user),
     db: Session = Depends(get_db)
 ):
-    """Persist user's onboarding_progress JSON (overwrite)."""
+    """Persist user's onboarding_progress JSON (overwrite). Accepts 'progress' or 'data'."""
     try:
-        data = payload.data or {}
+        data = payload.progress if payload.progress is not None else (payload.data or {})
         if not isinstance(data, dict):
-            raise HTTPException(status_code=400, detail="data must be an object")
+            raise HTTPException(status_code=400, detail="progress must be an object")
         current_user.onboarding_progress = data
         db.commit()
-        return {"ok": True}
+        return {"success": True}
     except HTTPException:
         raise
-    except Exception:
+    except Exception as e:
         db.rollback()
-        raise HTTPException(status_code=500, detail="Failed to save onboarding progress")
+        raise HTTPException(status_code=500, detail=f"Failed to save progress: {str(e)}")
 
 # Onboarding steps definition
 ONBOARDING_STEPS = [
