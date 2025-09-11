@@ -5,7 +5,29 @@
 - /docs/ai-awareness/THRESHOLDS.md  # optional - Optional Meta
 - /docs/ai-awareness/METRICS_SNAPSHOT.md  # optional - Optional Meta
 - /docs/ai-awareness/AIM.md  # optional - Optional Meta
-## Quick Start (Say This)
+## Session Boot in 90s
+- Required root items: app.py, README.md, BOOTUP.md, GPT5_handoff.md, OPERATIONS.md, docs/, data/
+- Exec Mode: ON/OFF (AI only — toggle in docs/awareness/NOW.md)
+- Read first: docs/ai-awareness/MVP_REQUIREMENTS.md (only priority until launch)
+- Awareness: docs/awareness/NOW.md, docs/awareness/STATUS.md, docs/awareness/NEXT.md
+- Rules: see docs/SYSTEM_RULES.md (canonical; SSOT)
+- Preflight/workflow: docs/PREFLIGHT_CHECKLIST.md, docs/FILE_OPERATION_WORKFLOW.md
+- Infra: docs/INFRASTRUCTURE.md (deploy windows + TLS renew date)
+- Tip: To run IT onboarding tests locally, see OPERATIONS.md (seed + pytest commands)
+
+### Exec Mode
+- Exec Mode: OFF (default)
+- Turn ON only after awareness + rules reviewed and user confirms safe ops
+- When OFF: do not run commands; planning, reading, and summary only
+
+### TodoWrite
+- TodoWrite = `canmore.update_textdoc`
+- Use for ANY 2+ step documentation task; mark items complete as you go.
+
+### Navigation Cheatsheet
+- Code goes in existing files; prefer EDIT over CREATE
+- Where things live: /routes (API), /models (DB), /services (logic), /tools (scripts), /docs (docs)
+- Root: a few allowed files only (see SYSTEM_RULES → Root Exceptions)
 
 I'm starting a new CORA session. Please:
 1. Read BOOTUP.md for session context
@@ -109,7 +131,7 @@ Then wait for my direction.
 - **💾 CHECKPOINT OFTEN: Every major milestone, before risky ops!**
 
 **CRITICAL FILE RULES:**
-- Root directory: 6 files ONLY (NOW, NEXT, STATUS, BOOTUP, app.py, README)
+- Root directory: primary six only (NOW, NEXT, STATUS, BOOTUP, app.py, README). See SYSTEM_RULES → Root Exceptions for allowed temporary files (e.g., OPERATIONS.md, GPT5_handoff.md).
 - NEVER create new files in root directory
 - New code files go in: /tools (scripts), /web (UI), or /data (config)
 - If unsure where a file belongs, ASK before creating

@@ -1,3 +1,15 @@
+### Skim Summary
+- Exec Mode: ON
+- Health: GREEN
+- Completion: 56/65 (86.2%)
+- Last checkpoint: 2025-09-11T11:22Z
+
+## 💾 CHECKPOINT: 2025-09-11T11:22Z
+**HEALTH:** GREEN
+**COMPLETION:** MVP 56/65 (86.2%)
+**PR STATUS:** Unchanged — PR1–PR3 path; TLS due 2025-09-19
+**NOTES:** BOOTUP index+Exec Mode; SYSTEM_RULES SSOT + root exceptions; Preflight/Workflow SSOT notes; awareness skim summaries; MVP banner; Infra/Ops quick ops.
+
 ## 💾 CHECKPOINT: 2025-09-10T22:30Z  
 **HEALTH:** GREEN  
 **COMPLETION:** MVP 56/65 (86.2%)  
@@ -183,3 +195,5 @@
 - Outstanding: set UPTIME_API_KEY_ROBOT (present) and optional SLACK_WEBHOOK_URL.
 
 - Backups: daily @03:20Z; retention: 3 days; auto-prune enabled
+
+

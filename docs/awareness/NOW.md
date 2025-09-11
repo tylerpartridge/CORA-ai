@@ -1,4 +1,17 @@
-## Focus Capsule — 2025-09-10 (Wave 3 Documentation Complete)
+### Skim Summary
+- Exec Mode: OFF
+- Active Task: PR merges (PR1 export fix → PR2 date range → PR3 purge) — see NEXT.md
+- Last checkpoint: 2025-09-11T11:22Z
+
+## Focus Capsule - 2025-09-10 (Wave 3 Documentation Complete)
+## 💾 CHECKPOINT: 2025-09-11T11:22Z - Phase 1+2 docs/flow improvements complete
+**Notes:** BOOTUP index+Exec Mode; SYSTEM_RULES as SSOT with root exceptions; Preflight/Workflow SSOT notes; awareness skim summaries; MVP banner; Infra/Ops quick ops box.
+**Exec Mode:** OFF | **Next:** PR1 export fix → PR2 date-range → PR3 purge
+
+## 💾 CHECKPOINT: 2025-09-11T11:21Z - Phase 1+2 docs/flow improvements complete
+**Notes:** BOOTUP index+Exec Mode; SYSTEM_RULES as SSOT with root exceptions; Preflight/Workflow SSOT notes; awareness skim summaries; MVP banner; Infra/Ops quick ops box.
+**Exec Mode:** OFF | **Next:** PR1 export fix → PR2 date-range → PR3 purge
+
 **MVP Audit Intel → Implementation Specs**
 
 **Status:**
@@ -147,3 +160,8 @@ The CORA system is now fully ready for beta launch with:
 ## 2025-09-10T02:52Z — Monitoring GREEN; CI trigger gating merged (Smoke=manual; Deploy/Release=manual+tags).
 
 - PR7 in-flight: daily @03:20Z, prune keep=3 days (system/progress)
+
+
+
+
+

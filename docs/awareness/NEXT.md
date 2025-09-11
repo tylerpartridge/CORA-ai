@@ -1,3 +1,8 @@
+### Skim Summary
+- Exec Mode: ON (enable before merges/walkthroughs)
+- Last checkpoint: 2025-09-11T11:22Z
+- Top 3 Next: PR1 export fix → PR2 date-range → PR3 purge (then verify PR5/PR6)
+
 ## Next — Merge PR1→walkthrough; Merge PR2→date-range walkthrough; Merge PR3→purge dry-run; then verify PR5/PR6
 
 ### 1. PR1 Export Manager Merge → Production Walkthrough
@@ -48,3 +53,6 @@ Notes: use only one install method; dry-run first; production renew can be done 
 - After 24h internal probe stability, re-dispatch uptime-sync and monitoring-postcheck.
 
 - After PR7 merge: verify prune summary & ensure df -h stays <80%
+
+
+
