@@ -394,3 +394,13 @@ Evidence:
 - CI: Awareness Namespace Guard	pass	7s	https://github.com/tylerpartridge/CORA-ai/actions/runs/17643895693/job/50137119520 — all checks passed (Awareness Namespace Guard, Baseline; E2E skipped)
 Next Action (single):
 - Merge order: (#107 first), then PR #109; then run full suite post-merge to confirm no drift.
+
+### Session: 2025-09-11T12:22Z
+State: GREEN — full local run no longer blocked by account purge import; test gated.
+What changed:
+- tests/test_account_purge.py gated behind RUN_ACCOUNT_PURGE_IT (module-level skip)
+Evidence:
+- Targeted onboarding test file: 4/4 PASSED earlier; account_purge module now SKIPPED when not enabled.
+- Baseline CI remains green; local stray import no longer errors.
+Next Action (single):
+- Merge order: PR #107 → PR #109 → PR #110; then consider enabling RUN_ACCOUNT_PURGE_IT on a follow-up branch if we want to exercise purge flows.
