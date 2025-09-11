@@ -7,7 +7,7 @@
 - /docs/ai-awareness/AIM.md  # optional - Optional Meta
 ## Session Boot in 90s
 - Required root items: app.py, README.md, BOOTUP.md, GPT5_handoff.md, OPERATIONS.md, docs/, data/
-- Exec Mode: ON/OFF (AI only — toggle in docs/awareness/NOW.md)
+- Exec Mode: ON/OFF (AI only - toggle in docs/awareness/NOW.md)
 - Read first: docs/ai-awareness/MVP_REQUIREMENTS.md (only priority until launch)
 - Awareness: docs/awareness/NOW.md, docs/awareness/STATUS.md, docs/awareness/NEXT.md
 - Rules: see docs/SYSTEM_RULES.md (canonical; SSOT)
@@ -27,7 +27,7 @@
 ### Navigation Cheatsheet
 - Code goes in existing files; prefer EDIT over CREATE
 - Where things live: /routes (API), /models (DB), /services (logic), /tools (scripts), /docs (docs)
-- Root: a few allowed files only (see SYSTEM_RULES → Root Exceptions)
+- Root: a few allowed files only (see SYSTEM_RULES -> Root Policy)
 
 I'm starting a new CORA session. Please:
 1. Read BOOTUP.md for session context

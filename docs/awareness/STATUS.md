@@ -4,13 +4,13 @@
 - Completion: 56/65 (86.2%)
 - Last checkpoint: 2025-09-11T11:22Z
 
-## 💾 CHECKPOINT: 2025-09-11T11:22Z
+## CHECKPOINT: 2025-09-11T11:22Z  
 **HEALTH:** GREEN
 **COMPLETION:** MVP 56/65 (86.2%)
-**PR STATUS:** Unchanged — PR1–PR3 path; TLS due 2025-09-19
+**PR STATUS:** Unchanged - PR1-PR3 path; TLS due 2025-09-19
 **NOTES:** BOOTUP index+Exec Mode; SYSTEM_RULES SSOT + root exceptions; Preflight/Workflow SSOT notes; awareness skim summaries; MVP banner; Infra/Ops quick ops.
 
-## 💾 CHECKPOINT: 2025-09-10T22:30Z  
+## CHECKPOINT: 2025-09-10T22:30Z  
 **HEALTH:** GREEN  
 **COMPLETION:** MVP 56/65 (86.2%)  
 **PR STATUS:** Five PRs open (PR1-PR3 + Wave 4 specs); TLS due 2025-09-19
@@ -21,7 +21,7 @@
 - Last monitoring-postcheck success: <paste URL to last green run>
 -->
 
-## 💾 CHECKPOINT: 2025-09-01 17:00 UTC
+## CHECKPOINT: 2025-09-01 17:00 UTC
 **HEALTH:** GREEN
 **BLOCKERS:** none
 **NOTES:** MVP base complete; running audit to identify remaining updates.

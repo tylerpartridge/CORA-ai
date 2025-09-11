@@ -1,18 +1,22 @@
-# ⚡ SYSTEM RULES - CHECK BEFORE EVERY ACTION
+# SYSTEM RULES - CHECK BEFORE EVERY ACTION
 
 **Collaboration Policy (2025-09-04):** Cursor is primary executor (code/git/deploy); Sonnet limited to audits/intel/codebase search; Opus removed. Prompts label target and call out Tyler-required steps.
 
 SSOT: This file is the single source of truth for rules and guardrails. Other docs (PREFLIGHT_CHECKLIST.md, FILE_OPERATION_WORKFLOW.md, BOOTUP.md) reference this file and should not duplicate rules.
-TodoWrite: Use `canmore.update_textdoc` for any multi‑step documentation edits (alias: "TodoWrite").
+TodoWrite: Use `canmore.update_textdoc` for any multi-step documentation edits (alias: "TodoWrite").
 
-## TL;DR — Non‑negotiables
-- **PRs‑only**: No direct commits to `main` unless RED; always PR → squash merge
+## TLDR - Non-negotiables
+- **PRs-only**: No direct commits to `main` unless RED; always PR -> squash merge
 - **Edit > Create**: Default to editing existing files; creation needs strong justification
 - **Batch deploy windows**: 12:30 and 17:30 UTC only, unless RED
 - **Prompt labeling**: Use SONNET / OPUS / CURSOR / TYLER blocks
 - **Run `PREFLIGHT_CHECKLIST.md`** before any file operation
 
-## 🚨 MANDATORY: Use PREFLIGHT_CHECKLIST.md before ANY file operation!
+## MANDATORY: Use PREFLIGHT_CHECKLIST.md before ANY file operation
+
+## Execution Policy
+- Exec Mode must be ON in `docs/awareness/NOW.md` before Codex runs code or creates/updates automations.
+- When Exec Mode is OFF, Codex performs reading, planning, analysis, and summaries only.
 
 ## Quick Commands (merge + sync + smokes)
 ```powershell
@@ -42,7 +46,7 @@ git log -1 --oneline
 - **App path**: `/var/www/cora`
 - **Postgres DSN file**: `/root/CORA_PROD_PG_DSN.env` (not in repo)
 
-## 📋 FILE CREATION GUIDELINES
+## FILE CREATION GUIDELINES
 - **Root dir:** Target 10 files (currently at limit!)
 - **New files:** NEVER in root - ask WHERE first
 - **Python/JS:** Target 300 lines (guideline, not rule)
@@ -62,7 +66,7 @@ Allowed at repo root:
 - data/ (directory)
 All other files should live under an appropriate subdirectory. Ask before adding new root items.
 
-## ❌ THESE ARE NOT VALID REASONS TO CREATE FILES
+## THESE ARE NOT VALID REASONS TO CREATE FILES
 - "Better separation of concerns" ❌ - ADD TO EXISTING FILE
 - "Service layer pattern" ❌ - ADD TO EXISTING FILE  
 - "Keep routes/controllers thin" ❌ - ADD TO EXISTING FILE
@@ -73,7 +77,7 @@ All other files should live under an appropriate subdirectory. Ask before adding
 
 **CORA Philosophy:** Simplicity > Separation. One file with 200 lines is better than 4 files with 50 lines each.
 
-## 📁 WHERE FILES GO
+## WHERE FILES GO
 - `/routes/` - API endpoints only
 - `/models/` - Database models only
 - `/services/` - Business logic only
@@ -82,9 +86,9 @@ All other files should live under an appropriate subdirectory. Ask before adding
 - `/tests/` - Test files
 - **NEVER:** Random files in root
 
-## 📝 FILE REQUIREMENTS  
+## FILE REQUIREMENTS  
 - **Python files:** MUST have navigation header
-- **Headers format:** 🧭 LOCATION, 🎯 PURPOSE, 🔗 IMPORTS, 📤 EXPORTS
+- **Headers format:** LOCATION, PURPOSE, IMPORTS, EXPORTS
 - **One file = One purpose** (no utils.py, no helpers.py)
 - **Names:** Descriptive, not generic
 - **Size guideline:** Target 300 lines BUT functionality > arbitrary splits
@@ -95,27 +99,27 @@ All other files should live under an appropriate subdirectory. Ask before adding
   - DO refactor when it improves architecture
   - **Functionality First:** Working code > line count guidelines
 
-## 🔧 BEFORE YOU CODE
+## BEFORE YOU CODE
 - Check: Will this exceed 300 lines? → Consider splitting IF logical boundary exists
 - Check: Does similar file exist? → Edit it
 - Check: Right directory? → Verify path
 - Check: Has header? → Add it
 - Check: Would splitting break functionality? → Keep together (functionality first)
 
-## 🤝 COLLABORATION
+## COLLABORATION
 - Check HANDOVER_ACTIVE.md before editing
 - Never edit same file as partner
 - Update status every 5-10 mins
 - All GPT5_handoff.md session capsules must use UTC ISO-8601 timestamps (YYYY-MM-DDTHH:MMZ).
 
-## ❌ NEVER DO THIS
+## NEVER DO THIS
 - Create "test.py" or "temp.py" 
 - Add files to root directory
 - Break working code just to hit line count guidelines
 - Create utils/helpers/common files
 - Skip headers "to save time"
 
-## 🚨 DURABLE WORKFLOW RULES (2025-09-03)
+## DURABLE WORKFLOW RULES (2025-09-03)
 
 ### Production Debugging & CI Guards
 1. **CI guard for orphaned router imports** - CI should fail if `app.include_router(<name>)` is called without a corresponding import or defined symbol. This prevents production startup failures from missing routers.

@@ -1,4 +1,4 @@
-# 📁 MANDATORY FILE OPERATION WORKFLOW
+# MANDATORY FILE OPERATION WORKFLOW
 
 Note: Rules SSOT is docs/SYSTEM_RULES.md. This file focuses only on the step-by-step workflow and visible checklist.
 
@@ -26,7 +26,7 @@ Note: Rules SSOT is docs/SYSTEM_RULES.md. This file focuses only on the step-by-
 ### Step 3: Execute Operation
 Only AFTER all checklist items are complete
 
-## 🚨 AUTOMATIC FAILURE CONDITIONS:
+## AUTOMATIC FAILURE CONDITIONS
 - Creating file without checklist = STOP
 - "Let me create..." without checking = STOP
 - "I'll add this to..." without searching = STOP
