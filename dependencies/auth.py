@@ -11,7 +11,7 @@ from sqlalchemy.orm import Session
 from jose import jwt, JWTError
 
 from models import User, get_db
-from services.auth_service import verify_token, get_user_by_email
+from services.auth_service import verify_token, get_user_by_email, TokenValidationError
 from config import config
 
 def _get_bearer_token(request: Request) -> str | None:
@@ -56,7 +56,11 @@ async def get_current_user(
         raise credentials_exception
     
     # Verify token and get email
-    email = verify_token(token)
+    try:
+        email = verify_token(token)
+    except TokenValidationError:
+        # Normalize any token errors to a 401 for tests and API
+        raise credentials_exception
     if email is None:
         raise credentials_exception
     

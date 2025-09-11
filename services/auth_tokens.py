@@ -75,9 +75,12 @@ def verify_token(token: str) -> Optional[str]:
         if not token:
             raise TokenValidationError("No token provided")
 
-        # Accept 'Bearer <token>' form if it slipped in
+        # Accept 'Bearer <token>' form or cookie value containing prefix
         if token.startswith("Bearer "):
             token = token[len("Bearer "):].strip()
+        # Some clients may set cookie as 'access_token=Bearer <tok>'
+        if token.lower().startswith("bearer%20"):
+            token = token[len("Bearer%20"):].strip()
 
         audience = os.getenv("JWT_AUDIENCE") or None
         issuer = os.getenv("JWT_ISSUER") or None
@@ -109,8 +112,8 @@ def verify_token(token: str) -> Optional[str]:
                 raise TokenValidationError("Invalid authentication token")
 
         # Extract email from token
-        email: str = payload.get("sub") or payload.get("email")
-        if email is None:
+        email = payload.get("sub") or payload.get("email")
+        if not isinstance(email, str) or not email:
             raise TokenValidationError("Invalid token payload")
 
         return email
