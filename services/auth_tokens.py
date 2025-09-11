@@ -75,12 +75,9 @@ def verify_token(token: str) -> Optional[str]:
         if not token:
             raise TokenValidationError("No token provided")
 
-        # Accept 'Bearer <token>' form or cookie value containing prefix
+        # Accept 'Bearer <token>' form if it slipped in
         if token.startswith("Bearer "):
             token = token[len("Bearer "):].strip()
-        # Some clients may set cookie as 'access_token=Bearer <tok>'
-        if token.lower().startswith("bearer%20"):
-            token = token[len("Bearer%20"):].strip()
 
         audience = os.getenv("JWT_AUDIENCE") or None
         issuer = os.getenv("JWT_ISSUER") or None
@@ -99,21 +96,12 @@ def verify_token(token: str) -> Optional[str]:
                 options={"verify_aud": verify_aud},
             )
         except JWTError as e:
-            # Testing-only fallback: accept unverified claims to unblock local ITs
-            env = (os.getenv("ENV") or os.getenv("CORA_ENV") or os.getenv("ENVIRONMENT") or "").lower()
-            if env in ("testing", "test") or os.getenv("ALLOW_JWT_TEST_NO_SIG") == "1":
-                try:
-                    payload = jwt.get_unverified_claims(token)
-                except Exception:
-                    logger.warning(f"Invalid token (even unverified): {str(e)}")
-                    raise TokenValidationError("Invalid authentication token")
-            else:
-                logger.warning(f"Invalid token: {str(e)}")
-                raise TokenValidationError("Invalid authentication token")
+            logger.warning(f"Invalid token: {str(e)}")
+            raise TokenValidationError("Invalid authentication token")
 
         # Extract email from token
-        email = payload.get("sub") or payload.get("email")
-        if not isinstance(email, str) or not email:
+        email: str = payload.get("sub") or payload.get("email")
+        if email is None:
             raise TokenValidationError("Invalid token payload")
 
         return email
