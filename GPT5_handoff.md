@@ -425,3 +425,12 @@ Evidence:
 - Docs sanitized; no non-ASCII in headings/callouts; rules deduped to SSOT
 Next Action (single):
 - Resume MVP tasks per NOW/NEXT
+
+### Session: 2025-09-11T13:02Z
+State: GREEN — AI handoff model stabilized (SSOT, Exec Mode, ASCII headings/callouts).
+What shipped:
+- Merged #112; SYSTEM_RULES is SSOT; PREFLIGHT/WORKFLOW reference it; Exec Mode authoritative in NOW.md; duplicated rules removed; headings normalized to ASCII.
+Evidence:
+- CI on main: https://github.com/tylerpartridge/CORA-ai/actions/runs/17645371607 (pipeline running; expected green)
+Next Action (single):
+- Resume MVP tasks per NOW/NEXT
