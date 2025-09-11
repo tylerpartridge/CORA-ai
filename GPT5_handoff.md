@@ -82,7 +82,17 @@ TYLER — [task description]
 
 ---
 
-## PART B — SESSION CAPSULE
+## PART B
+### Session: 2025-09-11T13:12Z
+State: GREEN — Main CI complete and green; onboarding IT fully integrated and stable.
+What shipped:
+- PRs #107, #109, #110, #112 merged to main.
+- Docs aligned for AI-first handoff (SSOT rules; Exec Mode authoritative; ASCII headings/callouts).
+Evidence:
+- Main CI: completed/success — https://github.com/tylerpartridge/CORA-ai/actions/runs/17645393366
+- Local baseline: previously verified green (0 failed, 0 errors; skips gated).
+Next Action (single):
+- Resume MVP tasks per docs/awareness/NEXT.md. — SESSION CAPSULE
 
 GPT-5 Handoff Capsule (to migrate threads)
 Session: 2025-09-09T19:44:35Z
@@ -172,7 +182,17 @@ BI Engine established (docs/bi/*); sweeps produce evidence cards + pulse summari
 - Create a fresh feature branch from `main` for the **one** top priority.
 - Proceed with the Development Workflow steps above.
 
-## PART B — SESSION CAPSULE
+## PART B
+### Session: 2025-09-11T13:12Z
+State: GREEN — Main CI complete and green; onboarding IT fully integrated and stable.
+What shipped:
+- PRs #107, #109, #110, #112 merged to main.
+- Docs aligned for AI-first handoff (SSOT rules; Exec Mode authoritative; ASCII headings/callouts).
+Evidence:
+- Main CI: completed/success — https://github.com/tylerpartridge/CORA-ai/actions/runs/17645393366
+- Local baseline: previously verified green (0 failed, 0 errors; skips gated).
+Next Action (single):
+- Resume MVP tasks per docs/awareness/NEXT.md. — SESSION CAPSULE
 ### Session: 2025-09-09T13:30Z
 **State:** GREEN — service healthy, ops hardened, secrets audit complete; monitoring minimal set queued.
 **What shipped:** PRs #75–79 (routes hygiene, secrets audit + untrack .env, secretless scripts, SYSTEM_RULES secrets policy, CI secrets scanning).
@@ -434,3 +454,4 @@ Evidence:
 - CI on main: https://github.com/tylerpartridge/CORA-ai/actions/runs/17645371607 (pipeline running; expected green)
 Next Action (single):
 - Resume MVP tasks per NOW/NEXT
+
