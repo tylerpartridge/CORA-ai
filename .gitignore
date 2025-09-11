@@ -65,6 +65,13 @@ pip-wheel-metadata/
 .idea/
 .DS_Store
 Thumbs.db
+# Local SQLite artifacts (dev/IT)
+*.db
+*.db-shm
+*.db-wal
+!data/*.db
+it_onboarding.db
+cora.db
 
 # Build
 dist/
@@ -98,4 +105,3 @@ routes/**/*.bak
 routes/**/*.save
 routes/**/*~
 routes/**/*.orig
-
