@@ -1,0 +1,13 @@
+name: Local Guard
+on: [push, pull_request]
+jobs:
+  local_guard:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Local workspace guard
+        run: |
+          if [ $(git ls-files -- local/ | wc -l) -gt 0 ]; then
+            echo "Tracked files under local/ are forbidden."
+            exit 1
+          fi
