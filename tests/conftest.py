@@ -4,6 +4,29 @@ from typing import Optional
 
 _IT: Optional[str] = os.getenv("IT_ACCESS_TOKEN") or None
 
+# Install a TestClient shim so any new client instances auto-get auth
+try:
+    if _IT:
+        from fastapi import testclient as _fastapi_testclient_mod  # module
+        from fastapi.testclient import TestClient as _OrigTestClient
+
+        class _AuthTestClient(_OrigTestClient):  # type: ignore
+            def __init__(self, *args, **kwargs):
+                super().__init__(*args, **kwargs)
+                try:
+                    self.headers.update({"Authorization": f"Bearer {_IT}"})
+                except Exception:
+                    pass
+                try:
+                    self.cookies.set("access_token", f"Bearer {_IT}", domain="testserver")
+                except Exception:
+                    pass
+
+        # Replace in module so subsequent `from fastapi.testclient import TestClient` sees the shim
+        _fastapi_testclient_mod.TestClient = _AuthTestClient  # type: ignore[attr-defined]
+except Exception:
+    pass
+
 
 def _apply_auth(client) -> None:
     """
@@ -206,3 +229,43 @@ if not any(os.getenv(k) == "1" for k in ("CORA_E2E", "CORA_DB_TESTS", "CORA_DASH
 # --- end universal baseline skip ---
 
 # --- end universal baseline skip ---
+import os
+import pytest
+from typing import Optional
+
+_IT: Optional[str] = os.getenv("IT_ACCESS_TOKEN") or None
+
+def _apply_auth(client) -> None:
+    """
+    Make authed requests succeed in IT by adding both header and cookie.
+    Header: Authorization: Bearer <token>
+    Cookie: access_token=Bearer <token> (covers cookie-based paths)
+    """
+    if not _IT:
+        return
+    # Header
+    client.headers.update({"Authorization": f"Bearer {_IT}"})
+    # Cookie (domain 'testserver' is what TestClient uses)
+    try:
+        client.cookies.set("access_token", f"Bearer {_IT}", domain="testserver")
+    except Exception:
+        pass
+
+@pytest.fixture(autouse=True)
+def _ensure_auth_header(request):
+    """
+    Autouse so it runs before every test:
+    - If the module created a module-level `client`, patch it.
+    - If tests use their own client fixtures, they can call _apply_auth explicitly,
+      but this still helps for common patterns.
+    """
+    g = request.node.module.__dict__
+    client = g.get("client")
+    try:
+        # FastAPI's TestClient class loads lazily in user modules;
+        # we avoid direct imports here to keep this fixture robust.
+        if client is not None and hasattr(client, "headers") and hasattr(client, "cookies"):
+            _apply_auth(client)
+    except Exception:
+        pass
+    yield
