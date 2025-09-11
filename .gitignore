@@ -105,3 +105,7 @@ routes/**/*.bak
 routes/**/*.save
 routes/**/*~
 routes/**/*.orig
+/local/
+/local/**
+/local/
+/local/**
