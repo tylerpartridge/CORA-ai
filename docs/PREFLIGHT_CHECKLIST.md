@@ -1,22 +1,24 @@
-# ✈️ MANDATORY PRE-FLIGHT CHECKLIST
+# MANDATORY PRE-FLIGHT CHECKLIST
+
+Note: Rules SSOT is docs/SYSTEM_RULES.md. This checklist focuses only on the visible preflight steps.
 
 ## STOP! Before ANY File Operation:
 
-### 📋 THE CHECKLIST (Must Complete IN ORDER)
+### THE CHECKLIST (Must Complete IN ORDER)
 ```
 [ ] 1. TYPE: "Checking SYSTEM_RULES.md..." (and actually read it)
 [ ] 2. SEARCH: Does this file/function already exist?
 [ ] 3. VERIFY: Is this the correct directory?
 [ ] 4. DECIDE: Edit vs Create
-       - Can this functionality go in ANY existing file? → EDIT
-       - Is there ANY file handling related features? → EDIT  
-       - Would creating a new file be better architecture? → STILL EDIT
-       - No related files exist anywhere? → ONLY THEN create
+       - Can this functionality go in ANY existing file? -> EDIT
+       - Is there ANY file handling related features? -> EDIT  
+       - Would creating a new file be better architecture? -> STILL EDIT
+       - No related files exist anywhere? -> ONLY THEN create
 [ ] 5. ANNOUNCE: "Creating/Editing [filename] in [directory]"
 [ ] 6. CONFIRM: "Pre-flight complete. Proceeding with [action]"
 ```
 
-### 🚨 ENFORCEMENT PATTERN
+### ENFORCEMENT PATTERN
 ```
 User: "Create a utility function..."
 AI: "Checking SYSTEM_RULES.md..." [READS IT]

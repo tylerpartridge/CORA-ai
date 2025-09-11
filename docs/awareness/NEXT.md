@@ -1,23 +1,28 @@
-## Next — Merge PR1→walkthrough; Merge PR2→date-range walkthrough; Merge PR3→purge dry-run; then verify PR5/PR6
+### Skim Summary
+- Exec Mode: OFF (enable before merges/walkthroughs)
+- Last checkpoint: 2025-09-11T11:22Z
+- Top 3 Next: PR1 export fix -> PR2 date-range -> PR3 purge (then verify PR5/PR6)
 
-### 1. PR1 Export Manager Merge → Production Walkthrough
-- [ ] **Merge PR1** → run export walkthrough in production
+## Next - Merge PR1->walkthrough; Merge PR2->date-range walkthrough; Merge PR3->purge dry-run; then verify PR5/PR6
+
+### 1. PR1 Export Manager Merge -> Production Walkthrough
+- [ ] **Merge PR1** -> run export walkthrough in production
 - [ ] **Verify** JavaScript console errors resolved in production
 - [ ] **Test** all export functionality post-merge (UTC timestamp required)
 
-### 2. PR2 Date Range Merge → Enhanced Export Testing  
-- [ ] **Merge PR2** → run date-range walkthrough
+### 2. PR2 Date Range Merge -> Enhanced Export Testing  
+- [ ] **Merge PR2** -> run date-range walkthrough
 - [ ] **Test** start/end date parameters in production
 - [ ] **Verify** timezone handling and filename generation
 
-### 3. PR3 Account Purge Merge → Non-Prod Dry Run
-- [ ] **Merge PR3** → run purge dry-run (non-prod only)
+### 3. PR3 Account Purge Merge -> Non-Prod Dry Run
+- [ ] **Merge PR3** -> run purge dry-run (non-prod only)
 - [ ] **Test** 30-day deletion lifecycle
 - [ ] **Verify** data cascade and audit logging
 
 ### 4. Wave 4 Business Profile Verification (Post-PR5/PR6)
-- [ ] **Verify PR5** → Onboarding progress save/resume functionality per walkthrough
-- [ ] **Verify PR6** → Job type selection + many-to-many relationships per walkthrough
+- [ ] **Verify PR5** -> Onboarding progress save/resume functionality per walkthrough
+- [ ] **Verify PR6** -> Job type selection + many-to-many relationships per walkthrough
 
 Choose ONE path:
 
@@ -48,3 +53,6 @@ Notes: use only one install method; dry-run first; production renew can be done 
 - After 24h internal probe stability, re-dispatch uptime-sync and monitoring-postcheck.
 
 - After PR7 merge: verify prune summary & ensure df -h stays <80%
+
+
+

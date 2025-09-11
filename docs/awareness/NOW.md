@@ -1,5 +1,18 @@
-## Focus Capsule — 2025-09-10 (Wave 3 Documentation Complete)
-**MVP Audit Intel → Implementation Specs**
+### Skim Summary
+- Exec Mode (authoritative): OFF
+- Active Task: PR merges (PR1 export fix → PR2 date range → PR3 purge) — see NEXT.md
+- Last checkpoint: 2025-09-11T11:22Z
+
+## Focus Capsule - 2025-09-10 (Wave 3 Documentation Complete)
+## CHECKPOINT: 2025-09-11T11:22Z - Phase 1+2 docs/flow improvements complete
+**Notes:** BOOTUP index+Exec Mode; SYSTEM_RULES as SSOT with root exceptions; Preflight/Workflow SSOT notes; awareness skim summaries; MVP banner; Infra/Ops quick ops box.
+**Exec Mode:** OFF | **Next:** PR1 export fix -> PR2 date-range -> PR3 purge
+
+## CHECKPOINT: 2025-09-11T11:21Z - Phase 1+2 docs/flow improvements complete
+**Notes:** BOOTUP index+Exec Mode; SYSTEM_RULES as SSOT with root exceptions; Preflight/Workflow SSOT notes; awareness skim summaries; MVP banner; Infra/Ops quick ops box.
+**Exec Mode:** OFF | **Next:** PR1 export fix -> PR2 date-range -> PR3 purge
+
+**MVP Audit Intel -> Implementation Specs**
 
 **Status:**
 - [x] Cross-audit convergence achieved (86.2% complete, 0 blocking issues)
@@ -9,12 +22,12 @@
 
 **Notes:** Engineering execution phase ready. Critical: Fix export manager import error for user-facing functionality. Dashboard export API enhanced with date range filtering (UTC timestamp pending PR deployment).
 
-## 💾 CHECKPOINT: 2025-09-10T23:00Z - Wave 4 in flight: PR5/PR6 OPEN (onboarding progress + typical job types)
+## CHECKPOINT: 2025-09-10T23:00Z - Wave 4 in flight: PR5/PR6 OPEN (onboarding progress + typical job types)
 **Business Profile specs complete; manual walkthrough procedures ready for implementation verification.**
 
-### PR Status Tracker 🔧
-- **PR1 (Export Fix):** 🔧 OPEN - Dev evidence attached (dashboard_routes.py enhanced)
-- **PR2 (Date Range):** 🔧 READY - start/end canon implemented, spec updated  
+### PR Status Tracker
+- **PR1 (Export Fix):** OPEN - Dev evidence attached (dashboard_routes.py enhanced)
+- **PR2 (Date Range):** READY - start/end canon implemented, spec updated  
 - **PR3 (Account Purge):** 🔧 READY - Spec complete, awaiting PR1 merge
 - **PR5 (Progress API):** 🔧 SPEC READY - Onboarding persistence via JSON column
 - **PR6 (Job Types):** 🔧 SPEC READY - Typical job types with many-to-many relationships
@@ -147,3 +160,8 @@ The CORA system is now fully ready for beta launch with:
 ## 2025-09-10T02:52Z — Monitoring GREEN; CI trigger gating merged (Smoke=manual; Deploy/Release=manual+tags).
 
 - PR7 in-flight: daily @03:20Z, prune keep=3 days (system/progress)
+
+
+
+
+
