@@ -1,5 +1,7 @@
 # ✈️ MANDATORY PRE-FLIGHT CHECKLIST
 
+Note: Rules SSOT is docs/SYSTEM_RULES.md. This checklist focuses only on the visible preflight steps.
+
 ## STOP! Before ANY File Operation:
 
 ### 📋 THE CHECKLIST (Must Complete IN ORDER)

@@ -1,5 +1,7 @@
 # 📁 MANDATORY FILE OPERATION WORKFLOW
 
+Note: Rules SSOT is docs/SYSTEM_RULES.md. This file focuses only on the step-by-step workflow and visible checklist.
+
 ## The ONLY Acceptable Pattern:
 
 ### Step 1: Announce Intent

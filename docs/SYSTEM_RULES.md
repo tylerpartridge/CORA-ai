@@ -2,6 +2,9 @@
 
 **Collaboration Policy (2025-09-04):** Cursor is primary executor (code/git/deploy); Sonnet limited to audits/intel/codebase search; Opus removed. Prompts label target and call out Tyler-required steps.
 
+SSOT: This file is the single source of truth for rules and guardrails. Other docs (PREFLIGHT_CHECKLIST.md, FILE_OPERATION_WORKFLOW.md, BOOTUP.md) reference this file and should not duplicate rules.
+TodoWrite: Use `canmore.update_textdoc` for any multi‑step documentation edits (alias: "TodoWrite").
+
 ## TL;DR — Non‑negotiables
 - **PRs‑only**: No direct commits to `main` unless RED; always PR → squash merge
 - **Edit > Create**: Default to editing existing files; creation needs strong justification
@@ -48,6 +51,16 @@ git log -1 --oneline
   - **Answer is YES if:** Any existing file handles related functionality
   - **Creation allowed ONLY when:** No related file exists AT ALL
   - **When uncertain:** EDIT the closest match
+
+### Root Policy (explicit exceptions)
+Allowed at repo root:
+- app.py
+- README.md
+- GPT5_handoff.md
+- OPERATIONS.md
+- docs/ (directory)
+- data/ (directory)
+All other files should live under an appropriate subdirectory. Ask before adding new root items.
 
 ## ❌ THESE ARE NOT VALID REASONS TO CREATE FILES
 - "Better separation of concerns" ❌ - ADD TO EXISTING FILE
