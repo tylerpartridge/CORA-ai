@@ -414,3 +414,14 @@ Evidence:
 - Local baseline: 0 failed, 0 errors, 215 skipped (gated) on Windows
 Next Action (single):
 - Resume MVP tasks per NOW/NEXT.
+
+### Session: 2025-09-11T12:58Z
+State: GREEN — docs aligned for AI-centric handoff.
+What changed:
+- Normalized headings/callouts to plain ASCII in SYSTEM_RULES, PREFLIGHT, WORKFLOW, NOW/STATUS/NEXT, BOOTUP
+- Reinforced SSOT (SYSTEM_RULES) and TodoWrite mapping (canmore.update_textdoc)
+- Exec Mode in NOW.md marked authoritative (AI must obey)
+Evidence:
+- Docs sanitized; no non-ASCII in headings/callouts; rules deduped to SSOT
+Next Action (single):
+- Resume MVP tasks per NOW/NEXT
