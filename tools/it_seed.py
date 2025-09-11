@@ -11,8 +11,13 @@ Prints the token to STDOUT on success.
 """
 from __future__ import annotations
 import os
+import sys
+from pathlib import Path
 from sqlalchemy import create_engine
 from sqlalchemy.engine.url import make_url
+ROOT = str(Path(__file__).resolve().parents[1])
+if ROOT not in sys.path:
+    sys.path.insert(0, ROOT)
 from models.base import Base
 from fastapi.testclient import TestClient
 import app as appmod
